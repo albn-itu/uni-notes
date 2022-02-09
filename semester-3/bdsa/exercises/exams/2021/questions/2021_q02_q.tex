@@ -1,0 +1,58 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 14}
+
+Given the following functional requirements:
+
+\begin{itemize}
+    \item FR01: A \texttt{Semester} has a numeric \texttt{Id}, a numeric \texttt{Year}, and a \texttt{Label} of either \texttt{Fall} or \texttt{Spring}.
+    \item FR02: A \texttt{Course} has a numeric \texttt{Id}, a \texttt{Title}, a \texttt{Semester}, and a list of \texttt{Teacher}s.
+    \item FR03: A \texttt{Teacher} has a \texttt{Title}, a \texttt{Name}, and an \texttt{Email}, and a list of \texttt{Course}s.
+    \item FR04: Only valid email addresses may be stored in the system.
+    \item FR05: The following values are \textit{always} needed: \texttt{Year}, \texttt{Label}, \texttt{Title}, and \texttt{Name}.
+    \item FR06: All text values must be at most 50 characters long.
+    \item FR07: A \texttt{Course} may be stored without knowing the \texttt{Semester}.
+\end{itemize}
+
+\vskip 15pt
+\begin{enumerate}[a]
+    \item \point{5} Draw a UML diagram which illustrates the functional requirements with relations between the entities.
+
+\fullline\vspace{-8pt}
+\begin{center}{
+	\scriptsize{\emph{Use this space between the horizontal lines to draw your final UML diagram.}}
+	\includegraphics[width=\questionTwoAnswerAwidth\columnwidth]{\questionTwoAnswerA}
+	}
+\end{center}
+\vfill
+\fullline
+
+
+
+
+
+\vskip 15pt
+    \item \point{5} Implement a model which allows you to store the model in a relational database using Entity Framework Core.
+		\input{\questionTwoAnswerB}
+
+
+
+
+
+\vskip 15pt
+    \item \point{2} Implement the code which creates the course \textit{BDSA} of \textit{Fall 2021} given by \textit{Prof.} \text{Lystrøm} and \textit{Prof.} \textit{Tell} (email unknown).
+		\input{\questionTwoAnswerC}
+
+
+
+
+
+\newpage
+    \item \point{2} Implement the code which retrieves all \textit{Spring} semester courses teached by \textit{Tell} projecting an anonymous type of \textit{Title} and \textit{Year}.
+		\input{\questionTwoAnswerD}
+
+\end{enumerate}
+
+
+
+

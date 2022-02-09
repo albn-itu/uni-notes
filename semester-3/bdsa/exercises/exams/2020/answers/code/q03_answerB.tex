@@ -1,0 +1,62 @@
+\begin{lstlisting}
+public interface IValidator
+{
+    bool Validate(string username, byte[] hash);
+}
+
+public class XenomorphValidator : IValidator
+{
+    public bool Validate(string username, byte[] hash)
+    {
+        return true;
+    }
+}
+
+public class PredatorValidator : IValidator
+{
+    public bool Validate(string username, byte[] hash)
+    {
+        return true;
+    }
+}
+
+public class MarineValidator : IValidator
+{
+    public bool Validate(string username, byte[] hash)
+    {
+        return true;
+    }
+}
+
+public class ConsoleApplication {
+    public static void Main(string[] args)
+    {
+        var username = // Read from console;
+        var password = // Read from console;
+        var hash = hashFunction(password);
+
+        var validatorToUse = // Read from console
+
+        IValidator validator;
+        switch(validatorToUse) {
+            case Xenomorph:
+                validator = new XenomorphValidator();
+                break;
+            case Predator:
+                validator = new PredatorValidator();
+                break;
+            case Marine:
+                validator = new MarineValidator();
+                break;
+            default:
+                throw new Exception("Invalid validator");
+        }
+
+        // Validate the data
+        validator.validate(username, hash);
+
+        // Or more strategy pattern like:
+        Client client = new Client(validator);
+    }
+}
+\end{lstlisting}

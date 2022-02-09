@@ -1,0 +1,28 @@
+@startuml
+actor Customer as customer
+participant OrderSystem as orders
+
+group "Register (optional)"
+    customer -> orders : Register()
+    orders -> customer : SendToLogin()
+end
+
+group "Login (optional)"
+    customer -> orders : Login()
+    orders -> customer : SendToOrder()
+end
+
+customer -> orders : StartOrder()
+
+loop o times
+    customer -> orders : AddItem(dish)
+    orders -> customer : SendToIngredientsSelect(dish)
+
+    loop n times
+        customer -> orders : SelectIngredient(ingredient, amount)
+    end
+end
+
+customer -> orders : PlaceOrder()
+orders -> customer : SendToConfirmation()
+@enduml

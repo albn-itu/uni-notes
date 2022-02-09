@@ -1,0 +1,66 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+
+
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 201}
+
+Consider the following code:
+
+\begin{lstlisting}
+public class Genius
+{
+	public int Id { get; set; }
+	public string Name { get; set; }
+	public DateTime Birthday { get; set; }
+	public string[] KnownFor { get; set; }
+}
+
+[Route("[controller]")]
+[ApiController]
+public class GeniusController : ControllerBase
+{
+	[HttpGet("{id}")]
+	public async Task<IActionResult> Put(int id, [FromBody]Genius
+	genius)
+	{
+		...
+	}
+}
+
+public class GeniusRepository : IGeniusRepository
+{
+	// returns true if updated successfully;
+	// false if something was wrong on the user side.
+	public async Task<bool> Update(Genius genius)
+	{
+		...
+	}
+}
+\end{lstlisting}
+
+\begin{enumerate}[a]
+    \item \point{3} Fill out the form to describe a HTTP request to update genius no. 1:
+Grace Hopper born December 9, 1906 known for UNIVAC and COBOL.
+        \begin{itemize}
+			\item Api is hosted on https://genius.io
+			\item Request should explicitly declare that it sends and expects JSON.
+			\item You must use this token to authenticate: ey.  
+		\end{itemize}t
+		\ifdefined\questionOneAnswerA
+		  \newline\answer\questionOneAnswerA
+		\else
+		  \\\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}
+		\fi
+
+    \item \point{100} Complete the implementation for the ``hello world'' famous example. 
+		\input{\questionOneAnswerB}
+
+    \item \point{100} Try to write something, remember to try multiple lines as well as some environments like enumerate or itemize.  
+		\ifdefined\questionOneAnswerC
+		  \newline\answer\questionOneAnswerC
+		\else
+		  \\\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}
+		\fi
+
+\end{enumerate}

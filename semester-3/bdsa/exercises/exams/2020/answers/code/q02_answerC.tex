@@ -1,0 +1,25 @@
+%!TEX root = ../../[BDSA'21] - Exam Answers.tex
+
+\begin{lstlisting}
+    
+interface IAlbumRepository {
+    Album Read(Guid id);
+}
+
+interface IAlbumContext {
+    Album Find(Guid id);
+}
+
+public class AlbumRepository : IAlbumRepository {
+    private readonly IAlbumContext _context;
+
+    public AlbumRepository(IAlbumContext context) {
+        _context = context;
+    }
+
+    public Album Read(Guid id) {
+        return _context.Find(id);
+    }
+}
+
+\end{lstlisting}

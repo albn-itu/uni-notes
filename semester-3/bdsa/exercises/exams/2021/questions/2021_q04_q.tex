@@ -1,0 +1,96 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 11}
+
+You have an API hosted on \url{https://api.slashers.io/} which accepts either \textit{xml} or \textit{json}.
+\noindent You need to update the following \textit{antagonist}:
+\begin{itemize}
+    \item Id: \texttt{13}
+    \item Name: \texttt{Jason Voorhees}
+    \item FirstSeen: \texttt{1980}
+\end{itemize}
+\noindent You have obtained a OAuth token: \texttt{ey...} for authorization.
+
+
+
+
+
+\begin{enumerate}[a]
+    \item \point{2} Format the required request:\\
+
+URI:\ %
+\ifdefined\questionFourAnswerAuri
+  \newline\answer\questionFourAnswerAuri
+\else
+  \dodotrule{.95}
+\fi
+
+Method:\ %
+\ifdefined\questionFourAnswerAmethod
+  \newline\answer\questionFourAnswerAmethod
+\else
+  \dodotrule{.95}
+\fi
+
+Header:\ %
+\ifdefined\questionFourAnswerAheader
+  \newline\answer\questionFourAnswerAheader
+\else
+  \dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}
+\fi
+
+Body:
+\input{\questionFourAnswerAbody}
+
+
+
+
+
+\newpage
+    \item \point{2} If all goes well what would a response look like:\\
+
+Status Code:\ %
+\ifdefined\questionFourAnswerBstatus
+  \newline\answer\questionFourAnswerBstatus
+\else
+  \dodotrule{.95}
+\fi
+
+Header:\ %
+\ifdefined\questionFourAnswerBheader
+  \newline\answer\questionFourAnswerBheader
+\else
+  \dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}
+\fi
+
+Body:
+\input{\questionFourAnswerBbody}
+
+
+
+
+
+    \item \point{2} You need to implement an immutable \texttt{AntagonistDTO} with the least amount of code. It does not need to support input validation:
+\input{\questionFourAnswerC}
+
+\noindent Given the following code; you need to implement the API.\\
+\noindent The API may only be called by known users.
+\begin{lstlisting}
+public interface IAntagonistRepository
+{
+    // true = updated successfully
+    // false = antagonist does not exist in database
+    Task<bool> UpdateAsync(int id, AntagonistDTO antagonist);
+}
+\end{lstlisting}
+
+
+
+
+
+\newpage
+    \item \point{5} Implement the controller:
+\input{\questionFourAnswerD}
+
+
+\end{enumerate}

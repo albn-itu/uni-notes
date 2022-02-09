@@ -1,0 +1,30 @@
+Consider the following code:
+\begin{lstlisting}
+public abstract class Person
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+
+    public Result GradeAssignments(ICollection<Assignment>assignments);
+}
+
+public class Professor : Person
+{
+    public ICollection<Publication> Publications;
+
+    ...
+}
+
+public sealed class Student : Person
+{
+    ...
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item \point{3} Which SOLID principle(s) are broken? Briefly justify your answer
+        \newline\answer\questionSixAnswerA
+    \item \point{2} Fix the code below and/or write changes in the listing above.
+        \include{\questionSixAnswerB}
+\end{enumerate}

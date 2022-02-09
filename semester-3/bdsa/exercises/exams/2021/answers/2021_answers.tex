@@ -1,0 +1,289 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+
+\newcommand\solutionmyuser{albn}
+\newcommand\solutionmyname{Albert Rise Nielsen}
+\newcommand\solutiondate{\today}
+
+
+
+
+
+%%% Question 01 - Done %%%
+\def\questionOneAnswerWidth{.8} %% If necessary consider adjusting the multiplying factor
+\def\questionOneAnswer{answers/diagrams/q01_answerA} %% link the file containing the diagram
+
+
+
+
+
+%%% Question 02 - Done %%%
+\def\questionTwoAnswerAwidth{.8} %% If necessary consider adjusting the multiplying factor
+\def\questionTwoAnswerA{answers/diagrams/q02_answerA} %% link the file containing the diagram
+\def\questionTwoAnswerB{answers/code/q02_answerB} %% edit the content of the file
+\def\questionTwoAnswerC{answers/code/q02_answerC} %% edit the content of the file
+\def\questionTwoAnswerD{answers/code/q02_answerD} %% edit the content of the file
+
+
+
+
+
+%%% Question 03 - Done %%%
+\def\questionThreeAnswerOne{Stack} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerTwo{.Parse} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerThree{Unix time} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerFour{readonly} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerFive{property getters/setters (\{get;set;\})} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerSix{IDisposable} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerSeven{Set} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerEight{Lamda expression} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerNine{Regex} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerTen{sealed} %% Write your answer inside the brackets
+
+\def\questionThreeAnswerEleven{201 CREATED, if the api actually creates coffee} %% Write your answer inside the brackets
+
+
+
+
+
+%%% Question 04 - Done %%%
+\def\questionFourAnswerAuri{https://api.slashers.io/antagonists/13} %% Write your answer inside the brackets
+\def\questionFourAnswerAmethod{PUT} %% Write your answer inside the brackets
+\def\questionFourAnswerAheader{Accept: application/json, Content-type: application/json; charset=utf-8, Authorization: Bearer ey...} %% Write your answer inside the brackets
+\def\questionFourAnswerAbody{answers/code/q04_answerA_body} %% edit the content of the file
+
+\def\questionFourAnswerBstatus{200 OK} %% Write your answer inside the brackets
+\def\questionFourAnswerBheader{Content-Type: application/json; charset=utf-8, Location: https://api.slashers.io/antagonists/13} %% Write your answer inside the brackets
+\def\questionFourAnswerBbody{answers/code/q04_answerB_body} %% edit the content of the file
+
+\def\questionFourAnswerC{answers/code/q04_answerC} %% edit the content of the file
+\def\questionFourAnswerD{answers/code/q04_answerD} %% edit the content of the file
+
+
+
+
+
+%%% Question 05 - Done %%%
+\def\questionFiveAnswerA{True}	% Case sensitive: use either 'True' or 'False'
+\def\questionFiveAnswerB{True}	% Case sensitive: use either 'True' or 'False'
+\def\questionFiveAnswerC{False}	% Case sensitive: use either 'True' or 'False'
+\def\questionFiveAnswerD{True}	% Case sensitive: use either 'True' or 'False'
+\def\questionFiveAnswerE{True}	% Case sensitive: use either 'True' or 'False'
+\def\questionFiveAnswerF{False}	% Case sensitive: use either 'True' or 'False'
+\def\questionFiveAnswerG{True}	% Case sensitive: use either 'True' or 'False'
+\def\questionFiveAnswerH{True}	% Case sensitive: use either 'True' or 'False'
+
+
+
+
+
+%%% Question 06 - Done %%%
+\def\questionSixAnswerA{
+    Authentication is confirming identity of a user, usually done by login with username and password, or through external providers such as Facebook, NemID etc.\\
+    Authorization is confirming what resources the user has access to, done after Authentication
+} %% Write your answer inside the bracket
+\def\questionSixAnswerB{
+    401 Unauthorized indicates that the request lacks authentication.\\
+    403 Forbidden indicates that the user does not have access to the attempted to access resource
+} %% Write your answer inside the brackets
+\def\questionSixAnswerCpattern{Chain of responsibility} %% Write your answer inside the brackets
+\def\questionSixAnswerCexplanation{Chain of responsibility is a pipeline of sorts that a request goes through, each step individually verifying the request. So in relation to Authentication and Authorization the user would first be authenticated then authorized} %% Write your answer inside the brackets
+\def\questionSixAnswerCexample{
+    A user wants to update Jason Vorhees, so they send a json request to the api.\\
+    The api redirects the user to the login page\\
+    The user logs in with their credentials\\
+    The user sends the json request to the api\\
+    The api verifies that the user is logged in, then that the logged in user has access to update the antagonist, then it verifies that the given data is valid, then it reaches the controller and updates the character.\\
+    The api returns a 200 OK response with the updated character.
+} %% Write your answer inside the brackets
+\def\questionSixAnswerDwidth{} %% If necessary consider adjusting the multiplying factor
+\def\questionSixAnswerD{answers/diagrams/q06_answerD} %% link the file containing the diagram
+
+
+
+
+
+%%% Question 07 - Done %%%
+\def\questionSevenAnswerA{
+    The strategy pattern as a behavioural pattern used to encapsulate algorithms allowing them to be switched out without the need for client changes.\\
+    The bridge pattern is a structural pattern used to avoid creating a massive amount of classes that are tightly coupled by seperating the abstraction from it's implementation.\\ 
+} %% Write your answer inside the brackets
+\def\questionSevenAnswerB{The strategy pattern as it would allow you to test many implementations with one test class, basically testing the algorithms as if you were the client. The bridge pattern is structural and is not as useful in unit tests.} %% Write your answer inside the brackets
+\def\questionSevenAnswerC{Mocks the concrete implementation ensuring you only test what you need to test. In controller tests fx you would mock the repository so that you only test the controller logic} %% Write your answer inside the brackets
+\def\questionSevenAnswerD{Top-Down, Bottom-up, big bang} %% Write your answer inside the brackets
+
+
+
+
+
+%%% Question 08 - Done %%%
+\def\questionEightAnswerA{CannotSay}	% Case sensitive: use 'True' or 'False' or 'CannotSay'
+\def\questionEightAnswerB{False}	% Case sensitive: use 'True' or 'False' or 'CannotSay'
+\def\questionEightAnswerC{True}	% Case sensitive: use 'True' or 'False' or 'CannotSay'
+\def\questionEightAnswerD{True}	% Case sensitive: use 'True' or 'False' or 'CannotSay'
+\def\questionEightAnswerE{False}	% Case sensitive: use 'True' or 'False' or 'CannotSay'
+\def\questionEightAnswerF{False}	% Case sensitive: use 'True' or 'False' or 'CannotSay'
+
+
+
+
+
+%%% Question 09 - Done %%%
+\def\questionNineAnswerA{
+    In program.cs (aka the startup class): Add the repository as a service by using something like "\lstinline{builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();}"\\
+    In CreateAlbum.razor (aka the view): Inject the service with "\lstinline{@inject IAlbumRepository _repository}"
+} %% Write your answer inside the brackets
+\def\questionNineAnswerB{answers/code/q09_answerB} %% edit the content of the file
+
+
+
+
+%%% Question 10 - Done %%%
+\def\questionTenAnswerA{answers/code/q10_answerA} %% edit the content of the file
+\def\questionTenAnswerB{answers/code/q10_answerB} %% edit the content of the file
+\def\questionTenAnswerC{answers/code/q10_answerC} %% edit the content of the file
+
+
+
+
+
+%%% Question 11 - Done %%%
+\def\questionElevenAnswerAfirstTableName{Knights} %% Write your answer inside the brackets
+
+% \def\questionElevenAnswerAfirstTableRowOneColumnKey{\centerbox}	% not checked
+\def\questionElevenAnswerAfirstTableRowOneColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAfirstTableRowOneColumnName{Id}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowOneColumnType{bigint}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowOneColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowOneColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAfirstTableRowTwoColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowTwoColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAfirstTableRowTwoColumnName{Title}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowTwoColumnType{varchar(20)}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowTwoColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowTwoColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAfirstTableRowThreeColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowThreeColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAfirstTableRowThreeColumnName{Name}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowThreeColumnType{varchar(50)}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowThreeColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowThreeColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAfirstTableRowFourColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowFourColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAfirstTableRowFourColumnName{SeatPosition}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowFourColumnType{bigint}	% Write your answer inside the brackets
+% \def\questionElevenAnswerAfirstTableRowFourColumnAllowNull{\centerbox}	% not checked
+\def\questionElevenAnswerAfirstTableRowFourColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAfirstTableRowFiveColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowFiveColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAfirstTableRowFiveColumnName{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowFiveColumnType{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowFiveColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowFiveColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAfirstTableRowSixColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowSixColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAfirstTableRowSixColumnName{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowSixColumnType{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAfirstTableRowSixColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAfirstTableRowSixColumnAllowNull{\centercheckedbox}	% checked
+
+
+
+
+\def\questionElevenAnswerAsecondTableName{Seats} %% Write your answer inside the brackets
+
+% \def\questionElevenAnswerAsecondTableRowOneColumnKey{\centerbox}	% not checked
+\def\questionElevenAnswerAsecondTableRowOneColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAsecondTableRowOneColumnName{Position}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowOneColumnType{bigint}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowOneColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowOneColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAsecondTableRowTwoColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowTwoColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAsecondTableRowTwoColumnName{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowTwoColumnType{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowTwoColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowTwoColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAsecondTableRowThreeColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowThreeColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAsecondTableRowThreeColumnName{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowThreeColumnType{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowThreeColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowThreeColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAsecondTableRowFourColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowFourColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAsecondTableRowFourColumnName{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowFourColumnType{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowFourColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowFourColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAsecondTableRowFiveColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowFiveColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAsecondTableRowFiveColumnName{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowFiveColumnType{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowFiveColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowFiveColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerAsecondTableRowSixColumnKey{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowSixColumnKey{\centercheckedbox}	% checked
+\def\questionElevenAnswerAsecondTableRowSixColumnName{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowSixColumnType{}	% Write your answer inside the brackets
+\def\questionElevenAnswerAsecondTableRowSixColumnAllowNull{\centerbox}	% not checked
+% \def\questionElevenAnswerAsecondTableRowSixColumnAllowNull{\centercheckedbox}	% checked
+
+\def\questionElevenAnswerB{
+    The knights table have a unique id as it's primary key.\\
+    The seats table have a unique position as it's primary key.\\
+    The knights table have a foreign key to the seats table, that is nullable as the knight doesn't have to be sitting. In a real world example a trigger would be added to the knights table that ensures the position can only appear once, but allows multiple null values (this differs from the unique constraint).
+} %% Write your answer inside the brackets
+
+
+
+
+
+%%% Question 12 - Done %%%
+\def\questionTwelveAnswerA{
+    Liskov substitution principle: There is no base interface for the AlbumService\\
+    Interface Segregation Principle: The AlbumService should have an interface, and AlbumPersistanceBase should be an interface\\
+    Dependency Inversion Principle: The AlbumService should not depend on the AlbumCache or AlbumRepository directly\\
+} %% Write your answer inside the brackets
+\def\questionTwelveAnswerB{answers/code/q12_answerB} %% edit the content of the file
+
+
+
+
+
+%%% Question 13 - Done %%%
+\def\questionThirteenAnswerA{Iterative. A corner stone of XP is the constant and frequent releases that run in a loop, by first figuring out what the next release should contain, breaking them down into tasks, designing it then release it. Agile also runs in an iterative incremental loop by doing requirements engineering and then designing and implementing the solution, releasing then starting over. So both use iterative incremental methods with frequent releases to constantly improve on the software.} %% Write your answer inside the brackets
+\def\questionThirteenAnswerB{Customer involvement. As discussed in the iterative corner stone of both approaches quick and frequent releases in an iterative incremental manner are used. This also mean that both approaches highly value customer engagement as the tasks can be provided through the customer, and also allows the customer to require changes to the software and quickly having those changes incorporated in the next release. Both approaches then require full time customer involvement.} %% Write your answer inside the brackets
+\def\questionThirteenAnswerC{Code refactoring. The constant incremental loop that is the basis of both approaches allow for constant refactoring of the code, and developers are expected to constantly refactor, in both agile and XP, if they discover available simplifications to the code. Because if this the code is always kept as simple as possible.} %% Write your answer inside the brackets
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+\begin{lstlisting}
+public class ParserTests {
+    Parser _parser = new Parser();
+
+    [Theory]
+    [InlineData()]
+    [InlineData("100 Torshavn", ("100", "Torshavn")]
+    [InlineData("1000 Kobenhavn K", ("1000", "Kobenhavn K")]
+    public void Parse_ValidInput_ReturnsCodeAndLocality(input string, (string code, string locality) expected)
+    {
+        var result = _parser.Parse(input.code);
+
+        Assert.Equal(expected.locality, result.locality);
+        Assert.Equal(expected.locality, result.locality);
+    }
+
+    [Fact]
+    public void Parse_Jibberish_ReturnsNull() {
+        var result = _parser.Parse("jibberish");
+
+        Assert.Null(result.code);
+        Assert.Null(result.locality);
+    }
+}
+\end{lstlisting}

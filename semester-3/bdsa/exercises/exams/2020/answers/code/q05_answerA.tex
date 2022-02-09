@@ -1,0 +1,31 @@
+\begin{lstlisting}
+public class Artist {
+    public string Id { get; set; }
+    public string Name { get; set; }
+
+    public List<Gig> gigs { get; set; }
+}
+
+public class Gig {
+    public Artist artist { get; set; }
+    public Venue venue { get; set; }
+    public DateTime date { get; set; }
+}
+
+public class Venue {
+    [Key]
+    public string Name { get; set; }
+    public List<Gig> gigs { get; set; }
+}
+
+public class DataContext {
+    public DbSet<Artist> Artists { get; set; }
+    public DbSet<Venue> Venues { get; set; }
+    public DbSet<Gig> Gigs { get; set; }
+
+    protected OnModelCreating(ModelBuilder modelBuilder) {
+        modelBuilder.Entity<Gig>()
+            .HasKey(g => new { g.Date, g.Venue.Id, g.Artists.Id });
+    }
+}
+\end{lstlisting}

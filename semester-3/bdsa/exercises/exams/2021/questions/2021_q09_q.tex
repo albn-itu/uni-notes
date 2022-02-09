@@ -1,0 +1,55 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 7}
+
+\noindent Consider the following code:
+
+\begin{lstlisting}
+public class AlbumDTO { ... }
+
+public interface IAlbumRepository
+{
+    Task<int> CreateAsync(AlbumDTO album);
+}
+
+public class AlbumRepository : IAlbumRepository { ... }
+\end{lstlisting}
+
+\noindent In a Blazor Server app you need to ensure \texttt{IAlbumRepository} is available in your \texttt{CreateAlbum.razor} page.
+
+\noindent You will need to modify at least two files in your project.
+
+
+
+
+\vskip 15pt
+\begin{enumerate}[a]
+    \item \point{2} Describe the how, what, where, and when:
+		\ifdefined\questionNineAnswerA
+		  \newline\answer\questionNineAnswerA
+		\else
+		  \\\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}
+		\fi
+
+
+
+
+
+\noindent You need to implement the \texttt{CreateAlbum.razor} component.
+
+\noindent The component should allow you to create \textit{The Razor's Edge} by \textit{AC/DC} from \textit{1990}.
+
+\noindent If you've got the first question right, you should be able to call \texttt{Create(AlbumDTO album)} on the \texttt{AlbumRepository}.
+
+\noindent \textit{PS}: You also need to figure out a way bring in the \texttt{NavigationManager} to redirect on success.
+
+
+
+
+\newpage
+    \item \point{5} Implement the Razor page - you do not need to include markup for design (divs, CSS classes etc.):
+		\input{\questionNineAnswerB}
+
+
+
+\end{enumerate}

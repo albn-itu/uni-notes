@@ -1,0 +1,33 @@
+@page "/albums/create"
+
+@inject NavigationManager _navManager
+@inject IAlbumRepository _repository
+
+<h1>Create Album</h1>
+
+<hr />
+
+<EditForm Model="@Album" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="name" @bind-value="_album.Name" />
+
+    <InputText id="artist" @bind-value="_album.Artist" />
+
+    <InputNumber id="year" @bind-value="_album.Year" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private AlbumDTO _album = new();
+
+    private async Task HandleValidSubmit()
+    {
+        var id = await _repository.CreateAsync(_album);
+
+        var uri = $"{_navManager.BaseUri}albums/{id}";
+        _navManager.NavigateTo(uri);
+    }
+}

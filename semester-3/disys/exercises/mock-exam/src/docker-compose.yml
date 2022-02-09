@@ -1,0 +1,91 @@
+version: "3.3"
+services:
+  loadbalancer:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.2
+    env_file:
+      - servers.env
+
+  server-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.3
+    environment:
+      - PROCESS_ID=1
+    env_file:
+      - servers.env  
+
+  server-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.4
+    environment:
+      - PROCESS_ID=2
+    env_file:
+      - servers.env
+
+  server-3:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.5
+    environment:
+      - PROCESS_ID=3
+    env_file:
+      - servers.env
+
+  
+  client-1:
+    depends_on:
+      - loadbalancer
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.6
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    environment:
+      SERVERADDR: "loadbalancer:50051" 
+
+  client-2:
+    depends_on:
+      - loadbalancer
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.7
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    environment:
+      SERVERADDR: "loadbalancer:50051" 
+
+  client-3:
+    depends_on:
+      - loadbalancer
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.8
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    environment:
+      SERVERADDR: "loadbalancer:50051" 
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.238.0/24"

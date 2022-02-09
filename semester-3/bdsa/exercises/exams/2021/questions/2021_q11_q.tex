@@ -1,0 +1,151 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 5}
+
+\noindent You need to store \textit{Knights of the Round Table} in a table.\\
+\noindent You will also have a table of available seats at the \textit{Round Table}.\\
+\noindent There are 24 seats at the table, however, the royal carpenter is said to be working on a bigger table\ldots\\
+\noindent A knight can be in exactly one position at the table at any given time but does not have to be seated.\\
+\noindent A knight will have the following attributes:
+\begin{itemize}
+	\item Id : globally unique value (there can only ever be the one Lancelot\ldots)
+	\item Title : size up to 20
+	\item Name : mandatory, length 50
+\end{itemize}
+\noindent A table seat will have the following attributes:
+\begin{itemize}
+	\item Position : (number going up clockwise starting from 0 (King Arthur))
+\end{itemize}
+\noindent You decide to store the knights and table in relational database tables.\\
+\noindent You must to decide how to model where a \textit{knight} is \textit{seated}.
+
+\vskip 15pt
+\begin{enumerate}[a]
+    \item \point{3} Complete a table for each table:
+
+\noindent Table name:\ %
+			\ifdefined\questionElevenAnswerAfirstTableName
+			  \newline\answer\questionElevenAnswerAfirstTableName
+			\else
+			  \dodotrule{.95}
+			\fi
+
+\begin{center}
+	\begin{tabular}{ p{0.8cm}  p{3.5cm}  p{3.5cm}  c }
+	\toprule
+		\multicolumn{1}{c}{\textbf{Key?}} &
+		\multicolumn{1}{c}{\textbf{Column Name}} &
+		\multicolumn{1}{c}{\textbf{Data Type}} &
+		\multicolumn{1}{c}{\textbf{Allow Nulls}} \\
+	\specialrule{.1em}{.05em}{.05em}
+		\questionElevenAnswerAfirstTableRowOneColumnKey &
+		\questionElevenAnswerAfirstTableRowOneColumnName &
+		\questionElevenAnswerAfirstTableRowOneColumnType &
+		\questionElevenAnswerAfirstTableRowOneColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAfirstTableRowTwoColumnKey &
+		\questionElevenAnswerAfirstTableRowTwoColumnName &
+		\questionElevenAnswerAfirstTableRowTwoColumnType &
+		\questionElevenAnswerAfirstTableRowTwoColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAfirstTableRowThreeColumnKey &
+		\questionElevenAnswerAfirstTableRowThreeColumnName &
+		\questionElevenAnswerAfirstTableRowThreeColumnType &
+		\questionElevenAnswerAfirstTableRowThreeColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAfirstTableRowFourColumnKey &
+		\questionElevenAnswerAfirstTableRowFourColumnName &
+		\questionElevenAnswerAfirstTableRowFourColumnType &
+		\questionElevenAnswerAfirstTableRowFourColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAfirstTableRowFiveColumnKey &
+		\questionElevenAnswerAfirstTableRowFiveColumnName &
+		\questionElevenAnswerAfirstTableRowFiveColumnType &
+		\questionElevenAnswerAfirstTableRowFiveColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAfirstTableRowSixColumnKey &
+		\questionElevenAnswerAfirstTableRowSixColumnName &
+		\questionElevenAnswerAfirstTableRowSixColumnType &
+		\questionElevenAnswerAfirstTableRowSixColumnAllowNull \\
+	\bottomrule
+\end{tabular}
+\end{center}
+
+
+
+
+
+\newpage
+\noindent Table name:\ %
+			\ifdefined\questionElevenAnswerAsecondTableName
+			  \newline\answer\questionElevenAnswerAsecondTableName
+			\else
+			  \dodotrule{.95}
+			\fi
+
+\begin{center}
+	\begin{tabular}{ p{0.8cm}  p{3.5cm}  p{3.5cm}  c }
+	\toprule
+		\multicolumn{1}{c}{\textbf{Key?}} &
+		\multicolumn{1}{c}{\textbf{Column Name}} &
+		\multicolumn{1}{c}{\textbf{Data Type}} &
+		\multicolumn{1}{c}{\textbf{Allow Nulls}} \\
+	\specialrule{.1em}{.05em}{.05em}
+		\questionElevenAnswerAsecondTableRowOneColumnKey &
+		\questionElevenAnswerAsecondTableRowOneColumnName &
+		\questionElevenAnswerAsecondTableRowOneColumnType &
+		\questionElevenAnswerAsecondTableRowOneColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAsecondTableRowTwoColumnKey &
+		\questionElevenAnswerAsecondTableRowTwoColumnName &
+		\questionElevenAnswerAsecondTableRowTwoColumnType &
+		\questionElevenAnswerAsecondTableRowTwoColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAsecondTableRowThreeColumnKey &
+		\questionElevenAnswerAsecondTableRowThreeColumnName &
+		\questionElevenAnswerAsecondTableRowThreeColumnType &
+		\questionElevenAnswerAsecondTableRowThreeColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAsecondTableRowFourColumnKey &
+		\questionElevenAnswerAsecondTableRowFourColumnName &
+		\questionElevenAnswerAsecondTableRowFourColumnType &
+		\questionElevenAnswerAsecondTableRowFourColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAsecondTableRowFiveColumnKey &
+		\questionElevenAnswerAsecondTableRowFiveColumnName &
+		\questionElevenAnswerAsecondTableRowFiveColumnType &
+		\questionElevenAnswerAsecondTableRowFiveColumnAllowNull \\
+	\midrule
+		\questionElevenAnswerAsecondTableRowSixColumnKey &
+		\questionElevenAnswerAsecondTableRowSixColumnName &
+		\questionElevenAnswerAsecondTableRowSixColumnType &
+		\questionElevenAnswerAsecondTableRowSixColumnAllowNull \\
+	\bottomrule
+\end{tabular}
+\end{center}
+
+
+
+
+
+\vskip 15pt
+    \item \point{2} Below, list your chosen primary -- should already be marked in the table -- and foreign key constraints.
+		\ifdefined\questionElevenAnswerB
+		  \newline\answer\questionElevenAnswerB
+		\else
+		  \\\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}
+		\fi
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+

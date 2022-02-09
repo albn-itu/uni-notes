@@ -1,0 +1,32 @@
+@startuml q02_answerA
+enum SemesterType {
+    Spring
+    Fall
+}
+
+class Semester {
+    Id int
+    Year int
+    Label SemesterType
+}
+
+Semester "*" --- "1\nLabel" SemesterType
+
+class Course {
+    Id int
+    Title string
+    Semester Semester
+    Teachers []Teacher
+}
+
+Course "*" --left-- "0..1\nSemester" Semester : \t\t
+
+class Teacher {
+    Title string
+    Name string
+    Email string
+    Courses []Course
+}
+
+Teacher "*\nCourses" -up-- "*\nTeachers" Course
+@enduml

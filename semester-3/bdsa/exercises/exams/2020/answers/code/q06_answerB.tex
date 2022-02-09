@@ -1,0 +1,24 @@
+\begin{lstlisting}
+public abstract class Person
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+}
+
+public interface Grader {
+    public Result GradeAssignments(ICollection<Assignment>assignments);
+}
+
+public class Professor : Person implements Grader
+{
+    public ICollection<Publication> Publications;
+
+    ...
+}
+
+public sealed class Student : Person
+{
+    ...
+}
+\end{lstlisting}

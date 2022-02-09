@@ -1,0 +1,79 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 3}
+
+\point{3} Study the activity diagram below (\underline{note} that all the names and labels do not comprise of numbers).  For each of the statements following it, mark the ones that are true.
+\\Each correct answer \underline{gains} you 1 mark; each incorrect answer \underline{loses} you 1 mark; a question left unanswered neither loses nor gains marks. The final points for this question is calculated by bounding the sum of marks between 0 and 3 points. In other words, each marked answer has a positive or negative impact of half a point.
+
+\begin{center}
+	\includegraphics[width=.6\columnwidth]{ActivityDiagramQuiz.pdf}
+\end{center}
+
+
+\ifx\questionEightAnswerA\undefined\else\ifthenelse{\equal{\questionEightAnswerA}{True}}{\def\questionEightAnswerA{1}}{}\fi
+\ifx\questionEightAnswerA\undefined\else\ifthenelse{\equal{\questionEightAnswerA}{False}}{\def\questionEightAnswerA{0}}{}\fi
+\ifx\questionEightAnswerA\undefined\else\ifthenelse{\equal{\questionEightAnswerA}{CannotSay}}{\def\questionEightAnswerA{2}}{}\fi
+\ifx\questionEightAnswerB\undefined\else\ifthenelse{\equal{\questionEightAnswerB}{True}}{\def\questionEightAnswerB{1}}{}\fi
+\ifx\questionEightAnswerB\undefined\else\ifthenelse{\equal{\questionEightAnswerB}{False}}{\def\questionEightAnswerB{0}}{}\fi
+\ifx\questionEightAnswerB\undefined\else\ifthenelse{\equal{\questionEightAnswerB}{CannotSay}}{\def\questionEightAnswerB{2}}{}\fi
+\ifx\questionEightAnswerC\undefined\else\ifthenelse{\equal{\questionEightAnswerC}{True}}{\def\questionEightAnswerC{1}}{}\fi
+\ifx\questionEightAnswerC\undefined\else\ifthenelse{\equal{\questionEightAnswerC}{False}}{\def\questionEightAnswerC{0}}{}\fi
+\ifx\questionEightAnswerC\undefined\else\ifthenelse{\equal{\questionEightAnswerC}{CannotSay}}{\def\questionEightAnswerC{2}}{}\fi
+\ifx\questionEightAnswerD\undefined\else\ifthenelse{\equal{\questionEightAnswerD}{True}}{\def\questionEightAnswerD{1}}{}\fi
+\ifx\questionEightAnswerD\undefined\else\ifthenelse{\equal{\questionEightAnswerD}{False}}{\def\questionEightAnswerD{0}}{}\fi
+\ifx\questionEightAnswerD\undefined\else\ifthenelse{\equal{\questionEightAnswerD}{CannotSay}}{\def\questionEightAnswerD{2}}{}\fi
+\ifx\questionEightAnswerE\undefined\else\ifthenelse{\equal{\questionEightAnswerE}{True}}{\def\questionEightAnswerE{1}}{}\fi
+\ifx\questionEightAnswerE\undefined\else\ifthenelse{\equal{\questionEightAnswerE}{False}}{\def\questionEightAnswerE{0}}{}\fi
+\ifx\questionEightAnswerE\undefined\else\ifthenelse{\equal{\questionEightAnswerE}{CannotSay}}{\def\questionEightAnswerE{2}}{}\fi
+\ifx\questionEightAnswerF\undefined\else\ifthenelse{\equal{\questionEightAnswerF}{True}}{\def\questionEightAnswerF{1}}{}\fi
+\ifx\questionEightAnswerF\undefined\else\ifthenelse{\equal{\questionEightAnswerF}{False}}{\def\questionEightAnswerF{0}}{}\fi
+\ifx\questionEightAnswerF\undefined\else\ifthenelse{\equal{\questionEightAnswerF}{CannotSay}}{\def\questionEightAnswerF{2}}{}\fi
+
+
+\begin{center}
+	\begin{tabular}{
+		p{.01\linewidth}
+		p{.08\linewidth}
+		p{.08\linewidth}
+		p{.16\linewidth}
+		p{.75\linewidth}}
+	\toprule
+		\multicolumn{1}{c}{\textbf{Id}} &
+		\multicolumn{1}{c}{\textbf{True}} &
+		\multicolumn{1}{c}{\textbf{False}} &
+		\multicolumn{1}{c}{\textbf{Cannot say}} &
+		\multicolumn{1}{c}{\textbf{Statement}} \\
+	\midrule
+		a. & 
+			\ifx\questionEightAnswerA\undefined\centerbox\else\if\questionEightAnswerA1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerA\undefined\centerbox\else\if\questionEightAnswerA0\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerA\undefined\centerbox\else\if\questionEightAnswerA2\centercheckedbox\else\centerbox\fi\fi & 
+			\el{B} is executed before \el{F}. \\[3pt]
+		b. & 
+			\ifx\questionEightAnswerB\undefined\centerbox\else\if\questionEightAnswerB1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerB\undefined\centerbox\else\if\questionEightAnswerB0\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerB\undefined\centerbox\else\if\questionEightAnswerB2\centercheckedbox\else\centerbox\fi\fi & 
+			\el{D} is executed in parallel with \el{E}. \\[3pt]
+		c. & 
+			\ifx\questionEightAnswerC\undefined\centerbox\else\if\questionEightAnswerC1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerC\undefined\centerbox\else\if\questionEightAnswerC0\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerC\undefined\centerbox\else\if\questionEightAnswerC2\centercheckedbox\else\centerbox\fi\fi & 
+			\el{G} is executed after \el{F}. \\[3pt]
+		d. & 
+			\ifx\questionEightAnswerD\undefined\centerbox\else\if\questionEightAnswerD1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerD\undefined\centerbox\else\if\questionEightAnswerD0\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerD\undefined\centerbox\else\if\questionEightAnswerD2\centercheckedbox\else\centerbox\fi\fi & 
+			\el{B} is executed in parallel with \el{C}.  \\[3pt]
+		e. & 
+			\ifx\questionEightAnswerE\undefined\centerbox\else\if\questionEightAnswerE1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerE\undefined\centerbox\else\if\questionEightAnswerE0\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerE\undefined\centerbox\else\if\questionEightAnswerE2\centercheckedbox\else\centerbox\fi\fi & 
+			\el{C} is possibly executed. \\[3pt]
+		f. & 
+			\ifx\questionEightAnswerF\undefined\centerbox\else\if\questionEightAnswerF1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerF\undefined\centerbox\else\if\questionEightAnswerF0\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionEightAnswerF\undefined\centerbox\else\if\questionEightAnswerF2\centercheckedbox\else\centerbox\fi\fi & 
+			\el{E} is always executed. \\[3pt]
+	\bottomrule
+	\end{tabular}
+\end{center}

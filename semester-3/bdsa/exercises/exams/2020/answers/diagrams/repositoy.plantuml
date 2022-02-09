@@ -1,0 +1,36 @@
+@startuml
+interface Repository {
+    Student Read(id);
+    Student[] Read();
+}
+
+class PostGresRepository {
+    Student Read(id);
+    Student[] Read();
+}
+
+class MySqlRepository {
+    Student Read(id);
+    Student[] Read();
+}
+
+class SanityRepository {
+    Student Read(id);
+    Student[] Read();
+}
+
+Repository <|-- PostGresRepository
+Repository <|-- MySqlRepository
+Repository <|-- SanityRepository
+
+class Grader
+class Intranet
+class LoginSystem
+class Access
+
+Repository <|.up. Grader
+Repository <|.up. Intranet
+Repository <|.up. LoginSystem
+Repository <|.up. Access
+
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+actor User as user
+participant "AntagonistService" as antService
+control AuthenticationMiddleware as auth
+control AuthorizationMiddleware as authz
+control DataValidationMiddleware as valid
+participant AntagonistController as contro
+
+activate user
+user -> antService : updateAntagonist(user, antagonist)
+activate antService
+antService -> auth : updateAntagonist(user, antagonist)
+activate auth
+auth -> antService : notAuthenticated(user)
+deactivate auth
+antService -> user : notAuthenticated(user)
+deactivate antService
+user -> antService : login(user)
+activate antService
+antService -> user : loginSuccessful(user)
+deactivate antService
+
+user -> antService : updateAntagonist(user, antagonist)
+activate antService
+antService -> auth : updateAntagonist(user, antagonist)
+activate auth
+auth -> authz : updateAntagonist(user, antagonist)
+deactivate auth
+activate authz
+authz -> valid : updateAntagonist(user, antagonist)
+deactivate authz
+activate valid
+valid -> contro : updateAntagonist(user, antagonist)
+deactivate valid
+activate contro
+contro -> antService : antagonistUpdated(antagonist)
+deactivate contro
+antService -> user : antagonistUpdated(antagonist)
+deactivate antService
+@enduml

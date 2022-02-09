@@ -1,0 +1,58 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\begin{enumerate}[a]
+    \item \point{600} Draw your favourite visual pattern by using True and False
+
+\ifx\questionThreeAnswerA\undefined\else\ifthenelse{\equal{\questionThreeAnswerA}{True}}{\def\questionThreeAnswerA{1}}{}\fi
+\ifx\questionThreeAnswerA\undefined\else\ifthenelse{\equal{\questionThreeAnswerA}{False}}{\def\questionThreeAnswerA{0}}{}\fi
+\ifx\questionThreeAnswerB\undefined\else\ifthenelse{\equal{\questionThreeAnswerB}{True}}{\def\questionThreeAnswerB{1}}{}\fi
+\ifx\questionThreeAnswerB\undefined\else\ifthenelse{\equal{\questionThreeAnswerB}{False}}{\def\questionThreeAnswerB{0}}{}\fi
+\ifx\questionThreeAnswerC\undefined\else\ifthenelse{\equal{\questionThreeAnswerC}{True}}{\def\questionThreeAnswerC{1}}{}\fi
+\ifx\questionThreeAnswerC\undefined\else\ifthenelse{\equal{\questionThreeAnswerC}{False}}{\def\questionThreeAnswerC{0}}{}\fi
+
+\begin{center}
+	\begin{tabular}{
+		p{.01\linewidth}
+		p{.05\linewidth}
+		p{.05\linewidth}
+		p{.75\linewidth}}
+	\toprule
+		\textbf{Id} & \textbf{True} & \textbf{False} & \multicolumn{1}{c}{\textbf{Statement}} \\
+	\midrule
+		a. & 
+			\ifx\questionThreeAnswerA\undefined\centerbox\else\if\questionThreeAnswerA1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionThreeAnswerA\undefined\centerbox\else\if\questionThreeAnswerA0\centercheckedbox\else\centerbox\fi\fi & 
+			First line. \\[3pt]
+		b. & 
+			\ifx\questionThreeAnswerB\undefined\centerbox\else\if\questionThreeAnswerB1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionThreeAnswerB\undefined\centerbox\else\if\questionThreeAnswerB0\centercheckedbox\else\centerbox\fi\fi & 
+			B line. \\[3pt]
+		c. & 
+			\ifx\questionThreeAnswerC\undefined\centerbox\else\if\questionThreeAnswerC1\centercheckedbox\else\centerbox\fi\fi & 
+			\ifx\questionThreeAnswerC\undefined\centerbox\else\if\questionThreeAnswerC0\centercheckedbox\else\centerbox\fi\fi & 
+			Last line. \\[3pt]
+	\bottomrule
+	\end{tabular}
+\end{center}
+
+
+	\item \point{10} And let us try to check some of these boxes: 
+	
+	\begin{center}
+			\begin{tabular}{ p{0.8cm}  p{3.5cm} }
+			\toprule
+				\multicolumn{1}{c}{\textbf{A column}} &
+				\multicolumn{1}{c}{\textbf{The second column}} \\
+			\specialrule{.1em}{.05em}{.05em}
+				\questionThreeAnswerD & 
+				\questionThreeAnswerE \\ 
+			\midrule
+				\questionThreeAnswerF & 
+				\questionThreeAnswerG \\ 
+			\bottomrule
+		\end{tabular}
+	\end{center}
+
+
+\end{enumerate}
+

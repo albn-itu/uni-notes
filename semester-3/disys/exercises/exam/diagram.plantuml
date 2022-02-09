@@ -1,0 +1,93 @@
+@startuml Heartbeat
+title Heartbeat flow
+
+agent "FE" as frontend
+
+cloud "Cluster" as cluster {
+    node "Leader" as leader
+    node "Node2" as node2
+    node "Node3" as node3
+}
+
+leader -> node2 : "Heartbeat"
+node2 -> leader : "Heartbeat confirmed"
+
+leader -> node3 : "Heartbeat"
+node3 -> leader : "Heartbeat confirmed"
+
+leader --> frontend : "Heartbeat"
+frontend --> leader : "Heartbeat confirmed"
+@enduml
+
+@startuml Request
+title Request flow (put)
+
+actor Client as client
+
+participant "FE" as frontend
+participant "Leader" as leader
+participant "Node2" as node2
+participant "Node3" as node3
+
+activate client
+    client -> frontend : "Put(key, value)"
+    activate frontend
+        frontend -> leader : "Put(key, value)"
+        activate leader
+            activate node2
+                leader -> node2 : "Put(key, value)"
+                node2 -> node2 : "Save(key, value)"
+                node2 -> leader : "PutResponse(success)"
+            deactivate node2
+            activate node3
+                leader -> node3 : "Put(key, value)"
+                node3 -> node3 : "Save(key, value)"
+                node3 -> leader : "PutResponse(success)"
+            deactivate node3
+
+            leader -> leader : "Save(key, value)"
+            leader -> frontend : "PutResponse(success)"
+        deactivate leader
+
+        frontend -> client : "PutResponse(success)"
+    deactivate frontend
+deactivate client
+
+@enduml
+
+@startuml Election
+title Election flow
+
+participant "FE (processId=-99999)" as frontend
+participant "Node1 (processId=1)" as node1
+participant "Node2 (processId=2)" as node2
+
+participant "Leader (processId=3)" as leader
+leader -> leader : "Crash"
+
+activate node1
+    node1 -> node1 : "CheckHeartbeat()"
+    node1 -> node1 : "BeginElection()"
+    node1 -> node2 : "Election(1)"
+
+    activate node2
+        node2 -> node1 : "ElectionResponse()"
+        node2 -> leader : "Election(2)"
+        node2 -> node2 : "NoResponse()"
+
+        node2 -> node1 : "ClaimLeader(2)"
+
+        node1 -> node1 : "SetLeader(2)"
+        node1 -> node2 : "ClaimLeaderResponse()"
+        deactivate node1
+
+        activate frontend
+            node2 -> frontend : "ClaimLeader(2)"
+            frontend -> frontend : "SetLeader(2)"
+            frontend -> node2 : "ClaimLeaderResponse()"
+        deactivate frontend
+
+        node2 ->leader : "ClaimLeader(2)"
+
+        node2 -> node2 : "SetLeader(2)"
+@enduml

@@ -1,0 +1,47 @@
+syntax = "proto3";
+option go_package = "github.com/disys-mock-exam/api";
+
+service IncrementService {
+    rpc Increment(IncrementRequest) returns (IncrementResponse) {}
+    rpc GetCurrentValue(CurrentValueRequest) returns (CurrentValueResponse) {}
+
+    rpc Ping(PingRequest) returns (PingResponse) {}
+    rpc Election(ElectionRequest) returns (ElectionResponse) {}
+    rpc ClaimLeader(LeaderAnnouncement) returns (LeaderAnnouncementAck) {}
+}
+
+message IncrementRequest {
+}
+
+message IncrementResponse {
+    int64 value = 1;
+}
+
+message CurrentValueRequest {
+}
+
+message CurrentValueResponse {
+    int64 value = 1;
+}
+
+
+message ElectionRequest {
+    int64 processId = 1;
+}
+
+message ElectionResponse {
+    int64 processId = 1;
+}
+
+message LeaderAnnouncement {
+    int64 processId = 1;
+}
+
+message LeaderAnnouncementAck {
+}
+
+message PingRequest {
+}
+
+message PingResponse {
+}

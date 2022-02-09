@@ -1,0 +1,21 @@
+# syntax=docker/dockerfile:1
+
+# TODO: 
+FROM golang:1.17-alpine
+
+ENV SERVERS=""
+
+WORKDIR /app
+
+COPY go.mod ./
+COPY go.sum ./
+
+RUN go mod download
+
+COPY . ./
+
+RUN go build -o /frontend ./cmd/frontend/main.go
+
+EXPOSE 5000
+
+CMD ["sh", "-c", "/frontend --servers ${SERVERS}"]

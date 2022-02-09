@@ -1,0 +1,21 @@
+# syntax=docker/dockerfile:1
+
+FROM golang:1.17-alpine
+
+ENV SERVERS=""
+ENV PROCESS_ID=""
+
+WORKDIR /app
+
+COPY go.mod ./
+COPY go.sum ./
+
+RUN go mod download
+
+COPY . ./
+
+RUN go build -o /node ./cmd/node/main.go
+
+EXPOSE 5001
+
+CMD ["sh", "-c", "/node --servers ${SERVERS} --processId ${PROCESS_ID}"]

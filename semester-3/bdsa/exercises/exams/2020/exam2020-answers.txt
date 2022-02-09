@@ -1,0 +1,448 @@
+==================================================================
+Question 1
+==================================================================
+
+a.
+------------------------------------------------------------------
+URI: https://genius.io/api/genius 
+Method: PUT
+Header: Content-Type: application/json; charset=utf-8
+        Authorization: Bearer ey ...
+Body: {
+          "id": 1
+          "name": "Grace Hopper"
+          "birthday": "9-12-1906"
+          "KnownFor": ["UNIVAC", "COBOL"]
+      }
+
+
+b.
+------------------------------------------------------------------
+
+[Route("[controller]")]
+[ApiController]
+public class GeniusController : ControllerBase
+{
+	private readonly ILogger<GeniusController> _logger;
+    private readonly IGeniusRepository _repository;
+
+    public GeniusController(ILogger<GeniusController> logger, IGeniusRepository repository)
+    {
+        _logger = logger;
+        _repository = repository;
+    }
+	
+	[HttpPut("{id}")]
+	public async Task<IActionResult> Put(int id, Genius genius)
+	{
+		var result = await _repository.Update(genius);
+		if (result) return new NoContentResult();
+		else return new NotFoundResult();
+	}
+}
+
+public class GeniusControllerTests 
+{
+	[Fact]
+	public async Task Put_updates_genius()
+	{
+		var logger = new Mock<ILogger<GeniusController>>();
+		var g = new Genius();
+		var repository = new Mock<IGeniusRepository>();
+		repository.Setup(m => m.Update(1, g)).ReturnsAsync(true);
+		var controller = new GeniusController(logger.Object, repository.Object);
+
+		var response = await controller.Put(1, g);
+
+		Assert.IsType<NoContentResult>(response);
+	}
+}
+
+
+
+==================================================================
+Question 2
+==================================================================
+
+a.
+------------------------------------------------------------------
+Must be S (single responsibility), for det giver ikke mening at det skulle være nogen af de andre ... ?
+Repositoriet skal ikke have ansvar for at lave en ny context? Metoden skal heller ikke have ansvar for at lave en ny context, for dens ansvar er vel at read.
+
+b.
+------------------------------------------------------------------
+
+
+c.
+------------------------------------------------------------------
+public class AlbumRepository
+{
+	private AlbumContext _context;
+	
+	public AlbumRepository(AlbumContext context)
+	{
+		_context = context;
+	}
+	
+	public Album Read(Guid id)
+	{
+		return _context.Find(id);
+	}
+}
+
+d.
+------------------------------------------------------------------
+public class AlbumDTO
+{
+	public Guid Id { get; set; }
+	public string Title { get; set; }
+}
+
+public class AlbumRepository
+{	
+	public Task<AlbumDTO> ReadAsync(Guid id)
+	{	
+		var album = await _context.FindAsync(id); 
+		// vi går ud fra, at der findes en FindAsync metode, for hvordan skulle det ellers bliver async?
+		
+		return new AlbumDTO() 
+		{
+			Id = album.Id,
+			Title = album.Title
+		};
+	}
+}
+
+
+
+==================================================================
+Question 3
+==================================================================
+
+a.
+------------------------------------------------------------------
+Strategy pattern, fordi det lader klienten vælge hvilken strategy (external party), der skal bruges til at validate credential data.
+
+b.
+------------------------------------------------------------------
+
+public class MyValidator
+{
+	private IValidator _val;
+	private byte[] _hash; // this is instansiated somewhere
+	
+	public Validator(IValidator val)
+	{
+		_val = val;
+	}
+	
+	public bool validateUserCredentials(string username)
+	{
+		return _val.Validate(username, _hash);
+	}
+	
+}
+
+public class Program
+{
+	public static void Main(string[] args)
+	{
+		Console.WriteLine("Write which external party that should validate your data");
+		var input = Console.ReadLine(); // I assume they insert correct external party
+		IValidator validator;
+		switch(input)
+		{
+			case "Xenomorph": validator = new Xenomorph();
+			case "Predator": validator = new Predator();
+			case "Marine": validator = new Marine();
+		}
+		var myValidator = new MyValidator(validator);
+		
+		Console.WriteLine("Write your user credentials");
+		var input = Console.ReadLine();
+		myValidator.validateUserCredentials(input);	
+	}
+}
+
+
+
+==================================================================
+Question 4
+==================================================================
+
+a.
+------------------------------------------------------------------
+Bridge pattern er considered structural og strategy er considered behavioural. Structural is about how you structure your code, and behavioural is about how the code behaves in runtime.
+
+b.
+------------------------------------------------------------------
+Strategy pattern, if you are to test different classes of the same type (with the same superclass or interface). The tests only test the abstract class, and you could easily change which subclass is inserted to test them all.
+
+c.
+------------------------------------------------------------------
+Then you are sure to only find bugs in the part of the system, that you are testing. The functionality of other parts of the systems doesn't affect the tests your making on this specific part.
+
+d.
+------------------------------------------------------------------
+Big bang approach, bottom-up testing strategy, top-down testing strategy
+
+
+
+==================================================================
+Question 5
+==================================================================
+
+a.
+------------------------------------------------------------------
+public class Artist
+{
+	public int Id { get; set; }
+	public string Name { get; set; }
+	public ICollection<Gig> Gigs { get; set; } 
+}
+
+public class Gig
+{
+	public DateTime Date { get; set; }
+	public ICollection<Artist> Artists { get; set; }
+	public ICollection<Venue> Venues { get; set; }
+}
+
+public class Venue
+{
+	public string Name { get; set; }
+	public ICollection<Gig> Gigs { get; set; }
+}
+
+public class DataContext
+{
+	public DbSet<Artist> Artists => Set<Artist>();
+	public DbSet<Gig> Gigs => Set<Gig>();
+	public DbSet<Venue> Venues => Set<Venue>();
+
+	public DataContext(DbContextOptions<DataContext> options): base(options)
+	{
+	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		// An artist may only play one gig per venue per day
+		modelBuilder.Entity<Gig>().HasKey(g => new { g.Date, g.ArtistId, g.VenueId });
+	}
+}
+
+b.
+------------------------------------------------------------------
+Add an int Id to the gigs and let that be primary key instead.
+
+
+
+==================================================================
+Question 6
+==================================================================
+
+a.
+------------------------------------------------------------------
+The single responsibility principle is broken, since the Person interface makes any person able to grade assignments. In this case a Student implements this interface and would therefore be able to grade their own assignments, which would be logically incorrect. 
+
+The interface segregation principle is broken, since the interface for the Person class has functionalities that all its subclasses shouldn't have access to.
+
+b.
+------------------------------------------------------------------
+public interface Grader
+{
+	Result GradeAssignments(ICollection<Assignment> assignments);
+}
+
+public class Professor : Person Grader
+{
+	...
+}
+
+// GradeAssignments is removed from Person class, rest remains unchanged.
+
+
+
+==================================================================
+Question 7
+==================================================================
+
+a.
+------------------------------------------------------------------
+Design goals are system qualities that the developers strive to achieve. These are derived from the nonfunctional requirements. They are used to decide which trade-offs might be made during the development of the system.
+
+b.
+------------------------------------------------------------------
+A trade-off is where prioritising a quality of a system would negatively impact another quality (and vice versa).
+
+c.
+------------------------------------------------------------------
+Such that you know what you're missing out on, and that you are absolutely sure that you are making the right decision.
+
+
+
+==================================================================
+Question 8
+==================================================================
+
+a.
+------------------------------------------------------------------
+a. false, fordi eksemplet er i bogen.
+b. true, fordi N kan execute de samme ting som L, og L kan execute F.
+c. false, fordi extends relationship er exceptional (ellers ville det være includes)
+d. true, J kan erstatte B, B extender C, H kan erstatte C.
+e. false, det er den anden vej rundt.
+f. false, det er ikke det pilen betyder.
+
+
+
+==================================================================
+Question 9
+==================================================================
+
+a.
+------------------------------------------------------------------
+[Fact]
+public void Parse_works_given_100_Torshavn()
+{
+	var input = "100 Tórshavn";
+	var actual = Parser.Parse(input);
+	var expected = ("100", "Tórshavn");
+	Assert.Equal(expected, actual);
+}
+
+[Fact]
+public void Parse_works_given_1000_KobenhavnK()
+{
+	var input = "1000 København K";
+	var actual = Parser.Parse(input);
+	var expected = ("1000", "København K");
+	Assert.Equal(expected, actual);
+}
+
+[Fact]
+public void Parse_returns_null_null_given_Jibberish()
+{
+	var input = "Jibberish";
+	var actual = Parser.Parse(input);
+	var expected = (null, null);
+	Assert.Equal(expected, actual);
+}
+
+
+
+==================================================================
+Question 10
+==================================================================
+
+a.
+------------------------------------------------------------------
+You should use this pattern when you have a system in which large volumes of information are generated that has to be stored for a long time. You may also use it in data-driven systems where the inclusion of data in the repository triggers an action or tool.
+
+b.
+------------------------------------------------------------------
+if repository fails, all fails, rest in peace to system.
+
+c.
+------------------------------------------------------------------
+If a system has a business logic that is to be applied multiple places. The business logic can be stored in the repository and then applied to the other components. An example could be a mobile app and a web app that both had to implement the same business logic, which could be accessed through the repository. 
+
+d.
+------------------------------------------------------------------
+Se UML component diagram [Q10-d Repository.png]
+Det er bare en component "repository" i midten med tre components (web app, iOS app, android app) der har dobbeltpile ind til den.
+
+
+==================================================================
+Question 11
+==================================================================
+
+a.
+------------------------------------------------------------------
+Delegates and lambda expressions and local functions 
+(kun to af dem er rigtige, men hvilke??)
+Delegates is maybe wrong, since some of it is outside the Main method.
+
+b.
+------------------------------------------------------------------
+public class Program
+{
+	public delegate float Cubed(float x);
+	public delegate decimal Positive(decimal x);
+	public delegate int Mod3(int x);
+	
+	public static void Main(string[] args)
+	{
+		var cubed = new Cubed(
+			delegate (float x)
+			{
+				return x*x*x;
+			}
+		);
+		
+		var positive = new Positive(
+			delegate (decimal x)
+			{
+				return Math.Abs(x);
+			}
+		);
+		
+		var mod3a = new Mod3(
+			delegate (int x)
+			{
+				return x % 3;
+			}
+		);
+		
+		Func<int, int> mod3b = x => x % 3;
+		int mod3c(int x) { return x % 3; };
+	}
+}
+
+
+
+==================================================================
+Question 12
+==================================================================
+
+a.
+------------------------------------------------------------------
+In software engineering, one might acquire some knowledge later in the process, which might contradict earlier statements, that one thought to be true. Therefore one has to re-iterate over the process, such that knowledge acquisition is nonlinear. 
+Also, knowledge doesn't always come in the order that you need it.
+
+b.
+------------------------------------------------------------------
+A consequence could be as followed; A team, late in a software development process, acquires some knowledge which then forces them to discard what they have done up until this moment. 
+
+
+
+==================================================================
+Question 13
+==================================================================
+
+a.
+------------------------------------------------------------------
+Key			Name 			Data Type 			Allow Nulls
+x 			Id				int 				
+ 			Title			VARCHAR(200)		
+ 			Data 			CHAR??				x
+ 			Created			Date				x
+ 
+
+
+==================================================================
+Question 14
+==================================================================
+
+a. 
+------------------------------------------------------------------
+Scenario name: \underline{brewCoffee}
+Participating actor instances: \underline{martin:RegularUser}
+Flow of events:
+1. Martin prepares the coffee machine by putting a clean filter with ground coffee in it. 
+2. Martin adds water to the water tank.
+3. Martin actives the "brew coffee" functionality.
+
+b. 
+------------------------------------------------------------------
+See figure Figure 8.6 in UML Classroom book.

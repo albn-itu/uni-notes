@@ -1,0 +1,106 @@
+\definecolor{light-gray}{gray}{0.93}
+
+\lstloadlanguages{csh}
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+\definecolor{navyblue}{rgb}{0.0, 0.0, 0.5}
+
+\lstdefinelanguage{CSharp}[Sharp]{C}{
+    morecomment=[l]{///},
+    morecomment=[l]{//}, 
+    morecomment=[s]{/*}{*/},
+    morecomment=[l][keywordstyle4]{\#},
+    morekeywords=[1]{async,await,var,yield},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\lstset{
+    language=CSharp,
+    captionpos=b,
+    numbers=left, 
+    numberstyle=\tiny, 
+    frame=lines,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    escapeinside={(*@}{@*)},
+    commentstyle=\color{greencomments},
+    keywordstyle=\color{bluekeywords},
+    stringstyle=\color{redstrings},
+    basicstyle=\ttfamily\small,
+    inputencoding=utf8
+}
+
+\pagestyle{fancyplain}
+\fancyhf{}
+\chead{ \fancyplain{}{
+	\small
+	\begin{tabularx}{\textwidth}{lX}
+		\emph{Your ITU user:} & \emph{\solutionmyuser} \\ 
+		\emph{Your name:} & \emph{\solutionmyname} \\ [5pt]
+	\end{tabularx}}}
+
+\cfoot{ \fancyplain{}{\thepage}}
+
+
+\graphicspath{{./img/}}
+
+\title{
+Analysis, Design, and Software Architecture\\
+\Large{(3rd Semester SWU)}\\
+\large{Exam}
+}
+\date{January 10th, 2022}
+
+
+\pgfmathsetmacro\totalpoints{0}
+\pgfmathsetmacro\questionNr{0}
+
+\newcommand\elength{4 hour\ }
+\newcommand\epages{27\ }
+\newcommand\equestions{13\ }
+\newcommand\epoints{99\ }
+\newcommand\ethreshold{40\%\ }
+\newcommand\epointstopass{40\ }
+
+

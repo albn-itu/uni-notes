@@ -1,0 +1,113 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+
+\newcommand\solutionmyuser{albn}
+\newcommand\solutionmyname{Albert Rise Nielsen}
+\newcommand\solutiondate{\today}
+
+
+
+
+
+%%% Question 01 %%%
+\def\questionOneAnswerA{
+    URI: https://genius.io/Genius/1\\
+    Method: PUT\\
+    HEADER: Content-Type: application/json, Authorization: Bearer ey, Accept: application/json\\
+    BODY: {\\
+        "Name": Grace Hopper,\\
+        "Birthday": "1906-12-09T00:00:00",\\
+        "KnownFor": [\\
+            "UNIVAC",\\
+            "COBOL"\\
+        ]\\
+    }\\
+} %% Write your answer inside the brackets
+\def\questionOneAnswerB{answers/code/q01_answerA} %% edit the content of the file
+\def\questionOneAnswerC{} %% Write your answer inside the brackets
+\let\questionOneAnswerC\undefined %% Comment this to enable your answer
+
+
+
+%%% Question 02 %%%
+\def\questionTwoAnswerA{
+    Dependency Inversion Principle: We use a specific instance of AlbumContext\\
+    Interface segregation Principle: AlbumRepository should implement and interface\\
+}
+\def\questionTwoAnswerB{
+    Dependency injection to fix the dependency inversion principle\\
+    Use an interface for the interface segregation principle, allows for dependency injection
+}
+\def\questionTwoAnswerC{answers/code/q02_answerC}
+
+
+
+%%% Question 03 %%%
+\def\questionThreeAnswerA{The strategy pattern, as it would allow me to easily switch out the implementation.}
+\def\questionThreeAnswerB{}
+\def\questionThreeAnswerBCode{answers/code/q03_answerB}
+
+%%% Question 04 %%%
+\def\questionFourAnswerA{
+    The strategy pattern encapsulates algorithms and make them interchangable to the dependent.\\
+    The bridge pattern is a bridge between the abstraction and implementation.\\
+    The strategy pattern then is a behavioural pattern allowing implementations to be different to a client, while the bridge pattern is a structural pattern allowing minifying complexity.
+}
+\def\questionFourAnswerB{Strategy pattern. To unit testing the implementation should not matter, the interface and it's result does. Therefore testing an abstraction is very useful, allowing tests to reused on every implementation.}
+\def\questionFourAnswerC{Limiting the scope of a specific test. Fx a test focussing on a controller should not test the underlying storage layer, mocking the repository fx allows the tests to be fully focussed on the business logic housed in the controller, as you already know what the result from the database is. Also testing the storage layer in the controller layer is a breach of the single responsibility principle.}
+\def\questionFourAnswerD{Bottom-up, Top-down, Vertical}
+
+%%% Question 05 %%%
+\def\questionFiveAnswerA{answers/code/q05_answerA}
+\def\questionFiveAnswerB{
+    First i would add an id to the gig as the primary key, as removing date from the key would result in an artist only being able to play at a venue once.\\
+    Then i would update the database with 'dotnet ef migrations add AddGigId' and then 'dotnet ef database update' (this assumes there is only one context, you are in the startup project which also contains the context, and that you have a connections set up in the startup).
+}
+
+%%% Question 06 %%%
+\def\questionSixAnswerA{
+    Single responsibility principle, as the class is also responsible for calculating grade assignments.\\
+    Open/closed principle, as the class is sealed it is not open for extension.\\
+    Interface segregation principle, as the person should not have access to grade it's own grades.\\
+}
+\def\questionSixAnswerB{anwers/code/q06_answerB}
+
+%%% Question 07 %%%
+\def\questionSevenAnswerA{Goals the design wants to reach, such as performance, maintainability, scalability, cost etc.}
+\def\questionSevenAnswerB{When definining the goals, you usually have to trade off something to reach something else, such as delivery time vs functionality or cost vs quality}
+\def\questionSevenAnswerC{To set realistic expectations and to allow the project manager to prioritize what to reach. Fx. if functionality is the most important then he may have to move the delivery time if the project is not proceeding as expected.}
+
+%%% Question 08 %%%
+% a. False, as a sub use case can be used if you have access to the parent
+% b. True, as the same rule as a counts for G, and it can also be executed by L
+% c. False, as it extends, not includes
+% d. True, as it extends C which is also H
+% e. False, it's the other way around
+% f. False, it can just replace it 
+
+%%% Question 09 %%%
+\def\questionNineAnswerA{answers/code/q09_answerA}
+
+%%% Question 10 %%%
+\def\questionTenAnswerA{Abstracting away the persistence layer, and allowing the business layer to be more flexible.}
+\def\questionTenAnswerB{The repository is a single point of failure, so if the repository fails many subsystems could fail}
+\def\questionTenAnswerC{Imagine a school system with students. The student database would be used by both the intranet, the grading system, and the access system at the school, one single repository would be used by all those systems, so in case of a change of database system no system would notice the change.}
+\def\questionTenAnswerD{See repository.plantuml}
+
+
+
+% \def\questionThreeAnswerA{}	% Case sensitive: use either 'True' or 'False'
+% \def\questionThreeAnswerB{}	% Case sensitive: use either 'True' or 'False'
+% \def\questionThreeAnswerC{}	% Case sensitive: use either 'True' or 'False'
+% 
+% \def\questionThreeAnswerD{\centerbox}	% not checked
+% % \def\questionThreeAnswerD{\centercheckedbox}	% checked
+% \def\questionThreeAnswerE{\centerbox}	% not checked
+% % \def\questionThreeAnswerE{\centercheckedbox}	% checked
+% \def\questionThreeAnswerF{\centerbox}	% not checked
+% % \def\questionThreeAnswerF{\centercheckedbox}	% checked
+% \def\questionThreeAnswerG{\centerbox}	% not checked
+% % \def\questionThreeAnswerG{\centercheckedbox}	% checked
+
+
+

@@ -1,0 +1,38 @@
+\newcommand{\ddotrule}{\makebox[0.75\textwidth]{\dotfill}}
+\newcommand\dodotrule[1]{\newline\makebox[#1\textwidth]{\dotfill}\vspace{8pt}}
+\newcommand\donldotrule[1]{\makebox[#1\textwidth]{\dotfill}\vspace{8pt}}
+\newcommand{\fullline}{\noindent\makebox[\linewidth]{\rule{.95\textwidth}{0.4pt}}}
+
+\newcommand{\cs}{%
+  {\settoheight{\dimen0}{C}C\kern-.05em \resizebox{!}{\dimen0}{\raisebox{\depth}{\#}}\ }}
+\newcommand{\csns}{%
+  {\settoheight{\dimen0}{C}C\kern-.05em \resizebox{!}{\dimen0}{\raisebox{\depth}{\#}}}}
+
+\newcommand{\point}[1]{\small{\texttt{(#1 point%%
+	{\ifthenelse%
+		{\equal{#1}{1}}%
+		{}%
+		{s}%
+		}})}}
+
+\newcommand{\correct}{\ding{51}}
+\newcommand{\wrong}{\ding{55}}
+
+\def\newreg{\csname newdimen\endcsname}
+\def\setreg#1#2{#1=#2pt }
+\def\addreg#1#2{\advance#1by#2pt }
+\def\mulreg#1#2{#1=#2#1}
+\def\valuereg#1{\expandafter\ignorept\the#1}
+\bgroup\lccode`\?=`\p \lccode`\!=`\t \lowercase{\egroup\def\ignorept#1?!{#1}}
+
+\newcommand{\newquestion}{\pgfmathsetmacro\questionNr{\questionNr + 1}\subsubsection*{Question \pgfmathparse{int(round(\questionNr))}\pgfmathresult}} % normal
+\newcommand{\fnewquestion}{\vfill\pgfmathsetmacro\questionNr{\questionNr + 1}\subsubsection*{Question \pgfmathparse{int(round(\questionNr))}\pgfmathresult}} % pre vfill
+\newcommand{\nnewquestion}{\newpage\pgfmathsetmacro\questionNr{\questionNr + 1}\subsubsection*{Question \pgfmathparse{int(round(\questionNr))}\pgfmathresult}} % pre new page
+%
+\newcommand\centerbox{\multicolumn{1}{c}{\APLbox}}
+\newcommand\centercheckedbox{\multicolumn{1}{c}{\CheckedBox}}
+\newcommand\el[1]{\textbf{\texttt{#1}}}
+
+\newcommand\answer[1]{{\color{navyblue}{#1}}}
+
+% \newcommand\diagramblock[1]{}

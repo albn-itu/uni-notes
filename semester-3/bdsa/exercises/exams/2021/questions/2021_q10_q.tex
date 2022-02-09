@@ -1,0 +1,72 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 11}
+
+\noindent You have a method with the following signature:
+\begin{lstlisting}
+public class DoubleO
+{
+    public static string GetAgent(int number) { ... }
+}
+\end{lstlisting}
+\noindent You have the following requirements for input and expected return:
+\begin{center}
+\begin{tabular}{ c l }
+    \# & Name \\
+    \hline
+    006 & Alec Trevelyan \\
+    007 & James Bond \\
+    000 & \texttt{ArgumentOutOfRangeException} \\
+    \hline
+\end{tabular}
+\end{center}
+
+
+
+
+
+\vskip 15pt
+\begin{enumerate}[a]
+    \item \point{5} Implement a set of tests for the \texttt{GetAgent} method:
+		\input{\questionTenAnswerA}
+\def\questionTenAnswerB{answers/code/q10_answerB} %% edit the content of the file
+\def\questionTenAnswerC{answers/code/q10_answerC} %% edit the content of the file
+
+
+
+
+
+\newpage
+\noindent Consider the following interface:
+\begin{lstlisting}
+public interface IQService
+{
+    Gadget GetRandom();
+}
+\end{lstlisting}
+\noindent A gadget should have a name and a film.
+
+
+
+
+\vskip 15pt
+    \item \point{2} Implement the \texttt{Gadget} class such that name and film are settable only using an object initializer and ensure that none of them will be \texttt{null}.
+		\input{\questionTenAnswerB}
+\def\questionTenAnswerC{answers/code/q10_answerC} %% edit the content of the file
+
+
+
+
+\noindent You need to use the \texttt{IQService} in the context of a unit test.\\
+\noindent You need to setup a fake implementation which returns ``Milk bottle grenades'' from ``The Living Daylights''.\\
+\noindent You should set the value of \texttt{service} to be the runtime implementation of your fake.
+
+
+
+
+
+\vskip 15pt
+    \item \point{4} Implement the fake:
+		\input{\questionTenAnswerC}
+
+\end{enumerate}

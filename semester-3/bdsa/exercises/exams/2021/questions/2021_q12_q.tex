@@ -1,0 +1,83 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 10}
+
+\noindent Given the following functional requirements:
+
+\begin{itemize}
+    \item FR01 The system must allow retrieving Albums by Id from a database.
+    \item FR02 The system should implement a cache to reduce the load on the database.
+    \item FR03 The system should first check the cache and only if a miss occurs, query the database.
+\end{itemize}
+
+
+\vskip 15pt
+\noindent Consider the following implementation:
+
+\begin{lstlisting}
+public class AlbumService
+{
+    public Album? Retrieve(int id)
+    {
+        var cache = new AlbumCache();
+
+        var album = cache.Get(id);
+
+        if (album == null)
+        {
+            var repository = new AlbumRepository();
+
+            album = repository.Get(id);
+
+            if (album != null)
+            {
+                cache.Set(id, album);
+            }
+        }
+
+        return album;
+    }
+}
+
+public class Album {}
+
+public abstract class AlbumPersistanceBase
+{
+    public abstract Album Get(int id);
+    public abstract void Set(int id, Album album);
+}
+
+public class AlbumCache : AlbumPersistanceBase
+{
+    public override Album Get(int id) { ... }
+    public override void Set(int id, Album album) { ... }
+}
+
+public class AlbumRepository : AlbumPersistanceBase
+{
+    public override Album Get(int id) { ... }
+    public override void Set(int id, Album album) =>
+        throw new NotSupportedException();
+}
+\end{lstlisting}
+
+\begin{enumerate}[a]
+    \item \point{5} Which SOLID principle(s) are broken? Briefly justify your answer.
+		\ifdefined\questionTwelveAnswerA
+		  \newline\answer\questionTwelveAnswerA
+		\else
+		  \\\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}\dodotrule{.95}
+		\fi
+	
+
+
+
+
+
+
+\vskip 15pt
+    \item \point{5} Based on your previous answers, fix the code below. \textit{Note}: You may need to strikethrough existing code/keywords\ldots
+		\input{\questionTwelveAnswerB}
+
+\end{enumerate}
+

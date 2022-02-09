@@ -1,0 +1,26 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+\begin{lstlisting}
+public class AlbumRepository
+{
+	public Album Read(Guid id)
+	{
+		var context = new AlbumContext();
+		return context.Find(id);
+	}
+}
+\end{lstlisting}
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 300}
+
+\begin{enumerate}[a]
+    \item \point{2} Which SOLID principles are broken? Briefly justify your answers 
+		\newline\answer\questionTwoAnswerA
+
+	\item \point{2} Which design pattern(s) would you use to fix the code? Briefly justify
+your answer.
+		\newline\answer\questionTwoAnswerB
+
+	\item \point{3} Fix the code
+		\input{\questionTwoAnswerC}
+\end{enumerate}

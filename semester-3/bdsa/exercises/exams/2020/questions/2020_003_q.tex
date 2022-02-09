@@ -1,0 +1,32 @@
+%!TEX root = ../[BDSA'21] - Exam Answers.tex
+
+Consider the following specification:
+\begin{itemize}
+	\item The system is a console application.
+	\item The system must allow the user to input credential data.
+	\item The system must allow the user to select which external party to validate the data.
+	\item The external parties are known beforehand: *Xenomorph*, *Predator*, and *Marine*.
+	\item All external parties will be implemented using the same interface:
+\end{itemize}
+
+\begin{lstlisting}
+public interface IValidator
+{
+	bool Validate(string username, byte[] hash)
+}
+\end{lstlisting}
+
+\pgfmathsetmacro\totalpoints{\totalpoints + 300}
+
+\begin{enumerate}[a]
+    \item \point{2} Which design pattern would you use to implement the system? 
+		\newline\answer\questionThreeAnswerA
+
+	\item \point{2} Describe how you would implement the above system using a combi-
+nation of prose and pseudocode. 
+		\newline\answer\questionThreeAnswerB
+		\input{\questionThreeAnswerBCode}
+
+	\item \point{3} Fix the code
+		% \input{\answer\questionTwoAnswerC}
+\end{enumerate}
