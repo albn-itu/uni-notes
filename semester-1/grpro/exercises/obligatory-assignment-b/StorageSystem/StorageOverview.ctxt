@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=StorageOverview
+comment1.params=
+comment1.target=StorageOverview()
+comment2.params=
+comment2.target=void\ display()
+comment2.text=Show\ storage\ info
+comment3.params=s
+comment3.target=void\ addStorage(Storage)
+numComments=4

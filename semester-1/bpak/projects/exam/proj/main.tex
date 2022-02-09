@@ -1,0 +1,67 @@
+% !TeX root = ./main.tex
+\documentclass[11pt,oneside]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english, danish]{babel}
+\usepackage{datetime}  
+
+\usepackage[margin=1.2in]{geometry}
+\usepackage[toc,page]{appendix}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{float}
+
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{positioning}
+
+\input{Other/Definitions}
+
+\begin{document}
+
+%\captionsetup[figure]{margin=1.5cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
+%\captionsetup[table]{margin=1.5cm,font=small,labelfont={bf},name={Table},labelsep=colon,textfont={it}}
+\SetLipsumDefault{1}
+
+\frontmatter
+
+% === Titlepage ===
+\input{Other/titlepage.tex}
+
+
+% === Table of contents, figures and tables ===
+\tableofcontents
+\listoffigures
+%\listoftables
+
+
+% === Main ===
+\mainmatter
+
+\input{Parts/1 - Indledning}            \newpage
+\input{Parts/2 - Problemanalyse}        \newpage
+\input{Parts/3 - Teknisk beskrivelse}   \newpage
+\input{Parts/4 - Brugerscenarie}        \newpage
+\input{Parts/5 - Test}                  \newpage
+\input{Parts/6 - Konklusion}            \newpage
+
+
+% === Bibliography ===
+\nocite{*}
+\bibliographystyle{agsm} 
+\bibliography{bibliography}
+
+% === Appendix ===
+%\begin{appendices}
+%    \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+%    \input{Appendices/appendixA.tex}
+%    \input{Appendices/appendixB.tex}
+%    \input{Appendices/appendixC.tex}
+%\end{appendices}
+
+\end{document}

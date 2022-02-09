@@ -1,0 +1,46 @@
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+   {\parindent \z@ \raggedright \normalfont
+     %\ifnum \c@secnumdepth >\m@ne
+     %    \huge\bfseries \@chapapp\space \thechapter
+     %    \par\nobreak
+     %    \vskip 20\p@
+     %\fi
+     %\interlinepenalty\@M
+     \Huge \bfseries\thechapter\space\space #1\par\nobreak
+     \vskip 30\p@
+   }}
+\makeatother
+
+
+% Rename appendix to bilag
+\renewcommand\appendixname{Bilag}
+\renewcommand\appendixpagename{Bilag}
+\renewcommand\appendixtocname{Bilag}
+
+
+% Remove indentation
+\setlength\parindent{0pt}
+
+% Define a command  for citing in a footnote
+\newcommand*{\footcite}[1]{\footnote{\cite{#1}}}
+
+\newdimen\zerolinewidth
+
+\tikzset{
+  zero line width/.code={%
+    \zerolinewidth=\pgflinewidth
+    \tikzset{line width=0cm}%
+  },
+  use line width/.code={%
+    \tikzset{line width=\the\zerolinewidth}%
+  },
+  draw with anchor in boundary/.style={
+    zero line width,
+    postaction={draw,use line width},
+  },
+}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
