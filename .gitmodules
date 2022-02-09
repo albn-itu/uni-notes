@@ -13,3 +13,9 @@
 [submodule "semester-4/bfup/exercises"]
 	path = semester-4/bfup/exercises
 	url = https://github.com/goose-alt/bfup-exercises
+[submodule "semester-3/bdsa/projects/assignment-04"]
+	path = semester-3/bdsa/projects/assignment-04
+	url = https://github.com/FrederikRothe/BDSA_Assignment4
+[submodule "semester-3/bdsa/projects/assignment-05"]
+	path = semester-3/bdsa/projects/assignment-05
+	url = https://github.com/avborup/ITU-BDSA2021-Assignment5
