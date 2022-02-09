@@ -1,0 +1,71 @@
+CREATE TABLE Cities(
+    HZ INT NOT NULL PRIMARY KEY,
+    HC VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE People (
+    PID INT NOT NULL PRIMARY KEY,
+    PN VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Homes (
+    HID INT NOT NULL PRIMARY KEY,
+    HZ INT NOT NULL REFERENCES Cities(HZ),
+    HS VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Rentals (
+     PID INT NOT NULL REFERENCES People(PID),
+     HID INT NOT NULL REFERENCES Homes(HID),
+     S INT NOT NULL,
+     PRIMARY KEY (PID, HID)
+);
+
+INSERT INTO People (PID, PN) VALUES (18521, 'Sigurjon Elvarsson');
+INSERT INTO Cities (HZ, HC) VALUES (109, 'Reykjavik (Breidholt)');
+INSERT INTO Homes (HID, HZ, HS) VALUES (21301, 109, 'Galghard Road');
+INSERT INTO Rentals (PID, HID, S) VALUES (18521, 21301, 1984);
+
+INSERT INTO People (PID, PN) VALUES (4812, 'Agust Dagur Reynisson');
+INSERT INTO Cities (HZ, HC) VALUES (465, 'Bildudalur');
+INSERT INTO Homes (HID, HZ, HS) VALUES (21009, 465, 'Abby Park Street');
+INSERT INTO Rentals (PID, HID, S) VALUES (4812, 21009, 1979);
+
+INSERT INTO People (PID, PN) VALUES (23482, 'Isak Helgason');
+INSERT INTO Cities (HZ, HC) VALUES (680, 'Torshofn');
+INSERT INTO Homes (HID, HZ, HS) VALUES (8686, 680, 'Prachstreet');
+INSERT INTO Rentals (PID, HID, S) VALUES (23482, 8686, 1985);
+
+INSERT INTO People (PID, PN) VALUES (3245, 'Tomas Aron Elvarsson');
+INSERT INTO Cities (HZ, HC) VALUES (580, 'Siglufjordur');
+INSERT INTO Homes (HID, HZ, HS) VALUES (15469, 580, 'Overbanken Road');
+INSERT INTO Rentals (PID, HID, S) VALUES (3245, 15469, 2003);
+
+INSERT INTO People (PID, PN) VALUES (22659, 'Matthias Hjaltason');
+INSERT INTO Cities (HZ, HC) VALUES (300, 'Akranes');
+INSERT INTO Homes (HID, HZ, HS) VALUES (23668, 300, 'Andreas Avenue');
+INSERT INTO Rentals (PID, HID, S) VALUES (22659, 23668, 2004);
+
+INSERT INTO People (PID, PN) VALUES (15641, 'Gretar Karason');
+INSERT INTO Cities (HZ, HC) VALUES (545, 'Skagastrond');
+INSERT INTO Homes (HID, HZ, HS) VALUES (3837, 545, 'Mayores Road');
+INSERT INTO Rentals (PID, HID, S) VALUES (15641, 3837, 1993);
+
+INSERT INTO People (PID, PN) VALUES (10478, 'Bryndis Steinarsd�ttir');
+INSERT INTO Cities (HZ, HC) VALUES (675, 'Raufarhofn');
+INSERT INTO Homes (HID, HZ, HS) VALUES (17126, 675, 'School Street');
+INSERT INTO Rentals (PID, HID, S) VALUES (10478, 17126, 1999);
+
+INSERT INTO People (PID, PN) VALUES (25542, 'Magnus Snorri Kristofersson');
+INSERT INTO Cities (HZ, HC) VALUES (871, 'Vik');
+INSERT INTO Homes (HID, HZ, HS) VALUES (2331, 871, 'Dock Street');
+INSERT INTO Rentals (PID, HID, S) VALUES (25542, 2331, 1981);
+
+INSERT INTO People (PID, PN) VALUES (10325, 'Steinar Pall Axelsson');
+INSERT INTO Homes (HID, HZ, HS) VALUES (22874, 675, 'Law Street');
+INSERT INTO Rentals (PID, HID, S) VALUES (10325, 22874, 1990);
+
+INSERT INTO People (PID, PN) VALUES (10456, 'Robert Agustsson');
+INSERT INTO Cities (HZ, HC) VALUES (620, 'Dalvik');
+INSERT INTO Homes (HID, HZ, HS) VALUES (23266, 620, 'Bus Avenue');
+INSERT INTO Rentals (PID, HID, S) VALUES (10456, 23266, 1980);

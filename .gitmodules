@@ -1,0 +1,12 @@
+[submodule "semester-3/bdsa/exercises/assignments"]
+	path = semester-3/bdsa/exercises/assignments
+	url = https://github.com/goose-alt/bdsa-assignments
+[submodule "semester-3/disys/projects/mini-project-1"]
+	path = semester-3/disys/projects/mini-project-1
+	url = https://github.com/Arneproductions/DISYS-Mini-project-01
+[submodule "semester-3/bdsa/projects/assignment-01"]
+	path = semester-3/bdsa/projects/assignment-01
+	url = https://github.com/goose-alt/bdsa2021-assignment-01
+[submodule "semester-3/bdsa/projects/assignment-00"]
+	path = semester-3/bdsa/projects/assignment-00
+	url = https://github.com/goose-alt/bdsa-assignments
