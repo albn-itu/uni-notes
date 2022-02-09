@@ -1,0 +1,158 @@
+\subsection{Question 1}
+What is the asymptotic running time of the following piece of code? (Choose the smallest correct estimate.)
+
+\begin{lstlisting}[language=python]
+i = 0
+k = 0
+while i < N:
+    i = i+1
+    if k > 0:
+        j = 0 
+        while j < N: 
+            A[i] = A[i] + A[j] + k
+            j = j + 1
+    k = 1 - k;
+\end{lstlisting}
+The loop runs from 0 to n, on the first loop only it doesnt run the inner loop, but overall its quadratic\\[1ex]
+\framebox[\textwidth]{Quadratic in $N$}
+
+
+\subsection{Question 2}
+How many stars are printed when I call $f(N)$?
+\begin{lstlisting}[language=python]
+def f(K):
+    for i in range(K):  g(i)
+def g(K):
+    for i in range(K): print('*')
+\end{lstlisting}
+The closest is quadratic time\\[1ex]
+\framebox[\textwidth]{$N^2$}
+
+
+\subsection{Question 3}
+How many stars are printed? (Choose the smallest correct estimate.)
+\begin{lstlisting}[language=python]
+for i in range(N):
+    for j in range(i):
+          print('*');
+\end{lstlisting}
+The closest is quadratic time\\[1ex]
+\framebox[\textwidth]{$O(N^2)$}
+
+\subsection{Question 4}
+Which pair of functions satisfy $f(N)=O(g(N))$?\\
+If we simplify then:\\[1ex]
+\framebox[\textwidth]{$f(N)=(N+1)\cdot(N+1)\cdot(N+1)$ and $ g(N)=N^3$}
+
+
+\subsection{Question 5}
+What is the asymptotic running time of the following piece of code?
+\begin{lstlisting}[language=python]
+if N < 1000: 
+    for i in range(N):
+        for j in range(N):
+            A[i] = j
+  else :
+    for i in range(N):
+        A[i] = i
+\end{lstlisting}
+Since we are looking for the lowest then we assume $N>1000$:\\[1ex]
+\framebox[\textwidth]{Linear in $N$}
+
+
+\subsection{Question 6}
+Consider the following sequence of operations
+\begin{lstlisting}[language=python]
+class A:
+    def __init__(self):
+        self.max = 1
+        self.count = 0
+    def f(self):
+        self.count += 1
+        if self.count == self.max:
+            for i in range(self.max): print('*')
+        self.max *= 2
+
+a = A()
+for i in range(N): 
+    a.f()
+\end{lstlisting}
+How many stars are printed by the last call to a.f() in the sequence in the best case?\\
+Since we are looking for the best case we can assume that the if statement isnt triggered, meaning we wouldnt print anything:\\[1ex]
+\framebox[\textwidth]{Constant}
+
+
+\subsection{Question 7}
+Assume I have a function f taking a single integer argument (say, $K$) and which runs in amortised constant time, and logarithmic worst case time in $K$. What is the running time of 
+\begin{lstlisting}[language=python]
+for i in range(N): f(N)
+\end{lstlisting}
+We loop from 0 to $N$ and then run a method that can be either, on average, be constant or logarithmic in the worst case.
+Since the function takes amortized constant time, aka on average calls take constant time, we can assume it to be constant. 
+Which then is $N\cdot \text{constant} = N\cdot 1 = \text{linear}$\\[1ex]
+\framebox[\textwidth]{Linear in $N$}
+
+
+\subsection{Question 8}
+Find a recurrence relation for the number of arithmetic operations (subtractions, additions, multiplications, divisions) performed by the following recursive method:
+\begin{lstlisting}[language=python]
+def f(N):
+    if N > 1: return 2 * f(N - 1)
+    else: return 3
+\end{lstlisting}
+For every recursion 2 arithmetic operations take place, therefore:\\[1ex]
+\framebox[\textwidth]{$T(N) = T(N-1) + 2$}
+
+
+\subsection{Question 9}
+How many stars are printed?
+\begin{lstlisting}[language=python]
+i = N
+while (i > 1):
+    print ('*')
+    i = i // 2
+\end{lstlisting}
+This is just the halfing operation\\[1ex]
+\framebox[\textwidth]{$\log N$}
+
+
+\subsection{Question 10}
+Which pair of functions satisfy $f(N)=O(g(N))$?\\
+A logarithm is basically just n+n+n a bunch of times, so one can simplify that way around\\[1ex]
+\framebox[\textwidth]{$ f(N)=N+N+N$ and $g(N)=N\log N$}\
+
+
+\subsection{Question 11}
+Which pair of functions satisfy $f(N)\sim g(N)$?\\[1ex]
+\framebox[\textwidth]{$ f(N)=N\log N$ and $g(N)=N\log N + 2N$}
+
+
+\subsection{Question 12}
+Consider the following piece of code:
+\begin{lstlisting}[language=python]
+N = len(s)
+i = 0
+while i < N:
+    if s[i] == 0: return i
+    i += 1
+\end{lstlisting}
+At the worst case the last element is the target, therefore 2 comparisons pr loop.\\[1ex]
+\framebox[\textwidth]{The code uses $\sim 2N$ comparisons in the worst case.}
+
+
+\subsection{Question 13}
+How many stars are printed?
+\begin{lstlisting}[language=python]
+i = 1
+while i < N:
+    i = i+2
+    stdio.write("*")
+\end{lstlisting}
+At every loop it skips 2 therefore it must be half\\[1ex]
+\framebox[\textwidth]{$\sim \frac{N}{2}$}
+
+
+\subsection{Question 14}
+Which pair of functions satisfy $f(N)\sim g(N)$?\\
+Just remove the quantifiers\\[1ex]
+\framebox[\textwidth]{$f(N)=2\sqrt{N} + N$ and $g(N)=\sqrt{N}+N$}

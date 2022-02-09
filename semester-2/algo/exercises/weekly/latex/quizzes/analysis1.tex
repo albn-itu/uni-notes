@@ -1,0 +1,208 @@
+\subsection{Question 1}
+How many array accesses does the following piece of code perform?
+
+\begin{lstlisting}[language=python]
+for i in range(N):
+    for j in range(N):
+        A[i] = j;
+\end{lstlisting}
+As the loops go from 0 to N twice, that would mean the loops loop $n\cdot n$ times. Therefore $N^2$.\\[1ex]
+\framebox[\textwidth]{$N^2$}
+
+
+\subsection{Question 2}
+Which pair of functions satisfy $f(N)\sim g(N)$\\
+The answer is: But i have no idea why\\[1ex]
+\framebox[\textwidth]{$8N^2 + 3N \text{ and } 8N^2 + 160\log N$}
+
+
+\subsection{Question 3}
+Assume I have a method $f$ taking a single integer (say, $K$) as an argument, and which takes constant amortized time per call, but linear time (in $K$) in the worst case. Consider the following piece of code:
+\begin{lstlisting}[language=python]
+for i in range(1, N):
+    f(i)
+\end{lstlisting}
+What is the running time of this piece of code as a function of $N$?\\
+We loop from 0 to $N$ and then run a method that can be either, on average, be constant or linear in the worst case.
+Since the function takes amortized constant time, aka on average calls take constant time, we can assume it to be constant. 
+Which then is $N\cdot \text{constant} = N\cdot 1 = \text{linear}$\\[1ex]
+\framebox[\textwidth]{Worst case linear time}
+
+
+\subsection{Question 4}
+What is the asymptotic running time of the following piece of code?
+\begin{lstlisting}[language=python]
+if N < 1000: 
+  for i in range(N):
+      for j in range(N):
+          A[i] = j
+else:
+  for i in range(N):
+      A[i] = i
+\end{lstlisting}
+Best case is linear time in N, if N is above 1000.\\[1ex]
+\framebox[\textwidth]{Linear time in N}
+
+
+\subsection{Question 5}
+How many stars are printed? (Choose the smallest correct estimate.)
+\begin{lstlisting}[language=python]
+i = 0
+while i < N:
+    i = i+1
+    j = i 
+    while j > 0: 
+        j = j//2
+        stdio.write("*")
+\end{lstlisting}
+We loop from 0 to N whichj is $N$ time. And then we use the logarithmic halfing technique which is $\log N$. Therefore:\\[1ex]
+\framebox[\textwidth]{$O(N\log N)$}
+
+
+\subsection{Question 6}
+How many stars are printed?
+\begin{lstlisting}[language=python]
+i = N
+while (i > 1):
+    print ('*')
+    i = i // 2
+\end{lstlisting}
+This is just the halfing technique\\[1ex]
+\framebox[\textwidth]{$\sim\log N$}
+
+
+\subsection{Question 7}
+Which pair of functions satisfy $f(N) = O(g(N))$?\\
+The order of growth for a constant is just 1. Therefore the order of growth for $f(n)=17$ is 1. Making the pair:\\[1ex]
+\framebox[\textwidth]{$f(N)=17 \text{ and } g(N)=1$}
+
+
+\subsection{Question 8}
+How many stars are printed? (Choose the smallest correct estimate.)
+\begin{lstlisting}[language=python]
+class A:
+    def __init__(self):
+        self.k = 0
+    
+    def f(N):
+        if self.k < 0:
+            self.k = N
+            for i in range(N): print('*') 
+        self.k -= 1
+        print('*') 
+\end{lstlisting}
+How many stars are printed by the operations 
+\begin{lstlisting}[language=python]
+    a = A(); 
+    a.f(N);?
+\end{lstlisting}
+By simply looking at the code we can see that k is never set to anything higher than 1, which means that only 1 will pe printed.\\[1ex]
+\framebox[\textwidth]{$\sim 1$}
+
+
+\subsection{Question 9}
+Find a recurrence relation for the number of arithmetic operations (subtractions, additions, multiplications, divisions) performed by the following recursive method:
+\begin{lstlisting}[language=python]
+def f(N):
+    if N > 1: return f(N - 1) + N - 2
+    else: return 3
+\end{lstlisting}
+We can see that for each reccurence we do 3 arithmetic operations. ($N-1$, $+N$, $-2$), therefore:\\[1ex]
+\framebox[\textwidth]{$T(N) = T(N-1) + 3$}
+
+
+\subsection{Question 10}
+Consider the following sequence of operations
+\begin{lstlisting}[language=python]
+class A:
+    def __init__(self):
+        self.max = 1
+        self.count = 0
+
+    def f(self):
+        self.count += 1
+        if self.count == self.max:
+            for i in range (max): print("*")
+        max = 2 * max
+
+a = A(); 
+for i in range(N): a.f()
+\end{lstlisting}
+How many stars are printed by the last call to a.f() in the sequence in the worst case?\\
+We have to focus on the worst part, which is when the if statement is executed.
+Inside that is a linear for loop. And since its when the count and the max are the same, that would be at $N$, therefore:\\[1ex]
+\framebox[\textwidth]{Linear in $N$}
+
+
+\subsection{Question 11}
+Assume $f$ and $g$ satisy $f(N)\sim a N$ and $g(N)=b \log_2 N$ for some positive integers $a$ and $b$. Define $h$ by $h(N)=f(N)+g(N)$. What is true for every choice of $a$ and $b$?\\
+Since we ignore everthing after a $+$ of the $\sim$ we can ignore $g(N)$, therefore:\\[1ex]
+\framebox[\textwidth]{$h(N) \sim aN$}
+
+
+\subsection{Question 12}
+What is the asymptotic running time of the following piece of code? (Choose the smallest correct estimate.)
+\begin{lstlisting}[language=python]
+if N < 1000:
+    for i in range(N*N): A[i] = 0
+else:
+    for i in range(N): A[i] = i*i*i
+\end{lstlisting}
+The smallest estimate, must be the one where the least code is executed, therefore $N>1000$. So:\\[1ex]
+\framebox[\textwidth]{Linear in $N$}
+
+
+\subsection{Question 13}
+Which pair of functions satisfy $f(N)=O(g(N))$?\\
+Since we ignore everthing after a $+$ after the $\sim$ we can conclude that it must be:\\[1ex]
+\framebox[\textwidth]{$f(N) = N + N + N$ and $g(N) = N$}
+
+
+\subsection{Question 14}
+How many stars are printed? (Choose the smallest correct estimate.) 
+\begin{lstlisting}[language=python]
+for i in range(N):
+    for j in range(i, 0, -1):
+         print('*')
+\end{lstlisting}
+While not entirely, the closest thing is quadratic time.\\[1ex]
+\framebox[\textwidth]{$O(N^2)$}
+
+
+\subsection{Question 15}
+Assume you have a data structure that maintains a set S under insertion. Assume that the operation S.insert(key) takes logarithmic time in the number of elements in S. Determine the order of growth of the running time of the following piece of code, starting with an empty set S.
+\begin{lstlisting}[language=python]
+for i in range(N):
+    S.insert(i)
+    for j in range(10):
+        print(j)
+\end{lstlisting}
+We are looping linearly, and the function takes logarithmic time, which then is $N \log N$ therefore:\\[1ex]
+\framebox[\textwidth]{Linearithmic time}
+
+
+\subsection{Question 16}
+Consider the following piece of code:
+\begin{lstlisting}[language=python]
+N = len(s)
+i = 0
+while i < N:
+    if s[i] == 0: return i
+    i += 1
+\end{lstlisting}
+Which statement is true?\\
+In every loop we use 1 comparison, and in every if we use 1 as well.
+So that is 2 pr loop. The worst case would be that the last element is the chosen one. So:\\[1ex]
+\framebox[\textwidth]{The code uses $\sim 2N$ comparisons in the worst case.}
+
+
+\subsection{Question 17}
+How many stars are printed when I call $f(N)$?
+\begin{lstlisting}[language=python]
+def f(K):
+    for i in range(K):  g(i)
+def g(K):
+    for i in range(K): print('*')
+\end{lstlisting}
+The closest is quadratic time\\[1ex]
+\framebox[\textwidth]{quadratic in $N$}
