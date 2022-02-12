@@ -19,3 +19,6 @@
 [submodule "semester-4/bfup/exercises"]
 	path = semester-4/bfup/exercises
 	url = https://github.com/goose-alt/bfup-exercises
+[submodule "semester-4/devops/exercises/itu-minitwit"]
+	path = semester-4/devops/exercises/itu-minitwit
+	url = https://github.com/Devops-2022-Group-R/itu-minitwit
