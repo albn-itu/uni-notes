@@ -1,0 +1,68 @@
+Release planning and first sprint planning:
+- The act of selecting story points takes a while and not everyone said anything
+- Some people came with suggestions fast without allowing the rest of the team to speak. This might have been a consequence of the time pressure
+- Some spoke loudly with experience and used it as an absolute
+- Prioritisation suffered from the same issue that selecting story points did
+
+First sprint:
+- The first sprint was thoroughly down expected. We quickly got our tasks done and had to add more tasks while doing development
+- Communication was good and efficient. It was difficult to speak though when 8 people are in a voice channel together. Therefore there was less chit chat, but it also made it harder to ask for help when others were discussing completion of tasks.
+- We were very efficient and faster than we thought.
+- While communication could be broken up in smaller teams the communication in plenum, aka just revealing information you have gathered into an open space.
+  - Same thing goes for just saying what you need and people can "bid" on it
+- People had very specific tasks they had to do, allowing focussed work on that specific task, and therefore working very efficiently resulting in us being done a lot faster than expected.
+- People were very good to just say what they didn't know how to do (Credit to Astrid)
+
+Second sprint planning:
+- Fast, nailed pretty much in terms of amount of work
+- Had a lot of dependency on the spider hunt.
+  - Key takeaway: Consider dependencies
+
+Second sprint:
+- We had a hunting party that took a lot of communication that moved into it's own voice channel. This cleared the main communications channel and allowed easier communication.
+  - Functioned well as it allowed that isolated task to communicate internally
+- The amount of work fit very well, especially since we decided to focus on the dependencies
+
+
+Third sprint planning:
+- Basically just the rest of the assignments
+- We didn't assign the 2 epics
+  - But we completed them anyway
+
+Third sprint:
+- We accidentally completed the 2 epics as we by chance found the necessary resources
+- We completed all assignments and started our epics
+  - They should have had more planning though since it was under time pressure.
+  - The epics should have been higher priority and therefore been planned.
+- The last epic was under wild time pressure making everything very chaotic.
+  - The last epic also had everyone on it, which made it extremely chaotic and caused issues because everyone wanted to do the same task and be the one to complete it.'
+  - Problematically everyone was in the way when there was only 2 people that mattered. The one who the beefalo was following and the one that was to build the pen, but 2 people died because others were in the way of the one that was to build the walls.
+    - This further made things problematic as there things were now in the way.
+  - The epic should have been planned and had strict guidelines as to who were assigned to it
+
+Process takeaway:
+- The game worked well as a representation of a software project as it had isolated tasks, but at some points had dependencies on other tasks.
+- It also functioned well as a team building exercise.
+- Remember to take care of yourself
+- We need to scale optimistically as we usually undervalue the tasks at hand
+  - At the same time we need to look at our own capacity seriously
+  - It's a good idea to split tasks if the task is too big or general
+  - We do also have to rather have less tasks than more tasks and then pull it in
+- We were good at communicating the information we collected and spreading it openly to the team. 
+- We were one of the best group
+- We were good at noticing that we needed to research and therefore assign more story points
+- We were good at looking ahead when we had more time. Allowing some members to research and gather resources for the upcoming tasks.
+- We were good at noticing our definition of done and immediatly building a chest such that we could use it to complete definition of done. And help with upcoming tasks as it allows resource transfer internally.
+- We were bad at using our velocity, every sprint we restarted ourselves
+- We didn't define any sprint goals. Sometimes we defined them implicitly though. Such as when we wanted all our silk tasks done at the same time.
+- We sometimes defined tasks that were research or a prefix task for some other tasks, which we defined as a seperate task in our Trello board. The problem with that is that the task "Destroy spiders nest" cannot uphold our definition of done.
+
+Format: Der skete X så jeg tænkte Y og reagerede med Z
+
+
+
+
+
+
+
+
