@@ -1,25 +1,14 @@
+---
+title: temporary
+tags: [ tmp ]
+---
+
 # Lecture 1 - Computer systems
 | Reading | C-Programming | Assignment |
 | ------- | ------------- | ---------- |
 | 2h      | 6h            |            |
 
 ## Quick fire terminology
-- Source program
-  - Clear text representation of the program
-  - Usually a source file
-  - A sequence of text characters represented by the ASCII standard, usually
-- ASCII
-  - A way to represent text which is actually just sequence of bytes, which is chunks of 8 bits.
-- Bits, Bytes, Kilobytes.....
-  - Bits are the lowest representation of data in computers, they are just 0 or 1. An electrical signal which can be on or off.
-  - Bytes are chunks of 8 bits.
-  - Kilobytes are 1024 bytes, this can will continue, so a Gigabyte is 1024 kilobytes.
-- Text files are files which only contain ASCII characters and is a subset of binary files
-- Binary files just contain binary data, this data can sometimes be parsed. Fx. to create text files.
-- File extensions make life easier for ourselves as we tell both person and computer what to expect from this file. Modern computer systems use this information to figure out which software it should have parse the file. Such as
-  - .pdf being opened by Acrobat Reader or Zathura
-  - .xlsx being opened by Excel or LibreOffice Calc
-  - .c or .h being opened by a code editor, such as NVIM or Visual Studio (Code)
 - Compilers turn high level human readable code into a sequence of low-level machine-language instructions. And packs them together into executable object programs. 
 - Executable object programs are a series of instructions. Its file is sometimes referred to as executable object files. On windows these usually end in .exe
 - Compilation system
