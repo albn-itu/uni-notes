@@ -1,10 +1,11 @@
 ---
-title: Bit
+title: {{title}}
 tags: [ term, data ]
+date: {{date}}
 ---
 
 See also: [[Byte]]
 
-# Bit
+# {{title}}
 Give me more
 

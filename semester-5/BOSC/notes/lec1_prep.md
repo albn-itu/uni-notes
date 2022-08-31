@@ -9,22 +9,7 @@ tags: [ tmp ]
 | 2h      | 6h            |            |
 
 ## Quick fire terminology
-- Compilers turn high level human readable code into a sequence of low-level machine-language instructions. And packs them together into executable object programs. 
 - Executable object programs are a series of instructions. Its file is sometimes referred to as executable object files. On windows these usually end in .exe
-- Compilation system
-  - Preprocessor
-    - Modifies code according to instructions
-    - In C this could be including via the `#include <stdio.h>` instruction. This reads the file `stdio.h` and inserts its contents in place of the instruction. This program is called `cpp`
-  - Compiler
-    - Turns the code into assembly language.
-    - For C this is called `cc1`
-  - Assembler
-    - Turns the assembly language into machine-language instructions.
-    - Outputs a binary executable file
-    - This program is called `as`
-  - Linker
-    - Merges existing compiled code into the binary file
-    - This code could be the `printf.o` object file that containts the C standard library, precompiled. 
 - Assembly language is a mostly human readable, but very simple language. Which is essentially just a series of instructions.
   - The instructions match machine operations pretty closely and mostly boils down to.
     - Load, copy byte or a word from memory into a register
