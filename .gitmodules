@@ -25,3 +25,9 @@
 [submodule "semester-4/exercises/bump-tool"]
 	path = semester-4/exercises/bump-tool
 	url = https://github.com/Devops-2022-Group-R/bump-tool
+[submodule "semester-5/BPRD/exercises"]
+	path = semester-5/BPRD/exercises
+	url = https://github.com/goose-alt/bprd-assignments
+[submodule "semester-5/BOSC/projects/datalab"]
+	path = semester-5/BOSC/projects/datalab
+	url = https://github.itu.dk/albn/22-Lab1-datalab
