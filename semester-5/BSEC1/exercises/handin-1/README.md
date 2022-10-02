@@ -4,8 +4,7 @@ author: Albert Rise Nielsen (albn@itu.dk)
 date: 02-10-2022
 ---
 
-# Mandatory hand-in 1
-## Preface
+# Preface
 The code in this assignment will be written in Python, version 3.10.4. Every code snippet assume the snippets before it exist in the scope. The best way to run the code is the full program at the end of the document.
 
 There is a helper function that will be used in the code snippets. It's purpose is to represent $a^b\mod c$ in a way that avoids integer overflow. While that is not necessarily a problem in Python, this is also ultimately faster with large numbers, compared to computing the power and then applying modulo, while being much more memory efficient.
@@ -19,22 +18,25 @@ def mod_pow(base, exp, mod):
         base = (base * base) % mod
     return res
 ```
-The method of modular exponentation shown here is the right-to-left binary method [1].
-
-**The numbers shown in this document should never be used in real world applications. They are artificially small to make examples, and bruteforcing feasible.**
+The method of modular exponentation shown here is the right-to-left binary method \[1\].
 
 The information given in the assignment: 
+
 - Shared base $g=666$, will be denoted as $\alpha$ for the rest of the document
 - Shared prime $p=6661$
 - Public key $PK=2227$, will be denoted as $k$ for the rest of the document
 
-## ElGamal
+The numbers shown in this document should never be used in real world applications. They are artificially small to make examples, and bruteforcing feasible.
+
+\newpage
+# ElGamal
 This assignment revolves around the ElGamal public-key encryption scheme.
 
 ElGamal, in this case, uses the multiplicative group $\mathbb{Z}^*_q$ of integers modulo $p$.
 
-### Key generation
+## Key generation
 The algorithm for key generation in ElGamal is as follows:
+
 - Generate a large random prime $p$ and a generator $\alpha$ of the group
 - Select a random integer $a$, $1\leq a\leq p-2$
 - Compute $k=\alpha^a\mod p$
@@ -42,8 +44,9 @@ The algorithm for key generation in ElGamal is as follows:
   - Given to us as $(p=6661, \alpha=666, k=2227)$
 - $A$'s private key is $a$
 
-### Encryption
+## Encryption
 For a party $B$ to encrypt a message $m$ for $A$, the algorithm is:
+
 - Obtain $A$'s public key $(p, \alpha, k)$
 - Transform $m$ to an integer representation within the range ${0,1,\dots,p-1}$
 - Select a random integer $r,1\leq r\leq p-2$
@@ -51,25 +54,27 @@ For a party $B$ to encrypt a message $m$ for $A$, the algorithm is:
 - Compute $c_2=m\cdot k^r\mod p$
 - Communicate the cipher text $c=(c_1, c_2)$ to $A$
 
-### Decryption
+## Decryption
 For a party $A$ to decrypt a message $m$ from $B$, encrypted with $A$'s public key $(p, \alpha, k)$, compute:
 $$
   m=\frac{c_2}{((\alpha^r)\mod p)^a\mod p}=\frac{c_2}{c_1^a\mod p}
 $$ 
 
-#### Proof
-Proof decryption works, take the decryption algorithm:
+### Proof
+To prove that decryption works, take the decryption algorithm:
 $$
   \frac{c_2}{((\alpha^r)\mod p)^a\mod p}
 $$
 
-Replace variables and eliminate:
+Replace variables and cancel:
 $$
-  \frac{m\cdot k^r\mod p}{((\alpha^r)\mod p)^a\mod p}=\frac{m\sout{\cdot (\alpha^a\mod p)^r\mod p}}{\sout{((\alpha^r)\mod p)^a\mod p}} =m
+  \frac{m\cdot k^r\mod p}{((\alpha^r)\mod p)^a\mod p}=\frac{m\cancel{\cdot (\alpha^a\mod p)^r\mod p}}{\cancel{((\alpha^r)\mod p)^a\mod p}} =m
 $$
 
-## 1
+# Assignment
+## Question 1
 To send the message we apply the algorithm above:
+
 - $A$'s public key: $(p=6661, \alpha=666, k=2227)$
 - $m$ is an integer, assumed to be sent as an integer: $m=2000$
 - Select a random integer: $r=22$
@@ -98,12 +103,15 @@ c = encrypt(2000)
 print(c) # (2422, 6288000)
 ```
 
-## 2
+\newpage
+## Question 2
 ### Private key
 Bob's private key can be found by simply bruteforcing it. The numbers are so small that the ineffeciency of bruteforce is neglible. The target will be the public key as we know it, and all the other elements necessary to compute it. Those being the base and prime number. The code for bruteforcing it is as so:
 
-#### Code
+**Code**
+
 The code for bruteforcing:
+
 ```python
 def get_a():
     # Bruteforce
@@ -124,8 +132,10 @@ $$
   m=\frac{c_2}{c_1^a\mod p}=\frac{6288000}{2422^{66}\mod 6661}=2000
 $$
 
-#### Code
+**Code**
+
 The code for the algoritm is:
+
 ```python
 def decrypt(c1, c2, a):
     m = c2 / mod_pow(c1, a, p)
@@ -136,15 +146,15 @@ decrypted = decrypt(c[0], c[1], a)
 print(decrypted) # 2000
 ```
 
-## 3
+## Question 3
 Assuming the decryption algorithm above. If we were to multiply $c_2$ by some integer $x$, we would get:
 $$
 \frac{c_2\cdot x}{c_1^a\mod p}
 $$
 
-Replace and eliminate:
+Replace and cancel:
 $$
-  \frac{m\cdot k^r\mod p\cdot a}{((\alpha^r)\mod p)^a\mod p}=\frac{m\cdot (\alpha^a\mod p)^r\mod p\cdot a}{((\alpha^r)\mod p)^a\mod p} =m\cdot a
+  \frac{m\cdot k^r\mod p\cdot x}{((\alpha^r)\mod p)^a\mod p}=\frac{m\cdot \cancel{(\alpha^a\mod p)^r\mod p}\cdot x}{\cancel{((\alpha^r)\mod p)^a\mod p}} =m\cdot x
 $$
 
 In practice:
@@ -163,9 +173,11 @@ print(modified) # 18864000
 print(decrypt(c[0], modified, a)) # 6000
 ```
 
+\newpage
 # Sources
 [1] Alfred J. Menezes, Paul C. van Oorschot, and Scott A. Vanstone. *Handbook of applied cryptography*. 1st ed. Crc Press, 1996. *Ch. 14, page 614, algorithm 14.76*
 
+\newpage
 # Appendix
 ## The full program
 The full code of the program. The structure has been slightly altered from the snippets, but the content is the same.
