@@ -1,6 +1,8 @@
 use clap::Parser;
+mod math;
 mod server;
 mod client;
+mod pedersen;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]

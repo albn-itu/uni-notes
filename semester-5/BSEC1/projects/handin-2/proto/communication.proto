@@ -2,15 +2,16 @@ syntax = "proto3";
 package communication;
 
 service Communication {
-  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc InitPedersen (PedersenInitRequest) returns (PedersenInitReply);
 }
 
-message HelloRequest {
-    // Request message contains the name to be greeted
-    string name = 1;
+message PedersenInitRequest {
+  uint64 h = 1;
+  uint64 g = 2;
+  uint64 p = 3;
 }
 
-message HelloReply {
-    // Reply contains the greeting message
-    string message = 1;
+message PedersenInitReply {
+  bool ack = 1;
 }
+
