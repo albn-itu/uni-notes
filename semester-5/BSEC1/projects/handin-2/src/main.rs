@@ -1,5 +1,7 @@
 use clap::Parser;
+
 mod messages;
+mod keys;
 mod math;
 mod server;
 mod client;
