@@ -2,16 +2,34 @@ syntax = "proto3";
 package communication;
 
 service Communication {
-  rpc InitPedersen (PedersenInitRequest) returns (PedersenInitReply);
+  rpc InitPedersen (InitPedersenRequest) returns (InitPedersenReply);
+  rpc SendCommitment (SendCommitmentRequest) returns (SendCommitmentReply);
+  rpc SendPedersen (SendPedersenRequest) returns (SendPedersenReply);
 }
 
-message PedersenInitRequest {
+message InitPedersenRequest {
   uint64 h = 1;
   uint64 g = 2;
   uint64 p = 3;
 }
 
-message PedersenInitReply {
+message InitPedersenReply {
   bool ack = 1;
 }
 
+message SendCommitmentRequest {
+  uint64 c = 1;
+}
+
+message SendCommitmentReply {
+  uint64 m = 1;
+}
+
+message SendPedersenRequest {
+  uint64 r = 1;
+  uint64 m = 2;
+}
+
+message SendPedersenReply {
+  bool ack = 1;
+}
