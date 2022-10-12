@@ -13,6 +13,7 @@ pub mod communication {
     tonic::include_proto!("communication"); // The string specified here must match the proto package name
 }
 
+use crate::messages::handle_request;
 use crate::pedersen::PedersenInitData;
 
 #[derive(Debug, Default)]
@@ -34,9 +35,7 @@ impl Communication for MyCommunication {
         &self,
         request: Request<InitPedersenRequest>,
     ) -> Result<Response<InitPedersenReply>, Status> {
-        println!("Got a InitPedersen request: {:?}", request);
-
-        let request_data = request.into_inner();
+        let request_data = handle_request(request);
         
         let mut state = self.state.lock().unwrap();
         state.pedersen_init_data = PedersenInitData {
@@ -56,10 +55,10 @@ impl Communication for MyCommunication {
         &self,
         request: Request<SendCommitmentRequest>,
     ) -> Result<Response<SendCommitmentReply>, Status> {
-        println!("Got SendCommitment request: {:?}", request);
+        let request_data = handle_request(request);
 
         let mut state = self.state.lock().unwrap();
-        state.c = request.into_inner().c;
+        state.c = request_data.c;
 
         let dice_roll = crate::dice::gen();
         state.dice_roll = dice_roll;
@@ -75,10 +74,8 @@ impl Communication for MyCommunication {
         &self,
         request: Request<SendPedersenRequest>,
     ) -> Result<Response<SendPedersenReply>, Status> {
-        println!("Got SendPedersen request: {:?}", request);
-
+        let request_data = handle_request(request);
         let state = self.state.lock().unwrap();
-        let request_data = request.into_inner();
 
         let (_, c) = crate::pedersen::com(request_data.m as u8, state.pedersen_init_data, Some(request_data.r));
 

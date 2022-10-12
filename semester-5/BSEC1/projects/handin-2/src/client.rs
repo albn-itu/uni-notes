@@ -10,6 +10,7 @@ pub mod communication {
 }
 
 use crate::pedersen::gen_data;
+use crate::messages::handle_response;
 
 pub async fn run(connect: String) -> Result<(), Box<dyn std::error::Error>> {
     let mut client = CommunicationClient::connect(connect).await?;
@@ -22,20 +23,19 @@ pub async fn run(connect: String) -> Result<(), Box<dyn std::error::Error>> {
         p: pedersen_data.p,
     });
 
-    println!("InitPedersen: RESPONSE={:?}", client.init_pedersen(init_request).await?);
+    handle_response(client.init_pedersen(init_request).await?);
 
     let dice_roll = crate::dice::gen() ;
     let (r, c) = crate::pedersen::com(dice_roll, pedersen_data, None);
     let commit_request = tonic::Request::new(SendCommitmentRequest { c });
-    let commit_response = client.send_commitment(commit_request).await?;
-    println!("SendCommitment: RESPONSE={:?}", commit_response);
-    let bobs_dice_roll = commit_response.into_inner().m as crate::dice::Dice;
+    let commit_response = handle_response(client.send_commitment(commit_request).await?);
+    let bobs_dice_roll = commit_response.m as crate::dice::Dice;
 
     let pedersen_request = tonic::Request::new(SendPedersenRequest { 
         r, 
         m: dice_roll as u64
     });
-    println!("SendPedersen: RESPONSE={:?}", client.send_pedersen(pedersen_request).await?);
+    handle_response(client.send_pedersen(pedersen_request).await?);
 
     println!("Dice roll result: {}", crate::dice::xor(dice_roll, bobs_dice_roll));
 
