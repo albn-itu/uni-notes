@@ -19,10 +19,6 @@ Using the above you should get something like:
 
 ```
 ...a bunch of build messages
-[+] Running 2/1
- ⠿ Container handin-2-bob-1    Recreated                                           0.1s
- ⠿ Container handin-2-alice-1  Recreated                                           0.0s
-Attaching to handin-2-alice-1, handin-2-bob-1
 handin-2-bob-1    | [2022-10-19 13:19:59.653355897 +00:00] InitPedersenRequest { h: 1578916582, g: 3485915850, p: 1236607165 }
 handin-2-alice-1  | ["Wed, 19 Oct 2022 13:19:59 GMT"][Code: "0"] InitPedersenReply { ack: true }
 handin-2-bob-1    | [2022-10-19 13:19:59.653873542 +00:00] SendCommitmentRequest { c: 823808275 }
@@ -84,7 +80,7 @@ This results in a completely trusting and verified relationship between the 2 pa
 Let's assume 2 parties a client Alice, and a server Bob. 
 
 - **Alice:** Connects to bob
-- *The TLS handshake describe above takes place*
+- *The TLS handshake described above takes place*
 - **Alice:** Generates Pedersen commitment data, and sends `h`,`g` and `p` to Bob.
 - **Bob:** Stores and acknowledges data
 - **Alice:** Rolls dice, saves result and calculates commitment
