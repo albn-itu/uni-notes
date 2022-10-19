@@ -2,38 +2,32 @@
 
 rm *.pem
 
-# Generate CA (Certificate Authority) private key
-openssl genrsa 2048 > ca-key.pem
+function generate_and_sign_cert {
+  # Generate private key for the cert
+  openssl genrsa -out $1-key.pem 2048
 
-# Generate the x509 certificate for the CA
-openssl req -new -x509 -nodes -days 365000 \
-   -subj "/C=DK/ST=Copenhagen/L=Copenhagen/O=Bob Incorporated/OU=Bob/CN=bob.com" \
-   -key ca-key.pem \
-   -out ca-cert.pem
+  # Create a CSR (Certificate Signing Request) using the generated key.
+  openssl req -new \
+    -key $1-key.pem \
+    -out $1-csr.pem \
+    -subj "/C=DK/ST=Copenhagen/L=Copenhagen/O=$2 Incorporated/OU=$2/CN=$2.com"
 
-# Generate a private key for the server (-newkey) and create a CSR (Certificate Signing Request) for the server 
-openssl req -newkey rsa:2048 -nodes \
-   -subj "/C=DK/ST=Copenhagen/L=Copenhagen/O=Bob Incorporated/OU=Bob/CN=bob.com" \
-   -keyout server-key.pem \
-   -out server-req.pem
+  # Generate a new certificate, based on our private key and sign it using the CA
+  openssl x509 -req -days 365 -sha256 \
+    -out $1-cert.pem \
+    -extfile $1.conf \
+    -in $1-csr.pem \
+    -CA ca-cert.pem \
+    -CAkey ca-key.pem \
+    -CAcreateserial
+}
 
-# Use the CA to create, sign and approve the servers public key certificate
-openssl x509 -req -days 365000 -set_serial 01 \
-   -in server-req.pem \
-   -out server-cert.pem \
-   -CA ca-cert.pem \
-   -CAkey ca-key.pem
+# Generate a private key and certificate for the CA (Certificate Authority)
+# These will be used to selfsign our certificates
+openssl req -x509 -sha256 -newkey rsa:4096 -days 365 -nodes \
+  -keyout ca-key.pem \
+  -out ca-cert.pem \
+  -subj "/C=DK/ST=Copenhagen/L=Copenhagen/O=Bob Incorporated/OU=Bob/CN=bob.com"
 
-# Generate a private key for the client (-newkey) and create a CSR (Certificate Signing Request) for the client
-openssl req -newkey rsa:2048 -nodes \
-   -subj "/C=DK/ST=Copenhagen/L=Copenhagen/O=Bob Incorporated/OU=Bob/CN=bob.com" \
-   -keyout client-key.pem \
-   -out client-req.pem
-
-# Use the CA to create, sign and approve the clients public key certificate
-openssl x509 -req -days 365000 -set_serial 01 \
-   -in client-req.pem \
-   -out client-cert.pem \
-   -CA ca-cert.pem \
-   -CAkey ca-key.pem
-
+generate_and_sign_cert server bob
+generate_and_sign_cert client alice

@@ -2,7 +2,13 @@
 
 use std::sync::Mutex;
 
-use tonic::{transport::Server, Request, Response, Status};
+use tonic::{
+    transport::{
+        server::{TlsConnectInfo},
+        Identity, Server, ServerTlsConfig, Certificate,
+    }, 
+    Request, Response, Status
+};
 
 use communication::communication_server::{Communication, CommunicationServer};
 use communication::{InitPedersenRequest, InitPedersenReply};
@@ -94,11 +100,29 @@ impl Communication for MyCommunication {
         Ok(Response::new(reply))
     }}
 
+pub async fn get_tls() -> Result<ServerTlsConfig, Box<dyn std::error::Error>> {
+    let ca_cert = tokio::fs::read("data/ca-cert.pem").await?;
+    let server_cert = tokio::fs::read("data/server-cert.pem").await?;
+    let server_key = tokio::fs::read("data/server-key.pem").await?;
+
+    let ca = Certificate::from_pem(ca_cert);
+    let id = Identity::from_pem(server_cert, server_key);
+
+    let tls = ServerTlsConfig::new()
+        .identity(id)
+        .client_ca_root(ca);
+
+    Ok(tls)
+}
+
 pub async fn run(listen: String) -> Result<(), Box<dyn std::error::Error>> {
     let addr = listen.parse()?;
     let communication = MyCommunication::default();
 
+    let tls = get_tls().await?;
+
     Server::builder()
+        .tls_config(tls)?
         .add_service(CommunicationServer::new(communication))
         .serve(addr)
         .await?;
