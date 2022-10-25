@@ -2,7 +2,17 @@
 title: Mandatory hand-in 2
 author: Albert Rise Nielsen (albn@itu.dk)
 date: 19-10-2022
+colorlinks: true
+header-includes:
+- |
+  ```{=latex}
+  \usepackage{pdflscape}
+  \newcommand{\blandscape}{\begin{landscape}}
+  \newcommand{\elandscape}{\end{landscape}}
+    ```
 ---
+# Preface
+While i have written all the code and this report myself, i collaborated with Anne Bartholdy Falk, Dea Thim, My Marie Nordal Jensen and Nikoline Burman, in figuring out what the assignment was and discussing the high level properties of the assignment.
 
 # Running the game 
 
@@ -17,6 +27,7 @@ To run it:
 ## Output
 Using the above you should get something like:
 
+\blandscape
 ```
 ...a bunch of build messages
 handin-2-bob-1    | [2022-10-19 13:19:59.653355897 +00:00] InitPedersenRequest { h: 1578916582, g: 3485915850, p: 1236607165 }
@@ -29,22 +40,23 @@ handin-2-alice-1  | ["Wed, 19 Oct 2022 13:19:59 GMT"][Code: "0"] SendPedersenRep
 handin-2-alice-1  | Dice roll result: 2
 handin-2-alice-1 exited with code 0
 ```
+\elandscape
 
 # The protocol
 ## The goal
 The goal of our protocol is to achieve
 
 - Confidentiality: The message should be hidden from the outside world
-- Authenticity: We need to know the message comes from the right person
-- Integrity: We need to know the message has not been altered.
+- Authenticity: Need to know the message comes from the right person
+- Integrity: Need to know the message has not been altered.
 
-To achieve the above we use the Coin tossing protocol, with Pedersen commitments, all sent over TLS.
+To achieve the above i use the Coin tossing protocol, with Pedersen commitments, all sent over TLS.
 
 ## Coin tossing
 
 The coin tossing scheme allows 2 parties to both pick a random number and send it to each other, while being sure none of the parties have cheated. It does so by using an XOR operation on the resulting 2 numbers, thereby ensuring that if at least one of the numbers were random, then the result will be too.
 
-To ensure that no party has cheated we use commitments.
+To ensure that no party has cheated i use commitments.
 
 ## Commitments
 
