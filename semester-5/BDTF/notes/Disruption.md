@@ -9,10 +9,10 @@ There are three types of disruption.
 
 ![](img/pasted_img_20221014122442.png)
 
-## Backstage disruption
+## [[Backstage Disruption]]
 A radical change in how value is created
 
-## Profit formulat disruption
+## Profit Formular Disruption
 A radical change in how profits are made in terms of revenue and costs
 
 ## Frontstage disruption
