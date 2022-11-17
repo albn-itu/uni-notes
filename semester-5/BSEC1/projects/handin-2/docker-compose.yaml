@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  bob:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    environment:
+      LISTEN_PORT: "0.0.0.0:50051"
+    networks:
+      app_net:
+        ipv4_address: 10.10.10.2
+        aliases:
+          - "bob.com"
+  
+  alice:
+    depends_on:
+      - bob
+    networks:
+      app_net:
+        ipv4_address: 10.10.10.3
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    environment:
+      SERVER_ADDR: "https://bob.com:50051" 
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.10.10.0/24"
