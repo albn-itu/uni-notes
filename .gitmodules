@@ -22,12 +22,21 @@
 [submodule "semester-4/devops/exercises/itu-minitwit"]
 	path = semester-4/devops/exercises/itu-minitwit
 	url = https://github.com/Devops-2022-Group-R/itu-minitwit
-[submodule "semester-4/exercises/bump-tool"]
-	path = semester-4/exercises/bump-tool
+[submodule "semester-4/devops/exercises/itu-minitwit-frontend"]
+	path = semester-4/devops/exercises/itu-minitwit-frontend
+	url = https://github.com/Devops-2022-Group-R/itu-minitwit-frontend
+[submodule "semester-4/devops/exercises/bump-tool"]
+	path = semester-4/devops/exercises/bump-tool 
 	url = https://github.com/Devops-2022-Group-R/bump-tool
+[submodule "semester-4/devops/exercises/lecture_notes"]
+	path = semester-4/devops/exercises/lecture_notes
+	url = https://github.com/itu-devops/lecture_notes 
 [submodule "semester-5/BPRD/exercises"]
 	path = semester-5/BPRD/exercises
 	url = https://github.com/goose-alt/bprd-assignments
 [submodule "semester-5/BOSC/projects/datalab"]
 	path = semester-5/BOSC/projects/datalab
 	url = https://github.itu.dk/albn/22-Lab1-datalab
+[submodule "semester-5/BOSC/projects/malloclab"]
+	path = semester-5/BOSC/projects/malloclab
+	url = https://github.com/albn-itu/bosc-malloclab
