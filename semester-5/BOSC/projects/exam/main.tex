@@ -8,6 +8,7 @@
 \usepackage{appendix}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage[T1]{fontenc}
 
 \usepackage{tikz}
 \usetikzlibrary{patterns}
@@ -22,10 +23,13 @@
     stepnumber=1,
     showstringspaces=false,
     tabsize=1,
-    basicstyle=\footnotesize\sffamily\color{black},
+    basicstyle=\footnotesize\ttfamily\color{black},
     breaklines=true,
     xleftmargin=0.225in,
     frame=l,
+    columns=fixed,
+    basewidth=0.5em,
+    literate={~}{{\fontfamily{ptm}\selectfont \textasciitilde}}1
 }
 
 \setlength{\parindent}{0pt}
@@ -50,7 +54,7 @@ int howManyBits(int x) {
   // If the number is negative get -x-1 
   // Aka if -12 get 11, or if 12 get 12
   // The number of digits for those 2 are exactly the same, so doing this just makes it significantly easier to work with
-  x = ((sign & \simx)|(~sign & x));
+  x = ((sign & ~x)|(~sign & x));
  
   // Do a sort of command and conquer
   // First shift by the first half of the int size
