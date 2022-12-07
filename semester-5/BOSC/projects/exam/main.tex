@@ -343,6 +343,27 @@ Next block is found by adding the size of the block to the pointer. Previous poi
 
 The next free block pointer location is stored at at the data location. The previous free block pointer location is stored 1 word after the data location, so simply add the word size.
 
+\chapter{Topics from class}
+\section{A}
+% Goldmine: https://stackoverflow.com/questions/49396346/why-are-segfaults-called-faults-and-not-aborts-if-they-are-not-recoverable
+Traps are usually intentional and are emitted by a software process. Let's for example take a zero division error. In this case the kernel's trap handler would send a signal to the process. Traps are reported after the instruction that caused it has executed.\\[1ex]
+
+Faults, unlike traps, are usually unintentional and are emitted by hardware. While not intentional some faults can be recovered, fx. if a process dereferenced a pointer to paged memory. In which case the kernel's trap handler would load the paged memory into main memory to actually access the data. The the kernel doesn't send a signal to the process, in this case, but just retries the instruction that caused the page fault. Faults are detected before or during the instruction, and if they are reported, it's done after the environment has been reset to a state that can retry the instruction\\[1ex]
+
+Aborts are unintentional and unrecoverable. Fx a segfault, despite it's name, will usually kill an application. Segfaults happen when an application tries to access and invalid address. The kernel handler sends a signal to the process.\\[1ex]
+
+One thing to note about the above is that it assumes a very simple architecture. In most modern OS's all of these are recoverable, wouldn't be very convenient if all segfaults crashed the operating system. You can actually catch aborts in C on linux systems by registering a signal handler for them, as interrupts are simply signals. 
+
+\section{B}
+Ephemeral ports are short lived ports, usually used for responding back. A well known port is long lived and usually always open for the application responding on that port.
+
+An example of a well known port is port 80, which is reserved for HTTP traffic. Some systems use well known ports and ephemeral ports together. Like some FTP servers that runs on port 21 and upon command execution opens an ephemeral port to respond with the result of that command.
+
+\section{C}
+A memory leak is allocated memory that is no longer used. It can occur when one forgets to clean up the memory they have allocated or when allocating memory and overwriting the pointer to it, without first releasing the memory (orphaning). It can be avoided by using garbage collection, or by remembering to always have a \textit{free} call for every \textit{malloc} call
+
+\section{D}
+
 \chapter{Appendix}
 \appendix
 \chapter{Malloc Lab code}
