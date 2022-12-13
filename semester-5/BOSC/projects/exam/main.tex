@@ -358,15 +358,30 @@ Aborts are unintentional and unrecoverable. Fx a segfault, despite it's name, wi
 One thing to note about the above is that it assumes a very simple architecture. In most modern OS's all of these are recoverable, wouldn't be very convenient if all segfaults crashed the operating system. You can actually catch aborts in C on linux systems by registering a signal handler for them, as interrupts are simply signals. 
 
 \section{B}
-Ephemeral ports are short lived ports, usually used for continous communication. A well known port is long lived and usually always open for the application responding on that port.
+Before understanding ports, we must understand the concept of sockets. A socket is an endpoint for network communication. A socket has and IP address and a port, formatted as \textit{address:port}, also known as a socket address. Sockets are used to communicate with other sockets, usually between a servers socket and a clients socket.\footnote{All information in this section is from Computer Systems: A Programmers Perspective \cite{computer-systems}, reworded by me.}\\[1ex]
 
-An example of a well known port is port 80, which is reserved for HTTP traffic. Some systems use well known ports and ephemeral ports together. Like some FTP servers that runs on port 21 and upon command execution opens an ephemeral port to stream the result of that command.
+Ephemeral ports are short lived ports, usually used for the client to server communication. When a client tries to make a request to the server the kernel will assign a port to the socket address used. Once the client disconnects from the server, this port is closed.\\[1ex]
+
+A well known port is a long lived ports, usually used for the server to client communication. Well known ports are usually one of the permanently assigned ports. Fx port 80 is reserved for HTTP traffic, it can be used for other purposes, but will consfuse HTTP clients. 
 
 \section{C}
-A memory leak is allocated memory that is no longer used. It can occur when one forgets to clean up the memory they have allocated or when allocating memory and overwriting the pointer to it, without first releasing the memory (orphaning). It can be avoided by using garbage collection, or by remembering to always have a \textit{free} call for every \textit{malloc} call
+A memory leak is allocated memory that is no longer used. It can occur when one forgets to clean up the memory they have allocated or when allocating memory and overwriting the pointer to it, without first releasing the memory (orphaning). It can be avoided by using garbage collection, or by remembering to always have a \textit{free} call for every \textit{malloc} call.\\[1ex]
+
+Garbage collection is a technique for freeing memory that is no longer used by the program. A garbage collector holds a reachability tree, which contains root nodes and heap nodes. If there is no path to a heap node, from some root node, it is considered garbage and can be freed. In C we use a so called conservative garbage collector, which assumes that all blocks are still in use, unless proven otherwise. This does cause some blocks to be incorrectly identified as in use, but ensures no blocks are incorrectly identified as garbage.\\[1ex]
 
 \section{D}
-A race condition happens when 2 threads are modifying the same shared data at the same time. They're notoriously hard to debug as they happen semi randomly and are therefore hard to replicate. It all depends on how the computations are scheduled by the CPU. One method of avoiding race conditions are mutexes which, when locked, are only locked on that thread. These can be used to ensure only 1 thread have access to the data, the problem with this approach is that it can make the code synchronous if used inproperly, or become a bottleneck. Another approach is the \textit{\_thread} keyword, which creates an instance of the variable pr. thread. That's expensive in terms of memory, and pretty useless if the data needs to be shared, such as multithreaded computations on the same data.
+Parallel processing is the act of exeucting multiple instructions at the same time, instead of one at a time. Unfortunately, there are no guarantees that the instructions will be executed in the order they were written. Therefore when multiple threads are modifying the same data, the order of modifications are not guaranteed. This problem is called race conditions.\\[1ex]
+
+Due to the unpredictable nature of race conditions they are hard to debug. They happen semi randomly and are therefore hard to replicate. It all depends on how the computations are scheduled by the CPU.\\[1ex]
+
+To avoid race conditions synchronization is needed.
+One synchronization primitivie is mutexes which, when locked, are only locked on that thread. These can be used to ensure only 1 thread have access to the data. The problem with this approach is that it can make the code synchronous if used inproperly, or become a bottleneck. On page 1050 of Computer Systems \cite{computer-systems} an experiment is conducted. This experiment uses a varying amount of threads to sum multiple numbers, using mutexes to lock the result variable. In this experiment threading is orders of magnitude slower than single threaded due to the massive overhead of mutex locking.\\[1ex]
+
+Another approach is the \textit{\_thread} keyword, which creates an instance of the variable pr. thread. That's expensive in terms of memory, and pretty useless if the data needs to be shared, such as multithreaded computations on the same data.\\[1ex]
+
+Said best by Randal E. Bryant and David R. O'Hallaron \textit{"Synchronization overhead is expensive and should be avoided if possible."} \cite{computer-systems}. If possible synchronization should be completely avoided, or used sparingly. Do as many operations as possible outside the mutex, such that the time spent in the locked mutex is as small as possible.\\[1ex]
+
+\printbibliography
 
 \chapter{Appendix}
 \appendix
@@ -407,6 +422,8 @@ static void *find_fit(size_t asize)
 {
   // First-fit search 
   void *bp = first_freep;
+
+  Brendan Fairclough
 
   while (bp != NULL) {
     if (GET_SIZE(HDRP(bp)) >= asize)
