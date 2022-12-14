@@ -73,7 +73,7 @@ int howManyBits(int x) {
 }
 \end{lstlisting}
 
-The function $howManyBits(x)$ determines how many bits are necessary to represent the number $x$. To make the computations simpler, first get the sign of the number and negate negative numbers to one less. Eg $-12$ becomes $11$. Those 2 are represented by the same amount of bits, so it just makes things simpler. The mutations done to $-12$ are as so:
+The function $howManyBits(x)$ determines how many bits are necessary to represent the number $x$. To make the computations simpler, first, get the sign of the number and negate negative numbers to one less. Eg $-12$ becomes $11$. Those 2 are represented by the same amount of bits, so it just makes things simpler. The mutations done to $-12$ are as so:
 \begin{align*}
     -12 &= 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 0100\\
     \sim-12 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
@@ -84,7 +84,7 @@ The function $howManyBits(x)$ determines how many bits are necessary to represen
     (-12 \& \sim\text{sign}) | (~-12 \& \text{sign}) &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
     11  &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011
 \end{align*}
-For $x=11$ the mutations look like:
+For $x=11$ the mutations look like this:
 \begin{align*}
     11 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
     \sim11 &= 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 0100\\
@@ -94,9 +94,9 @@ For $x=11$ the mutations look like:
     \sim11 \& \text{sign} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\\
     (11 \& \sim\text{sign}) | (~11 \& \text{sign}) &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011
 \end{align*}
-For positive numbers we change nothing in the end, but it's necessary for the algorithm to work.\\[1ex]
+For positive numbers, we change nothing in the end, but it's necessary for the algorithm to work.\\[1ex]
 
-Next step is to do a search for the outermost bit. This is done by shifting the number by half the size of the integer, initially 16. If there are any bits left, then add 16 to the result. And shift the number by 16. Repeat with 8,4,2 and 1. Doing so will narrow us down more and more to the result. One thing to note is that we always add 1 at the end of the method for the sign. If we take 17 as an example, skipping the 16 and 8 shifts. 
+The next step is to search for the outermost bit. This is done by shifting the number by half the size of the integer, initially 16. If there are any bits left, then add 16 to the result. And shift the number by 16. Repeat with 8,4,2 and 1. Doing so will narrow us down more and more to the result. One thing to note is that we always add 1 at the end of the method for the sign. If we take 17 as an example, skip the 16 and 8 shifts. 
 \begin{align*}
     17 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0001\ 0001\\
     \text{shift by 4} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0001\\
@@ -123,15 +123,15 @@ The absolute minimum value of an int is, by two's complement, 0x80000000, aka 1 
 \chapter{Attack Lab}
 % What happens when the c3 assembly instruction is executed? Does anything on the stack change?
 \section{A}
-The \textit{ret} instruction pops the return address off the stack and transfers control to it. When a \textit{call} is executed the first thing the new method does is push the old stack frame base pointer onto the stack, which is then popped at the end of the method. It's not part of the \textit{ret} instruction, but it's a part of the standard call stack. Anoteher thing not directly done by \textit{ret} but that's worth noting is that the \textit{\%eax} register, is set to the return value, this is used by the calling method to get the return value.
+The \textit{ret} instruction pops the return address off the stack and transfers control to it. When a \textit{call} is executed the first thing the new method does is push the old stack frame base pointer onto the stack, which is then popped at the end of the method. It's not part of the \textit{ret} instruction, but it's a part of the standard call stack. Another thing not directly done by \textit{ret} but that's worth noting is that the \textit{\%eax} register, is set to the return value, this is used by the calling method to get the return value.
 
 \section{B}
 % What is a gadget farm?
-A gadget farm is a section of code that contains gadgets. A gadget is a part of code that contains instructions followed by a \textit{ret} instruction. These can be used to execute small parts of code in an exploit. Such as moving a value to a register, performing small or a single operation etc. Gadgets arent't often present on purpose, they are extracted from other code. Such as setting a value to something specific,  and then returning. This might accidentally encode into something that can be used as a gadget.\\
+A gadget farm is a section of code that contains gadgets. A gadget is a part of code that contains instructions followed by a \textit{ret} instruction. These can be used to execute small parts of code in an exploit. Such as moving a value to a register, performing a small or a single operation etc. Gadgets aren't often present on purpose, they are extracted from other code. Such as setting a value to something specific,  and then returning. This might accidentally encode into something that can be used as a gadget.\\
 
 Gadgets are, usually, not especially useful on their own. But if used together they can be a powerful tool. For example, if we have a gadget that moves a value to a register, and another that performs an operation on that register, we can use them together to perform an operation on a value.\\[1ex]
 
-In the case of attacklab, the goal was to run a method with an argument. This meant setting the \textit{\%rdi} register to the argument. The value of the argument is on the top of the stack, so we need to find a way to pop to \textit{\%rdi}. This can't be directly done with our gadgets, but we can pop to \textit{\%rax} with this gadget:
+In the case of attack lab, the goal was to run a method with an argument. This meant setting the \textit{\%rdi} register to the argument. The value of the argument is on the top of the stack, so we need to find a way to pop to \textit{\%rdi}. This can't be directly done with our gadgets, but we can pop to \textit{\%rax} with this gadget:
 \begin{lstlisting}[language={[x86masm]Assembler}]
 0000000000402985 <setval_484>:
   402985:	f3 0f 1e fa          	endbr64 
@@ -159,14 +159,14 @@ With that information collected we can construct the payload:
 75 29 40 00 00 00 00 00 /* gadget 2 */
 7c 27 40 00 00 00 00 00 /* touch2 address */ 
 \end{lstlisting}
-It starts with the padding, then the first gadget, which will be executed first. Then the cookie, which will be popped to \textit{\%rax}. Then the second gadget, which will move the value to \textit{\%rdi}. And finally the address of the \textit{touch2} method, which will be executed after the gadget.\\[1ex]
+It starts with the padding, then the first gadget, which will be executed first. Then the cookie will be popped to \textit{\%rax}. Then the second gadget will move the value to \textit{\%rdi}. And finally the address of the \textit{touch2} method, which will be executed after the gadget.\\[1ex]
 
 \chapter{Malloc Lab}
 \section{A}
 % Explain in detail your implementation of the mm_malloc function
-The function \textit{mm\_malloc}, see appendix \ref{appendix:malloc_lab_code_mm_malloc}, takes a size $x$, finds or creates a spot for it on the heap and places it, removing it from available memory. My implementation of malloclab uses an explict free list, which is essentially just a linked list between all the free blocks of memory.
+The function \textit{mm\_malloc}, see appendix \ref{appendix:malloc_lab_code_mm_malloc}, takes a size $x$, finds or creates a spot for it on the heap and places it, removing it from available memory. My implementation of malloc lab uses an explicit free list, which is essentially just a linked list between all the free blocks of memory.
 
-An 8 word block of memory is allocated as 10 words, where 2 are used for the header and footer, figure \ref{fig:malloc_lab_a} illustrates such a free block.\\
+An 8-word block of memory is allocated as 10 words, where 2 are used for the header and footer, figure \ref{fig:malloc_lab_a} illustrates such a free block.\\
 
 \begin{figure}[h]
     \centering
@@ -187,20 +187,20 @@ An 8 word block of memory is allocated as 10 words, where 2 are used for the hea
     \label{fig:malloc_lab_a}
 \end{figure}
 
-The header and footer of a block are identical, they contain the size of the block and a bit indicating allocation state. The next and prev pointers are used to link to the next and previous blocks in the free list, using their addresses.\\[1ex]
+The header and footer of a block are identical, they contain the size of the block and a bit indicating the allocation state. The next and prev pointers are used to link to the next and previous blocks in the free list, using their addresses.\\[1ex]
 
-The \textit{mm\_malloc} method first checks if the heap is initialized, if not it initializes it with a call to \textit{mm\_init}. Then we align the given size to be double word aligned, and attempt to find a free block, with \textit{find\_fit} that can contain the aligned size. If not possible the heap is extended, with \textit{extend\_heap}, which creates a new free block. Then we place the block, either in the found block or the newly created block, with \textit{place}. Each of these methods are described in the following sections, as well as \textit{coalesce} which is used to merge free blocks. 
+The \textit{mm\_malloc} method first checks if the heap is initialized, if not it initializes it with a call to \textit{mm\_init}. Then we align the given size to be double word aligned and attempt to find a free block, with \textit{find\_fit} that can contain the aligned size. If not possible the heap is extended, with \textit{extend\_heap}, which creates a new free block. Then we place the block, either in the found block or the newly created block, with \textit{place}. Each of these methods is described in the following sections, as well as \textit{coalesce} which is used to merge free blocks. 
 
 \subsection{find\_fit}
 \textit{find\_fit}, appendix \ref{appendix:malloc_lab_code_find_fit}, is extremely naively implemented. It simply iterates through the free list and returns the first block that is large enough to fit the given size.\\[1ex]
 
-This is far from the most efficient method. There is also the method of best fit which attempts to waste as little space as possible, but requires iterating the entire list. Alternatively there is next fit, which keeps track of the last block used, and searches from there. This has the advantage of not fragmenting the beginning of memory as much as first fit, but it might take a while to reuse freed memory.
+This is far from the most efficient method. There is also the method of best fit which attempts to waste as little space as possible, but requires iterating the entire list. Alternatively, there is next fit, which keeps track of the last block used, and searches from there. This has the advantage of not fragmenting the beginning of memory as much as the first fit, but it might take a while to reuse freed memory.
 
 \subsection{extend\_heap}
-\textit{extend\_heap}, appendix \ref{appendix:malloc_lab_code_extend_heap}, calls \textit{mem\_sbrk}, an external method, to extend the heap by a given number of words. Then it creates a free block that spans the entirety of the newly allocated memory. To end with it calls \textit{coalesce} to merge the new block with any adjacent free blocks. In the case of \textit{extend\_heap} it can only coalesce with the block to it's left, but to not add complexity the existing method is used.\\[1ex]
+\textit{extend\_heap}, appendix \ref{appendix:malloc_lab_code_extend_heap}, calls \textit{mem\_sbrk}, an external method, to extend the heap by a given number of words. Then it creates a free block that spans the entirety of the newly allocated memory. To end with it calls \textit{coalesce} to merge the new block with any adjacent free blocks. In the case of \textit{extend\_heap} it can only coalesce with the block to its left, but to not add complexity the existing method is used.\\[1ex]
 
 \subsection{coalesce}
-\textit{coalesce}, appendix \ref{appendix:malloc_lab_code_coalesce}, merges adjacent free blocks. It takes a pointer to a block, and checks if the previous and next blocks are free. If they are it removes them from the free list, merge with the given block and adds the combined block to the free list. In case no blocks can be merged, it adds the given block to the free list\\[1ex]
+\textit{coalesce}, appendix \ref{appendix:malloc_lab_code_coalesce}, merges adjacent free blocks. It takes a pointer to a block and checks if the previous and next blocks are free. If they are it removes them from the free list, merges the given block and adds the combined block to the free list. In case no blocks can be merged, it adds the given block to the free list\\[1ex]
 
 There are 4 cases that coalesce can handle, figure \ref{fig:malloc_lab_coalesce} illustrates those cases.
 \begin{figure}[h]
@@ -253,9 +253,9 @@ There are 4 cases that coalesce can handle, figure \ref{fig:malloc_lab_coalesce}
 \subsection{Adding to, and removing from the free list}
 Two methods \textit{insert\_in\_empty\_list} and \textit{remove\_from\_empty\_list} provide the interface with the free list.\\[1ex]
 
-\textit{insert\_in\_empty\_list}, appendix \ref{appendix:malloc_lab_code_insert_in_empty_list}, takes a pointer to a block and inserts it in the empty list. Due to the LIFO principle (Last in first out) the method first sets the previous pointer on the root block (first block in the list) to the given pointer, then sets the next pointer of the current block to the root block, lastly set the previous pointer of the current block to null. See \ref{fig:malloc_lab_list}\\[1ex]
+\textit{insert\_in\_empty\_list}, appendix \ref{appendix:malloc_lab_code_insert_in_empty_list}, takes a pointer to a block and inserts it in the empty list. Due to the LIFO principle (Last in first out) the method first sets the previous pointer on the root block (first block in the list) to the given pointer, then sets the next pointer of the current block to the root block, and lastly set the previous pointer of the current block to null. See \ref{fig:malloc_lab_list}\\[1ex]
 
-\textit{remove\_from\_empty\_list}, appendix \ref{appendix:malloc_lab_code_remove_from_empty_list}, takes a pointer to a block that should be removed from the empty list. If we're the root then we set the next block's previous to null, and store it's pointer as the new root. Otherwise we set the previous block's next pointer the the next block and the previous pointer of the next block to the previous block.\\[1ex]
+\textit{remove\_from\_empty\_list}, appendix \ref{appendix:malloc_lab_code_remove_from_empty_list}, takes a pointer to a block that should be removed from the empty list. If we're the root then we set the next block's previous to null, and store its pointer as the new root. Otherwise, we set the previous block's next pointer to the next block and the previous pointer of the next block to the previous block.\\[1ex]
 
 \begin{figure}[h]
     \centering
@@ -320,10 +320,10 @@ Two methods \textit{insert\_in\_empty\_list} and \textit{remove\_from\_empty\_li
 \end{figure}
 \newpage
 \section{B}
-% What is pointer arithmethic? Describe how you used it in your version of mm.c
-In C a pointer is a numeric value. Therefore we can perform arithmethic on it. Such as adding or subtracting a number to it. This is called pointer arithmetic.\\[1ex]
+% What is pointer arithmetic? Describe how you used it in your version of mm. c
+In C a pointer is a numeric value. Therefore we can perform arithmetic on it. Such as adding or subtracting a number to it. This is called pointer arithmetic.\\[1ex]
 
-In my version of \textit{mm.c} I used pointer arithmetic to find the location of the header, footer and previous pointer. It was also used to find the location of the next, and previous, block in memory, calculated using the size of the block. 
+In my version of \textit{mm.c} I used pointer arithmetic to find the location of the header, footer and previous pointer. It was also used to find the location of the next, and previous, blocks in memory, calculated using the size of the block. 
 \begin{lstlisting}[language=C]
 // Compute the address of the header, from a pointer to the data location
 #define HDRP(bp) ((char *)(bp)-WSIZE)
@@ -340,46 +340,50 @@ In my version of \textit{mm.c} I used pointer arithmetic to find the location of
 // Get the location of the pointer to the next block
 #define PREV_FBLKP(bp) ((char *)bp+WSIZE)
 \end{lstlisting}
-All these usecases assume the given pointer is at the beginning of the block's data. To find the header simply remove a word, as it's placed right before the data, and you have the pointer to the header location. To find the footer add the size of the block, this is retrieved from the header, and subtract a double word, as the footer is placed right after the data\\[1ex]
+All these use cases assume the given pointer is at the beginning of the block's data. To find the header simply remove a word, as it's placed right before the data, and you have the pointer to the header location. To find the footer add the size of the block, which is retrieved from the header, and subtract a double word, as the footer is placed right after the data\\[1ex]
 
-Next block is found by adding the size of the block to the pointer. Previous pointer is calculated by getting the size of the previous blocks footer, stored 2 words before the data, and subtracting it from the pointer.\\[1ex]
+The next block is found by adding the size of the block to the pointer. The previous pointer is calculated by getting the size of the previous block's footer, stored 2 words before the data, and subtracting it from the pointer.\\[1ex]
 
 The next free block pointer location is stored at the data location. The previous free block pointer location is stored 1 word after the data location, so simply add a word.
 
 \chapter{Topics from class}
 \section{A}
 % Goldmine: https://stackoverflow.com/questions/49396346/why-are-segfaults-called-faults-and-not-aborts-if-they-are-not-recoverable
-Traps are usually intentional and emitted by a software process. Let's for example take a zero division error. In this case the kernel's trap handler would send a signal to the process. Traps are reported after the instruction that caused it has executed.\\[1ex]
+Traps are usually intentional and emitted by a software process. Let's for example take a zero-division error. In this case, the kernel's trap handler would send a signal to the process. Traps are reported after the instruction that caused it has been executed.\\[1ex]
 
-Faults, unlike traps, are usually unintentional and are emitted by hardware. While not intentional some faults can be recovered, fx. if a process dereferenced a pointer to paged memory. In which case the kernel's trap handler would load the paged memory into main memory to actually access the data. The kernel doesn't send a signal to the process, in this case, but just retries the instruction that caused the page fault. Faults are detected before or during the instruction, and if they are reported, it's done after the environment has been reset to a state that can retry the instruction\\[1ex]
+Faults, unlike traps, are usually unintentional and are emitted by hardware. While not intentional some faults can be recovered, fx. if a process dereferenced a pointer to paged memory. In this case, the kernel's trap handler would load the paged memory into main memory to actually access the data. The kernel doesn't send a signal to the process, in this case, but just retries the instruction that caused the page fault. Faults are detected before or during the instruction, and if they are reported, it's done after the environment has been reset to a state that can retry the instruction\\[1ex]
 
-Aborts are unintentional and unrecoverable. Fx a segfault, despite it's name, will usually kill an application. Segfaults happen when an application tries to access an invalid address. The kernel handler sends a signal to the process.\\[1ex]
+Aborts are unintentional and unrecoverable. Fx a segfault, despite its name, will usually kill an application. Segfaults happen when an application tries to access an invalid address. The kernel handler sends a signal to the process.\\[1ex]
 
-One thing to note about the above is that it assumes a very simple architecture. In most modern OS's all of these are recoverable, wouldn't be very convenient if all segfaults crashed the operating system. You can actually catch aborts in C on linux systems by registering a signal handler for them, as interrupts are simply signals. 
+One thing to note about the above is that it assumes a very simple architecture. In most modern OS's all of these are recoverable, wouldn't be very convenient if all segfaults crashed the operating system. You can actually catch aborts in C on Linux systems\cite{catch-signal} by registering a signal handler for them, as interrupts are simply signals. 
 
 \section{B}
-Before understanding ports, we must understand the concept of sockets. A socket is an endpoint for network communication. A socket has and IP address and a port, formatted as \textit{address:port}, also known as a socket address. Sockets are used to communicate with other sockets, usually between a servers socket and a clients socket.\footnote{All information in this section is from Computer Systems: A Programmers Perspective \cite{computer-systems}, reworded by me.}\\[1ex]
+Before understanding ports, we must understand the concept of sockets. A socket is an endpoint for network communication. A socket has an IP address and a port, formatted as \textit{address:port}, also known as a socket address. Sockets are used to communicate with other sockets, usually between a server's socket and a client's socket. Ports are an integer between 0 and 65353.\footnote{All information in this section is from Computer Systems: A Programmers Perspective \cite{computer-systems}, reworded by me.}\\[1ex]
 
-Ephemeral ports are short lived ports, usually used for the client to server communication. When a client tries to make a request to the server the kernel will assign a port to the socket address used. Once the client disconnects from the server, this port is closed.\\[1ex]
+Ephemeral ports are short-lived ports, usually used for the client to server communication. When a client tries to make a request to the server the kernel will assign a port to the socket address used. Once the client disconnects from the server, this port is closed.\\[1ex]
 
-A well known port is a long lived ports, usually used for the server to client communication. Well known ports are usually one of the permanently assigned ports. Fx port 80 is reserved for HTTP traffic, it can be used for other purposes, but will consfuse HTTP clients. 
+A well-known port is a long-lived port, the entire runtime of the application, usually used for the server to client communication. Well-known ports are usually one of the reserved ports in the range 0-1023. Fx port 80 is reserved for HTTP traffic, it can be used for other purposes, but will confuse HTTP clients. It should be noted that the range 0-1023 is expanding as it gets harder and harder to reserve a port in this range.\cite{registered-port}.\\[1ex] 
 
 \section{C}
 A memory leak is allocated memory that is no longer used. It can occur when one forgets to clean up the memory they have allocated or when allocating memory and overwriting the pointer to it, without first releasing the memory (orphaning). It can be avoided by using garbage collection, or by remembering to always have a \textit{free} call for every \textit{malloc} call.\\[1ex]
 
-Garbage collection is a technique for freeing memory that is no longer used by the program. A garbage collector holds a reachability tree, which contains root nodes and heap nodes. If there is no path to a heap node, from some root node, it is considered garbage and can be freed. In C we use a so called conservative garbage collector, which assumes that all blocks are still in use, unless proven otherwise. This does cause some blocks to be incorrectly identified as in use, but ensures no blocks are incorrectly identified as garbage.\\[1ex]
+Garbage collection is a technique for freeing memory that is no longer used by the program. A garbage collector holds a reachability tree, which contains root nodes and heap nodes. If there is no path to a heap node, from some root node, it is considered garbage and can be freed. In C we use a so-called conservative garbage collector, which assumes that all blocks are still in use unless proven otherwise. This does cause some blocks to be incorrectly identified as in use but ensures no blocks are incorrectly identified as garbage.\\[1ex]
 
 \section{D}
-Parallel processing is the act of exeucting multiple instructions at the same time, instead of one at a time. Unfortunately, there are no guarantees that the instructions will be executed in the order they were written. Therefore when multiple threads are modifying the same data, the order of modifications are not guaranteed. This problem is called race conditions.\\[1ex]
+Parallel processing is the act of executing multiple instructions at the same time, instead of one at a time. Unfortunately, there are no guarantees that the instructions will be executed in the order they were written. Therefore when multiple threads are modifying the same data, the order of modifications is not guaranteed. This problem is called race conditions.\\[1ex]
 
-Due to the unpredictable nature of race conditions they are hard to debug. They happen semi randomly and are therefore hard to replicate. It all depends on how the computations are scheduled by the CPU.\\[1ex]
+Due to the unpredictable nature of race conditions, they are hard to debug. They happen semi-randomly and are therefore hard to replicate. It all depends on how the computations are scheduled by the CPU.\\[1ex]
 
-To avoid race conditions synchronization is needed.
-One synchronization primitivie is mutexes which, when locked, are only locked on that thread. These can be used to ensure only 1 thread have access to the data. The problem with this approach is that it can make the code synchronous if used inproperly, or become a bottleneck. On page 1050 of Computer Systems \cite{computer-systems} an experiment is conducted. This experiment uses a varying amount of threads to sum multiple numbers, using mutexes to lock the result variable. In this experiment threading is orders of magnitude slower than single threaded due to the massive overhead of mutex locking.\\[1ex]
+To avoid race conditions synchronization is needed.\\
+The most basic synchronization primitive is atomic instructions, present in x86, such as fetch and add, compare and swap, and test and set. These instructions tell the CPU to do this operation and don't get interrupted by other threads. Also don't allow them to modify whatever you are modifying. Compared to normal instructions these are fairly expensive due to them doing 3 operations in one. Take the fetch and add which reads, adds and writes in one instruction. While these operations are fairly simple they can be used to implement more advanced synchronization principles, such as mutexes.\\[1ex]
+
+Mutexes are a synchronization primitive that, when locked, are only locked on that thread. These can be used to ensure only 1 thread has access to the data. The problem with this approach is that it can make the code synchronous if used improperly, or become a bottleneck. On page 1050 of Computer Systems \cite{computer-systems} an experiment is conducted. This experiment uses a varying amount of threads to sum multiple numbers, using mutexes to lock the result variable. In this experiment threading is orders of magnitude slower than single-threaded due to the massive overhead of mutex locking.\\[1ex]
 
 Another approach is the \textit{\_thread} keyword, which creates an instance of the variable pr. thread. That's expensive in terms of memory, and pretty useless if the data needs to be shared, such as multithreaded computations on the same data.\\[1ex]
 
 Said best by Randal E. Bryant and David R. O'Hallaron \textit{"Synchronization overhead is expensive and should be avoided if possible."} \cite{computer-systems}. If possible synchronization should be completely avoided, or used sparingly. Do as many operations as possible outside the mutex, such that the time spent in the locked mutex is as small as possible.\\[1ex]
+
+A version of a lock is used by the CPU to lock the main memory bus for one core, to exclude other cores. This is used to ensure that the data is not modified by another core while it is being modified by the current core. This can be an expensive operation for other cores as they are forced to wait if they have an instruction to read from memory. To avoid this issue instruction reordering is used. Instruction reordering is the act of reordering unrelated instructions to increase performance. This is done by the CPU and is not guaranteed to happen. In the case of locking fx. the waiting core can start processing other instructions in its cached instruction set that is not dependent on the locked memory, or the instructions needing the waiting instruction.\\[1ex]
 
 \printbibliography
 
