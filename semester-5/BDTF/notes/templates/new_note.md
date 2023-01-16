@@ -6,4 +6,4 @@ date: {{date}}
 
 See also: [[OtherNote]]
 
-# {{Title}}
+# {{title}}

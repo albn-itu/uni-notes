@@ -31,7 +31,7 @@
 ## Plan
 - [ ] 16/1
   - [x] Business model Generation (Chapter 1) (30 pages)
-  - [ ] Business model Generation (Chapter 4) (32 pages)
+  - [x] Business model Generation (Chapter 4) (32 pages)
   - [ ] Ethnographic field methods and their relation to design (Page 123-155) (32 pages)
   - [ ] Interviewet: Samtalen som forskningsmetode (Page 29-53) (24 pages)
   - [ ] Invincible Company (1-43) (43 pages)
