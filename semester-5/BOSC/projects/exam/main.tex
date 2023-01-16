@@ -39,8 +39,11 @@
 \tableofcontents
 \newpage
 
+\section*{Foreword}
+All information in this exam is built on the content of the course Operating Systems And C. Therefore, unless specifically stated, all information is based on the book "Computer Systems: A Programmer's Perspective" by Randal E. Bryant and David R. O'Hallaron\cite{computer-systems} or the lectures by Willard Rafnsson, Niclas Hedam and Philippe Bonnet. Quotes from the book will be marked with citations. All other text is written by me according to my understanding of the aforementioned course content.\\[1ex]
+
 \chapter{Data Lab}
-\subsection{A}
+\section{A}
 % Describe your implementation of howManyBits(x)
 \begin{lstlisting}[language=C]
 int howManyBits(int x) {
@@ -73,7 +76,7 @@ int howManyBits(int x) {
 }
 \end{lstlisting}
 
-The function $howManyBits(x)$ determines how many bits are necessary to represent the number $x$. To make the computations simpler, first, get the sign of the number and negate negative numbers to one less. Eg $-12$ becomes $11$. Those 2 are represented by the same amount of bits, so it just makes things simpler. The mutations done to $-12$ are as so:
+The function $howManyBits(x)$ determines how many bits are necessary to represent the number $x$. To make the computations simpler, first, get the sign of the number and negate negative numbers to one less, using bitwise operators. Eg $-12$ becomes $11$. Those 2 are represented by the same amount of bits, so it just makes things simpler. The mutations done to $-12$ are as so:
 \begin{align*}
     -12 &= 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 1111\ 0100\\
     \sim-12 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 1011\\
@@ -96,7 +99,7 @@ For $x=11$ the mutations look like this:
 \end{align*}
 For positive numbers, we change nothing in the end, but it's necessary for the algorithm to work.\\[1ex]
 
-The next step is to search for the outermost bit. This is done by shifting the number by half the size of the integer, initially 16. If there are any bits left, then add 16 to the result. And shift the number by 16. Repeat with 8,4,2 and 1. Doing so will narrow us down more and more to the result. One thing to note is that we always add 1 at the end of the method for the sign. If we take 17 as an example, skip the 16 and 8 shifts. 
+The next step is to search for the outermost bit. This is done by shifting the number by half the size of the integer, initially 16. If there are any bits left, then add 16 to the result. And shift the number by 16. Repeat with 8,4,2 and 1. Doing so will narrow us down more and more to the result. One thing to note is that we always add 1 to the result at the end of the method for the sign. If we take 17 as an example, skip the 16 and 8 shifts. 
 \begin{align*}
     17 &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0001\ 0001\\
     \text{shift by 4} &= 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0000\ 0001\\
@@ -109,7 +112,7 @@ The next step is to search for the outermost bit. This is done by shifting the n
 \end{align*}
 So 17 is stored using 6 bits, 5 for the number and 1 for the sign.
 
-\subsection{B}
+\section{B}
 \begin{lstlisting}[language=C]
 int tmin(void) {
     // The absolute minimum value is 0x80000000, which can be achieved by shifting 1 left 31 bits.
@@ -189,7 +192,7 @@ An 8-word block of memory is allocated as 10 words, where 2 are used for the hea
 
 The header and footer of a block are identical, they contain the size of the block and a bit indicating the allocation state. The next and prev pointers are used to link to the next and previous blocks in the free list, using their addresses.\\[1ex]
 
-The \textit{mm\_malloc} method first checks if the heap is initialized, if not it initializes it with a call to \textit{mm\_init}. Then we align the given size to be double word aligned and attempt to find a free block, with \textit{find\_fit} that can contain the aligned size. If not possible the heap is extended, with \textit{extend\_heap}, which creates a new free block. Then we place the block, either in the found block or the newly created block, with \textit{place}. Each of these methods is described in the following sections, as well as \textit{coalesce} which is used to merge free blocks. 
+The \textit{mm\_malloc} method first checks if the heap is initialized, if not it initializes it with a call to \textit{mm\_init}. Then we align the given size to be double word aligned and attempt to find a free block, with \textit{find\_fit} that can contain the aligned size. If not possible the heap is extended, with \textit{extend\_heap}, which creates a new free block. Then we place the block, either in the found block or the newly created block, with \textit{place}. Each of these methods is described in the following sections, as well as \textit{coalesce} which is used to merge free blocks. I'll also go through the code for adding to and removing from the free list. 
 
 \subsection{find\_fit}
 \textit{find\_fit}, appendix \ref{appendix:malloc_lab_code_find_fit}, is extremely naively implemented. It simply iterates through the free list and returns the first block that is large enough to fit the given size.\\[1ex]
@@ -321,7 +324,7 @@ Two methods \textit{insert\_in\_empty\_list} and \textit{remove\_from\_empty\_li
 \newpage
 \section{B}
 % What is pointer arithmetic? Describe how you used it in your version of mm. c
-In C a pointer is a numeric value. Therefore we can perform arithmetic on it. Such as adding or subtracting a number to it. This is called pointer arithmetic.\\[1ex]
+In C a pointer is a numeric value. Therefore we can perform arithmetic on it. Such as adding or subtracting a number to it. This is called pointer arithmetic. The only difference between regular arithmetic and pointer arithmetic is that the number added will be scaled by the size of the type the pointer is pointing to. Fx. if you were to add 2 to an int pointer, it would evaluate to 8 bytes ahead, since int is 4 bytes long. That is why in the following examples we always cast to a char pointer since a char is 1 byte and therefore make it far easier to manipulate our pointers.\\[1ex]
 
 In my version of \textit{mm.c} I used pointer arithmetic to find the location of the header, footer and previous pointer. It was also used to find the location of the next, and previous, blocks in memory, calculated using the size of the block. 
 \begin{lstlisting}[language=C]
@@ -349,25 +352,25 @@ The next free block pointer location is stored at the data location. The previou
 \chapter{Topics from class}
 \section{A}
 % Goldmine: https://stackoverflow.com/questions/49396346/why-are-segfaults-called-faults-and-not-aborts-if-they-are-not-recoverable
-Traps are usually intentional and emitted by a software process. Let's for example take a zero-division error. In this case, the kernel's trap handler would send a signal to the process. Traps are reported after the instruction that caused it has been executed.\\[1ex]
+Traps are usually intentional and emitted by a software process. Let's for example take a zero-division error. In this case, the kernel's trap handler would send a signal to the process, allowing the process to handle the error. Traps are reported after the instruction that caused it has been executed.\\[1ex]
 
 Faults, unlike traps, are usually unintentional and are emitted by hardware. While not intentional some faults can be recovered, fx. if a process dereferenced a pointer to paged memory. In this case, the kernel's trap handler would load the paged memory into main memory to actually access the data. The kernel doesn't send a signal to the process, in this case, but just retries the instruction that caused the page fault. Faults are detected before or during the instruction, and if they are reported, it's done after the environment has been reset to a state that can retry the instruction\\[1ex]
 
-Aborts are unintentional and unrecoverable. Fx a segfault, despite its name, will usually kill an application. Segfaults happen when an application tries to access an invalid address. The kernel handler sends a signal to the process.\\[1ex]
+Aborts are unintentional and unrecoverable. Fx a segfault, despite its name, will usually kill an application. Segfaults happen when an application tries to access an invalid address. The kernel handler sends a signal to the process, usually killing it.\\[1ex]
 
 One thing to note about the above is that it assumes a very simple architecture. In most modern OS's all of these are recoverable, wouldn't be very convenient if all segfaults crashed the operating system. You can actually catch aborts in C on Linux systems\cite{catch-signal} by registering a signal handler for them, as interrupts are simply signals. 
 
 \section{B}
-Before understanding ports, we must understand the concept of sockets. A socket is an endpoint for network communication. A socket has an IP address and a port, formatted as \textit{address:port}, also known as a socket address. Sockets are used to communicate with other sockets, usually between a server's socket and a client's socket. Ports are an integer between 0 and 65353.\footnote{All information in this section is from Computer Systems: A Programmers Perspective \cite{computer-systems}, reworded by me.}\\[1ex]
+Before understanding ports, we must understand the concept of sockets. A socket is an endpoint for network communication. A socket has an IP address and a port, formatted as \textit{address:port}, also known as a socket address. Sockets are used to communicate with other sockets, usually between a server's socket and a client's socket. Ports are an integer between 0 and 65353.\\[1ex]
 
 Ephemeral ports are short-lived ports, usually used for the client to server communication. When a client tries to make a request to the server the kernel will assign a port to the socket address used. Once the client disconnects from the server, this port is closed.\\[1ex]
 
-A well-known port is a long-lived port, the entire runtime of the application, usually used for the server to client communication. Well-known ports are usually one of the reserved ports in the range 0-1023. Fx port 80 is reserved for HTTP traffic, it can be used for other purposes, but will confuse HTTP clients. It should be noted that the range 0-1023 is expanding as it gets harder and harder to reserve a port in this range.\cite{registered-port}.\\[1ex] 
+A well-known port is a long-lived port, usually the entire runtime of the application, used for server-client communication. Well-known ports are usually one of the reserved ports in the range 0-1023. Fx. port 80 is reserved for HTTP traffic, it can be used for other purposes, but will confuse HTTP clients. It should be noted that the range 0-1023 is expanding as it gets harder and harder to reserve a port in this range\cite{reserved-ports}.\\[1ex] 
 
 \section{C}
 A memory leak is allocated memory that is no longer used. It can occur when one forgets to clean up the memory they have allocated or when allocating memory and overwriting the pointer to it, without first releasing the memory (orphaning). It can be avoided by using garbage collection, or by remembering to always have a \textit{free} call for every \textit{malloc} call.\\[1ex]
 
-Garbage collection is a technique for freeing memory that is no longer used by the program. A garbage collector holds a reachability tree, which contains root nodes and heap nodes. If there is no path to a heap node, from some root node, it is considered garbage and can be freed. In C we use a so-called conservative garbage collector, which assumes that all blocks are still in use unless proven otherwise. This does cause some blocks to be incorrectly identified as in use but ensures no blocks are incorrectly identified as garbage.\\[1ex]
+Garbage collection is a technique for freeing memory that is no longer used by the program. A garbage collector holds a reachability tree, which contains root nodes and heap nodes. Root nodes are the pointers on the stack or global variables. If there is no path to a heap node, from some root node, it is considered garbage and can be freed. In C we use a so-called conservative garbage collector, which assumes that all blocks are still in use unless proven otherwise. This does cause some blocks to be incorrectly identified as in use but ensures no blocks are incorrectly identified as garbage.\\[1ex]
 
 \section{D}
 Parallel processing is the act of executing multiple instructions at the same time, instead of one at a time. Unfortunately, there are no guarantees that the instructions will be executed in the order they were written. Therefore when multiple threads are modifying the same data, the order of modifications is not guaranteed. This problem is called race conditions.\\[1ex]
@@ -377,11 +380,11 @@ Due to the unpredictable nature of race conditions, they are hard to debug. They
 To avoid race conditions synchronization is needed.\\
 The most basic synchronization primitive is atomic instructions, present in x86, such as fetch and add, compare and swap, and test and set. These instructions tell the CPU to do this operation and don't get interrupted by other threads. Also don't allow them to modify whatever you are modifying. Compared to normal instructions these are fairly expensive due to them doing 3 operations in one. Take the fetch and add which reads, adds and writes in one instruction. While these operations are fairly simple they can be used to implement more advanced synchronization principles, such as mutexes.\\[1ex]
 
-Mutexes are a synchronization primitive that, when locked, are only locked on that thread. These can be used to ensure only 1 thread has access to the data. The problem with this approach is that it can make the code synchronous if used improperly, or become a bottleneck. On page 1050 of Computer Systems \cite{computer-systems} an experiment is conducted. This experiment uses a varying amount of threads to sum multiple numbers, using mutexes to lock the result variable. In this experiment threading is orders of magnitude slower than single-threaded due to the massive overhead of mutex locking.\\[1ex]
+Mutexes are a synchronization primitive that, when locked, are only locked on that thread. These can be used to ensure only 1 thread has access to the data. The problem with this approach is that it can make the code synchronous if used improperly, or become a bottleneck. On page 1050 of Computer Systems\cite{computer-systems} an experiment is conducted. This experiment uses a varying amount of threads to sum multiple numbers, using mutexes to lock the result variable. In this experiment threading is orders of magnitude slower than single-threaded due to the massive overhead of mutex locking.\\[1ex]
 
 Another approach is the \textit{\_thread} keyword, which creates an instance of the variable pr. thread. That's expensive in terms of memory, and pretty useless if the data needs to be shared, such as multithreaded computations on the same data.\\[1ex]
 
-Said best by Randal E. Bryant and David R. O'Hallaron \textit{"Synchronization overhead is expensive and should be avoided if possible."} \cite{computer-systems}. If possible synchronization should be completely avoided, or used sparingly. Do as many operations as possible outside the mutex, such that the time spent in the locked mutex is as small as possible.\\[1ex]
+Said best by Randal E. Bryant and David R. O'Hallaron \textit{"Synchronization overhead is expensive and should be avoided if possible."}\cite{computer-systems}. If possible synchronization should be completely avoided, or used sparingly. Do as many operations as possible outside the mutex, such that the time spent in the locked mutex is as small as possible.\\[1ex]
 
 A version of a lock is used by the CPU to lock the main memory bus for one core, to exclude other cores. This is used to ensure that the data is not modified by another core while it is being modified by the current core. This can be an expensive operation for other cores as they are forced to wait if they have an instruction to read from memory. To avoid this issue instruction reordering is used. Instruction reordering is the act of reordering unrelated instructions to increase performance. This is done by the CPU and is not guaranteed to happen. In the case of locking fx. the waiting core can start processing other instructions in its cached instruction set that is not dependent on the locked memory, or the instructions needing the waiting instruction.\\[1ex]
 
@@ -389,6 +392,8 @@ A version of a lock is used by the CPU to lock the main memory bus for one core,
 
 \chapter{Appendix}
 \appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
 \chapter{Malloc Lab code}
 \section{mm\_malloc}\label{appendix:malloc_lab_code_mm_malloc}
 \begin{lstlisting}[language=C]
@@ -427,8 +432,6 @@ static void *find_fit(size_t asize)
   // First-fit search 
   void *bp = first_freep;
 
-  Brendan Fairclough
-
   while (bp != NULL) {
     if (GET_SIZE(HDRP(bp)) >= asize)
       return bp;
@@ -441,7 +444,7 @@ static void *find_fit(size_t asize)
 
 \section{extend\_heap}\label{appendix:malloc_lab_code_extend_heap}
 \begin{lstlisting}[language=C]
-    static void *extend_heap(size_t words) {
+static void *extend_heap(size_t words) {
   char *bp;
   size_t size;
 
