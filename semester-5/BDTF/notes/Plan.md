@@ -1,0 +1,42 @@
+# Reading plan
+## Material
+- Kursurs beskrivelsen
+- Business Model Generation
+  - 9/9: Chapter 1 up to Customer Segments and Value Propositions
+  - 16/9: Chapter 1, the rest
+  - 30/9: Chapter 4 (Page 200-212)
+  - Sum: Chapter 1 and 4
+- Ethnographic field methods and their relation to design
+  - 9/9: Page 123-155
+  - Sum: Page 123-155
+- Interviewet: Samtalen som forskningsmetode
+  - 9/9: Page 29-53
+  - Sum: Page 29-53
+- Invincible Company
+  - 7/10: Page 1-43 and page 72-93
+  - 14/10: Page 96-101 and page 138-162 and page 212-221
+  - 28/10: Page 162-212 and page 110-115
+  - 4/11: Page 110-115 and page 124-125 and page 230-283
+  - 11/11: Page 90-99 and page 212-221
+  - Sum: 1-43, 72-101, 110-115, 124-125, 136-221, 230-283
+- Testing business ideas
+  - 14/10: Page 34 and page 45 and page 54
+  - 28/10: Page 35
+  - 4/11: Page 36-40
+  - 11/11: Page 48-99 and page 313-323
+  - 18/11: Page 1-14 and page 104-105 and page 234-235 and quickly 101-230 and quickly 231-312
+  - Sum: 1-14, 34-40, 45, 48-99, 104-105, 234-235, 313-323. Quick: 101-230, 231-312
+  - Sum: 
+
+## Plan
+- [] 16/1
+  - [] Business model Generation (Chapter 1 and 4)
+  - [] Ethnographic field methods and their relation to design (Page 123-155)
+  - [] Interviewet: Samtalen som forskningsmetode (Page 29-53)
+  - [] Invincible Company (1-43, 72-101, 110-115)
+- [] 17/1:
+  - [] Invincible Company (124-125, 136-221, 230-283)
+  - [] Testing business ideas (1-14, 34-40, 45, 48-99, 104-105, 234-235, 313-323)
+- [] 18/1: Group work and read report
+- [] 19/1: Testing business ideas (What's left)
+- [] 20/1: The fateful day
