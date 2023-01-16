@@ -32,15 +32,23 @@
 - [ ] 16/1
   - [x] Business model Generation (Chapter 1) (30 pages)
   - [x] Business model Generation (Chapter 4) (32 pages)
-  - [ ] Ethnographic field methods and their relation to design (Page 123-155) (32 pages)
-  - [ ] Interviewet: Samtalen som forskningsmetode (Page 29-53) (24 pages)
-  - [ ] Invincible Company (1-43) (43 pages)
+  - [ ] ~~Ethnographic field methods and their relation to design (Page 123-155) (32 pages)~~
+  - [ ] ~~Interviewet: Samtalen som forskningsmetode (Page 29-53) (24 pages)~~
+  - [x] Invincible Company (1-43) (43 pages)
   - [ ] Invincible Company (72-101) (29 pages)
   - [ ] Invincible Company (110-115) (5 pages)
-  - 195 pages
+  - 90 pages
 - [ ] 17/1:
-  - [ ] Invincible Company (124-125, 136-221, 230-283) (139 pages)
-  - [ ] Testing business ideas (1-14, 34-40, 45, 48-99, 104-105, 234-235, 313-323) (86 pages)
+  - [ ] Invincible Company (124-125) (2 pages)
+  - [ ] Invincible Company (136-221) (85 pages)
+  - [ ] Invincible Company (230-283) (53 pages)
+  - [ ] Testing business ideas (1-14) (15 pages)
+  - [ ] Testing business ideas (34-40) (6 pages)
+  - [ ] Testing business ideas (45) (1 page)
+  - [ ] Testing business ideas (48-99) (31 pages)
+  - [ ] Testing business ideas (104-105) (2 pages)
+  - [ ] Testing business ideas (234-235) (2 pages)
+  - [ ] Testing business ideas (313-323) (10 pages)
   - 225 pages
 - [ ] 18/1: Group work and read report
 - [ ] 19/1: Testing business ideas (What's left)
