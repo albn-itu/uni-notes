@@ -29,14 +29,19 @@
   - Sum: 
 
 ## Plan
-- [] 16/1
-  - [] Business model Generation (Chapter 1 and 4)
-  - [] Ethnographic field methods and their relation to design (Page 123-155)
-  - [] Interviewet: Samtalen som forskningsmetode (Page 29-53)
-  - [] Invincible Company (1-43, 72-101, 110-115)
-- [] 17/1:
-  - [] Invincible Company (124-125, 136-221, 230-283)
-  - [] Testing business ideas (1-14, 34-40, 45, 48-99, 104-105, 234-235, 313-323)
-- [] 18/1: Group work and read report
-- [] 19/1: Testing business ideas (What's left)
-- [] 20/1: The fateful day
+- [ ] 16/1
+  - [x] Business model Generation (Chapter 1) (30 pages)
+  - [ ] Business model Generation (Chapter 4) (32 pages)
+  - [ ] Ethnographic field methods and their relation to design (Page 123-155) (32 pages)
+  - [ ] Interviewet: Samtalen som forskningsmetode (Page 29-53) (24 pages)
+  - [ ] Invincible Company (1-43) (43 pages)
+  - [ ] Invincible Company (72-101) (29 pages)
+  - [ ] Invincible Company (110-115) (5 pages)
+  - 195 pages
+- [ ] 17/1:
+  - [ ] Invincible Company (124-125, 136-221, 230-283) (139 pages)
+  - [ ] Testing business ideas (1-14, 34-40, 45, 48-99, 104-105, 234-235, 313-323) (86 pages)
+  - 225 pages
+- [ ] 18/1: Group work and read report
+- [ ] 19/1: Testing business ideas (What's left)
+- [ ] 20/1: The fateful day
