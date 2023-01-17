@@ -8,7 +8,7 @@ See also: [[OtherNote]]
 
 # Evidence
 
-![](img/pasted_img_20221111124321.png)
+There are 2 different types of evidence:
 
 - Weak Evidence
   - Opinions and beliefs
@@ -24,4 +24,6 @@ See also: [[OtherNote]]
   - What people do
   - Real world settings
   - Large investments
+
+Different experiment create different strengths of evidence, make sure you pick the right one.
 

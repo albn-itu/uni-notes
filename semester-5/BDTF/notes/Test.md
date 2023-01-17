@@ -41,6 +41,10 @@ Use [[Assumption Mapping]] of the Key Hypothesis, the Experiments and the key in
 [[Innovation Project Score Card]]
 
 ### Learn
+Analyze the results of the experiments. The results determine whether or not to perservere, pivot or kill. Use [[Learning Card]]
 
-Analyze the results of the experiments. The results determine whether or not to perservere, pivot or kill.
+### Decide
+This is the last field of the [[Learning Card]]. Where you should make a decision based on your test results and learnings.
 
+### Manage
+See [[Test Management]]

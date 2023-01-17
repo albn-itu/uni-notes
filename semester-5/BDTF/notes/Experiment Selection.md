@@ -22,6 +22,9 @@ How much evidence do you already have (for a specific hypothesis)?
 x-axis: Strong and weak evidence
 y-axis: How important is the evidence?
 
+### Urgency
+How much time do you have to complete the experiment? When is the next decision to be made?
+
 ## Evaluate the experiment
 Use the card below to evaluate what the evidence provides, and how much it takes to do it. 
 
