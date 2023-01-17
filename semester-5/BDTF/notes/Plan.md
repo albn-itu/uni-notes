@@ -27,6 +27,11 @@
   - 18/11: Page 1-14 and page 104-105 and page 234-235 and quickly 101-230 and quickly 231-312
   - Sum: 1-14, 34-40, 45, 48-99, 104-105, 234-235, 313-323. Quick: 101-230, 231-312
   - Sum: 
+- Value Proposition Design
+  - Pensum: Page 128-131
+  - Pensum: Knowledge of Chaper 1-2
+- Predators and Prey: A New Ecology of Competition 
+  - Pensum: Page 1-4
 
 ## Plan
 - [ ] 16/1
@@ -38,7 +43,7 @@
   - [x] Invincible Company (72-101) (29 pages)
   - [x] Invincible Company (110-115) (5 pages)
   - 56/195 pages left
-- [ ] 17/1:
+- [x] 17/1:
   - [x] Invincible Company (124-125) (2 pages)
   - [x] Invincible Company (136-221) (85 pages)
   - [x] Invincible Company (230-283) (53 pages)
@@ -51,5 +56,10 @@
   - [x] Testing business ideas (313-323) (10 pages)
   - 0/207 pages
 - [ ] 18/1: Group work and read report
-- [ ] 19/1: Testing business ideas (What's left)
+- [ ] 19/1:
+  - [ ] Value Proposition Design (Page 128-131) (4 pages)
+  - [ ] Value Proposition Design (Chapter 1) (x pages)
+  - [ ] Value Proposition Design (Chapter 2) (x pages)
+  - [ ] Predators and Prey: A New Ecology of Competition (Page 1-4) (5 pages)
+  - 9+x/9+x pages
 - [ ] 20/1: The fateful day
