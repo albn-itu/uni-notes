@@ -38,18 +38,5 @@ Use the card below to evaluate what the evidence provides, and how much it takes
 
 ![](img/pasted_img_20221111132451.png)
 
-## Experiment pitfalls
-- Time trap
-  - Don't force timelines that make the experiment suffer
-- Analysis Paralysis
-  - Don't keep Analysing instead of validating and experimenting more
-- Incomparable Data/Evidence
-  - Correlation does not imply causation. Look at the Nicolas Cage Swimming Pool chart
-- Weak Data/Evidence
-- Too Few experiments
-- Confirmation bias
-  - Don't do the experiments in a echo chamber. And look at the evidence objectively
-- Failure to learn and adapt
-  - Just ignoring the experiments. Change according to what the data tells you, even if you don't like the results.
-- Outsource testing
-  - Doing the experiments on your own provides more value, some outsourcing may not have the skills you need.
+## Experiment Pitfalls
+See [[Experiment Pitfalls]]
