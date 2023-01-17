@@ -35,7 +35,7 @@
   - [ ] ~~Ethnographic field methods and their relation to design (Page 123-155) (32 pages)~~
   - [ ] ~~Interviewet: Samtalen som forskningsmetode (Page 29-53) (24 pages)~~
   - [x] Invincible Company (1-43) (43 pages)
-  - [ ] Invincible Company (72-101) (29 pages)
+  - [x] Invincible Company (72-101) (29 pages)
   - [ ] Invincible Company (110-115) (5 pages)
   - 90 pages
 - [ ] 17/1:
