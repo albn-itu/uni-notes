@@ -38,7 +38,7 @@
   - [x] Invincible Company (72-101) (29 pages)
   - [x] Invincible Company (110-115) (5 pages)
 - [ ] 17/1:
-  - [ ] Invincible Company (124-125) (2 pages)
+  - [x] Invincible Company (124-125) (2 pages)
   - [ ] Invincible Company (136-221) (85 pages)
   - [ ] Invincible Company (230-283) (53 pages)
   - [ ] Testing business ideas (1-14) (15 pages)
