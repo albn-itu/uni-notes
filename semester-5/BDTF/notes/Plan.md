@@ -37,18 +37,19 @@
   - [x] Invincible Company (1-43) (43 pages)
   - [x] Invincible Company (72-101) (29 pages)
   - [x] Invincible Company (110-115) (5 pages)
+  - 56/195 pages left
 - [ ] 17/1:
   - [x] Invincible Company (124-125) (2 pages)
   - [x] Invincible Company (136-221) (85 pages)
   - [x] Invincible Company (230-283) (53 pages)
-  - [ ] Testing business ideas (1-14) (15 pages)
+  - [x] Testing business ideas (1-14) (15 pages)
   - [ ] Testing business ideas (34-40) (6 pages)
   - [ ] Testing business ideas (45) (1 page)
   - [ ] Testing business ideas (48-99) (31 pages)
   - [ ] Testing business ideas (104-105) (2 pages)
   - [ ] Testing business ideas (234-235) (2 pages)
   - [ ] Testing business ideas (313-323) (10 pages)
-  - 225 pages
+  - 52/207 pages
 - [ ] 18/1: Group work and read report
 - [ ] 19/1: Testing business ideas (What's left)
 - [ ] 20/1: The fateful day
