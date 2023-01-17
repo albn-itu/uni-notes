@@ -36,8 +36,7 @@
   - [ ] ~~Interviewet: Samtalen som forskningsmetode (Page 29-53) (24 pages)~~
   - [x] Invincible Company (1-43) (43 pages)
   - [x] Invincible Company (72-101) (29 pages)
-  - [ ] Invincible Company (110-115) (5 pages)
-  - 90 pages
+  - [x] Invincible Company (110-115) (5 pages)
 - [ ] 17/1:
   - [ ] Invincible Company (124-125) (2 pages)
   - [ ] Invincible Company (136-221) (85 pages)
