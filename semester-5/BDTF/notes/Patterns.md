@@ -15,3 +15,8 @@ There are 2 types of patterns, the Invent Patterns which change the [[Explore]] 
 Pattern mentions:
 - [[Frontstage Disruption]]
 - [[Backstage Disruption]]
+- [[Profit Formular Disruption]]
+- [[Value Proposition Driven Shifts]]
+- [[Frontstage Driven Shifts]]
+- [[Backstage Driven Shifts]]
+- [[Profit Formula Driven Shifts]]
