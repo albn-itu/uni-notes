@@ -49,7 +49,7 @@
   - [ ] Testing business ideas (104-105) (2 pages)
   - [ ] Testing business ideas (234-235) (2 pages)
   - [ ] Testing business ideas (313-323) (10 pages)
-  - 52/207 pages
+  - 45/207 pages
 - [ ] 18/1: Group work and read report
 - [ ] 19/1: Testing business ideas (What's left)
 - [ ] 20/1: The fateful day
