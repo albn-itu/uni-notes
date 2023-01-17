@@ -44,7 +44,7 @@
   - [x] Invincible Company (230-283) (53 pages)
   - [x] Testing business ideas (1-14) (15 pages)
   - [x] Testing business ideas (34-40) (6 pages)
-  - [ ] Testing business ideas (45) (1 page)
+  - [x] Testing business ideas (45) (1 page)
   - [ ] Testing business ideas (48-99) (31 pages)
   - [ ] Testing business ideas (104-105) (2 pages)
   - [ ] Testing business ideas (234-235) (2 pages)

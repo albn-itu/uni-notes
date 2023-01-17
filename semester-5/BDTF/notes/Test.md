@@ -20,7 +20,7 @@ Assess the design of your prototype using assessment questions. If you are satis
 Come up with everything that needs to be true for the idea to work. Break it into small testable pieces.
 
 ### Experiment
-Test your hypothesis with experiments. One would ususally look for the following elements
+Test your hypothesis with experiments. Use [[Test Card]]. One would ususally look for the following elements
 
 #### [[Desirability]] - Do they want it?
 Look at the environment, use the 4 Key Factors Performance Assesment
