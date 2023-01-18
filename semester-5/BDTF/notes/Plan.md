@@ -58,8 +58,8 @@
 - [ ] 18/1: Group work and read report
 - [ ] 19/1:
   - [ ] Value Proposition Design (Page 128-131) (4 pages)
-  - [ ] Value Proposition Design (Chapter 1) (x pages)
-  - [ ] Value Proposition Design (Chapter 2) (x pages)
-  - [ ] Predators and Prey: A New Ecology of Competition (Page 1-4) (5 pages)
-  - 9+x/9+x pages
+  - [ ] Value Proposition Design (Chapter 1) (29 pages)
+  - [ ] Value Proposition Design (Chapter 2) (16 pages)
+  - [ ] Predators and Prey: A New Ecology of Competition (Page 1-4) (4 pages)
+  - 55/55 pages
 - [ ] 20/1: The fateful day
