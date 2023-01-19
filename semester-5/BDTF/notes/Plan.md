@@ -37,7 +37,6 @@
 - [ ] 16/1
   - [x] Business model Generation (Chapter 1) (30 pages)
   - [x] Business model Generation (Chapter 4) (32 pages)
-  - [ ] ~~Ethnographic field methods and their relation to design (Page 123-155) (32 pages)~~
   - [ ] ~~Interviewet: Samtalen som forskningsmetode (Page 29-53) (24 pages)~~
   - [x] Invincible Company (1-43) (43 pages)
   - [x] Invincible Company (72-101) (29 pages)
@@ -56,10 +55,11 @@
   - [x] Testing business ideas (313-323) (10 pages)
   - 0/207 pages
 - [x] 18/1: Group work and read report
-- [ ] 19/1:
+- [x] 19/1:
   - [x] Value Proposition Design (Page 128-131) (4 pages)
   - [x] Value Proposition Design (Chapter 1) (29 pages)
   - [x] Value Proposition Design (Chapter 2) (16 pages)
   - [x] Predators and Prey: A New Ecology of Competition (Page 1-4) (4 pages)
-  - 0/55 pages
+  - [ ] Ethnographic field methods and their relation to design (Page 123-155) (32 pages)
+  - 0/87 pages
 - [ ] 20/1: The fateful day
