@@ -4,7 +4,7 @@ tags: [ hello, world ]
 date: 2023-01-19
 ---
 
-See also: [[Value Proposition Design]]
+See also: [[Value Proposition Canvas]]
 
 # Strategy Canvas
 A Strategy Canvas is a model for comparing different Value Propositions. This tool can be a good way to compare your performance to competitors, or internal Value Propositions.
