@@ -4,7 +4,7 @@ tags: [ hello, world ]
 date: 2023-01-19
 ---
 
-See also: [[Strategy Canvas]]
+See also: [[Strategy Canvas]], [[Fit]]
 
 # Value Proposition Canvas
 A tool for defining the value proposition of a product or service. It has two sides. A side with the Customer Profile and a side with the Value Map that describes how you create value for the customer. To achieve Fit have the two sides meet.
@@ -69,3 +69,17 @@ Pain relievers are the parts of products or services that alleviate pains. Shoul
 
 ### Element - Gain Creators
 Gain creators are the parts of products or services that create gains. Should be prioritised by relevance to the customer.
+
+## A great value proposition
+Here are 10 characteristics of a great value proposition:
+
+- Embedded in a great business model
+- Focus on jobs, pains, gains that matter to the customer
+- Focus on unsatisfied jobs, unresolved pains, unrealized gains
+- Target few job, pains and gains, but solve the extraordanily well
+- Go eyon functional and focus on social and emotional
+- Align with customers sense of success
+- Focus on jobs, pains and gains that a lot of people have, or that few people will spend alot of money on
+- Differentiate from competitors
+- Outperform competitors on at least one job, pain or gain
+- Are difficult to copy
