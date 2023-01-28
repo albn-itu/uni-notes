@@ -19,7 +19,7 @@ Assess the design of your prototype using assessment questions. If you are satis
 ### [[Hypothesize]]
 Come up with everything that needs to be true for the idea to work. Break it into small testable pieces.
 
-### Experiment
+### [[Experiment]]
 Test your hypothesis with experiments. Use [[Test Card]]. One would ususally look for the following elements
 
 #### [[Desirability]] - Do they want it?
