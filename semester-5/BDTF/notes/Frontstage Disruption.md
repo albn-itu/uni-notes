@@ -15,9 +15,9 @@ Unlocks untapped and underserved markets with new value propositions. Thereby ex
 
 **Examples**
 
-- Visionaries (Tesla)
-- Repurposer (M-Pesa, mobile phone based money transfer)
-- Democratiser (Sears & Roebuck, deparment store)
+- Visionaries: See and use a new market potential (Tesla)
+- Repurposer: Reuse existing products in a new way (M-Pesa, mobile phone based money transfer)
+- Democratiser: Allow broad market access from high-end only (Sears & Roebuck, deparment store)
 
 ### Channel Kings
 Change how to reach and acquire a large number of new customers. Essentially changing recruitment strategy. This is done by exploiting new channels that haven't been used before.
