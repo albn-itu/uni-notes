@@ -1,0 +1,12 @@
+- "This interface has remained stable for years but it is now undergoing a radical evolution"
+  - This is explained later, but seems a little thrown in there. Also there 
+- noch b
+- Some of these sentences are seemingly longer than necessary, not sure if it needs to be improved though, example: "Historically the implicit performance contract associated with this simple abstraction was that"
+- Sources would be nice on some claims, such as the block device interface that abstracts storage device internals being legacy.
+- "Each file is an array of bytes managed by the operating system and defined
+atop the block device interface which abstracts storage device internals. This is now legacy" Which part of that sentence is legacy? It's described later, but changing the sentence to "This abstraction is now legacy" would make it less confusing.
+- "is the mapping component of the FTL", FTL seems to not be defined prior to this sentence.
+- "block device interface ([8]))", extra closing parentheses
+- In terms of typesetting it would be nice distinguish things such as "O_DIRECT" or "mmap", since they're weirdly cased.
+- Background in each sections is really good, and provides a nice springboard and motivation for the rest of the section.
+- Some terms and concepts aren't really established, but there is also 2 chapters that i haven't read
