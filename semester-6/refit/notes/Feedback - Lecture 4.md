@@ -16,6 +16,6 @@ The subject was very complicated, and quite philosophical, which sadly resulted 
 I think my main critique was that things were explained too fast and convoluted. I believe the subject could have been explained simpler, despite the complexity of the subject.
 
 ## The Turing machine
-It would be nice to have some context for what the Turing machine worked before we start computing. What is the start state, and what is the machine doing? It was incredibly confusing, and time consuming to watch without any context. Also we did understand the concept after first few states.
+It would be nice to have some context for how the Turing machine worked before we started computing. Would help knowing what the start state was, and what the machine was doing. It was incredibly confusing, and time consuming to watch without any context. Also we did understand the concept after first few states.
 
 There seemed to be a few times where you stopped and seemed confused, or lost. I just want to show some support if you are going through a hard time, it happens to all of us and the behavior of the student in the end was truly unacceptable to do in front of the entire auditorium.
