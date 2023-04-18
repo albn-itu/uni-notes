@@ -43,3 +43,9 @@
 [submodule "semester-6/baps/exercises"]
 	path = semester-6/baps/exercises
 	url = https://github.com/albn-itu/baps-exercises
+[submodule "semester-6/baps/projects/baps-exercise-4"]
+	path = semester-6/baps/projects/baps-exercise-4
+	url = https://github.com/albn-itu/baps-exercise-4/
+[submodule "semester-6/baps/projects/exam"]
+	path = semester-6/baps/projects/exam
+	url = https://github.com/amalieboegild/algo_exam
