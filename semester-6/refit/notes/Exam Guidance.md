@@ -22,7 +22,7 @@ date: 2023-04-24
 - There will be dedicated exercise units for Guidance
 
 Process:
-- Find an IT problem (AI, selfdriven cars, biohacking, social media, crypto, decentralized networks, military tech, military -> civilian tech, the not so safe infrastructure ala skyggekrigen)
+- Find an IT problem (AI, selfdriven cars, biohacking, social media, crypto, decentralized networks, military tech, military -> civilian tech, the fragility of infrastructure ala skyggekrigen)
 - Analyze it
 
 ## Structure
