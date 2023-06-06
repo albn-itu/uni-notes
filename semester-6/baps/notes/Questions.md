@@ -1,0 +1,121 @@
+---
+title: Questions
+tags: [ hello, world ]
+date: 2023-06-06
+---
+
+See also: [[OtherNote]]
+
+# Questions
+## Problem solving techniques
+
+- Describe 2 techniques to enumerate all subsets of the set $\{1, ..., n\}$.
+  - Recursion
+  - Iterative Bit sequence
+- How do you solve [Geppetto](https://itu.kattis.com/problems/geppetto) using complete search?
+  - See gepetto.py. Essentially just check on each loop if the new element has a pair, and if that pair is already in the list, if it is, ignore it and search without it.
+- How do you solve the `n x n`-queens problem using backtracking?
+  - Create 3 arrays, one of columns, one of diagonals, and one of anti-diagonals. Then, for each row, check if the column, diagonal, and anti-diagonal are free. If they are, place a queen there, and move on to the next row. If they are not, move on to the next column. If there are no columns left, backtrack to the previous row and move on to the next column.
+- How does the general outline of a greedy algorithm look like?
+  - Read input
+  - Sort input by some criteria
+  - Iterate the sorted input
+    - Add the element to the solution if it is valid
+    - Ignore the element if it is not
+  - Return the solution
+- Describe the greedy algorithm for the `coin exchange problem`. What is its running time? Describe the central step in the correctness argument ("It's never wrong to take the largest coin that is at most as large as the current value")
+  - Sort the coins
+  - Pick the biggest coin that places you at or below the target value
+  - Repeat until you reach the target value
+  - Return the number of coins used
+  - The central step is that if you have a coin that is larger than the target value, you can always replace it with a smaller coin and get a better solution.
+  - Running time is `O(n log n)` for sorting, and `O(n)` for the actual algorithm.
+- Describe the greedy algorithm for `Task Scheduling`. What is its running time?
+  - Sort the elements by their duration
+  - Pick the element with the smallest duration
+  - By doing this you push other tasks by a minimal amount every time
+
+## Dynamic programming
+- Explain: How do you find the `n-th Fibonacci number` using dynamic programming? How does memoization work in this case?
+  - Create an array of the first two fibonacci numbers
+  - When asked to get the n-th fibonacci number, check if it is in the array
+    - If it is, return it
+    - Else calculate it, and all the numbers up to it, and save them in the array
+- Why does the greedy algorithm not work for the [Exact Change](https://open.kattis.com/problems/exactchange2) problem?
+  - Because the first solution would be 1400+500 which would bring you to 1900 instead of 1500 which is desired.
+  - We have to consider more solutions to the problem to get the optimal solution.
+- How would you solve the problem [Knapsack](https://open.kattis.com/problems/knapsack) using Dynamic programming?
+  - Create an array of size n and m where n is the max weight and m is the number of items
+  - Iterate over the items
+    - Iterate over the weights
+      - If the item fits in the weight, check if the value of the item + the value of the remaining weight is greater than the value of the current weight
+        - If it is, set the value of the current weight to the value of the item + the value of the remaining weight
+- Describe: What is the difference between an iterative and a recursive implementation of a DP algorithm?
+  - Iterative can be faster, use less memory and not run into max recursion depth errors.
+  - A recusrive solution is usually easier to understand though, but also requires more checking of the input, to check limits
+  - In some languages it can be annoying to work with a recursive method as you can't declare global variables, and you have to pass the memoization array around.
+
+## Graph algorithms
+
+- Describe different data structures to store a graph. What are the pros and cons of each data structure?
+  - Adjacency list, simple to implement, but slow to check if two nodes are connected, can be nice on memory
+  - Adjacency matrix, simple, tough on memory
+  - Edge list, simple, but slow to check if two nodes are connected
+  - Fancy stuff with hashmaps and sets, can be fast, but tougher to implement
+- Given an undirected/directed graph, carry out `DFS` from a starting node.
+  - Using the example on the slides 0-1-4-5-3-5-6-7-10
+- Carry out `BFS` on a given directed/undirected graph from a starting node.
+  - Using the example on the slides 
+- What is the running time of `DFS` and `BFS`?
+  - `O(|V| + |E|)`
+- Define: What is a topological sorting of a directed graph? How do you find one using `DFS`?
+  - A topological sorting is a sorting of the nodes in a graph such that if there is an edge from `u` to `v`, then `u` comes before `v` in the sorting. In other words, every node appears before any node it points to.
+  - Start from a node and do DFS, when you are done, add all the nodes you visited to the topological sorting in reverse order. If there are unvisited nodes, start from one, then add those in reverse order. The reversed list is the topological sorting.
+- Describe a kattis problem that can be solved by computing a topological sort.
+  - Ours :/
+  - Build dependencies?
+
+## Network flow
+
+- Define: What is a flow in a graph? What is the value of a flow? What is the maximum flow?
+- Define: What is a cut in a graph? How is the value of the cut defined? What is a minimum cut?
+- Given a directed, weighted graph and a pair of vertices `(s,t)`, how is the graph augmented for running a flow algorithm? (edges in opposite directions are added)
+- Given a flow graph and some flow on edges, carry out one step in the algorithm: (1) `Ford-Fulkerson`, (2) `Capacity Scaling`, (3) `Edmonds-Karp`.
+- What is the relation between the maximum flow value and the size of a minimum cut?
+- Given a maxflow, find a minimum cut.
+- What is the running time for the different flow algorithms seen in class?
+- How do you solve a matching problem in a given undirected graph using a flow algorithm?
+- Describe: How do you solve the [King of the North](https://open.kattis.com/problems/kingofthenorth) problem?
+
+## Geometric algorithms
+
+- Define: Given a set of points in the plane, what is their convex hull?
+- Describe the sweepline algorithm to find a convex hull.
+- What is the running time of the algorithm? Why?
+- In the sweep line algorithm, it is important to find out if a line turns "left/right". How do you do this algorithmically?
+- Given a polygon defined by a sequence of points, how do you compute its area?
+- How do you solve [witchdance](https://open.kattis.com/problems/witchdance)?
+
+## Interval queries
+
+In the following, sparse table refers to the "square root" data structure.
+- Given an array of integers, e.g., `[2, 8, 12, 1, 23, 56, 3, 10]`, and for the operations `min` or `sum`, 
+   (i) build a sparse table with two blocks and (ii) build a segment tree. Carry out a query for two positions, e.g., `(3, 5)` in the respective data structures. Update the value of an element and carry out the query again.
+- Given an array of integers build a Fenwick tree from it. What is the meaning of the operation `i & -i`? Which operations are supported by the Fenwick tree? Show how to compute the `sum` of an interval. Why does it make sense that the array is 1-indexed?
+- For all three data structures (Sparse Table, Segment Tree, Fenwick Tree), how long does it take to build the array representation for a given array? How long does a query take? How long does a single update take? 
+- How do you solve [_Supercomputer_](https://itu.kattis.com/problems/supercomputer) and [_Frosh Week_](https://itu.kattis.com/problems/froshweek) using a Segment or Fenwick tree?
+
+## String algorithms
+
+- Describe: How do you solve [Bing](https://itu.kattis.com/problems/bing) using a trie. Which augmentations do you need to apply to a standard trie? 
+- Describe: How does string hashing compute the hash code of a string. What is the role of `a` and `p`? 
+- Let's say `a` is 11 and `p` is 37. How does the polynomial for the string "APS" look like? (no evaluation, not important to get the ordinal representations of the characters right.)
+- What is the probability that two _different_ strings of length `m` hash to the same integer? 
+- What is an efficient way to compute the coefficients `a^{i}` for `i` in `{0, ..., m - 1}`?
+- Discuss: How can dvaput be solved using string hashing?
+
+## Randomized algorithms
+
+- Given a binary string $x$ of length $d$, how do you choose a MinHash hash function $h$ and what is the hash value $h(x)$?
+- Given two strings $x$ and $y$ with Jaccard similarity $J(x,y)$, what is the probability that $x$ and $y$ hash to the same value?
+- How do you build a data structure to find a correlated pair using MinHash?

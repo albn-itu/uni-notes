@@ -9,25 +9,25 @@ See also: [[OtherNote]]
 # Exam plan
 ## Reading material
 - Jan 31 (Introduction)
-  - [ ] Lecture notes
+  - [x] Lecture notes
 - Feb 7 (Problem solving paradigms) (16 pages)
-  - [ ] AL chapter 5 (Pages 9 {47-56})
-  - [ ] AL chapter 6 (Pages 7 {57-64})
+  - [x] AL chapter 5 (Pages 9 {47-56})
+  - [x] AL chapter 6 (Pages 7 {57-64})
   - [ ] AFLV chapter 4 (Pages 56)
-  - [ ] Lecture notes
+  - [x] Lecture notes
 - Feb 14 (Dynamic programming) (11 pages)
-  - [ ] AL chapter 7 (Pages 11 {65-76})
+  - [x] AL chapter 7 (Pages 11 {65-76})
   - [ ] AFLV chapter 6 (Pages 46)
-  - [ ] Lecture notes
+  - [x] Lecture notes
 - Feb 21 (Problem design in kattis)
-  - [ ] Lecture notes
+  - [x] Lecture notes
 - Feb 28 (Graph Algorithms) (19 pages)
-  - [ ] AL chapter 11 (Pages 7 {109-116})
-  - [ ] AL chapter 12 (Pages 5 {117-122})
-  - [ ] AL chapter 16 (Pages 7 {149-156})
+  - [x] AL chapter 11 (Pages 7 {109-116})
+  - [x] AL chapter 12 (Pages 5 {117-122})
+  - [x] AL chapter 16 (Pages 7 {149-156})
   - [ ] AFLV chapter 7 (Pages 116)
   - [ ] AFLV chapter 8 (Pages 59)
-  - [ ] Lecture notes
+  - [x] Lecture notes
 - Mar 7 (Network flow) (13 pages)
   - [ ] AL chapter 20 (Pages 13 {181-194})
   - [ ] Lecture notes
@@ -56,15 +56,15 @@ See also: [[OtherNote]]
   - [x] Work on presentation
 - Jun 6
   - [x] Work on presentation
-  - [ ] Jan 31 (Introduction)
-  - [ ] Feb 7 (Problem solving paradigms) (16 pages)
-  - [ ] Problem solving techniques questions
-  - [ ] Feb 14 (Dynamic programming) (11 pages)
-  - [ ] Dynamic programming questions
-  - [ ] Feb 21 (Problem design in kattis)
+  - [x] Jan 31 (Introduction)
+  - [x] Feb 7 (Problem solving paradigms) (16 pages)
+  - [x] Problem solving techniques questions
+  - [x] Feb 14 (Dynamic programming) (11 pages)
+  - [x] Dynamic programming questions
+  - [x] Feb 21 (Problem design in kattis)
+  - [x] Feb 28 (Graph Algorithms) (19 pages)
+  - [x] Graph algorithms questions
 - Jun 7
-  - [ ] Feb 28 (Graph Algorithms) (19 pages)
-  - [ ] Graph algorithms questions
   - [ ] Mar 7 (Network flow) (13 pages)
   - [ ] Network flow questions
   - [ ] Lunch at work
@@ -72,6 +72,7 @@ See also: [[OtherNote]]
   - [ ] Geometric algorithms questions
   - [ ] Mar 21 (Algorithms on arrays) (15 pages)
   - [ ] Interval queries questions
+  - [ ] Dinner with mom
 - Jun 8
   - [ ] Boardgames
 - Jun 9
