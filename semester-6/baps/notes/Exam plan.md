@@ -29,8 +29,8 @@ See also: [[OtherNote]]
   - [ ] AFLV chapter 8 (Pages 59)
   - [x] Lecture notes
 - Mar 7 (Network flow) (13 pages)
-  - [ ] AL chapter 20 (Pages 13 {181-194})
-  - [ ] Lecture notes
+  - [x] AL chapter 20 (Pages 13 {181-194})
+  - [x] Lecture notes
 - Mar 14 (Geometric algorithms) (14 pages)
   - [ ] AL chapter 29 (Pages 9 {265-274})
   - [ ] AL chapter 30 (Pages 5 {275-280})
@@ -64,16 +64,18 @@ See also: [[OtherNote]]
   - [x] Feb 21 (Problem design in kattis)
   - [x] Feb 28 (Graph Algorithms) (19 pages)
   - [x] Graph algorithms questions
+  - [x] Bike trip
 - Jun 7
-  - [ ] Mar 7 (Network flow) (13 pages)
-  - [ ] Network flow questions
-  - [ ] Lunch at work
+  - [x] Gym
+  - [x] Lunch at work
+  - [x] Mar 7 (Network flow) (13 pages)
+  - [x] Network flow questions
+  - [ ] Dinner with mom
   - [ ] Mar 14 (Geometric algorithms) (14 pages)
   - [ ] Geometric algorithms questions
+- Jun 8
   - [ ] Mar 21 (Algorithms on arrays) (15 pages)
   - [ ] Interval queries questions
-  - [ ] Dinner with mom
-- Jun 8
   - [ ] Boardgames
 - Jun 9
   - [ ] Mar 28 (String algorithms) (4 pages)

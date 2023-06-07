@@ -78,13 +78,30 @@ See also: [[OtherNote]]
 ## Network flow
 
 - Define: What is a flow in a graph? What is the value of a flow? What is the maximum flow?
+  - Flow is an amount of something that goes through a capacity. An edge can have a capacity of how much flow can go through it.
+  - A flow value is the amount it takes from the capacity
+  - Maximum flow is the largest possible amount of flow from one edge to another
 - Define: What is a cut in a graph? How is the value of the cut defined? What is a minimum cut?
+  - A cut is a removal of some set of edges that blocks flow from one node to another.
+  - The value of the cut is the sum of the edges it removes
+  - A minimum cut, is the minimum sum of the edges removed to block flow from one node to another. It has the same value as max flow.
 - Given a directed, weighted graph and a pair of vertices `(s,t)`, how is the graph augmented for running a flow algorithm? (edges in opposite directions are added)
+  - You add edges in the opposite direction of zero capacity. These can later be used to cancel flow.
 - Given a flow graph and some flow on edges, carry out one step in the algorithm: (1) `Ford-Fulkerson`, (2) `Capacity Scaling`, (3) `Edmonds-Karp`.
+  - Ford-Fulkerson would create a residual graph. But it's essentially finding an augmenting path first then setting the values.
+  - Capacity scaling would sum all the edges then find a path with that threshold, then do it again with half, etc.
+  - Edmonds-Karp would be the same as Ford-Fulkerson but with a BFS
 - What is the relation between the maximum flow value and the size of a minimum cut?
+  - They have the same value, since the maximum flow from one node to another is the minimum sie of the cut.
 - Given a maxflow, find a minimum cut.
+  - Find all edges from one set of nodes to another that has all it's capacity used, and which summed give the maxflow.
 - What is the running time for the different flow algorithms seen in class?
+  - Edmonds-Karp is O(VE^2), because you visit most edges at least twice, but each time an edge is satisfied, the length of the paths are limited by V.
 - How do you solve a matching problem in a given undirected graph using a flow algorithm?
+  - Identify the bipartite graph
+  - Create a source connected to one set of nodes
+  - Create a sink connected to the other set of nodes
+  - Run maxflow
 - Describe: How do you solve the [King of the North](https://open.kattis.com/problems/kingofthenorth) problem?
 
 ## Geometric algorithms
