@@ -73,11 +73,11 @@ See also: [[OtherNote]]
   - [x] Dinner with mom
 - Jun 8
   - [x] Mar 14 (Geometric algorithms) (14 pages)
-  - [ ] Boardgames
-  - [ ] Geometric algorithms questions
+  - [x] Boardgames
+  - [x] Geometric algorithms questions
+- Jun 9
   - [ ] Mar 21 (Algorithms on arrays) (15 pages)
   - [ ] Interval queries questions
-- Jun 9
   - [ ] Mar 28 (String algorithms) (4 pages)
   - [ ] String algorithms questions
   - [ ] Apr 11 (Randomized algorithms)

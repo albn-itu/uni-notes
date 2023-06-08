@@ -107,10 +107,19 @@ See also: [[OtherNote]]
 ## Geometric algorithms
 
 - Define: Given a set of points in the plane, what is their convex hull?
+  - A convex hull is the minimum sorrounding line around the points
 - Describe the sweepline algorithm to find a convex hull.
+  - Get the left most and rightmost points. A line can be constructed between these which will separate the top and bottom hull
+  - Sort points by x coordinate, then by y coordinate 
+  - For the top iterate every point and add it to the hull line, if the last line segment turns left, pop points from before it until it no longer doesn't. Do so until you hit the end point.
+  - Do the same for the bottom hull, going from the end to the start
+  - Concat the lists, emitting the last and first from the lists
 - What is the running time of the algorithm? Why?
+  - O(n log n). n because you have to iterate every point, and n log n comes from the sorting algorithm. The result then is O(n+n log n), or just O(n log n)
 - In the sweep line algorithm, it is important to find out if a line turns "left/right". How do you do this algorithmically?
+  - The cross product between the new line and the old. If it's positive, negative if right, and straight if zero
 - Given a polygon defined by a sequence of points, how do you compute its area?
+  - You can use the method where you calculate the area between a trapezoid from each side to the y = 0 line.
 - How do you solve [witchdance](https://open.kattis.com/problems/witchdance)?
 
 ## Interval queries
