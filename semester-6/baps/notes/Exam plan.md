@@ -36,19 +36,19 @@ See also: [[OtherNote]]
   - [x] AL chapter 30 (Pages 5 {275-280})
   - [x] Lecture notes
 - Mar 21 (Algorithms on arrays) (15 pages)
-  - [ ] AL chapter 9 (Pages 11 {83-94})
-  - [ ] AL chapter 27 (Square Root Alg) (Pages 3 {251-254})
-  - [ ] AL chapter 28 (Top-bottom) (Pages 1 {257-258})
+  - [x] AL chapter 9 (Pages 11 {83-94})
+  - [x] AL chapter 27 (Square Root Alg) (Pages 3 {251-254})
+  - [x] AL chapter 28 (Top-bottom) (Pages 1 {257-258})
   - [ ] CJ 4 (Python examples) (Pages )
-  - [ ] Lecture notes
+  - [x] Lecture notes
 - Mar 28 (String algorithms) (4 pages)
-  - [ ] AL chapter 26 (tries) (Pages 1 {244-245})
-  - [ ] AL chapter 26 (string hashing) (Pages 3 {245-248})
-  - [ ] Lecture notes
+  - [x] AL chapter 26 (tries) (Pages 1 {244-245})
+  - [x] AL chapter 26 (string hashing) (Pages 3 {245-248})
+  - [x] Lecture notes
 - Apr 11 (Randomized algorithms)
-  - [ ] Lecture notes
+  - [x] Lecture notes
   - [ ] Project kickoff notes
-  - [ ] Exam notes
+  - [x] Exam notes
 
 
 ## Plan
@@ -76,13 +76,13 @@ See also: [[OtherNote]]
   - [x] Boardgames
   - [x] Geometric algorithms questions
 - Jun 9
-  - [ ] Mar 21 (Algorithms on arrays) (15 pages)
-  - [ ] Interval queries questions
-  - [ ] Mar 28 (String algorithms) (4 pages)
-  - [ ] String algorithms questions
-  - [ ] Apr 11 (Randomized algorithms)
-  - [ ] Randomized algorithms questions
-  - [ ] Train questions
+  - [x] Mar 21 (Algorithms on arrays) (15 pages)
+  - [x] Interval queries questions
+  - [x] Mar 28 (String algorithms) (4 pages)
+  - [x] String algorithms questions
+  - [x] Apr 11 (Randomized algorithms)
+  - [x] Randomized algorithms questions
+  - [x] Train questions
 - Jun 10
   - [ ] Work on presentation
 - Jun 11

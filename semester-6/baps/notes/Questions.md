@@ -125,23 +125,37 @@ See also: [[OtherNote]]
 ## Interval queries
 
 In the following, sparse table refers to the "square root" data structure.
-- Given an array of integers, e.g., `[2, 8, 12, 1, 23, 56, 3, 10]`, and for the operations `min` or `sum`, 
-   (i) build a sparse table with two blocks and (ii) build a segment tree. Carry out a query for two positions, e.g., `(3, 5)` in the respective data structures. Update the value of an element and carry out the query again.
+- Given an array of integers, e.g., `[2, 8, 12, 1, 23, 56, 3, 10]`, and for the operations `min` or `sum`, (i) build a sparse table with two blocks and (ii) build a segment tree. Carry out a query for two positions, e.g., `(3, 5)` in the respective data structures. Update the value of an element and carry out the query again.
+  - See book
 - Given an array of integers build a Fenwick tree from it. What is the meaning of the operation `i & -i`? Which operations are supported by the Fenwick tree? Show how to compute the `sum` of an interval. Why does it make sense that the array is 1-indexed?
+  - It makes sense to have it 1 indexed because it makes it far easier to calculate with 2's complement
+  - The operation `i & -i` is the least significant bit of i.
 - For all three data structures (Sparse Table, Segment Tree, Fenwick Tree), how long does it take to build the array representation for a given array? How long does a query take? How long does a single update take? 
+    - Sparse table: O(sqrt n) to build, O(sqrt n) to query and O(1) to update
+    - Segment tree: O(n) to build and O(log n) to query and update
+    - Fenwick tree: O(n) to build and O(log n) to query and update
 - How do you solve [_Supercomputer_](https://itu.kattis.com/problems/supercomputer) and [_Frosh Week_](https://itu.kattis.com/problems/froshweek) using a Segment or Fenwick tree?
 
 ## String algorithms
 
 - Describe: How do you solve [Bing](https://itu.kattis.com/problems/bing) using a trie. Which augmentations do you need to apply to a standard trie? 
+  - Add a value to the node that can be incremented each time it is visited
 - Describe: How does string hashing compute the hash code of a string. What is the role of `a` and `p`? 
+  - `a` and `p` are constants used in calculating the hash, which is the sum of the characters multiplied by `a` to the power of the index of the character, modulo `p`
 - Let's say `a` is 11 and `p` is 37. How does the polynomial for the string "APS" look like? (no evaluation, not important to get the ordinal representations of the characters right.)
+  - `(s[0]*11^2 + s[1]*11^1 + s[2]*11^0) mod 37`
 - What is the probability that two _different_ strings of length `m` hash to the same integer? 
+  - `1/p`
 - What is an efficient way to compute the coefficients `a^{i}` for `i` in `{0, ..., m - 1}`?
+  - `p[k] = p[k-1] * a mod m`
 - Discuss: How can dvaput be solved using string hashing?
+  - Calculate a hash for every substring of every length, start from longest to shortest. If it appears in the set you've found it.
 
 ## Randomized algorithms
 
 - Given a binary string $x$ of length $d$, how do you choose a MinHash hash function $h$ and what is the hash value $h(x)$?
+  - Choose a random permutation of the set of all possible characters, then find the first character in the string that is in the permutation. The hash value is the index of that character in the permutation.
 - Given two strings $x$ and $y$ with Jaccard similarity $J(x,y)$, what is the probability that $x$ and $y$ hash to the same value?
+  - `J(x,y)`
 - How do you build a data structure to find a correlated pair using MinHash?
+  - Create a hashmap of the hash values of the strings, and the strings themselves. If a hash value is already in the map, you've found a correlated pair.
