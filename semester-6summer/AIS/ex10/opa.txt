@@ -1,0 +1,67 @@
+
+______________________________
+Exercise session:
+
+RBAC.
+
+When you load the "Role-based Access Control" policy example, a policy is provided, along with sample INPUT and DATA.
+
+Do not change the POLICY (Rego) or DATA fields at all. Only change INPUT when asked to do so.
+
+
+[Understanding INPUT & DATA]
+
+In the policy, what does the following evaluate to?
+ - `input.user`
+ - `input.action`
+ - `data.user_roles[input.user]`
+
+
+[Understanding POLICY]
+
+The OUTPUT of the policy evaluation is a record with three attributes.
+ - user_is_admin
+    - what is the (data-)type of user_is_admin?
+    - when is user_is_admin true?
+ - user_is_granted
+    - what is the (data-)type of data.user_roles[input.user]?
+    - what is the (data-)type of role?
+    - what is the (data-)type of data.role_grants[role]?
+    - what is the (data-)type of grant?
+    - what is the (data-)type of user_is_granted?
+    - when does user_is_granted include { "action": "read", "type": "cat" }?
+ - allow
+    - what is the (data-)type of allow?
+    - when is allow true?
+
+
+[Querying POLICY]
+
+We will ask for the value of answer in the following. To justify your answer, trace the value of allow, i.e. "allow is true if X is true, which is true if Y is true, ..." (you can replace "true if X is true" by "implied by X")
+
+Consider the default INPUT.
+
+ - what is the value of allow? justify your answer.
+ - why is user_is_granted the empty list? 
+
+Change the user attribute in the INPUT to eve.
+
+ - what is the value of allow? justify your answer.
+
+Change the action attribute in the INPUT to update.
+
+ - what is the value of allow? justify your answer.
+
+
+[Changing DATA]
+
+Add a role "kennelworker", which can read and update dogs. Add a user "carol" who is a kennelworker.
+
+ - give example input where allow is true due to the user being a kennelworker.
+
+Make "eve" a kennelworker also.
+
+ - give example input where allow is true with "eve" as user, but false with "carol" as user.
+
+
+(notice that adding a new role is quite a bit of work)
