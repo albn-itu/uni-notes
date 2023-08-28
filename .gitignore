@@ -1,3 +1,14 @@
+# Obsidian
+**/.obsidian/*
+!**/.obsidian/app.json
+!**/.obsidian/appearance.json
+!**/.obsidian/config
+!**/.obsidian/community-plugins.json
+!**/.obsidian/core-plugins.json
+!**/.obsidian/graph.json
+!**/.obsidian/hotkeys.json
+
+
 *.zip
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,csharp,fsharp,java,go,latex,python,c,vue,vuejs,visualstudiocode,vim
