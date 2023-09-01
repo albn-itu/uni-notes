@@ -1,10 +1,18 @@
 import sys
 from collections import defaultdict
+from enum import Enum
+
+
+class Color(Enum):
+    RED = 0
+    BLUE = 1
+
 
 [n, m] = [int(x) for x in sys.stdin.readline().split()]
 
 # Read the graph
 graph = defaultdict(list)
+biparted = set()
 
 for i in range(n):
     names = sys.stdin.readline().split()
@@ -13,28 +21,39 @@ for i in range(n):
         preference_map[names[j]] = j
 
     graph[names[0]] = preference_map
+    biparted.add(names[0])
 
 # Find the bipartite graph
-color = defaultdict(int)
 
-queue = [names[0]]
-color[names[0]] = 1
-while queue:
-    current = queue.pop(0)
 
-    for v in graph[current]:
-        if color[v] == 0:
-            color[v] = 1 - color[current]
-            queue.append(v)
-        # This is wrong if the graph is not bipartite
-        # There is validity check
+def find_bipartite(color):
+    source = next(iter(biparted))
+    queue = [source]
+    color[source] = Color.RED
+    while queue:
+        current = queue.pop(0)
+        biparted.remove(current)
 
-print(color)
+        for v in graph[current]:
+            if color[v] is None:
+                color[v] = Color.RED if color[current] == Color.BLUE else Color.BLUE
+                queue.append(v)
+            elif color[v] == color[current]:
+                # print("Graph is not bipartite")
+                break
+    return color
+
+
+color = defaultdict(lambda: None)
+while biparted:
+    color = find_bipartite(color)
+
+# print(color)
 
 proposers = []
 rejecters = []
 for k, v in color.items():
-    if v == 0:
+    if v == Color.RED:
         proposers.append(k)
         graph[k] = list(graph[k].keys())
     else:
