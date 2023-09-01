@@ -1,161 +1,135 @@
 # I learned a lot and was highly inspired by looking at the python matching library: https://github.com/daffidwilde/matching
 
 import sys
+from collections import defaultdict
+
+preferences = defaultdict(list)
+matches = defaultdict(lambda: None)
 
 
-class Player:
-    def __init__(self, name):
-        self.name = name
-        self.preferences = []
-        self.match = None
+def other_preferences(partner, after):
+    index = preferences[partner].index(after)
+    return preferences[partner][index + 1:]
 
-    def forget(self, player):
-        if player in self.preferences:
-            self.preferences.remove(player)
 
-    def other_preferences(self, after):
-        index = self.preferences.index(after)
-        return self.preferences[index + 1:]
-
-    def __repr__(self):
-        match_name = self.match.name if self.match is not None else None
-        return f"({self.name}, {match_name})"
+def forget(partner, other):
+    if other in preferences[partner]:
+        preferences[partner].remove(other)
 
 
 def read_input():
-    [n, m] = [int(x) for x in sys.stdin.readline().split()]
+    [n, _] = [int(x) for x in sys.stdin.readline().split()]
+    partners = []
 
-    players = []
-    player_map = {}
-
-    def get_or_create_player(name):
-        if name in player_map:
-            return player_map[name]
-        else:
-            player = Player(name)
-            player_map[name] = player
-            return player
-
-    for i in range(n):
+    for _ in range(n):
         names = sys.stdin.readline().split()
-        name = names[0]
+        preferences[names[0]] = names[1:]
+        partners.append(names[0])
 
-        player = get_or_create_player(name)
-        players.append(player)
-
-        for j in range(1, len(names)):
-            preference = get_or_create_player(names[j])
-            player.preferences.append(preference)
-
-    return players
+    return partners
 
 
-def gale_shapley(players):
-    free = players[:]  # Copy of players
+def gale_shapley(partners):
+    free = partners[:]  # Copy of partners
 
     while free:
         current = free.pop(0)
-        currents_favourite = current.preferences[0]
+        currents_favourite = preferences[current][0]
 
-        favourites_match = currents_favourite.match
+        favourites_match = matches[currents_favourite]
         if favourites_match is not None:
-            currents_favourite.match = None
+            matches[currents_favourite] = None
             free.append(favourites_match)
 
-        currents_favourite.match = current
+        matches[currents_favourite] = current
 
-        for player in currents_favourite.other_preferences(current):
-            player.forget(currents_favourite)
-            currents_favourite.forget(player)
+        for partner in other_preferences(currents_favourite, current):
+            forget(partner, currents_favourite)
+            forget(currents_favourite, partner)
 
-            if not player.preferences and player in free:
-                free.remove(player)
+            if not preferences[partner] and partner in free:
+                free.remove(partner)
 
-    return players
-
-
-def check_nonexistence(players):
-    return any(p.preferences == [] for p in players)
+    return partners
 
 
-def find_cycle(player):
-    # Finds a cycle of least-preferable and second-choice players
+def check_nonexistence(partners):
+    return any(preferences[p] == [] for p in partners)
 
-    lasts = [player]
+
+def find_cycle(partner):
+    # Finds a cycle of least-preferable and second-choice partners
+
+    lasts = [partner]
     seconds = []
 
     while True:
-        players_second = player.preferences[1]
-        seconds_last = players_second.preferences[-1]
+        partners_second = preferences[partner][1]
+        seconds_last = preferences[partners_second][-1]
 
-        seconds.append(players_second)
+        seconds.append(partners_second)
         lasts.append(seconds_last)
 
-        player = seconds_last
+        partner = seconds_last
 
-        if lasts.count(player) > 2:
+        if lasts.count(partner) > 2:
             break
 
-    player_index = lasts.index(player)
-    cycle = list(zip(lasts[player_index + 1:], seconds[player_index:]))
-
-    return cycle
+    partner_index = lasts.index(partner)
+    return list(zip(lasts[partner_index + 1:], seconds[partner_index:]))
 
 
 def delete_cycle(cycle):
     pairs = set()
     for (i, (_, right)) in enumerate(cycle):
         left = cycle[(i - 1) % len(cycle)][0]
-        other_preferences = right.other_preferences(left)
-        for p in other_preferences:
+        op = other_preferences(right, left)
+        for p in op:
             pairs.add((p, right))
 
     for (p, r) in pairs:
-        p.forget(r)
-        r.forget(p)
+        forget(p, r)
+        forget(r, p)
 
 
-def get_next_player(players):
+def get_next_partner(partners):
     try:
-        return next(p for p in players if len(p.preferences) > 1)
+        return next(p for p in partners if len(preferences[p]) > 1)
     except StopIteration:
         return None
 
 
-def second_phase(players):
-    player = get_next_player(players)
+def second_phase(partners):
+    partner = get_next_partner(partners)
 
     while True:
-        cycle = find_cycle(player)
+        cycle = find_cycle(partner)
         delete_cycle(cycle)
 
-        if check_nonexistence(players):
+        if check_nonexistence(partners):
             break
 
-        player = get_next_player(players)
-        if player is None:
+        partner = get_next_partner(partners)
+        if partner is None:
             break
 
-    for player in players:
-        player.match = None
-        if player.preferences:
-            player.match = player.preferences[0]
+    for partner in partners:
+        matches[partner] = None
+        if preferences[partner]:
+            matches[partner] = preferences[partner][0]
 
-    return players
+    return partners
 
 
-def print_out(players):
+def print_out(partners):
     # TODO: This can probably be done more efficiently
     out = set()
-    for p in players:
-        a = p.name
-        b = p.match
+    for a in partners:
+        b = matches[a]
 
         if a is None or b is None:
             print("-")
             sys.exit(0)
-
-        b = b.name
 
         if a < b:
             out.add((a, b))
@@ -166,14 +140,14 @@ def print_out(players):
         print(f"{a} {b}")
 
 
-players = read_input()
-players = gale_shapley(players)
+partners = read_input()
+partners = gale_shapley(partners)
 
-if check_nonexistence(players):
+if check_nonexistence(partners):
     print("-")
     sys.exit(0)
 
-if any(len(p.preferences) > 1 for p in players):
-    players = second_phase(players)
+if any(len(preferences[p]) > 1 for p in partners):
+    partners = second_phase(partners)
 
-print_out(players)
+print_out(partners)
