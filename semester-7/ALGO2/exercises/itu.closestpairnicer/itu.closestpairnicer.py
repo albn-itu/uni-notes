@@ -37,20 +37,11 @@ def cmp_list(point, points):
 
 
 def estimate_b(points):
-    n = len(points)
-    m = math.floor((n ** (2/3)) ** (2/3))
+    point = random.choice(points)
 
-    s2 = random.sample(points, m)
+    min_dist, min_point = cmp_list(point, points)
 
-    min_dist = float("inf")
-    min_point = None
-    for point in s2:
-        min_dist_new, min_point_new = cmp_list(point, points)
-        if min_dist_new < min_dist:
-            min_dist = min_dist_new
-            min_point = [point, min_point_new]
-
-    return min_dist, min_point
+    return min_dist, [point, min_point]
 
 
 def get_diff(delta):
