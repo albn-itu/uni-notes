@@ -76,6 +76,11 @@ def find_cycle(partner):
             break
 
     partner_index = lasts.index(partner)
+    print(partner_index)
+    print(lasts)
+    print(seconds)
+    print(list(zip(lasts[partner_index + 1:], seconds[partner_index:])))
+
     return list(zip(lasts[partner_index + 1:], seconds[partner_index:]))
 
 
@@ -84,6 +89,7 @@ def delete_cycle(cycle):
     for (i, (_, right)) in enumerate(cycle):
         left = cycle[(i - 1) % len(cycle)][0]
         op = other_preferences(right, left)
+        print(i, left, right)
         for p in op:
             pairs.add((p, right))
 
