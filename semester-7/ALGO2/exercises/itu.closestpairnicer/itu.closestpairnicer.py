@@ -1,6 +1,8 @@
 import math
 import random
-import sys
+from io import BytesIO
+from os import read, fstat
+from sys import stdout
 
 
 class Point:
@@ -73,7 +75,11 @@ def nearest_squares(point, grid, delta):
 
     neighbors = []
     for i in range(-2, 3):
-        for j in range(-2, 3):
+        for j in range(0, 3):
+            # Ignore upper right
+            if j == 0 and i > 0:
+                continue
+
             sq = (x + i, y + j)
             if sq in grid:
                 neighbors += grid[sq]
@@ -105,15 +111,17 @@ def algo(points):
 
 
 def main():
-    n = int(sys.stdin.readline())
+    input = BytesIO(read(0, fstat(0).st_size)).readline
+
+    n = int(input().decode())
 
     points = []
     for _ in range(n):
-        points.append(Point([float(x) for x in sys.stdin.readline().split()]))
+        points.append(Point([float(x) for x in input().decode().split()]))
 
     delta, answer = algo(points)
     for point in answer:
-        print(point)
+        stdout.write(f"{point}\n")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
-import sys
 import math
 import random
+from io import BytesIO
+from os import read, fstat
+from sys import stdout
+
 
 class Point:
     def __init__(self, coords):
@@ -8,16 +11,17 @@ class Point:
         self.y = coords[1]
 
     def distance(self, other):
-        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+        return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
 
     def __str__(self):
         return f"{self.x} {self.y}"
-    
+
     def __repr__(self):
         return f"{self.x} {self.y}"
 
     def sub(self, other):
         return Point([self.x - other.x, self.y - other.y])
+
 
 def cmp_list(point, points):
     min_dist = float("inf")
@@ -33,19 +37,24 @@ def cmp_list(point, points):
 
     return min_dist, min_point
 
+
 def estimate_b(points):
-    rand_point = random.choice(points)
-    min_dist, min_point = cmp_list(rand_point, points)
-    
-    return min_dist, [rand_point, min_point]
+    point = random.choice(points)
+
+    min_dist, min_point = cmp_list(point, points)
+
+    return min_dist, [point, min_point]
+
 
 def get_diff(delta):
     return delta / 3
 
+
 def determine_subsquare(point, delta):
     diff = get_diff(delta)
 
-    return (math.floor(point.x / diff), math.floor(point.y / diff))
+    return math.floor(point.x / diff), math.floor(point.y / diff)
+
 
 def make_grid(points, delta):
     grid = {}
@@ -57,7 +66,8 @@ def make_grid(points, delta):
         grid[subsquare].append(point)
 
     return grid
-    
+
+
 def nearest_squares(point, grid, delta):
     square = determine_subsquare(point, delta)
     x = square[0]
@@ -65,24 +75,28 @@ def nearest_squares(point, grid, delta):
 
     neighbors = []
     for i in range(-2, 3):
-        for j in range(-2, 3):
+        for j in range(0, 3):
+            # Ignore upper right
+            if j == 0 and i > 0:
+                continue
+
             sq = (x + i, y + j)
             if sq in grid:
                 neighbors += grid[sq]
 
     return neighbors
 
+
 def algo(points):
     min_delta, min_delta_points = estimate_b(points)
     delta = min_delta
     if delta == 0:
         return delta, min_delta_points
-    
+
     grid = make_grid(points, delta)
 
     for i in range(len(points)):
         point = points[i]
-        subsquare = determine_subsquare(point, delta)
         squares = nearest_squares(point, grid, delta)
         new_min_delta, new_min_delta_point = cmp_list(point, squares)
 
@@ -95,21 +109,24 @@ def algo(points):
 
     return min_delta, min_delta_points
 
+
 def main():
-    n = int(sys.stdin.readline())
+    input = BytesIO(read(0, fstat(0).st_size)).readline
+    n = int(input().decode())
 
     while n != 0:
         points = []
         for _ in range(n):
-            points.append(Point([float(x) for x in sys.stdin.readline().split()]))
+            points.append(Point([float(x)
+                          for x in input().decode().split()]))
 
         delta, answer = algo(points)
         for point in answer:
-            print(point, end=" ")
-        print()
+            stdout.write(f"{point} ")
+        stdout.write("\n")
 
-        n = int(sys.stdin.readline())
+        n = int(input().decode())
+
 
 if __name__ == "__main__":
     main()
-
