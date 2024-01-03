@@ -52,6 +52,9 @@
 [submodule "semester-7/AP/exercises"]
 	path = semester-7/AP/exercises
 	url = https://github.com/albn-itu/ap-exercises
+[submodule "semester-7/AP/projects/reinforcement-learning"]
+	path = semester-7/AP/projects/reinforcement-learning
+	url = https://github.com/albn-itu/ap-reinforcement-learning
 [submodule "semester-7/PCPP/course-repo"]
 	path = semester-7/PCPP/course-repo
 	url = https://albn@github.itu.dk/jst/PCPP2023-public

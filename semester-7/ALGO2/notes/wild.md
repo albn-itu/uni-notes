@@ -1,0 +1,42 @@
+- CPython used qsort, then quicksort, then samplesort and then timsort. Timsort was chosen in the end due to complains of the other methods not being stable
+- CPython just changed to PowerSort in 2022
+- The problem is that you want fast, stable and in place
+    - Fast and in place: quicksort
+    - Fast and stable: mergesort
+- Timsort is heavily based on mergesort with some optimizations
+    - Does so by detecting existing runs and merging them
+    - Runs are sequences that are already sorted in increasing or decreasing order
+    - Runs are detected using Galloping mode
+    - It uses a bunch of magic rules to determine whether or not to merge runs
+    - The rules were chosen because they were the first ones that worked
+    - None of the rules protect against stack overflow, which is unlikely, but may happen
+- On some inputs timsort is really stupid and does 50% more work than necessary
+- Policies (simply)
+    - Find runs in input
+    - Merge runs based on rules
+    - Rules could be based on a cost, such as the size of the output
+    - Rules make the merge trees more efficient
+- The algorithmic problem then is: How does one find the optimal merge tree?
+- This problem can be solved by finding a good merge cost algorithm, and then creating the tree
+    - The merge cost used is the total area of intermediate merges. Also known as the length of paths to all array entries
+    - This can be reduced to a Binary Search Tree. PowerSort is basically a BST
+        - Not quite a Huffman merge as that is not stable
+        - Not a Hu-Tucker merge either as that is just really complicated
+        - PowerSort instead uses nearly-optimal BST merge
+- PowerSort
+    - Uses the bisection method # TODO: What is this?
+    - Intuition: Round to a perfectly balanced tree
+        - Find the round boundary the closest to the middle
+        - Recurse on both sides. (This is a bit slow, we find a different method)
+    - Run-Boundary powers
+        - First imagine a perfect tree for all the elements
+        - Then create intervals that connect between the midpoints of runs
+        - Let these snap to the perfect tree
+        - Then reconstruct the tree
+        - This ensures runs can just care about themselves
+        - Fucking nuts, the PowerPoint has a great animation
+    - It selects which to merge based on a magically calculated power. But it basically selects the smallest runs to merge as far as i understand it.
+    - All of the above results in very little overhead, with fewer rules and problems
+    - 0-5% fewer comparisons, sometimes 20-30%. Pure insanity. He is yet to see an example where PowerSort is worse than existing algorithms. On top of that it's stabler.
+- MultiWay PowerSort
+    - An alternative that merges 4 instead of 2 runs. Can be far faster in non interpreted languages
