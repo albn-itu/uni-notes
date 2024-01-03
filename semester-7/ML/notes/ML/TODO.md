@@ -17,20 +17,25 @@ tags:
     - [x] Missing data
 - [x] Week 7
     - [x] Filter basics
-- [ ] Week 8
+- [x] Week 8
     - [x] Decision
-    - [ ] Logistic regression
-    - [ ] HOG
+    - [x] Logistic regression
+    - [x] HOG
 - [x] Week 9
     - [x] Metrics
     - [x] HOG
-- [ ] Week 10
-    - [ ] PCA
-    - [ ] Shape generation
-- [ ] Week 11
-    - [ ] Clustering
-    - [ ] Pen and paper
-    - [ ] Non-linear
+- [x] Week 10
+    - [x] PCA
+    - [x] Shape generation
+- [x] Week 11
+    - [x] Clustering
+    - [x] Pen and paper
+    - [x] Non-linear
+- [ ] Week 12
+    - [ ] Neural networks
+    - [ ] Tuning
+- [ ] Week 13
+    - Colorization
 
 # Exam reading
 - [ ] Linear Algebra
