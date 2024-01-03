@@ -31,11 +31,11 @@ tags:
     - [x] Clustering
     - [x] Pen and paper
     - [x] Non-linear
-- [ ] Week 12
-    - [ ] Neural networks
-    - [ ] Tuning
-- [ ] Week 13
-    - Colorization
+- [x] Week 12
+    - [x] Neural networks
+    - [x] Tuning
+- [x] Week 13
+    - [x] Colorization
 
 # Exam reading
 - [ ] Linear Algebra
