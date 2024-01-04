@@ -39,10 +39,11 @@ tags:
 
 # Exam reading
 - [ ] Linear Algebra
-  - [ ] Vectors
-    - [ ] Inner products
-    - [ ] Distance metrics
-    - [ ] Relation to ML
+  - [x] Vectors
+    - [x] Inner products
+    - [x] Operations
+    - [x] Distance metrics
+    - [x] Relation to ML
   - [ ] Matrices
     - [ ] Matrix addition
     - [ ] Matrix multiplication
