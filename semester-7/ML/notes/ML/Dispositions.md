@@ -78,6 +78,11 @@ For each prepare a 5-6 minute presentation which covers
         - AKA turning the rows into columns and the columns into rows
         - $A^T_{ij} = A_{ji}$
         - Example: $\begin{bmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{bmatrix}^T = \begin{bmatrix}1 & 4 \\ 2 & 5 \\ 3 & 6\end{bmatrix}$
+    - Determinant
+        - The determinant of a matrix is a scalar value that can be computed from the elements of a square matrix.
+        - The linear set of equations given in the matrix has a unique solution if and only if the determinant is not zero.
+        - It is the volume of a matrix, if the determinant is zero then the matrix is flat and has no volume.
+        - Denoted $det(\mathbf{A})$ or $|\mathbf{A}|$
     - Multiplication
         - Multiplication is only possible if the columns of the left matrix is the same as the number of rows. AKA if $\mathbf{A}$ is $m$-by-$n$ and $\mathbf{B}$ is $n$-by-$p$.
             - Then the resulting matrix is the $m$-by-$p$ matrix $\mathbf{C}$.
@@ -85,18 +90,49 @@ For each prepare a 5-6 minute presentation which covers
             - $C_{i,j} = \sum_{k=1}^n A_{i,k}B_{k,j}$
             - Example: ${\begin{aligned}{\begin{bmatrix}{\underline {2}}&{\underline {3}}&{\underline {4}}\\1&0&0\\\end{bmatrix}}{\begin{bmatrix}0&{\underline {1000}}\\1&{\underline {100}}\\0&{\underline {10}}\\\end{bmatrix}}&={\begin{bmatrix}3&{\underline {2340}}\\0&1000\\\end{bmatrix}}.\end{aligned}}$ 
     - Inversion
-        - A $n$-by-$n$ matrix $\mathbf{A}$ is invertible if there exists an $n$-by-$n$ matrix $\mathbf{B}$ such that $\mathbf{AB} = \mathbf{BA} = \mathbf{I}$ where $\mathbf{I}$ is the identity matrix.
+        - A $n$-by-$n$ matrix $\mathbf{A}$ is invertible if there exists an $n$-by-$n$ matrix $\mathbf{B}$ such that $\mathbf{AB} = \mathbf{BA} = \mathbf{I}$ where $\mathbf{I}$ is the identity matrix. $\mathbf{B}$ in this case would be the inverted $\mathbf{A}$ matrix. So rewritten it is $\mathbf{A}\mathbf{A}^{-1}=I$
         - Denoted $\mathbf{A}^{-1}$
-    - Determinant
+        - A matrix is invertible if and only if its determinant is not zero
+        - Its crucial in machine learning because of the formula $\mathbf{A}\cdot \overrightarrow{w} = \mathbf{b}$ where $\mathbf{A}$ is the input data, $\overrightarrow{w}$ is the weights and $\mathbf{b}$ is the output data. We can then find the weights by multiplying both sides by $\mathbf{A}^{-1}$ and get $\overrightarrow{w} = \mathbf{A}^{-1}\mathbf{b}$
     - Orthogonal
-- Relate to course
+        - A matrix is orthogonal if its columns are orthogonal unit vectors. AKA each of the column vectors are right angles on each other
+        - If a matrix is orthogonal then its inverse is equal to its transpose
+            - $\mathbf{A}^{-1} = \mathbf{A}^T$
+        - Its determinant is either 1 or -1
+- In Machine learning we use a series of these operations to transform and manipulate data
+    - For transformations we use
+        - Scaling
+            - Scaling is done by multiplying each element by a scalar
+        - Translation
+            - Translation is done by adding a vector to each element
+        - Rotation
+            - Rotation is done by multiplying the matrix by a rotation matrix
+            - A rotation matrix is a matrix that rotates a vector by a given angle
+            - Example: $\begin{bmatrix}\cos{\theta} & -\sin{\theta} \\ \sin{\theta} & \cos{\theta}\end{bmatrix}$
+        - For many transformations we can use the formula $\mathbf{A}\cdot \overrightarrow{v} = \overrightarrow{b}$ where $\mathbf{A}$ is the transformation matrix, $\overrightarrow{v}$ is the vector to be transformed and $\overrightarrow{b}$ is the transformed vector.
+    - A basis is a set of vectors that generates all elements of the vector space and the vectors in the set are linearly independent.
+        - We regularly use these to transform between different coordinate systems
 
 ### Focus on linear equations
-- 
+- In machine learning we regularly represent linear equations as matrices like so:
+    - Consider the linear equations $5x_1 + 2x_2 = 900$ and $3x_1 + 4x_2 = 960$ then we can represent these as matrices and vectors:
+    - $\begin{bmatrix}5 & 2 \\ 3 & 4\end{bmatrix}\begin{bmatrix}x_1 \\ x_2\end{bmatrix} = \begin{bmatrix}900 \\ 960\end{bmatrix}$
+    - If we were to graph these equations we would see that they intersect at a point, this point is the solution to the equations.
+    - The solution to the equations can be optained by optaining the vector $\overrightarrow{x}$ by multiplying both sides by the inverse of the matrix $\mathbf{A}$. 
+        - AKA: $\overrightarrow{x} = \mathbf{A}^{-1}\mathbf{b}$
+    - We can generalise this to
+        - $ax_1 + bx_2 = c$
+        - $dx_1 + ex_2 = f$
+        - $\begin{bmatrix}a & b \\ d & e\end{bmatrix}\begin{bmatrix}x_1 \\ x_2\end{bmatrix} = \begin{bmatrix}c \\ f\end{bmatrix}$
 
 
 ## Week 4 - Linear transformations
-...
+- Transformations
+    - A **transformation** is a function that map elements from a set A to a set B
+        - Also written as $y = f(x)$ where $x \in A$ and $y \in B$
+        - $A$ is the domain and $B$ is the codomain
+        - If $T(x)=y$ then $x$ is the preimage of $y$ and $y$ is the image of $x$ under $T$
+
 
 ## Week 5 - Least squares
 ...

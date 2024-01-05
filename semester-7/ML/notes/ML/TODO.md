@@ -44,17 +44,17 @@ tags:
     - [x] Operations
     - [x] Distance metrics
     - [x] Relation to ML
-  - [ ] Matrices
+  - [x] Matrices
     - [x] Matrix addition
     - [x] Matrix multiplication
-    - [ ] Matrix inverse
+    - [x] Matrix inverse
     - [x] Matrix transpose
-    - [ ] Matrix determinant
-    - [ ] Matrix orthogonal
-    - [ ] Matrix transformations
-    - [ ] Matrix basis
-    - [ ] Relate to application in course
-    - [ ] Their relation to linear equations and their solutions
+    - [x] Matrix determinant
+    - [x] Matrix orthogonal
+    - [x] Matrix transformations
+    - [x] Matrix basis
+    - [x] Relate to application in course
+    - [x] Their relation to linear equations and their solutions
   - [ ] Linear transformations
     - [ ] 2D
     - [ ] 3D
