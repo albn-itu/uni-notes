@@ -45,10 +45,10 @@ tags:
     - [x] Distance metrics
     - [x] Relation to ML
   - [ ] Matrices
-    - [ ] Matrix addition
-    - [ ] Matrix multiplication
+    - [x] Matrix addition
+    - [x] Matrix multiplication
     - [ ] Matrix inverse
-    - [ ] Matrix transpose
+    - [x] Matrix transpose
     - [ ] Matrix determinant
     - [ ] Matrix orthogonal
     - [ ] Matrix transformations

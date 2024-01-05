@@ -55,9 +55,45 @@ For each prepare a 5-6 minute presentation which covers
     - Weights
     - Biases
     - Output data (labels, predicted classes, etc.)
+- In terms of the exercise
+    - In the exercise we represent a pose as a list of vectors or points.
+    - We then calculate the Euclidean distance (L2 Norm) of each pose compared to the other poses to find their similarity.
+    - We can use those distances to find the most similar poses and most different poses.
 
 ## Week 3 - Matrices
-...
+### General
+- A **matrix** is a 2D array of scalars arranged in rows and columns
+
+### Focus on operations
+- Matrix operations include
+    - Addition
+        - Is done element wise and results in a new matrix of the same size
+    - Subtraction
+        - Is done element wise and results in a new matrix of the same size
+    - Scalar multiplication
+        - Is done element wise and results in a new matrix of the same size.
+        - Just multiply each element by the scalar
+    - Transpose
+        - Is done by flipping the matrix over its diagonal
+        - AKA turning the rows into columns and the columns into rows
+        - $A^T_{ij} = A_{ji}$
+        - Example: $\begin{bmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{bmatrix}^T = \begin{bmatrix}1 & 4 \\ 2 & 5 \\ 3 & 6\end{bmatrix}$
+    - Multiplication
+        - Multiplication is only possible if the columns of the left matrix is the same as the number of rows. AKA if $\mathbf{A}$ is $m$-by-$n$ and $\mathbf{B}$ is $n$-by-$p$.
+            - Then the resulting matrix is the $m$-by-$p$ matrix $\mathbf{C}$.
+            - Each entry is given by the dot product of the corresponding row of $\mathbf{A}$ and the corresponding column of $\mathbf{B}$
+            - $C_{i,j} = \sum_{k=1}^n A_{i,k}B_{k,j}$
+            - Example: ${\begin{aligned}{\begin{bmatrix}{\underline {2}}&{\underline {3}}&{\underline {4}}\\1&0&0\\\end{bmatrix}}{\begin{bmatrix}0&{\underline {1000}}\\1&{\underline {100}}\\0&{\underline {10}}\\\end{bmatrix}}&={\begin{bmatrix}3&{\underline {2340}}\\0&1000\\\end{bmatrix}}.\end{aligned}}$ 
+    - Inversion
+        - A $n$-by-$n$ matrix $\mathbf{A}$ is invertible if there exists an $n$-by-$n$ matrix $\mathbf{B}$ such that $\mathbf{AB} = \mathbf{BA} = \mathbf{I}$ where $\mathbf{I}$ is the identity matrix.
+        - Denoted $\mathbf{A}^{-1}$
+    - Determinant
+    - Orthogonal
+- Relate to course
+
+### Focus on linear equations
+- 
+
 
 ## Week 4 - Linear transformations
 ...
