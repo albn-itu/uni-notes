@@ -38,7 +38,7 @@ tags:
     - [x] Colorization
 
 # Exam reading
-- [ ] Linear Algebra
+- [x] Linear Algebra
   - [x] Vectors
     - [x] Inner products
     - [x] Operations
@@ -68,19 +68,19 @@ tags:
     - [x] Projections
     - [x] Solving linear least square problems for model fitting
     - [x] Mandatory 1
-- [ ] Data
-  - [ ] Data cleaning
-  - [ ] Uncertainty / Descriptive statistics
-    - [ ] Relate to model learning and data evaluation
-  - [ ] Data, Uncertainty, over/underfitting
-  - [ ] Uncertainty and data in relation to regression
-  - [ ] Uncertainty and data in relation to classification
-  - [ ] Uncertainty and data in relation to clustering
-  - [ ] Uncertainty and data in relation to dimensionality reduction
-  - [ ] Missing data
-  - [ ] Duplicate data
-  - [ ] Outlier detection
-  - [ ] Data imputation
+- [x] Data
+  - [x] Data cleaning
+  - [x] Uncertainty / Descriptive statistics
+    - [x] Relate to model learning and data evaluation
+  - [x] Data, Uncertainty, over/underfitting
+  - [x] Uncertainty and data in relation to regression
+  - [x] Uncertainty and data in relation to classification
+  - [x] Uncertainty and data in relation to clustering
+  - [x] Uncertainty and data in relation to dimensionality reduction
+  - [x] Missing data
+  - [x] Duplicate data
+  - [x] Outlier detection
+  - [x] Data imputation
 - [ ] Regularization
   - [ ] Filtering
     - [ ] Convolution and Correlation
@@ -135,7 +135,9 @@ tags:
   - [ ] Dropout
   - [ ] Early stopping
   - [ ] Complexity
-- [ ] Additional preparation
+
+
+# Additional preparation
   - [ ] Linear Algebra
     - [ ] Basics
       - [ ] List as many purposes for which we use vectors for image analysis and Machine learning

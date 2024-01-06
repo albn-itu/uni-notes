@@ -11,7 +11,7 @@ For each prepare a 5-6 minute presentation which covers
 - The parts of the question
 - Illustrate using the exercise
 
-## Week 2 - Vectors
+## Q1: Week 2 - Vectors
 - A **vector** is a set of scalars to the $\hat{i}$, $\hat{j}$, $\hat{k}$ basis vectors.
   - These basis vectors have a length of 1 and are orthogonal to each other.
   - The basis vectors can be used to describe any vector in 3D space.
@@ -60,7 +60,7 @@ For each prepare a 5-6 minute presentation which covers
     - We then calculate the Euclidean distance (L2 Norm) of each pose compared to the other poses to find their similarity.
     - We can use those distances to find the most similar poses and most different poses.
 
-## Week 3 - Matrices
+## Q2: Week 3 - Matrices
 ### General
 - A **matrix** is a 2D array of scalars arranged in rows and columns
 
@@ -126,7 +126,7 @@ For each prepare a 5-6 minute presentation which covers
         - $\begin{bmatrix}a & b \\ d & e\end{bmatrix}\begin{bmatrix}x_1 \\ x_2\end{bmatrix} = \begin{bmatrix}c \\ f\end{bmatrix}$
 
 
-## Week 4 - Linear transformations
+## Q3: Week 4 - Linear transformations
 ### General
 - Transformations
     - A **transformation** is a function that map elements from a set A to a set B
@@ -189,7 +189,7 @@ For each prepare a 5-6 minute presentation which covers
     - Take the matrices $\mathbf{A}$, $\mathbf{B}$ and $\mathbf{C}$ then the composition of the linear transformations is $C(B(Ax))$
     - But we can simplify to $Dx$ where $D=CBA$
 
-## Week 5 - Least squares
+## Q4: Week 5 - Least squares
 ### General
 - Least squares is a method for finding the best fit of a set of data points.
 - This involves finding the line of best fit for a set of data points, this is done by minimizing the sum of the squares of the differences between the observed values and the predicted values.
@@ -257,27 +257,131 @@ $$
 - Mandatory 1 is about finding the best function to map a set of points from one space to another. Specifically from a pupil position to a screen coordinate.
 - We map both a linear and a quadratic function to the points and then calculate the error of each function.
 
-## Week 6 - Data, Data cleaning, Uncertainty
+## Q5: Week 6 - Data, Data cleaning, Uncertainty
+### General
+- The exercise attempts to handle missing data using
+    - Mean Imputation
+    - Interpolating
+- It also uses different methods of evaluation
+- **Noise** is unwanted data that is not part of the underlying pattern
+    - Types
+        - Can be instrument errors
+        - Can be enviromental effects, such as the constant radiation from the sun
+        - Observational errors
+    - Can be random or systematic
+        - Random noise is unpredictable and can be reduced by averaging
+        - Systematic noise is predictable and can be reduced by calibration
+    - Reasons
+        - Limits in measurement accuracy
+        - Interference from other sources
+    - Handled by
+        - Excluding noisy attributes
+        - Filtering
+        - Include a model of the noise
+    - In images
+        - Salt-and-pepper noise: Randomly distributed white and black pixels
+        - Gaussian noise: Randomly distributed pixels with a Gaussian distribution
+        - Impulse noise: Random white pixels
+- **Outliers**
+    - An outlier is a data point that is significantly different from the rest of the data
+        - Reasons
+            - Measurement errors
+            - Data corruption
+            - True outliers
+        - Handled by
+            - Excluding outliers
+            - Include a model of the outliers
+- **Missing data** is data that is missing from the dataset
+    - Reasons
+        - Data was not collected
+        - Data was lost
+        - Data was not available
+    - Handled by
+        - Imputing the data
+- **Duplicate data** is data that is duplicated in the dataset
+    - Reasons
+        - Data was collected multiple times
+        - Data was copied
+    - Handled by
+        - Excluding the data
+        - Imputing the data
+
+### Uncertainty / descriptive statistics. Relate this to model learning and data evaluation.
+- Both the data and the model have uncertainty
+    - The data uncertainty is the noise and outliers
+    - The model uncertainty is the error of the model
+    - Data uncertainty can affect the model uncertainty
+- **Descriptive statistics** is a set of methods for summarizing and describing data
+    - **Mean** is the average of the data points
+        - $\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i$
+    - **Median** is the middle value of the data points
+    - **Variance** is the average of the squared differences from the mean
+        - $\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2$
+    - **Mid-range** is the average of the minimum and maximum values
+    - **Mode** is the most common value
+    - **Sample mean** is the mean of a sample of the data
+        - $\overline{x_i} = \frac{\sum_{i=1}^n x_i^t}{n}$
+    - **Covariance** is the measure of how much 2 random variables change together
+        - $\sigma_{x,y} = \frac{\sum_i^n(x_i - \overline{x}) * (y_i - \overline{y})}{n}$
+    - **Correlation** is the measure of how much 2 random variables change together, but it is normalized
+        - $\rho_{x,y} = \frac{\sigma_{xy}}{var(x)var(y)}$
+
+### Data, uncertainty and over/underfitting.
+- See above
+- Over and under fitting
+    - Overfitting is when the model fits the training data too well and therefore does not generalize well
+    - Underfitting is when the model does not fit the training data well enough and therefore does not generalize well
+
+### Focus on uncertainty, data cleaning in relation to regression, classification, clustering or dimensionality reduction.
+- Data cleaning is important in all of these
+    - Can consist of transforming the data, resizing / normalizing images, removing noise, reming unwanted observations or outliers and handling missing data 
+    - Normalization
+        - Normalization is the process of scaling individual samples to have unit norm
+        - $x_{i}' = \frac{x_i-x_{min}}{x_{max}-x_{min}}$
+    - Standardization
+        - Standardization is the process of scaling individual samples to have mean 0 and variance 1
+        - $x_{i}' = \frac{x_i-\overline{x}}{\sigma}$
+    - These 2 reduce bias and improve consistency
+- Regression
+    - Uncertainty can be used to evaluate the confidence and variability of the prediction
+    - Data cleaning is extremely critical as the model as bad data can significantly affect the fit of the resulting model.... See exercise
+- Classification
+    - Uncertainty estimation determines the confindence of the assignment of a particular class of labels
+    - Misclassification can be seen as a form of uncertainty that has to be handled in the data cleaning
+- Clustering
+    - Uncertainty can be used to determine the reliability of the assignment of clusters. Sometimes the algorithm can output the uncertainty of the assignment of a point to a cluster
+    - Data cleaning ensures that outliers or noisy instances do not affect the clustering, as they could form their own clusters or affect the boundaries of others
+- Dimensionality reduction
+    - There can be uncertainty when evaluation lower dimensional representations of the data. Understanding uncertainty can help understand closeness and distance of points in the reduced space.
+    - Data cleanin is crucial to remove irrelevant or redundant features as it can affect the effectiveness of the lower dimensions
+
+### Missing data, duplicate data, outlier detection, and data imputation
+- Missing data can be handled by
+    - Using the K nearest neighbours to impute the data, such as the mean and median
+    - Interpolating between points
+    - Using recommendation systems or other models that can predict the missing data
+- Outlier removal can be done using the z-score
+    - $z = \frac{x-\overline{x}}{\sigma}$
+    - If $z$ is greater than 3 or less than -3 then the data point is an outlier
+
+## Q6: Week 7 - Regularization, Filtering
 ...
 
-## Week 7 - Regularization, Filtering
+## Q7: Week 8 - Classification
 ...
 
-## Week 8 - Classification
+## Q8: Week 9 - Evaluation
 ...
 
-## Week 9 - Evaluation
+## Q9: Week 10 - Principal component analysis
 ...
 
-## Week 10 - Principal component analysis
+## Q10: Week 11 - Clustering and non-linear optimization
 ...
 
-## Week 11 - Clustering and non-linear optimization
+## Q11: Week 12 - Neural networks
 ...
 
-## Week 12 - Neural networks
-...
-
-## Week 13 / 14 - Architectures
+## Q12: Week 13 / 14 - Architectures
 ...
 
