@@ -127,15 +127,135 @@ For each prepare a 5-6 minute presentation which covers
 
 
 ## Week 4 - Linear transformations
+### General
 - Transformations
     - A **transformation** is a function that map elements from a set A to a set B
         - Also written as $y = f(x)$ where $x \in A$ and $y \in B$
         - $A$ is the domain and $B$ is the codomain
         - If $T(x)=y$ then $x$ is the preimage of $y$ and $y$ is the image of $x$ under $T$
+- A **linear transformation** is a function that maps a vector space to another vector space and preserves the vector space operations of addition and scalar multiplication.
+- A linear transformation always maps the origin of $\mathbf{V}$ to the origin of $\mathbf{W}$
+- Rules:
+    - $T(\overrightarrow{u} + \overrightarrow{v}) = T(\overrightarrow{u}) + T(\overrightarrow{v})$
+    - $T(c\overrightarrow{u}) = cT(\overrightarrow{u})$
+- For it to be linear it must satisfy both of these rules and which also ensure that straight lines stay straight.
 
+### Focus on 2D and 3D, relate to higher dimensions
+- In 2D we can represent a linear transformation as a matrix
+    - $\begin{bmatrix}a & b \\ c & d\end{bmatrix}$
+    - Where $a$ and $d$ are the scaling of the x and y axis respectively
+    - $b$ and $c$ are the shearing of the x and y axis respectively
+- In 2D there are the transformations:
+    - Stretching is not really done with matrices as it's just multiplying the vector by a scalar
+    - Scaling
+        - Scaling is done by multiplying each element by a scalar
+        - $\begin{bmatrix}a & 0 \\ 0 & d\end{bmatrix}$
+    - Translation
+        - Translation is done by adding a vector to each element
+        - $\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix} + \begin{bmatrix}x \\ y\end{bmatrix}$
+    - Rotation
+        - Rotation is done by multiplying the matrix by a rotation matrix
+        - A rotation matrix is a matrix that rotates a vector by a given angle
+        - $\begin{bmatrix}\cos{\theta} & -\sin{\theta} \\ \sin{\theta} & \cos{\theta}\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=\begin{bmatrix}x\cos \theta -y\sin \theta \\x\sin \theta +y\cos \theta \end{bmatrix}$
+    - Shearing
+        - Shearing is done by multiplying the matrix with the shear matrix:
+        - For shearing parallel to the x-axis: $\begin{bmatrix}1 & b \\ 0 & 1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$
+        - For shearing parallel to the y-axis: $\begin{bmatrix}1 & 0 \\ b & 1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$
+    - Reflection
+        - Reflection mirrors the vector over a line $l$
+        - The tranformation vector looks like:
+        - $\mathbf {A} ={\frac {1}{\lVert \mathbf {l} \rVert ^{2}}}{\begin{bmatrix}l_{x}^{2}-l_{y}^{2}&2l_{x}l_{y}\\2l_{x}l_{y}&l_{y}^{2}-l_{x}^{2}\end{bmatrix}}$
+- In 3D we can do the same transformations with larger matrices
+- The transformation has to be $k$-by-$k$ where $k$ is the dimension. So in 2D it has to be 2-by-2 and in 3D it has to be 3-by-3
+    - Thats because each column describes where the basis vectors ($\begin{bmatrix}1\\0\end{bmatrix}$ and $\begin{bmatrix}0\\1\end{bmatrix}$) ends up
+- For higher dimensions it all works the same, there are just $k$ basis vectors instead of 2 or 3, each basis vector has a 1 placed in some position.
+- Non-linear transformations are transformations that are not linear, they can be anything else. Fx. a circle or a sine wave. They can bend the existing lines and completely ignore the origin.
+- Fx. tranformations between color spaces or temperature scales are non-linear.
+
+### Focus on affine transformations, homogenous coordinates and composition of functions
+- An **affine transformation** is a linear transformation where the origin does not have to be preserved. We can represent them as a transformation and a translation.
+    - Formally, take the invertible transformation matrix $\mathbf{A}$ and the translation vector $\overrightarrow{b}$ then the affine transformation is $y = \mathbf{Ax} + \overrightarrow{b}$
+    - In matrix form it looks like $\begin{bmatrix}a_1 & a_2 \\ a_3 & a_4\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix} + \begin{bmatrix}b_1\\b_2\end{bmatrix}$
+- Homogenous coordinates are cartesian coordinates that are scaled by a factor $Z$. This is done by adding an extra dimension to the vector and setting it to $Z$.
+    - We can then represent the vector as $\begin{bmatrix}x\\y\\Z\end{bmatrix}$
+    - This allows for $(xZ, yZ, Z)$ to be represented as $(x, y, Z)$
+    - For a coordinate $(x, y)$ we can represent it as $(x, y, 1)$
+    - To convert back to cartesian coordinates we can divide each element by $Z$
+        - $(x, y, Z) \rightarrow (\frac{x}{Z}, \frac{y}{Z})$
+- Homogenous coordinates are great for affine transformations because they allow us to represent translations as a matrix multiplication.
+    - $y=\left[{\begin{array}{ccc|c}&A&&\overrightarrow{b} \\0&\cdots &0&1\end{array}}\right]{\begin{bmatrix}\mathbf {x} \\1\end{bmatrix}}$
+    - $y = \begin{bmatrix}a_1 & a_2 & b_1 \\ a_3 & a_4 & b_2 \\ 0 & 0 & 1\end{bmatrix}\begin{bmatrix}x_1\\x_2\\1\end{bmatrix}$
+- Composition of linear transformations are relatively simple as the assosiativity of matrix multiplication allows us to just multiply the matrices together.
+    - Take the matrices $\mathbf{A}$, $\mathbf{B}$ and $\mathbf{C}$ then the composition of the linear transformations is $C(B(Ax))$
+    - But we can simplify to $Dx$ where $D=CBA$
 
 ## Week 5 - Least squares
-...
+### General
+- Least squares is a method for finding the best fit of a set of data points.
+- This involves finding the line of best fit for a set of data points, this is done by minimizing the sum of the squares of the differences between the observed values and the predicted values.
+- Least squares are great when having a lot of data points and you want to find a line of best fit, there are usually more points than the output and model parameters
+- Mathematically we setup a system of linear equations and solve it using linear algebra
+    - We can represent the system of linear equations as $\mathbf{A}\overrightarrow{x} = \overrightarrow{b}$
+    - But in this case $\overrightarrow{b}$ will likely be outside of the column space of $\mathbf{A}$ so we can't solve it directly
+        - Column space is the set of all possible linear combinations of the columns of $\mathbf{A}$
+    - Instead we should find values for $\overrightarrow{x}$ that minimizes the difference between $\overrightarrow{b*}$ and $\overrightarrow{b}$. Where $\overrightarrow{b*}$ is any result of $A\overrightarrow{x}$.
+        - This would minimize the loss
+    - The best candidate is $\overrightarrow{b_{\text{proj}}}$ which is the projection of $\overrightarrow{b}$ onto the column space of $\mathbf{A}$
+    - Therefore:
+$$
+\begin{aligned}
+\mathbf{A}\overrightarrow{x} &= \overrightarrow{b_{\text{proj}}} \\
+\mathbf{A}\overrightarrow{x}-\overrightarrow{b} &= \overrightarrow{b_{\text{proj}}}-\overrightarrow{b}
+\end{aligned}
+$$
+    
+- Since $\overrightarrow{b_{\text{proj}}}-\overrightarrow{b}$ is orthogonal to the column space of $\mathbf{A}$ we can solve for it
+
+$$
+\begin{aligned}
+  A\overrightarrow{x} - \overrightarrow{b} &\in N(A^\top) \\
+        A^\top(A\overrightarrow{x} - \overrightarrow{b}) &= 0 \\
+        A^\top A\overrightarrow{x} - A^\top\overrightarrow{b} &= 0 \\
+        A^\top A\overrightarrow{x} &= A^\top\overrightarrow{b} \\
+        (A^\top A)^{-1} A^\top A\overrightarrow{x} &= (A^\top A)^{-1} A^\top\overrightarrow{b} \\
+        \overrightarrow{x} &= (A^\top A)^{-1} A^\top\overrightarrow{b} 
+\end{aligned}
+$$
+
+### Focus on the relation between least squares and projections
+- A **projection** on a vector space $V$ is a linear transformation $P:V \rightarrow V$ such that $P^2 = P$
+- A square matrix $P$ is a projection matrix if and only if $P^2 = P$
+- A square matrix $P$ is a orthogonal projection matrix if and only if $P^2 = P = P^\top$
+- Orthogonal projection matrices are the ones we use in least squares
+- Least squares utilizes projections to find the best fit for a set of data points.
+- The projection of $\overrightarrow{b}$ onto the column space of $\mathbf{A}$ is the best fit for $\overrightarrow{b}$ in the column space of $\mathbf{A}$.
+
+### Focus solving linear least squares problems for model fitting (including design matrix)
+- We can use the formula $\overrightarrow{x} = (A^\top A)^{-1} A^\top\overrightarrow{b}$ to solve for the weights in a linear regression problem.
+- This can be done for any polynomial, where there are $n$ data points and $m$ parameters. $m$ will be $d+1$ where $d$ is the degree of the polynomial, so a 2nd degree polynomial has 3 parameters as the formula:
+    - $y = ax^2 + bx + c$
+- This can be generalised to
+    - $p_n(x) = w_0 + w_1x + w_2x^2 + \cdots + w_nx^n$
+    - or $p_n(x) = \sum_{i=0}^n w_ix^i$
+    - or as inner product $p_n(x) = \begin{bmatrix}w_0 & w_1 & w_2 & \cdots & w_n\end{bmatrix}\begin{bmatrix}1 \\ x \\ x^2 \\ \vdots \\ x^n\end{bmatrix}$
+    - aka $p_n(x) = \overrightarrow{w}^\top\overrightarrow{x}$
+- If we were to calculate this:
+$$
+\begin{bmatrix}
+    1 & x_1^2 & x_1^3 \cdots x_1^n\\
+    1 & x_2^2 & x_2^3 \cdots x_2^n\\
+    \vdots  & \vdots & \vdots \cdots \vdots\\
+    1 & x_m^2 & x_m^3 \cdots x_m^n
+\end{bmatrix}
+\begin{bmatrix}w_0 \\ w_1 \\ w_2 \\ \vdots \\ w_n\end{bmatrix}
+= \begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ \vdots \\ y_m\end{bmatrix}
+$$
+- Where $m$ is the number of data points and $n$ is the degree of the polynomial
+- We can then solve for $\overrightarrow{w}$ using the formula $\overrightarrow{w} = (A^\top A)^{-1} A^\top\overrightarrow{b}$
+
+### Focus on mandatory 1
+- Mandatory 1 is about finding the best function to map a set of points from one space to another. Specifically from a pupil position to a screen coordinate.
+- We map both a linear and a quadratic function to the points and then calculate the error of each function.
 
 ## Week 6 - Data, Data cleaning, Uncertainty
 ...

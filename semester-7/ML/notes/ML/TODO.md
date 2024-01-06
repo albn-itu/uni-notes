@@ -55,19 +55,19 @@ tags:
     - [x] Matrix basis
     - [x] Relate to application in course
     - [x] Their relation to linear equations and their solutions
-  - [ ] Linear transformations
-    - [ ] 2D
-    - [ ] 3D
-    - [ ] Higher dimensions
-    - [ ] Non-linear transformations
-    - [ ] Affine transformations
-    - [ ] Homogenous coordinates
-    - [ ] Composition of linear transformations
-  - [ ] Least Squares
-    - [ ] Linear least squares
-    - [ ] Projections
-    - [ ] Solving linear least square problems for model fitting
-    - [ ] Mandatory 1
+  - [x] Linear transformations
+    - [x] 2D
+    - [x] 3D
+    - [x] Higher dimensions
+    - [x] Non-linear transformations
+    - [x] Affine transformations
+    - [x] Homogenous coordinates
+    - [x] Composition of linear transformations
+  - [x] Least Squares
+    - [x] Linear least squares
+    - [x] Projections
+    - [x] Solving linear least square problems for model fitting
+    - [x] Mandatory 1
 - [ ] Data
   - [ ] Data cleaning
   - [ ] Uncertainty / Descriptive statistics
