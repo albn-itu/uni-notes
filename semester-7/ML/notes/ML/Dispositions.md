@@ -365,7 +365,67 @@ $$
     - If $z$ is greater than 3 or less than -3 then the data point is an outlier
 
 ## Q6: Week 7 - Regularization, Filtering
-...
+### General
+
+### Focus on filtering (convolution and correlation, noise, image gradients) 
+- Filtering can be used to reduce noise.
+- One such method is doing convolution which is just inner products of a kernel calculated in a sliding window.
+    - The kernel is flipped on the x and y axis, or just flipped if the kernel is 1 dimensional
+- We call the kernel $\mathbf{h} = [h_1, h_2, h_3, \cdots, h_M]$ of length $M$
+    - The product of each value is calculated as $y_n = \sum_{k=0}^M h_kx_{n-k}$
+- For noise reduction we can fx use the average filter which is just a kernel of length $M$ where each value is $\frac{1}{M}$, that would make each value the average of the neighbours.
+- Correlation is the same as convolution but without flipping the kernel.
+- An **Image gradient** is a change in intensity or color.
+    - We can use the gradient to detect sharp changes in intensity or color, which can be used to detect edges.
+- In the exercise for this week we use filters to blur and sharpen images.
+- We also use correlation to make a kernel that is a template and then try and then for each pixel calculate how the template, over that image, correlates.
+
+### Focus on matching and metrics.
+- Matching is the process of finding the best match of a template in a dateset.
+- Fx in image data we can take a template image and compute for each pixel in a different image the one that correlates the most with that template, thereby creating a detection algorithm for that image.
+- When we match we can use a few different metrics to determine how well the template matches the image.
+    - Correlation
+        - $H(m,n)=\sum_k\sum_l g(k,l)f(m+k,n+l)$
+    - True detections
+        $H(m,n)=\sum_k\sum_l(g(k,l)-\overline{g})f(m+k,n+l)$
+    - SSD (Sum of Squared Differences)
+        - $H(m,n)=\sum_k\sum_l(g(k,l)-f(m+k,n+l))^2$
+    - Normalized cross correlation
+        - Works by subtracting the mean
+        - And then dividing by the standard deviation
+        - $H(m,n)=\frac{\sum_k\sum_l(g(k,l)-\overline{g})(f(m+k,n+l)-\overline{f})}{\sqrt{\sum_k\sum_l(g(k,l)-\overline{g})^2\sum_k\sum_l(f(k,l)-\overline{f})^2}}$
+
+### Focus on Cross validation
+- Also known as $k$-fold cross validation
+- Cross validation is a method of evaluating a model by training it on a subset of the data and then testing it on the rest of the data.
+- Helps to see how well the model generalizes. Aka how well it works on unseen data
+- The data is split into $k$ parts (folds) which are used for $k$ experiments. For each experiment a new set of data is used as validation data, such as the $i$th dataset, and the remaining $k-1$ datasets are used to train on. We then evaluate the model on how well it predicts the validation data.
+- The average of all the iterations is the final score of the model.
+- While this method is designed to prevent over/under fitting the issue comes when deciding $k$
+    - If $k$ is too small then the model will have few, but large datasets. This can lead to underfitting as the model has had less data to train with, but can lead to more consistent performance.
+    - If $k$ is too large then the model has had more data to train with, but less data to validate on. Which can lead to overfitting and therefore also not generalise well.
+    - It can help to also look at the variance over each experiment as the variance over the experiments can detect whether the model is sensitive to certain subsets of data. This variance would usually be hidden by the average if $k$ is large.
+- RMSE (Root Mean Squared Error) is a metric that can be used to evaluate the model
+    - $RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^n (y_i - \hat{y_i})^2}$
+    - Where $y_i$ is the actual value and $\hat{y_i}$ is the predicted value
+    - If RMSE is high for small and large values of $k$ then the model is probably bad as it's underfitting
+    - If RMSE is low for small values of $k$, but high for large values of $k$ then the model is probably overfitting
+    - If the model has a low RMSE for both small and large values of $k$ then the model is probably good
+
+### Focus on Regularization
+- Regularization is a method of reducing overfitting, thereby improving the generalization of the model.
+- It does this by adding a penalty to the loss function, which is the function that the model tries to minimize.
+    - Take the loss function $J(\mathbf{w})$, Mean-squared error $E_D(\mathbf{w})$ and a penalty term $\lambda E_w(\mathbf{w})$ to it, then the new loss function is $J(\mathbf{w})=E_D(\mathbf{w})+\lambda E_w(\mathbf{w})$
+    - $\lambda$ is the regularization parameter
+    - $E_w(\mathbf{w})$ is the regularization term. In this case the L2 norm of the weights
+    - We can change $\lambda$ to change the amount of regularization
+    - This is also known as weight decay
+    - Adding this penalty term to the loss function makes the model prefer smaller weights, thereby reducing overfitting
+    - This is all called L2 regularization or Ridge regression
+    - We can insert more bias via the regularization parameter ($\lambda$) to reduce the variance of the model
+
+### Focus on Bias /Variance, $\mathbf{R^2}$
+- Bias is the difference between the expected value of the model and the true value
 
 ## Q7: Week 8 - Classification
 ...

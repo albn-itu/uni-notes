@@ -82,13 +82,13 @@ tags:
   - [x] Outlier detection
   - [x] Data imputation
 - [ ] Regularization
-  - [ ] Filtering
-    - [ ] Convolution and Correlation
-    - [ ] Noise
-    - [ ] Image gradients
-  - [ ] Matching and metrics
-  - [ ] Cross validation
-  - [ ] Regularization
+  - [x] Filtering
+    - [x] Convolution and Correlation
+    - [x] Noise
+    - [x] Image gradients
+  - [x] Matching and metrics
+  - [x] Cross validation
+  - [x] Regularization
   - [ ] Bias/Variance, R-squared
 - [ ] Classification
   - [ ] Linear classification and kernels
