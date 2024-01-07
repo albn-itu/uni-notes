@@ -616,7 +616,85 @@ $$
         - Carries an inherent risk of information loss in the majority class
 
 ## Q9: Week 10 - Principal component analysis
-...
+### General
+- **Eigenvalues** and **eigenvectors**
+    - An **Eigenvector** is a vector that doesn't change its direction when a linear transformation is applied to it
+    - An **Eigenvalue** is the scalar that is used to transform the Eigenvector
+    - Thus an eigenvector $\mathbf{v}$ of a linear transformation $T$ is a nonzero vector that, when $T$ is applied to it, does not change direction
+        - $T(\mathbf{v})=\lambda\mathbf{v}$
+            - $\lambda$ is the eigenvalue
+
+### Dimensionality reduction and PCA. Focus on mandatory 2
+- **Dimensionality reduction** is the process of reducing the number of features in a dataset while retaining as much information as possible.
+    - This is done to reduce the computational cost of the model
+    - The transformation is done by projecting the data into a $k$-dimensional subspace (where $k$ is less than the original number of features)
+- Principal Component Analysis (PCA) is a dimensionality reduction technique that identifies the features withing the dataset that maximises the variance.
+    - The features with the highest variance are the ones that contain the most information, that is valuable to the model
+    - High-variance features often capture significant features
+    - Steps for PCA:
+        - Center the data
+            - Compute the $D$-dimensional mean vector ($D$ is the number of features)
+                - $\mathbf{m}=\frac{1}{N}\sum_{i=1}^N\mathbf{x_i}$
+                    - $N$ is the number of data points
+                    - $\mathbf{x_i}$ is the $i$th data point
+            - Subtract the mean from each data point
+        - Calculate the covariance matrix ($C$)
+            - The covariance matrix is a matrix that summarizes the covariance between several variables
+            - The covariance matrix is a square matrix with the same number of rows and columns as the number of variables in the dataset
+            - $C=\frac{1}{N}X^TX$
+                - $X$ is the centered data
+                - $N$ is the number of data points
+        - Calculate the eigenvectors $v_i$ and eigenvalues $\lambda_i$ of the covariance matrix
+            - Uphold $C=V\Lambda V^T$
+                - $V$ is the matrix of eigenvectors
+                    - $V=\begin{bmatrix}
+                        v_1 & v_2 & \cdots & v_n\end{bmatrix}$
+                - $\Lambda$ is the diagonal matrix of eigenvalues
+                    - $\Lambda=\begin{bmatrix}
+                        \lambda_1 & 0 & \cdots & 0 \\
+                        0 & \lambda_2 & \cdots & 0 \\
+                        \vdots & \vdots & \ddots & \vdots \\
+                        0 & 0 & \cdots & \lambda_n\end{bmatrix}$
+        - Sort the eigenvectors by decreasing eigenvalues
+            - The eigenvector with the largest eigenvalue corresponds to the direction of maximum variance
+        - Select a subspace of size $Dxk$ where $k$ is the number of eigenvectors selected
+        - Use the $Dxk$ matrix $\phi$ to transform the data into the new subspace spanned by the eigenvectors
+            - $y=\phi^Tx$
+                - $x$ is a $Dx1$ vector representing a sample
+                - $y$ is the transformed $kx1$ sample
+            - $Y=\phi^TX^T$
+                - $X$ is the centered data
+                - $Y$ is the transformed $kxN$ matrix
+
+### Generative models and PCA
+- **Generative models** are a class of models that are used to generate new data points from a given dataset
+- PCA can be used to reduce the size of the original dataset, but one has to be careful.
+    - If the dataset is reduced too much, the model will not be able to generate new data points that are similar to the original dataset
+    - If the dataset is reduced too little, the model will not be able to generate new data points that are different from the original dataset
+    - When reducing the dataset we have to ensure that the latent space that we eventually map to is representative and doesn't deviate too much from the original space.
+        - AKA we have to know that numbers generated in latent space have meaning in original space.
+    - Say we have datapoints $x_i$ that maps to the vectors $a_i$ in latent space. Then we can constrain the variance by the eigenvalues. Since they represent the variance in the direction given by the eigenvectors (which are the ones we are mapping with).
+    - So if we were to constrain by some percentage in each direction, we can setup the following:
+        - $-s\sqrt{\lambda_i}\leq a_i\leq s\sqrt{\lambda_i}$
+            - $s$ is a factor determining the level of allowed deviation
+            - $\lambda_i$ is the $i$th eigenvalue
+    - This establishes a boundary in latent space where the generated data points can be mapped to, thereby ensuring the original space remains representative.
+- In the assignment we do this ensuring a 95% variance in the latent space.
+
+### Eigenvalues, covariance matrix and basis
+- **Covariance matrix**
+    - The covariance matrix is a matrix that summarizes the covariance between several variables
+        - As in how much do the variables change together
+    - The covariance matrix is a square matrix with the same number of rows and columns as the number of variables in the dataset
+    - $C=\frac{1}{N}X^TX$
+        - $X$ is the centered data
+        - $N$ is the number of data points
+- Eigenvalues of a covariance matrix
+    - Calculating the eigenvectors and values of a covariance matrix is a way to find the directions of maximum variance in the dataset. Therefore the largest eigenvalues of the correlation matrix must be the features with the most variance
+- A basis is a set of vectors that generates all elements of the vector space and the vectors in the set are linearly independent.
+    - We regularly use these to transform between different coordinate systems
+    - Basis vectors for 2D: ($\begin{bmatrix}1\\0\end{bmatrix}$ and $\begin{bmatrix}0\\1\end{bmatrix}$)
+- For higher dimensions it all works the same, there are just $k$ basis vectors instead of 2 or 3, each basis vector has a 1 placed in some position.
 
 ## Q10: Week 11 - Clustering and non-linear optimization
 ...

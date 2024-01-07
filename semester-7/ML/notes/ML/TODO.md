@@ -99,13 +99,13 @@ tags:
   - [x] Metrics/Evaluation of regression models
   - [x] Features/HOG features and classification 
   - [x] Imbalanced data for classification and regression
-- [ ] PCA
-  - [ ] Dimensionality reduction
-    - [ ] Focus on mandatory 2
-  - [ ] Generative models
-  - [ ] Eigenvalues
-  - [ ] Covariance matrix
-  - [ ] Basis
+- [x] PCA
+  - [x] Dimensionality reduction
+    - [x] Focus on mandatory 2
+  - [x] Generative models
+  - [x] Eigenvalues
+  - [x] Covariance matrix
+  - [x] Basis
 - [ ] Clustering and Non-linear optimization
   - [ ] K-Means and Mean shift
   - [ ] K-Means and Algomerative clustering
