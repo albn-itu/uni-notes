@@ -94,11 +94,11 @@ tags:
   - [x] Linear classification and kernels
   - [x] Logistic regression
   - [x] Features/HOG features and classification
-- [ ] Evaluation
-  - [ ] Metrics/Evaluation of Classifiers
-  - [ ] Metrics/Evaluation of regression models
-  - [ ] Features/HOG features and classification 
-  - [ ] Imbalanced data for classification and regression
+- [x] Evaluation
+  - [x] Metrics/Evaluation of Classifiers
+  - [x] Metrics/Evaluation of regression models
+  - [x] Features/HOG features and classification 
+  - [x] Imbalanced data for classification and regression
 - [ ] PCA
   - [ ] Dimensionality reduction
     - [ ] Focus on mandatory 2

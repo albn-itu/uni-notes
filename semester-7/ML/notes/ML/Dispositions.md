@@ -500,7 +500,120 @@ $$
         - Can be used with a sliding window to detect objects in an image
 
 ## Q8: Week 9 - Evaluation
-...
+### Metrics/Evaluation of Classifiers
+- **Accuracy** is the number of correct predictions divided by the total number of predictions
+    - Accuracy is calculated as $\frac{TP+TN}{TP+TN+FP+FN}$
+        - $TP$ is the number of true positives
+        - $TN$ is the number of true negatives
+        - $FP$ is the number of false positives
+        - $FN$ is the number of false negatives
+    - Accuracy is not a good metric when the data is imbalanced
+        - Fx. if we have 1000 pictures of cats and 10 pictures of dogs, then a model that always predicts cat will have an accuracy of 99%
+        - In this case we can use the F1 score instead
+- **Precision** is the number of true positives divided by the number of true positives and false positives
+    - Precision is calculated as $\frac{TP}{TP+FP}$
+    - Precision is a good metric when we want to minimize false positives
+        - Fx. if we want to minimize the number of healthy people that are diagnosed with cancer
+- **Recall** is the number of true positives divided by the number of true positives and false negatives
+    - Recall is calculated as $\frac{TP}{TP+FN}$
+    - Recall is a good metric when we want to minimize false negatives
+        - Fx. if we want to minimize the number of people with cancer that are diagnosed as healthy
+- **F1 score** is the harmonic mean of precision and recall
+    - F1 score is calculated as $2*\frac{precision*recall}{precision+recall}$
+    - F1 score is a good metric when we want to minimize both false positives and false negatives
+- **Specificity** is the number of true negatives divided by the number of true negatives and false positives
+        - Fx. if we want to minimize the number of healthy people that are diagnosed with cancer and the number of people with cancer that are diagnosed as healthy
+        - Basically the opoosite of recall
+
+### Metrics/Evaluation of Regression models
+- **Mean Absolute Error** is the average absolute difference between the predicted value and the actual value
+    - Mean Absolute Error is calculated as $\frac{1}{n}\sum_i|y_i-\hat{y_i}|$
+        - $y_i$ is the actual value
+        - $\hat{y_i}$ is the predicted value
+        - $n$ is the number of data points
+    - Mean Absolute Error is a good metric when we want to penalize small errors
+- **Mean Squared Error** is the average squared difference between the predicted value and the actual value
+    - Mean Squared Error is calculated as $\frac{1}{n}\sum_i(y_i-\hat{y_i})^2$
+        - $y_i$ is the actual value
+        - $\hat{y_i}$ is the predicted value
+        - $n$ is the number of data points
+    - Mean Squared Error is a good metric when we want to penalize large errors
+- **Root Mean Squared Error** is the square root of the average squared difference between the predicted value and the actual value
+    - Root Mean Squared Error is calculated as $\sqrt{\frac{1}{n}\sum_i(y_i-\hat{y_i})^2}$
+        - $y_i$ is the actual value
+        - $\hat{y_i}$ is the predicted value
+        - $n$ is the number of data points
+    - Root Mean Squared Error is a good metric when we want to penalize large errors, Specifically outliers.
+        - In some cases MAE or $R^2$ is better
+- **Root Mean Squared Logarithmic Error** is the square root of the average squared logarithmic difference between the predicted value and the actual value
+    - Root Mean Squared Logarithmic Error is calculated as $\sqrt{\frac{1}{n}\sum_i(\log(y_i+1)-\log(\hat{y_i}+1))^2}$
+        - $y_i$ is the actual value
+        - $\hat{y_i}$ is the predicted value
+        - $n$ is the number of data points
+    - Root Mean Squared Logarithmic Error is a good metric when the errors exhibit exponential growth or decay
+        - Fx. when the error increases as the predicted value increases
+- $\mathbf{R^2}$ is the proportion of the variance in the dependent variable that is predictable from the independent variable(s)
+    - The "dependent variable" is the predicted data
+    - The "independent variable" is the input data
+    - Essentially it's a measure of how well the model fits the data
+        - Or just how close the data is to the fitted regression line
+    - $\mathbf{R^2}$ is, usually, between 0 and 1
+    - $\mathbf{R^2}$ is 0 when the model is as good as the mean of the data
+    - $\mathbf{R^2}$ is 1 when the model is perfect
+    - $\mathbf{R^2}$ is negative when the model is worse than the mean of the data
+    - $\mathbf{R^2}$ is calculated as $1-\frac{SS_{res}}{SS_{tot}}$
+        - $SS_{res}$ is the sum of squares of the residual (the difference between the predicted value and the actual value)
+            - $SS_{res}=\sum_i(y_i-\hat{y_i})^2$
+                - $\hat{y_i}$ is the predicted value
+        - $SS_{tot}$ is the total sum of squares (the difference between the actual value and the mean of the data)
+            - $SS_{tot}=\sum_i(y_i-\overline{y})^2$
+                - $\overline{y}$ is the mean of the data
+        - $y_i$ is the actual value
+
+### Features/HOG Features and classification.
+- A **Feature** is a measurable property of the data
+    - Fx the location and color of a pixel in an image
+    - Fx Name,Age,Sex,Height,Weight of a person
+    - Sometimes referred to as variables or attributes
+- **HOG Features** (Histogram of Oriented Gradients) is a method of extracting features from an image
+    - It's a feature descriptor that counts occurrences of gradient orientation in localized portions of an image
+    - In other words it counts the number of times an edge with a certain orientation appears in a certain area of the image
+    - Process:
+        - **Preprocessing and smoothing**
+          - This is done to reduce noise and make the image more uniform
+        - **Calculating the gradient**
+            - We do this by calculating the gradient magnitude and orientation of each pixel in the image
+        - **Creating a histogram of gradient orientations**
+            - Divide the image into cells and calculate the histogram of the gradient orientations in each cell
+        - **Normalizing across blocks**
+            - We do this to make the descriptor more robust to changes in lighting
+            - We do this by dividing the cells into blocks and normalizing the histogram of each block
+        - **Creating the feature vector**
+            - We do this by concatenating the normalized histograms of each block
+    - HOG Features are used in object detection and tracking
+        - Fx. in the exercise we calculate the HOG Features of a Cat and a Human and compare the similarity
+        - Can be used with a sliding window to detect objects in an image
+
+### Imbalanced data for classification and regression
+- Imbalanced data can really mess up the model
+- If the data is imbalanced the model will be biased towards the majority class, there are both ways to detect and fix this.
+- Detection:
+    - **Confusion matrix**
+        - A confusion matrix is a table that is used to describe the performance of a classification model
+        - It shows the number of correct and incorrect predictions made by the classification model compared to the actual outcomes
+    - We can also use a mix of the metrics we have already learned
+        - Fx. Accuracy, Precision, Recall, F1 score, Specificity
+    - **Matthews correlation coefficient**
+        - The Matthews correlation coefficient is used in machine learning as a measure of the quality of binary (two-class) classifications
+        - It takes into account true and false positives and negatives and is generally regarded as a balanced measure which can be used even if the classes are of very different sizes
+- Fixing:
+    - **Oversampling**
+        - Oversampling is the process of randomly duplicating observations from the minority class in order to reinforce its signal.
+        - Carries an inherent risk of overfitting towards the minority class.
+            - Some newer methods use generative models to generate synthetic data points
+    - **Undersampling**
+        - Undersampling is the process of randomly removing observations from the majority class to prevent its signal from dominating the learning algorithm.
+        - Carries an inherent risk of information loss in the majority class
 
 ## Q9: Week 10 - Principal component analysis
 ...
