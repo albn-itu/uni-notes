@@ -81,7 +81,7 @@ tags:
   - [x] Duplicate data
   - [x] Outlier detection
   - [x] Data imputation
-- [ ] Regularization
+- [x] Regularization
   - [x] Filtering
     - [x] Convolution and Correlation
     - [x] Noise
@@ -89,7 +89,7 @@ tags:
   - [x] Matching and metrics
   - [x] Cross validation
   - [x] Regularization
-  - [ ] Bias/Variance, R-squared
+  - [x] Bias/Variance, R-squared
 - [ ] Classification
   - [ ] Linear classification and kernels
   - [ ] Logistic regression

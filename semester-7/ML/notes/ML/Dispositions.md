@@ -425,7 +425,31 @@ $$
     - We can insert more bias via the regularization parameter ($\lambda$) to reduce the variance of the model
 
 ### Focus on Bias /Variance, $\mathbf{R^2}$
-- Bias is the difference between the expected value of the model and the true value
+- Bias is errors from the model due to incorrect assumptions in the model.
+    - High bias can lead to underfitting as it misses the relevant relations between features and target outputs.
+- Variance is errors from the model due to sensitivity to small fluctuations in the training set.
+    - High variance can lead to overfitting as it learns the noise in the training data.
+- We want to find a balance between bias and variance. Usually minimizing the 2 as much as possible, but there usually is a tradeoff.
+    - When creating models we can usually decrease the bias by adding more model parameters thereby becoming more flexible, but this decrease in bias increases the variance.
+- When we do ridge regression we introduce bias into the model to reduce the variance.
+- $\mathbf{R^2}$ is a metric that can be used to evaluate the model
+    - $\mathbf{R^2}$ is the proportion of the variance in the dependent variable that is predictable from the independent variable(s)
+    - The "dependent variable" is the predicted data
+    - The "independent variable" is the input data
+    - Essentially it's a measure of how well the model fits the data
+        - Or just how close the data is to the fitted regression line
+    - $\mathbf{R^2}$ is, usually, between 0 and 1
+    - $\mathbf{R^2}$ is 0 when the model is as good as the mean of the data
+    - $\mathbf{R^2}$ is 1 when the model is perfect
+    - $\mathbf{R^2}$ is negative when the model is worse than the mean of the data
+    - $\mathbf{R^2}$ is calculated as $1-\frac{SS_{res}}{SS_{tot}}$
+        - $SS_{res}$ is the sum of squares of the residual (the difference between the predicted value and the actual value)
+            - $SS_{res}=\sum_i(y_i-\hat{y_i})^2$
+                - $\hat{y_i}$ is the predicted value
+        - $SS_{tot}$ is the total sum of squares (the difference between the actual value and the mean of the data)
+            - $SS_{tot}=\sum_i(y_i-\overline{y})^2$
+                - $\overline{y}$ is the mean of the data
+        - $y_i$ is the actual value
 
 ## Q7: Week 8 - Classification
 ...
