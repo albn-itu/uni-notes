@@ -452,7 +452,52 @@ $$
         - $y_i$ is the actual value
 
 ## Q7: Week 8 - Classification
-...
+### General
+- **Classification** is a method of predicting a discrete class
+    - Fx predicting whether a picture is of a cat or a dog
+
+### Linear classification and ”kernels”
+- **Linear classification** is a method of classifying data into different classes using a linear function
+    - We try to find a linear function that separates the data into different classes
+    - Then we can test the data by seeing which side of the function it is on
+    - Is probably the simplest and fastest form of classification
+- **SVM** (Support Vector Machine)
+    - Is a method of linear classification
+    - It tries to find a hyperplane that separates the data into different classes
+    - A hyperplane is a plane that has one less dimension than the ambient space
+- **Kernels** are a method of transforming the data into a higher dimension to make it easier to classify
+    - Fx classifying non linear data using linear classification
+
+### Logistic regression
+- **Logistic regression** is a method of classification
+    - Uses a logistic function to model a binary dependent variable
+    - Can have a better fit than linear classification
+    - Instead of using a linear function to separate the data into different classes, we use a sigmoid function
+    - A strength of logistic regression is that it can give a probability of the data being in a certain class
+
+### Features/HOG Features and classification
+- A **Feature** is a measurable property of the data
+    - Fx the location and color of a pixel in an image
+    - Fx Name,Age,Sex,Height,Weight of a person
+    - Sometimes referred to as variables or attributes
+- **HOG Features** (Histogram of Oriented Gradients) is a method of extracting features from an image
+    - It's a feature descriptor that counts occurrences of gradient orientation in localized portions of an image
+    - In other words it counts the number of times an edge with a certain orientation appears in a certain area of the image
+    - Process:
+        - **Preprocessing and smoothing**
+          - This is done to reduce noise and make the image more uniform
+        - **Calculating the gradient**
+            - We do this by calculating the gradient magnitude and orientation of each pixel in the image
+        - **Creating a histogram of gradient orientations**
+            - Divide the image into cells and calculate the histogram of the gradient orientations in each cell
+        - **Normalizing across blocks**
+            - We do this to make the descriptor more robust to changes in lighting
+            - We do this by dividing the cells into blocks and normalizing the histogram of each block
+        - **Creating the feature vector**
+            - We do this by concatenating the normalized histograms of each block
+    - HOG Features are used in object detection and tracking
+        - Fx. in the exercise we calculate the HOG Features of a Cat and a Human and compare the similarity
+        - Can be used with a sliding window to detect objects in an image
 
 ## Q8: Week 9 - Evaluation
 ...

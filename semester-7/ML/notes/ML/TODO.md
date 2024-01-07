@@ -90,10 +90,10 @@ tags:
   - [x] Cross validation
   - [x] Regularization
   - [x] Bias/Variance, R-squared
-- [ ] Classification
-  - [ ] Linear classification and kernels
-  - [ ] Logistic regression
-  - [ ] Features/HOG features and classification
+- [x] Classification
+  - [x] Linear classification and kernels
+  - [x] Logistic regression
+  - [x] Features/HOG features and classification
 - [ ] Evaluation
   - [ ] Metrics/Evaluation of Classifiers
   - [ ] Metrics/Evaluation of regression models
