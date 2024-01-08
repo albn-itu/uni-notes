@@ -115,13 +115,13 @@ tags:
     - [x] Graphs
     - [x] Gradients
     - [x] Gradient descent with relation to model training and non-linear models
-- [ ] Neural Networks
-  - [ ] Prediction (regression vs classification)
-  - [ ] Training
-    - [ ] Gradients
-    - [ ] Chain rule
-    - [ ] back/foward propagation
-  - [ ] Training and evalution
+- [x] Neural Networks
+  - [x] Prediction (regression vs classification)
+  - [x] Training
+    - [x] Gradients
+    - [x] Chain rule
+    - [x] back/foward propagation
+  - [x] Training and evalution
 - [ ] Architectures
   - [ ] Model Architectures
     - [ ] MLP

@@ -783,7 +783,100 @@ $$
             - This is what momentum does
 
 ## Q11: Week 12 - Neural networks
-...
+- A **Neural network** is a series of functions.
+    - Each **Layer** is a function much like the ones we've been discussing up to this point. 
+    - Each layer/function has it's own parameters $w$.
+    - The output of one function is passed on to the next until it's eventually outputted
+    - Each layer contains an activation function
+        - The activation function is a non-linear function that is applied to the output of the layer
+        - The activation function is what makes the neural network non-linear
+        - The activation function is usually the same for all layers
+    - Each layer has the inherent risk of overfitting and underfitting that has been discussed many times, and one must therefore be very careful when training.
+        - Each layer can have a regularization function that helps with this
+    - Most of the time we don't really care about the parameters of each layer, we just want to find the parameters that minimize the loss function
+        - Especially because the parameters are really hard to reverse engineer
+    - Bigger networks can represent more an more complex functions
+        - But they are also more prone to overfitting
+
+### Neural networks prediction (regression vs classification)
+- Regression is the process of predicting a continuous value
+    - Fx predicting the price of a house
+- Classification is the process of predicting a discre class or label
+    - Fx predicting whether a picture is of a cat or a dog
+- For both of these there exists normal linear models, but these are limited by the fact that they can only model linear relationships.
+    - So in more complex relationships they will not be able to model the data well.
+- Neural networks are able to model non-linear relationships, which makes them more powerful than linear models.
+- In classification neural networks are really nice because they can find multiple different classes instead of just the 2 of linear classification
+
+### Neural networks training (Gradients, the chain rule and back/forward propagation)
+- **Forward propagation** is the process of calculating the output of the neural network
+    - This is done by passing the input through each layer of the network
+    - The output of one layer is the input of the next layer
+    - The output of the last layer is the output of the network
+- **Backwards propagation** is the process of calculating the gradients of the loss function with respect to the parameters of the network
+    - This is done by using the chain rule to calculate the gradients of each layer, working backwards from the last layer (hence the name)
+    - The gradients of each layer is then used to update the parameters of the network
+    - Essentially we are just doing gradient descent but for each layer
+- **The chain rule** is a method of calculating the derivative of a function that is composed of other functions
+    - Take the function $h(x)=f(g(x))$
+        - Then the chain rule states that $h'(x)=f'(g(x))g'(x)$
+            - This allows us to efficiently calculate the derivative of functions when starting from the bottom as you don't have to recompute the derivatives for each layer
+        - In Leibniz notation if the variable $z$ depends on the variable $y$ which depends on $x$ then:
+            - $\frac{dz}{dx}=\frac{dz}{dy}\frac{dy}{dx}$
+- **Gradient descent** is a method for finding the minimum of a non-linear function
+    - This is extremely useful in machine learning as we can use it to find the minimum of a non-linear loss function
+    - Fx take the non-linear loss function $L=\sum_{i=1}^n(F_w(x_i)-y_i)^2$
+        - $F_w$ is a non-linear transformation
+        - $x_i$ is the $i$th data point
+        - $y_i$ is the $i$th label
+        - $w$ is the weights of the model
+    - In such a situation we must use iterative methods to find the minimum.
+    - In gradient descent we consider 4 possible points
+        - The global maximum
+        - The global minimum
+        - The local maximum (There can be many of these)
+        - The local minimum (There can be many of these)
+    - Our goal is to find the global minimum
+    - The algorithm works as follows:
+        - Start at a point $x_0$
+        - Calculate the next estimate using $x_{n+1}=x_n-\alpha\nabla f(x_n)$
+            - $\alpha$ is the learning rate
+            - $\nabla f(x_n)$ is the gradient of the function at $x_n$
+                - The gradient is the vector of partial derivatives of the function
+        - Repeat step 2 until we reach a gradient of 0 or a predefined number of iterations
+    - If you have multiple dimensions then you take the derivative of both directions in the point you are currently in, and go in the direction of the steepest slope.
+    - This can be optimized using momentum
+        - Sometimes we will only find the local minima, when a global minima exists
+        - Momentum takes the last steps into account to take larger steps when we are far from the minima and smaller steps when we are close to the minima
+            - Compare to a ball
+            - A ball will gain speed when rolling down a hill
+            - A small bump or plateau in the hill will not stop the ball, but will slow it down
+            - This is what momentum does
+
+### Training and Evaluation
+- **Supervised learning** is a method of training a model using labeled data
+    - Fx. training a model to predict whether a picture is of a cat or a dog
+- **Unsupervised learning** is a method of training a model using unlabeled data
+    - These models are trained to find patterns in the data, patterns we don't know of
+    - Fx. training a model to cluster data points into different groups
+- We learn by minimizing the loss function using forwards and backwards propagation, see previous
+- We evaluate based on metrics
+    - Classification has,
+        - **Accuracy** is the number of correct predictions divided by the total number of predictions
+        - **Precision** is the number of true positives divided by the number of true positives and false positives
+        - **Recall** is the number of true positives divided by the number of true positives and false negatives
+        - **F1 score** is the harmonic mean of precision and recall
+        - **Specificity** is the number of true negatives divided by the number of true negatives and false positives
+    - Regression has,
+        - **Mean Absolute Error** is the average absolute difference between the predicted value and the actual value
+            - Mean Absolute Error is a good metric when we want to penalize small errors
+        - **Mean Squared Error** is the average squared difference between the predicted value and the actual value
+            - Mean Squared Error is a good metric when we want to penalize large errors
+        - **Root Mean Squared Error** is the square root of the average squared difference between the predicted value and the actual value
+            - Root Mean Squared Error is a good metric when we want to penalize large errors, Specifically outliers.
+        - **Root Mean Squared Logarithmic Error** is the square root of the average squared logarithmic difference between the predicted value and the actual value
+            - Root Mean Squared Logarithmic Error is a good metric when the errors exhibit exponential growth or decay
+        - $\mathbf{R^2}$ is the proportion of the variance in the dependent variable that is predictable from the independent variable(s)
 
 ## Q12: Week 13 / 14 - Architectures
 ...
