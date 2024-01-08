@@ -106,15 +106,15 @@ tags:
   - [x] Eigenvalues
   - [x] Covariance matrix
   - [x] Basis
-- [ ] Clustering and Non-linear optimization
-  - [ ] K-Means and Mean shift
-  - [ ] K-Means and Algomerative clustering
-  - [ ] K-Means and ELBOW
-  - [ ] Non-linear optimization 
-    - [ ] Non-linear functions
-    - [ ] Graphs
-    - [ ] Gradients
-    - [ ] Gradient descent with relation to model training and non-linear models
+- [x] Clustering and Non-linear optimization
+  - [x] K-Means and Mean shift
+  - [x] K-Means and Algomerative clustering
+  - [x] K-Means and ELBOW
+  - [x] Non-linear optimization 
+    - [x] Non-linear functions
+    - [x] Graphs
+    - [x] Gradients
+    - [x] Gradient descent with relation to model training and non-linear models
 - [ ] Neural Networks
   - [ ] Prediction (regression vs classification)
   - [ ] Training

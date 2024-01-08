@@ -697,7 +697,90 @@ $$
 - For higher dimensions it all works the same, there are just $k$ basis vectors instead of 2 or 3, each basis vector has a 1 placed in some position.
 
 ## Q10: Week 11 - Clustering and non-linear optimization
-...
+- **K-means** is a clustering algorithm that tries to partition a set of points into $k$ clusters, where each point belongs to the cluster with the nearest mean (also known as cluster centers).
+    - The algorithm works as follows:
+        - Select $k$ points as the initial centroids
+        - Assign each point to the closest centroid
+        - Recompute the centroids
+        - Repeat steps 2 and 3 until the SSD is minimized
+            - This is known as **WCSS** (Within cluster sum of squares)
+            - SSD is sum of squared distances between each point and its centroid
+                - $\sum_{c_i\in C}\sum_{x_i\in c_i}||x_i-c_i||^2$
+                - In this case the metric is the L2 Norm (Euclidean distance), but it can be any metric
+
+### K-means and Mean shift
+- **Mean shift** is a clustering algorithm that tries to find so-called modes in the dataset
+    - The algorithm works as follows:
+        - Create a sliding window for each data point
+        - Calculate the mean of the data points in the window (Some radius around the data point, known as the kernel)
+        - Shift the data point towards the mean
+        - Repeat steps 2 and 3 until the data points converge
+        - Each cluster is the set of data points that converge to the same point, these are the returned centroids
+        - The number of clusters is determined by the algorithm
+    - The hard part about Mean shift is selecting the bandwith (size of sliding window)
+        - If the bandwith is too small then there will be too many clusters
+            - An extreme case is that each point will be its own cluster
+        - If the bandwith is too large then there will be too few clusters
+            - An extreme case is that all points will be in the same cluster
+
+|          | **K-means** | **Mean shift** |
+| -------- | ----------- | -------------- |
+| **Pros** | Simple and fast to compute<br>Converges to local minimum of WCSE | Does not assume cluster shape<br>Only one parameter choice (bandwith)<br>Can find many modes, you don't need to decide the cluster amount<br>Robust to outliers |
+| **Cons** | Selecting $k$ is hard, even with the ELBOW method<br>Can be sensitive to the initial centers<br>Sensitive to outliers<br>Clusters are spherical| Selecting the window size is hard<br>Does not scale well with more dimensions<br>Extremely bad runtime, nearest-neighbor runs in $O(n^2)$ |
+
+### K-means and Algomerative clustering
+- **Algomerative** or **Agglomerative** clustering is a clustering method which starts with each data point as its own cluster and then merges the closest clusters until there is only one cluster left
+    - The algorithm works as follows:
+        - Start with each data point as its own cluster
+        - Merge the 2 closest clusters
+        - Repeat step 2 until there is only one cluster left or until a threshold for number of clusters/distance is reached
+    - The hard part about Algomerative clustering is selecting the threshold value
+    - Pros
+        - Free choice of distance metric
+        - Easy to implement
+        - Any cluster size
+        - Clusters have very adaptive shapes
+    - Cons
+        - Extreme runtime, nearest-neighbor runs in $O(n^2)$
+        - Imbalanced: Outliers will be their own cluster
+        - Still have to choose the number of clusters
+
+### K-means and ELBOW
+- The **ELBOW** method is a method of finding the optimal number of clusters in a dataset
+    - The method works by plotting the number of clusters against the within cluster sum of squares (WCSS)
+    - The optimal number of clusters ($k$) is the point where the WCSS starts to flatten out
+    - The point where the WCSS starts to flatten out is called the elbow
+
+### Nonlinear functions, graphs, gradients and gradient descent with relation to model training and non-linear models
+- **Gradient descent** is a method for finding the minimum of a non-linear function
+    - This is extremely useful in machine learning as we can use it to find the minimum of a non-linear loss function
+    - Fx take the non-linear loss function $L=\sum_{i=1}^n(F_w(x_i)-y_i)^2$
+        - $F_w$ is a non-linear transformation
+        - $x_i$ is the $i$th data point
+        - $y_i$ is the $i$th label
+        - $w$ is the weights of the model
+    - In such a situation we must use iterative methods to find the minimum.
+    - In gradient descent we consider 4 possible points
+        - The global maximum
+        - The global minimum
+        - The local maximum (There can be many of these)
+        - The local minimum (There can be many of these)
+    - Our goal is to find the global minimum
+    - The algorithm works as follows:
+        - Start at a point $x_0$
+        - Calculate the next estimate using $x_{n+1}=x_n-\alpha\nabla f(x_n)$
+            - $\alpha$ is the learning rate
+            - $\nabla f(x_n)$ is the gradient of the function at $x_n$
+                - The gradient is the vector of partial derivatives of the function
+        - Repeat step 2 until we reach a gradient of 0 or a predefined number of iterations
+    - If you have multiple dimensions then you take the derivative of both directions in the point you are currently in, and go in the direction of the steepest slope.
+    - This can be optimized using momentum
+        - Sometimes we will only find the local minima, when a global minima exists
+        - Momentum takes the last steps into account to take larger steps when we are far from the minima and smaller steps when we are close to the minima
+            - Compare to a ball
+            - A ball will gain speed when rolling down a hill
+            - A small bump or plateau in the hill will not stop the ball, but will slow it down
+            - This is what momentum does
 
 ## Q11: Week 12 - Neural networks
 ...
