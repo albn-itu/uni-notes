@@ -524,6 +524,18 @@ $$
 - **Specificity** is the number of true negatives divided by the number of true negatives and false positives
         - Fx. if we want to minimize the number of healthy people that are diagnosed with cancer and the number of people with cancer that are diagnosed as healthy
         - Basically the opoosite of recall
+- **ROC Curve**
+    - ROC (Receiver Operating Characteristic) Curve is a plot of the true positive rate against the false positive rate at each threshold setting
+    - The closer the curve is to the top left corner the better the model
+    - This curve is nice for visually comparing threshold values
+- **AUC** (Area Under the Curve)
+    - AUC is the area under the ROC curve
+    - The closer the AUC is to 1 the better the model, with 1 signifying a perfect model
+    - AUC is a good metric when we want to compare different models
+- **Precision-recall curve**
+    - Precision-recall curve is a plot of precision against recall at each threshold setting
+    - The closer the curve is to the top right corner the better the model
+    - This curve is nice for visually comparing threshold values
 
 ### Metrics/Evaluation of Regression models
 - **Mean Absolute Error** is the average absolute difference between the predicted value and the actual value
