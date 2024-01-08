@@ -123,19 +123,18 @@ tags:
     - [x] back/foward propagation
   - [x] Training and evalution
 - [ ] Architectures
-  - [ ] Model Architectures
-    - [ ] MLP
-    - [ ] CNN
-    - [ ] Difference between fully connected, multi-layer perceptron (MLP) and convolutional neural networks (CNN)
-  - [ ] Regularization
-  - [ ] Data augmentation
-  - [ ] Model complexity
-  - [ ] Norms
-  - [ ] Model tuning
-  - [ ] Dropout
-  - [ ] Early stopping
-  - [ ] Complexity
-
+  - [x] Model Architectures
+    - [x] MLP
+    - [x] CNN
+    - [x] Difference between fully connected, multi-layer perceptron (MLP) and convolutional neural networks (CNN)
+  - [x] Regularization
+  - [x] Data augmentation
+  - [x] Model complexity
+  - [x] Norms
+  - [x] Model tuning
+  - [x] Dropout
+  - [x] Early stopping
+  - [x] Complexity
 
 # Additional preparation
   - [ ] Linear Algebra

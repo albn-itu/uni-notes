@@ -891,5 +891,103 @@ $$
         - $\mathbf{R^2}$ is the proportion of the variance in the dependent variable that is predictable from the independent variable(s)
 
 ## Q12: Week 13 / 14 - Architectures
-...
+### Model architectures: Difference between fully connected/multi layer perceptron (MLP) and CNN
+- A **Perceptron** is a linear classifier. It's a single layer neural network that can only classify linearly separable data
+    - It's a binary classifier, meaning it can only classify data into 2 classes
+    - It's a single layer neural network, meaning it only has one layer of neurons
+    - It can only classify linearly separable data, meaning it can only classify data that can be separated by a line
+-  **Fully connected** or **Multi layer perceptron** (MLP) is a neural network architecture where each neuron in a layer is connected to all neurons in the next layer
+    - It consists of an input layer, one or more hidden layers and an output layer
+    - The hidden layers are fully connected, meaning each neuron in a layer is connected to all neurons in the next layer
+    - The hidden layers are all perceptrons, meaning they are all linear classifiers, possibly using sigmoid functions to use the probability that something is in a class
+    - Due to these factors an MLP can classify non-linearly separable data, instead of just linearly like the perceptron. This is basically the classification version of a regression neural network
+- **Convolutional Neural Network** (CNN) is a neural network architecture that is used for image classification
+    - It consists of an input layer, output layer and some number of hidden layers
+    - We usually say there are a few types of layers in a convulational network
+        - Convolutional layers
+            - Convolutional layers are used to extract features from the image
+            - This could be edges, corners, etc.
+            - This is done by applying a filter to the image using a kernel. Much like HOG
+            - Some convulational layers also minimize the size of the image, fx. gray scaling it
+        - Pooling layers
+            - Pooling layers are used to reduce the size of the image, to save on computational complexity.
+            - This is usually done by extracting the dominant features.
+            - Pooling is usually either
+                - **Max pooling** which takes the maximum value in a sliding window
+                    - This also discards noise and minor features, usually performing better than average pooling
+                - **Average pooling** which takes the average value in a sliding window
+            - Again much like HOG which uses a sliding window and blocks to reduce the size of the feature space.
+        - Fully connected layers
+            - These are the same as in a MLP
+            - They take the output from the previous steps to classify the image, or parts of the image
+    - Not all CNNs have all of these layers, but they all have at least one convolutional layer and one fully connected layer
 
+### Regularization, data augmentation, model complexity and norms
+- Regularization is a method of reducing overfitting, thereby improving the generalization of the model.
+    - It does this by adding a penalty to the loss function, which is the function that the model tries to minimize.
+        - Take the loss function $J(\mathbf{w})$, Mean-squared error $E_D(\mathbf{w})$ and a penalty term $\lambda E_w(\mathbf{w})$ to it, then the new loss function is $J(\mathbf{w})=E_D(\mathbf{w})+\lambda E_w(\mathbf{w})$
+        - $\lambda$ is the regularization parameter
+        - $E_w(\mathbf{w})$ is the regularization term. In this case the L2 norm of the weights
+        - We can change $\lambda$ to change the amount of regularization
+        - This is also known as weight decay
+        - Adding this penalty term to the loss function makes the model prefer smaller weights, thereby reducing overfitting
+        - This is all called L2 regularization or Ridge regression
+        - We can insert more bias via the regularization parameter ($\lambda$) to reduce the variance of the model
+- Data augmentation is a method of increasing the size of the dataset by adding slightly modified copies of the data points
+    - This is done to reduce overfitting
+    - Fx. if we have a dataset of pictures of cats, we can augment the dataset by flipping the pictures horizontally
+    - This is done because the model will not be able to tell the difference between a cat that is flipped horizontally and a cat that is not flipped horizontally
+    - We can also add noise to the data points to make the model more robust
+- Batch normalization is a method of normalizing the input data
+    - This both improves speed and Accuracy
+    - The reasons are contested, but for something like images, ensuring everything is centered can make the processing easier
+    - You basically just standardize the input data
+- Model complexity is the complexity of the model
+    - This is usually measured by the number of parameters in the model
+    - The more complex the model is, the more prone it is to overfitting
+    - This is something to be very careful with in neural networks, and can be helped with regularization
+- Norms are used to measure the size of a vector
+    - The L2 norm is the Euclidean distance, or the length of the vector
+        - $||\mathbf{x}||_2=\sqrt{\sum_{i=1}^nx_i^2}$
+    - These can be used to measure the error of a model
+        - Fx. the L2 norm of the difference between the predicted value and the actual value
+    - This seems weird to have here ngl
+
+### Model tuning, dropout, early stopping, complexity
+- **Model tuning** is the process of finding the optimal parameters for a model
+    - We do this to improve performance
+    - Done by tuning things like
+        - Learning rate and momentum
+        - Probability of dropout
+        - Regularization
+        - Node count
+        - Batch size
+- **Dropout** is a method of reducing overfitting by randomly dropping neuron outputs during training.
+    - This ensures that the model doesn't overly rely on any one neuron
+    - The next layer just sees the previous layer as having less neurons
+- **Early stopping** is a method of reducing overfitting by stopping the training when the validation loss starts to increase or flatten out
+    - Limits overfitting, is a type of regularization
+    - More specifically take the minimum loss of the last $p$ epochs and take the best model if the loss $>~=$ minimum loss
+    - This can take a patience parameter to set how many times the loss can increase or do nothing before stopping
+
+### Convolutional Neural Networks (CNN) (Convolutional layers, max pooling)
+- **Convolutional Neural Network** (CNN) is a neural network architecture that is used for image classification
+    - It consists of an input layer, output layer and some number of hidden layers
+    - We usually say there are a few types of layers in a convulational network
+        - Convolutional layers
+            - Convolutional layers are used to extract features from the image
+            - This could be edges, corners, etc.
+            - This is done by applying a filter to the image using a kernel. Much like HOG
+            - Some convulational layers also minimize the size of the image, fx. gray scaling it
+        - Pooling layers
+            - Pooling layers are used to reduce the size of the image, to save on computational complexity.
+            - This is usually done by extracting the dominant features.
+            - Pooling is usually either
+                - **Max pooling** which takes the maximum value in a sliding window
+                    - This also discards noise and minor features, usually performing better than average pooling
+                - **Average pooling** which takes the average value in a sliding window
+            - Again much like HOG which uses a sliding window and blocks to reduce the size of the feature space.
+        - Fully connected layers
+            - These are the same as in a MLP
+            - They take the output from the previous steps to classify the image, or parts of the image
+    - Not all CNNs have all of these layers, but they all have at least one convolutional layer and one fully connected layer
