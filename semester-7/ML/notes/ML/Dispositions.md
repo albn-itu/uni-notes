@@ -16,7 +16,7 @@ For each prepare a 5-6 minute presentation which covers
   - These basis vectors have a length of 1 and are orthogonal to each other.
   - The basis vectors can be used to describe any vector in 3D space.
   - The scalar values can also be seen as a point where the vector "points to".
-- If one where to scale a vector it would keep the same angle but change length.
+- If one were to scale a vector it would keep the same angle but change length.
 - In Linear Combination we can also represent a vector as D other vectors multiplied by scalars and added together, for 2D
   - $v = a_1\overrightarrow(v) + a_2\overrightarrow{w}$
   - This will also create every possible vector
@@ -138,7 +138,7 @@ For each prepare a 5-6 minute presentation which covers
 - Rules:
     - $T(\overrightarrow{u} + \overrightarrow{v}) = T(\overrightarrow{u}) + T(\overrightarrow{v})$
     - $T(c\overrightarrow{u}) = cT(\overrightarrow{u})$
-- For it to be linear it must satisfy both of these rules and which also ensure that straight lines stay straight.
+- For it to be linear it must satisfy both of these rules, which also ensure that straight lines stay straight.
 
 ### Focus on 2D and 3D, relate to higher dimensions
 - In 2D we can represent a linear transformation as a matrix
@@ -152,7 +152,9 @@ For each prepare a 5-6 minute presentation which covers
         - $\begin{bmatrix}a & 0 \\ 0 & d\end{bmatrix}$
     - Translation
         - Translation is done by adding a vector to each element
-        - $\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix} + \begin{bmatrix}x \\ y\end{bmatrix}$
+        - $org=\begin{bmatrix}x \\ y\end{bmatrix}$, $translation=\begin{bmatrix}tx\\ty\end{bmatrix}$
+            - $x' = x + tx$, $y' = y + ty$
+        - $\begin{bmatrix}x'\\y'\\1\end{bmatrix} = \begin{bmatrix}1 & 0 & tx \\ 0 & 1 & ty \\ 0 & 0 & 1\end{bmatrix}\begin{bmatrix}x\\y\\1\end{bmatrix}$
     - Rotation
         - Rotation is done by multiplying the matrix by a rotation matrix
         - A rotation matrix is a matrix that rotates a vector by a given angle
@@ -176,7 +178,7 @@ For each prepare a 5-6 minute presentation which covers
 - An **affine transformation** is a linear transformation where the origin does not have to be preserved. We can represent them as a transformation and a translation.
     - Formally, take the invertible transformation matrix $\mathbf{A}$ and the translation vector $\overrightarrow{b}$ then the affine transformation is $y = \mathbf{Ax} + \overrightarrow{b}$
     - In matrix form it looks like $\begin{bmatrix}a_1 & a_2 \\ a_3 & a_4\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix} + \begin{bmatrix}b_1\\b_2\end{bmatrix}$
-- Homogenous coordinates are cartesian coordinates that are scaled by a factor $Z$. This is done by adding an extra dimension to the vector and setting it to $Z$.
+- **Homogenous coordinates** are cartesian coordinates that are scaled by a factor $Z$. This is done by adding an extra dimension to the vector and setting it to $Z$.
     - We can then represent the vector as $\begin{bmatrix}x\\y\\Z\end{bmatrix}$
     - This allows for $(xZ, yZ, Z)$ to be represented as $(x, y, Z)$
     - For a coordinate $(x, y)$ we can represent it as $(x, y, 1)$
@@ -334,7 +336,7 @@ $$
 
 ### Focus on uncertainty, data cleaning in relation to regression, classification, clustering or dimensionality reduction.
 - Data cleaning is important in all of these
-    - Can consist of transforming the data, resizing / normalizing images, removing noise, reming unwanted observations or outliers and handling missing data 
+    - Can consist of transforming the data, resizing / normalizing images, removing noise, removing unwanted observations or outliers and handling missing data 
     - Normalization
         - Normalization is the process of scaling individual samples to have unit norm
         - $x_{i}' = \frac{x_i-x_{min}}{x_{max}-x_{min}}$
@@ -344,7 +346,8 @@ $$
     - These 2 reduce bias and improve consistency
 - Regression
     - Uncertainty can be used to evaluate the confidence and variability of the prediction
-    - Data cleaning is extremely critical as the model as bad data can significantly affect the fit of the resulting model.... See exercise
+    - Data cleaning is extremely critical as bad data can significantly affect the fit of the resulting model.... See exercise
+    - A model is only as good as the data it is trained on
 - Classification
     - Uncertainty estimation determines the confindence of the assignment of a particular class of labels
     - Misclassification can be seen as a form of uncertainty that has to be handled in the data cleaning
