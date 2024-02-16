@@ -1,2 +1,77 @@
 \section{Exercise 3}
+\question{
+	$$A = \begin{bmatrix}
+			1 & 2 & 3  \\
+			0 & 1 & -1 \\
+			2 & 2 & 2
+		\end{bmatrix}$$
 
+	Find the adjoint of the matrix A. Then use
+	the adjoint to find the inverse of A (if possible).
+}
+
+First calculate the minors of the matrix A:
+\begin{align*}
+	M_{1,1} & = 1\cdot 2 - (-1)\cdot 2 = 4  \\
+	M_{1,2} & = 0\cdot 2 - (-1)\cdot 2 = 2  \\
+	M_{1,3} & = 0\cdot 2 - 1\cdot 2    = -2 \\
+	M_{2,1} & = 2\cdot 2 - 3\cdot 2    = -2 \\
+	M_{2,2} & = 1\cdot 2 - 3\cdot 2    = -4 \\
+	M_{2,3} & = 1\cdot 2 - 2\cdot 2    = -2 \\
+	M_{3,1} & = 2\cdot (-1) - 3\cdot 1 = -5 \\
+	M_{3,2} & = 1\cdot (-1) - 3\cdot 0 = -1 \\
+	M_{3,3} & = 2\cdot 1 - 2\cdot 0    = 1  \\
+\end{align*}
+
+Resulting in the matrix:
+$$
+	M = \begin{bmatrix}
+		4  & 2  & -2 \\
+		-2 & -4 & -2 \\
+		-5 & -1 & 1
+	\end{bmatrix}
+$$
+
+Then calculate the cofactor matrix by manipulating the signs of the minors:
+$$
+	C = \begin{bmatrix}
+		4  \cdot (-1)^2 & 2  \cdot (-1)^3 & -2 \cdot (-1)^4 \\
+		-2 \cdot (-1)^3 & -4 \cdot (-1)^4 & -2 \cdot (-1)^5 \\
+		-5 \cdot (-1)^4 & -1 \cdot (-1)^5 & 1  \cdot (-1)^6
+	\end{bmatrix} = \begin{bmatrix}
+		4  & -2 & -2 \\
+		2  & -4 & 2  \\
+		-5 & 1  & 1
+	\end{bmatrix}
+$$
+
+Then calculate the adjoint matrix by transposing the cofactor matrix:
+$$
+	\text{adj}(A) = C^T = \begin{bmatrix}
+		4  & 2  & -5 \\
+		-2 & -4 & 1  \\
+		-2 & 2  & 1
+	\end{bmatrix}
+$$
+
+We can then calculate the determinant of A by using the adjoint matrix:
+\begin{align*}
+	\det(A) & = A_{1,1}C_{1,1} + A_{1,2}C_{1,2} + A_{1,3}C_{1,3} \\
+	        & = 1\cdot 4 + 2\cdot (-2) + 3\cdot (-2)             \\
+	= 4 - 4 - 6 = -6
+\end{align*}
+
+Finally, we can calculate the inverse of A by using the adjoint matrix and the determinant:
+\begin{align*}
+	A^{-1} & = \frac{1}{\det(A)}\text{adj}(A)                \\
+	       & = \frac{1}{-6}\begin{bmatrix}
+		                       4  & 2  & -5 \\
+		                       -2 & -4 & 1  \\
+		                       -2 & 2  & 1
+	                       \end{bmatrix}                    \\
+	       & = \begin{bmatrix}
+		           -\gfrac{2}{3} & -\gfrac{1}{3} & \gfrac{5}{6}  \\
+		           \gfrac{1}{3}  & \gfrac{2}{3}  & -\gfrac{1}{6} \\
+		           \gfrac{1}{3}  & -\gfrac{1}{3} & -\gfrac{1}{6}
+	           \end{bmatrix}
+\end{align*}
