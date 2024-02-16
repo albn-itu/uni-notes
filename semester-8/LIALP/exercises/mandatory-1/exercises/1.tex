@@ -1,0 +1,75 @@
+\section{Exercise 1}
+\question{
+	Solve the following set of linear equations:
+
+	\begin{align*}
+		-2w + 2x + 2y - 8z & = 14  \\
+		3w - 3x + y + 4z   & = -5  \\
+		2w - 2x - 4y + 12z & = -22
+	\end{align*}
+
+}
+
+First, write the system of equations as an augmented matrix:
+
+$$
+	\begin{gmatrix}[b]
+		-2 & 2  & 2  & -8 & \BAR & 14  \\
+		3  & -3 & 1  & 4  & \BAR & -5  \\
+		2  & -2 & -4 & 12 & \BAR & -22
+	\end{gmatrix}
+$$
+
+Then perform row operations to reduce the matrix to reduced row echelon form:
+
+\begin{align*}
+	\intertext{Multiply the first row by $-\frac{1}{2}$}
+	 & \begin{gmatrix}[b]
+		   1 & -1  & -1  & 4 & \BAR & -7  \\
+		   3  & -3 & 1  & 4  & \BAR & -5  \\
+		   2  & -2 & -4 & 12 & \BAR & -22
+		   \rowops
+		   \mult{0}{\cdot -\frac{1}{2}}
+	   \end{gmatrix} \rightsquigarrow \\
+	\intertext{Add $-3$ times the first row to the second row, and add $-2$ times the first row to the third row}
+	 & \begin{gmatrix}[b]
+		   1 & -1  & -1  & 4 & \BAR & -7  \\
+		   0  &  0 & 4  & -8  & \BAR & 16  \\
+		   0  & 0 & -2 & 4 & \BAR & -8
+		   \rowops
+		   \add[-3]{0}{1}
+		   \add[-2]{0}{2}
+	   \end{gmatrix} \rightsquigarrow       \\
+	\intertext{Multiply the second row by $\frac{1}{4}$}
+	 & \begin{gmatrix}[b]
+		   1 & -1  & -1  & 4 & \BAR & -7  \\
+		   0  &  0 & 1  & -2  & \BAR & 4  \\
+		   0  & 0 & -2 & 4 & \BAR & -8
+		   \rowops
+		   \mult{1}{\cdot \frac{1}{4}}
+	   \end{gmatrix} \rightsquigarrow  \\
+	\intertext{Add $2$ times the second row to the third row}
+	 & \begin{gmatrix}[b]
+		   1 & -1  & -1  & 4 & \BAR & -7  \\
+		   0  &  0 & 1  & -2  & \BAR & 4  \\
+		   0  & 0 & 0 & 0 & \BAR & 0
+		   \rowops
+		   \add[2]{1}{2}
+	   \end{gmatrix} \rightsquigarrow        \\
+	\intertext{Add the second row to the first row}
+	 & \begin{gmatrix}[b]
+		   1 & -1  & 0  & 2 & \BAR & -3  \\
+		   0  &  0 & 1  & -2  & \BAR & 4  \\
+		   0  & 0 & 0 & 0 & \BAR & 0
+		   \rowops
+		   \add[1]{1}{0}
+	   \end{gmatrix} \rightsquigarrow        \\
+\end{align*}
+
+Let $x = t, z=s$ be the free variables, then for all $t,s\in\mathbb{R}$ the solution is:
+\begin{align*}
+	w - t + 2s = -3 \Rightarrow & w = -3 +t - 2s \\
+	y - 2s = 4      \Rightarrow & y = 4 + 2s     \\
+	                            & x = t          \\
+	                            & z = s
+\end{align*}
