@@ -1,1 +1,54 @@
 \section{Exercise 2}
+\question{
+	A mixture of 24 liters of chemical A, 32 liters of chemical B, and 52 liters of chemical C is required to kill a destructive crop insect. Commercial spray X contains 1, 2, and 2 parts, respectively, of these chemicals. Commercial spray Y contains only chemical C. Commercial spray Z contains chemicals A, B, and C in equal amounts. How much of each type of commercial spray is needed to get the desired mixture?
+}
+
+Let $x$, $y$, and $z$ be the amount of commercial sprays X, Y, and Z, respectively. Then we have the following system of equations:
+
+\begin{align*}
+	\frac{1}{5}x + 0y + \frac{1}{3}z & = 24 \\
+	\frac{2}{5}x + 0y + \frac{1}{3}z & = 32 \\
+	\frac{2}{5}x + y + \frac{1}{3}z  & = 52
+\end{align*}
+
+We can solve this system of equations by using the augmented matrix:
+$$
+	\begin{gmatrix}[b]
+		\gfrac{1}{5} & 0 & \gfrac{1}{3} & \BAR & 24 \\
+		\gfrac{2}{5} & 0 & \gfrac{1}{3} & \BAR[4pt] & 32 \\
+		\gfrac{2}{5} & 1 & \gfrac{1}{3} & \BAR[4pt] & 52
+	\end{gmatrix}
+$$
+
+Then perform row operations to get our solution:
+\begin{align*}
+	\intertext{Subtract the first row from the second and third row}
+	 & \begin{gmatrix}[b]
+		   \gfrac{1}{5} & 0 & \gfrac{1}{3} & \BAR & 24 \\
+		   \gfrac{1}{5} & 0 & 0            & \BAR[4pt] & 8 \\
+		   \gfrac{1}{5} & 1 & 0            & \BAR[4pt] & 28
+		   \rowops
+		   \add[-1]{0}{1}
+		   \add[-1]{0}{2}
+	   \end{gmatrix} \rightsquigarrow \\
+	\intertext{Subtract the second row from the first and third row}
+	 & \begin{gmatrix}[b]
+		   0            & 0 & \gfrac{1}{3} & \BAR & 16 \\
+		   \gfrac{1}{5} & 0 & 0            & \BAR[4pt] & 8 \\
+		   0            & 1 & 0            & \BAR[4pt] & 20
+		   \rowops
+		   \add[-1]{1}{0}
+		   \add[-1]{1}{2}
+	   \end{gmatrix} \rightsquigarrow \\
+	\intertext{Multiply the first row by 3 and the second row by 5}
+	 & \begin{gmatrix}[b]
+		   0 & 0 & 1 & \BAR & 48 \\
+		   1 & 0 & 0 & \BAR & 40 \\
+		   0 & 1 & 0 & \BAR & 20
+		   \rowops
+		   \mult{0}{\cdot 3}
+		   \mult{1}{\cdot 5}
+	   \end{gmatrix}
+\end{align*}
+
+Therefore we need 40 liters of commercial spray X, 20 liters of commercial spray Y, and 48 liters of commercial spray Z to get the desired mixture.
