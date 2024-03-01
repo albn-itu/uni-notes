@@ -1,4 +1,6 @@
 # Mandatory 1
+By: Albert Rise Nielsen (albn@itu.dk)
+
 ## a)
 For $w=1$ we get the function $f(n) = 0*g(n) + 1*h(n) = h(n)$, which is just the greedy best-first search algorithm.
 
