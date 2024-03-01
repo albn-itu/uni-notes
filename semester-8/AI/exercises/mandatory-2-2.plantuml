@@ -1,0 +1,273 @@
+@startuml
+<style>
+.nobackground {
+    BackgroundColor transparent
+    ArrowFontColor #181818
+    ArrowColor #181818
+}
+</style>
+
+usecase HEADS as heads1
+
+hexagon "MAX" as max1
+heads1 --> max1
+note "Utility: 0.75" as n1
+max1 -> n1
+
+agent "50% chance of \nHEADS OR TAILS" as chance11
+note "Utility: 0.38" as n2
+chance11 -> n2
+
+agent "50% chance of \nHEADS OR TAILS" as chance12
+agent "50% chance of \nHEADS OR TAILS" as chance13
+
+max1 --> chance11 : "X | T\nH | H"
+max1 -[#green,thickness=4]-> chance12 : "H | T\nX | H"
+max1 --> chance13 : "H | T\nH | X"
+
+process "MIN" as min1
+note "Utility: 0.25" as n3
+min1 -> n3
+chance11 --> min1: H
+
+agent "50% chance of \nHEADS OR TAILS" as chance21
+note "Utility: 0.25" as n4
+chance21 -> n4
+agent "50% chance of \nHEADS OR TAILS" as chance22
+note "Utility: 1" as n5
+chance22 -> n5
+min1 --> chance21: "X | T\nO | H"
+min1 --> chance22: "X | T\nH | O"
+
+hexagon "MAX" as max21
+note "Utility: -0.5" as n6
+max21 -> n6
+chance21 --> max21 : H
+agent "50% chance of \nHEADS OR TAILS" as chance31
+note "Utility: -0.5" as n7
+chance31 -> n7
+max21 --> chance31 : "X | T\nO | X"
+
+process "MIN" as min21
+process "MIN" as min22
+chance31 --> min21 : H
+chance31 --> min22 : T
+note "X | O\nO | X\n\nUtility: -1" as n8 <<nobackground>> 
+note "No action\n\n\nUtility: 0" as n9 <<nobackground>>
+min21 --> n9
+min22 --> n8
+
+hexagon "MAX" as max22
+chance21 --> max22 : T
+note "X | X\nO | H\n\nUtility: 1" as n10 <<nobackground>> 
+max22 --> n10
+
+hexagon "MAX" as max23
+hexagon "MAX" as max24
+chance22 --> max23 : H
+chance22 --> max24 : T
+note "X | T\nX | O\n\nUtility: 1" as n11 <<nobackground>> 
+note "X | X\nH | O\n\nUtility: 1" as n12 <<nobackground>> 
+max23 --> n11
+max24 --> n12
+
+process "MIN" as min12
+note "Utility: 0.5" as n13
+min12 -> n13
+chance11 --> min12 : T
+
+agent "50% chance of \nHEADS OR TAILS" as chance23
+note "Utility: 0.5" as n14
+chance23 -> n14
+min12 --> chance23 : "X | O\nH | H"
+
+hexagon "MAX" as max26
+note "X | O\nX | H\n\nUtility: 1" as n16 <<nobackground>>
+max26 --> n16
+chance23 --> max26 : H
+
+hexagon "MAX" as max25
+note "No action\n\n\nUtility: 0" as n15 <<nobackground>>
+max25 --> n15
+chance23 --> max25 : T
+
+agent "50% chance of \nHEADS OR TAILS" as chance32
+note "Utility: -0.5" as n17
+chance32  -> n17
+max26 --> chance32 : "X | O\nH | X"
+
+process "MIN" as min24
+note "X | O\nO | X\n\nUtility: -1" as n19 <<nobackground>>
+min24 --> n19
+chance32 --> min24 : H
+
+process "MIN" as min23
+note "No action\n\n\nUtility: 0" as n18 <<nobackground>>
+min23 --> n18
+chance32 --> min23 : T
+
+
+
+
+
+
+
+
+note "Utility: 0.75" as n20
+chance12 -> n20
+
+process "MIN" as min13
+note "Utility: 1" as n21
+min13 -> n21
+chance12 --> min13 : H
+
+agent "50% chance of \nHEADS OR TAILS" as chance24
+note "Utility: 1" as n22
+chance24 -> n22
+min13 --> chance24 : "O | T\nX | H"
+
+hexagon "MAX" as max27
+note "O | T\nX | X\n\nUtility: 1" as n23 <<nobackground>>
+max27 --> n23
+chance24 --> max27 : H
+
+hexagon "MAX" as max28
+note "O | X\nX | H\n\nUtility: 1" as n24 <<nobackground>>
+max28 --> n24
+chance24 --> max28 : T
+
+agent "50% chance of \nHEADS OR TAILS" as chance25
+note "Utility: 1" as n25
+chance25 -> n25
+min13 --> chance25 : "H | T\nX | O"
+
+hexagon "MAX" as max29
+note "X | T\nX | O\n\nUtility: 1" as n26 <<nobackground>>
+max29 --> n26
+chance25 --> max29 : H
+
+hexagon "MAX" as max30
+note "H | X\nX | O\n\nUtility: 1" as n27 <<nobackground>>
+max30 --> n27
+chance25 --> max30 : T
+
+process "MIN" as min14
+note "Utility: 0.5" as n28
+min14 -> n28
+chance12 --> min14 : T
+
+agent "50% chance of \nHEADS OR TAILS" as chance26
+note "Utility: 0.5" as n29
+chance26 -> n29
+min14 --> chance26 : "H | O\nX | H"
+
+hexagon "MAX" as max31
+note "Utility: 1" as n30
+note "H | O\nX | X\n\nUtility: 1" as n31 <<nobackground>>
+note "X | O\nX | H\n\nUtility: 1" as n32 <<nobackground>>
+max31 -> n30
+max31 --> n31
+max31 --> n32
+chance26 --> max31 : H
+
+hexagon "MAX" as max32
+note "No action\n\n\nUtility: 0" as n33 <<nobackground>>
+max32 --> n33
+chance26 --> max32 : T
+
+
+
+
+note "Utility: 0.38" as n34
+chance13 -> n34
+
+process "MIN" as min15
+note "Utility: 0.25" as n35
+min15 -> n35
+chance13 --> min15 : H
+
+agent "50% chance of \nHEADS OR TAILS" as chance27
+note "Utility: 1" as n36
+chance27 -> n36
+min15 --> chance27 : "O | T\nH | X"
+
+hexagon "MAX" as max33
+note "O | T\nX | X\n\nUtility: 1" as n38 <<nobackground>>
+max33 --> n38
+chance27 --> max33 : H
+
+hexagon "MAX" as max34
+note "O | X\nH | X\n\nUtility: 1" as n39 <<nobackground>>
+max34 --> n39
+chance27 --> max34 : T
+
+
+agent "50% chance of \nHEADS OR TAILS" as chance28
+note "Utility: 0.25" as n37
+chance28 -> n37
+min15 --> chance28 : "H | T\nO | X"
+
+hexagon "MAX" as max35
+chance28 --> max35 : H
+
+agent "50% chance of \nHEADS OR TAILS" as chance29
+note "Utility: -0.5" as n41
+chance29 -> n41
+max35 --> chance29 : "X | T\nO | X"
+
+process "MIN" as min16
+note "No action\n\n\nUtility: 0" as n42 <<nobackground>>
+min16 --> n42
+chance29 --> min16 : H
+
+process "MIN" as min17
+note "X | O\nO | X\n\nUtility: -1" as n43 <<nobackground>>
+min17 --> n43
+chance29 --> min17 : T
+
+hexagon "MAX" as max36
+note "H | X\nO | X\n\nUtility: 1" as n40 <<nobackground>>
+max36 --> n40
+chance28 --> max36 : T
+
+
+
+
+process "MIN" as min18
+note "Utility: 0.5" as n44
+min18 -> n44
+chance13 --> min18 : T
+
+agent "50% chance of \nHEADS OR TAILS" as chance30
+note "Utility: 0.5" as n45
+chance30 -> n45
+min18 --> chance30 : "H | O\nH | X"
+
+hexagon "MAX" as max37
+note "H | O\nX | X\n\nUtility: 1" as n47 <<nobackground>>
+note "Utility: 1" as n48
+max37 --> n47
+max37 -> n48
+chance30 --> max37 : H
+
+agent "50% chance of \nHEADS OR TAILS" as chance41
+note "Utility: -0.5" as n49
+chance41 -> n49
+max37 --> chance41 : "X | O\nH | X"
+
+process "MIN" as min19
+note "X | O\nO | X\n\nUtility: -1" as n50 <<nobackground>>
+min19 --> n50
+chance41 --> min19 : H
+
+process "MIN" as min20
+note "No action\n\n\nUtility: 0" as n51 <<nobackground>>
+min20 --> n51
+chance41 --> min20 : T
+
+hexagon "MAX" as max38
+note "No action\n\n\nUtility: 0" as n46 <<nobackground>>
+max38 --> n46
+chance30 --> max38 : T
+
+@enduml
