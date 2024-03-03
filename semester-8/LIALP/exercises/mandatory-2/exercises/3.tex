@@ -1,0 +1,101 @@
+\section{Exercise 3}
+\question{
+	For the matrix $A$ below, compute the following: The rank, the dimension of the row space, the dimensions of the column space, a basis for the nullspace (not just the dimension of the nullspace)
+	$$
+		A = \begin{bmatrix} 1 & 2 & 3 & 3 & 2\\ 4 & 6 & 4 & 8 & 9\\ 3 & 4 & 1 & 4 & 8\end{bmatrix}
+	$$
+}
+
+By theorem 4.15 in the textbook, the row and column space of a $m\times n$ matrix has the same dimension. Therefore we only have to compute one of the 2.
+
+I've decided to compute the dimension of the row space. To do this we reduce the matrix to row echelon form and then the non-zero rows will form a basis for the row space.
+
+\begin{align*}
+	\intertext{Add $-4$ times the first row to the second row and $-3$ times the first row to the third row}
+	 & \begin{gmatrix}[b]
+		   1 & 2 & 3 & 3 & 2\\
+		   0 & -2 & -8 & -4 & 1\\
+		   0 & -2 & -8 & -5 & 2
+		   \rowops
+		   \add[-4]{0}{1}
+		   \add[-3]{0}{2}
+	   \end{gmatrix} \rightsquigarrow                     \\
+	\intertext{Add $-1$ times the second row to the third row}
+	 & \begin{gmatrix}[b]
+		   1 & 2 & 3 & 3 & 2\\
+		   0 & -2 & -8 & -4 & 1\\
+		   0 & 0 & 0 & -1 & 1
+		   \rowops
+		   \add[-1]{1}{2}
+	   \end{gmatrix} \rightsquigarrow                     \\
+	\intertext{Multiply the second row by $-\frac{1}{2}$ and the third row by $-1$}
+	 & \begin{gmatrix}[b]
+		   1 & 2 & 3 & 3 & 2\\
+		   0 & 1 & 4 & 2 & -\frac{1}{2}\\
+		   0 & 0 & 0 & 1 & -1
+		   \rowops
+		   \mult{1}{\cdot -\frac{1}{2}}
+		   \mult{2}{\cdot -1}
+	   \end{gmatrix} \rightsquigarrow              \\
+	\intertext{Add $-2$ times the third row to the second row and $-3$ times the third row to the first row}
+	 & \begin{gmatrix}[b] % TODO: Update these numbers
+		   1 & 2 & 3 & 0 & 5\\
+		   0 & 1 & 4 & 0 & \frac{3}{2}\\
+		   0 & 0 & 0 & 1 & -1
+		   \rowops
+		   \add[-2]{2}{1}
+		   \add[-3]{2}{0}
+	   \end{gmatrix} \rightsquigarrow \\
+	\intertext{Add $-2$ times the second row to the first row}
+	 & \begin{gmatrix}[b] % TODO: Update these numbers
+		   1 & 0 & -5 & 0 & 2\\
+		   0 & 1 & 4 & 0 & \frac{3}{2}\\
+		   0 & 0 & 0 & 1 & -1
+		   \rowops
+		   \add[-2]{1}{0}
+	   \end{gmatrix} \rightsquigarrow \\
+\end{align*}
+
+Therefore a basis for the row spaces is
+$$
+	RA = \left\{(1,0,-5,0,2), \left(0,1,4,0,\frac{3}{2}\right), (0,0,0,1,-1)\right\}
+$$
+
+And we can check for linear independence by:
+$$
+	c_1(1,0,-5,0,2) + c_2\left(0,1,4,0,\frac{3}{2}\right) + c_3(0,0,0,1,-1) = 0
+$$
+
+It can be trivially derived that they are since the matrix is already in reduced row echelon form.
+
+Since we now have a basis of 3 vectors we can conclude that the dimension of the row space is 3. And by theorem 4.15, the dimension of the column space is also 3.
+
+The rank of the matrix is the dimension of the row or column space, which is 3.
+
+The nullspace of $A$ is the solution space of the homogenous system $Ax = 0$. We can solve this by reducin the augmented matrix $[A|0]$ to row echelon form. But since the 0 part will never change, we can just reduce $A$ to row echelon form and then solve for the nullspace. We've already done the reduction.
+
+We first convert the matrix to a system of equations:
+\begin{align*}
+	x_1 - 5x_3 + 2x_5           & = 0 \\
+	x_2 + 4x_3 + \frac{3}{2}x_5 & = 0 \\
+	x_4 - x_5                   & = 0
+\end{align*}
+
+Choosing $x_3$ and $x_5$ as free variables, $t$ and $s$ respectively, we can solve for the other variables:
+\begin{align*}
+	x_1 & = 5t - 2s            \\
+	x_2 & = -4t - \frac{3}{2}s \\
+	x_3 & = t                  \\
+	x_4 & = s                  \\
+	x_5 & = s
+\end{align*}
+
+This means the solution space of $Ax = 0$ is
+$$
+	x = \begin{bmatrix}x_1\\x_2\\x_3\\x_4\\x_5\end{bmatrix}=\begin{bmatrix}5t - 2s\\-4t - \frac{3}{2}s\\t\\s\\s\end{bmatrix}=t\begin{bmatrix}5\\-4\\1\\0\\0\end{bmatrix}+s\begin{bmatrix}-2\\-\frac{3}{2}\\0\\1\\1\end{bmatrix}
+$$
+
+So a basis for the nullspace of $A$ is
+$$
+	\begin{bmatrix}5\\-4\\1\\0\\0\end{bmatrix} \text{and} \begin{bmatrix}-2\\-\frac{3}{2}\\0\\1\\1\end{bmatrix}
+$$

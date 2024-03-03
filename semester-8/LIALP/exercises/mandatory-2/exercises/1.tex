@@ -1,0 +1,119 @@
+\section{Exercise 1}
+\question{
+	Let $v$ be the vector
+	$$
+		v = \begin{bmatrix}
+			1 \\
+			2
+		\end{bmatrix}
+	$$
+	and consider the subset
+	$$
+		V = \{ A\in M_{2,2} | v^TA = (Av)^T \}
+	$$
+	of the vector space $M_{2,2}$ of $2 \times 2$ matrices. Here $v^T$ is the transpose of $v$. Consider also the matrix
+	$$
+		B = \begin{bmatrix}
+			1 & 3 \\
+			3 & 1
+		\end{bmatrix}
+	$$
+	Answer the following questions:
+	\begin{description}
+		\item (a) Is the matrix B an element in V ?
+		\item (b) Is V a subspace of $M_{2,2}$?
+	\end{description}
+	In both cases you should argue for your answer. You may use the following equalities
+	$$
+		(D + E)^T = D^T + E^T \quad (cD)^T = c(D^T)
+	$$
+	You do not have to argue for these or prove them. These equalities hold for all matrices $D$, $E$ and scalars $c$ whenever $D$ and $E$ have the same dimensions
+}
+
+\subsection{Part a}
+We want to determine if the matrix $B$ is an element in $V$. We do this by checking if $v^TB = (Bv)^T$.
+
+First we calculate $v^TB$:
+\begin{align*}
+	v^TB & = \begin{bmatrix}
+		         1 & 2
+	         \end{bmatrix}
+	\begin{bmatrix}
+		1 & 3 \\
+		3 & 1
+	\end{bmatrix}                                         \\
+	     & = \begin{bmatrix}
+		         1 \cdot 1 + 2 \cdot 3 & 1 \cdot 3 + 2 \cdot 1
+	         \end{bmatrix} \\
+	     & = \begin{bmatrix}
+		         7 & 5
+	         \end{bmatrix}
+\end{align*}
+
+Then we calculate $(Bv)^T$:
+\begin{align*}
+	(Bv)^T & = \left(\begin{bmatrix}
+		                 1 & 3 \\
+		                 3 & 1
+	                 \end{bmatrix}
+	\begin{bmatrix}
+		1 \\
+		2
+	\end{bmatrix}\right)^T                  \\
+	       & = \left(\begin{bmatrix}
+		                 1 \cdot 1 + 3 \cdot 2 \\
+		                 3 \cdot 1 + 1 \cdot 2
+	                 \end{bmatrix}\right)^T \\
+	       & = \begin{bmatrix}
+		           7 \\
+		           5
+	           \end{bmatrix}^T              \\
+	       & = \begin{bmatrix}
+		           7 & 5
+	           \end{bmatrix}
+\end{align*}
+
+Therefore we have that $v^TB = (Bv)^T$, and thus $B$ is an element in $V$.
+
+\subsection{Part b}
+We want to determine if $V$ is a subspace of $M_{2,2}$. We do this by checking if $V$ is closed under addition and scalar multiplication.
+
+\subsubsection{Closed under addition}
+We want to determine if $V$ is closed under addition. We do this by checking if $A, B \in V$ implies that $A + B \in V$.
+
+Let $A, B \in V$. Then we have that $v^TA = (Av)^T$ and $v^TB = (Bv)^T$. We then check if $v^T(A + B) = ((A + B)v)^T$.
+
+First we calculate $v^T(A + B)$:
+\begin{align*}
+	v^T(A + B) & = v^TA + v^TB     \\
+	           & = (Av)^T + (Bv)^T
+\end{align*}
+
+Then we calculate $((A + B)v)^T$:
+\begin{align*}
+	((A + B)v)^T & = (Av + Bv)^T     \\
+	             & = (Av)^T + (Bv)^T
+\end{align*}
+
+Therefore we have that $v^T(A + B) = ((A + B)v)^T$, and thus $A + B \in V$. This means that $V$ is closed under addition.
+
+\subsubsection{Closed under scalar multiplication}
+We want to determine if $V$ is closed under scalar multiplication. We do this by checking if $A \in V$ implies that $cA \in V$ for all scalars $c$.
+
+Let $A \in V$. Then we have that $v^TA = (Av)^T$. We then check if $v^T(cA) = ((cA)v)^T$.
+
+First we calculate $v^T(cA)$:
+\begin{align*}
+	v^T(cA) & = cv^TA   \\
+	        & = c(Av)^T
+\end{align*}
+
+Then we calculate $((cA)v)^T$:
+\begin{align*}
+	((cA)v)^T & = (cA)^Tv^T \\
+	          & = cA^Tv^T   \\
+	          & = c(Av)^T
+\end{align*}
+
+Therefore we have that $v^T(cA) = ((cA)v)^T$, and thus $cA \in V$. This means that $V$ is closed under scalar multiplication.
+
