@@ -53,8 +53,8 @@ I've decided to compute the dimension of the row space. To do this we reduce the
 		   0 & 0 & 0 & 1 & -1
 		   \rowops
 		   \add[-2]{1}{0}
-	   \end{gmatrix} \rightsquigarrow \\
-\end{align*}
+	   \end{gmatrix}
+\end{align*}\\[1ex]
 
 Therefore a basis for the row spaces is
 $$
@@ -66,13 +66,13 @@ $$
 	c_1(1,0,-5,0,2) + c_2\left(0,1,4,0,\frac{3}{2}\right) + c_3(0,0,0,1,-1) = 0
 $$
 
-It can be trivially derived that they are since the matrix is already in reduced row echelon form.
+It can be trivially derived that they are since the matrix is already in reduced row echelon form.\\[1ex]
 
-Since we now have a basis of 3 vectors we can conclude that the dimension of the row space is 3. And by theorem 4.15, the dimension of the column space is also 3.
+Since we now have a basis of 3 vectors we can conclude that the dimension of the row space is 3. And by theorem 4.15, the dimension of the column space is also 3.\\[1ex]
 
-The rank of the matrix is the dimension of the row or column space, which is 3.
+The rank of the matrix is the dimension of the row or column space, which is 3.\\[1ex]
 
-The nullspace of $A$ is the solution space of the homogenous system $Ax = 0$. We can solve this by reducin the augmented matrix $[A|0]$ to row echelon form. But since the 0 part will never change, we can just reduce $A$ to row echelon form and then solve for the nullspace. We've already done the reduction.
+The nullspace of $A$ is the solution space of the homogenous system $Ax = 0$. We can solve this by reducing the augmented matrix $[A|0]$ to row echelon form. But since the 0 part will never change, we can just reduce $A$ to row echelon form and then solve for the nullspace. We've already done the reduction, so we solve for the nullspace.\\[1ex]
 
 We first convert the matrix to a system of equations:
 \begin{align*}
@@ -81,7 +81,7 @@ We first convert the matrix to a system of equations:
 	x_4 - x_5                   & = 0
 \end{align*}
 
-Choosing $x_3$ and $x_5$ as free variables, $t$ and $s$ respectively, we can solve for the other variables:
+Choosing $x_3$ and $x_5$ as free variables $t$ and $s$ respectively, we can solve for the other variables:
 \begin{align*}
 	x_1 & = 5t - 2s            \\
 	x_2 & = -4t - \frac{3}{2}s \\
