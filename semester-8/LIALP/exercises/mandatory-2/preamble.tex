@@ -84,3 +84,9 @@ inner ysep=20pt
 	\hspace{-\arraycolsep}%
 }
 
+% =======================
+% tikz
+% =======================
+\usetikzlibrary{calc,arrows}
+\newcommand{\tikzmark}[1]{%
+	\tikz[overlay,remember picture] \node (#1) {};}
