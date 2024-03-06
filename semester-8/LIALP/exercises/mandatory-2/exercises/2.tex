@@ -11,14 +11,60 @@
 	Does the set $S = \{A,B,C\}$ span the vector space $V$? Write out precisely what it means for them to span $V$ and argue for your answer.
 }
 
-A spanning set is the set containing all linear combinations of a set of vectors in the vector space $V$. In other words, a set of vectors $S$ spans $V$ if every vector in $V$ can be written as a linear combination of the vectors in $S$. In this case, the set $S$ spans $V$ if for every $2\times 2$ symmetric matrix $M$, there exist scalars $a,b,c\in\mathbb{R}$ such that
+A spanning set is the set containing all linear combinations of a set of vectors in the vector space $V$. In other words, a set of vectors $S$ spans $V$ if every vector in $V$ can be written as a linear combination of the vectors in $S$. In this case, the set $S$ spans $V$ if for every $2\times 2$ symmetric matrix $M$, there exist scalars $x,y,z\in\mathbb{R}$ such that
 $$
-	M = aA + bB + cC
+	M = xA + yB + zC
 $$
 
-For this example we can simply simplify to
-\begin{align*}
-	a\begin{bmatrix}2 & 1\\1 & 3\end{bmatrix} + b\begin{bmatrix}-1 & 2\\2 & 1\end{bmatrix} + c\begin{bmatrix}0 & 1\\1 & -2\end{bmatrix} & = \begin{bmatrix}2a - b & a + 2b + c\\a + 2b + c & 3a - 2c\end{bmatrix}
-\end{align*}
+By the fact that the matrix $M$ is symmetric, we know that it's of the form
+$$
+	M = \begin{bmatrix}a & b\\b & c\end{bmatrix}
+$$
 
-Since the result is symmetric, we can conclude that for any scalars $a,b,c \in \mathbb{R}$, there exists a symmetric $2\times 2$ matrix that can be written as a linear combination of $A$, $B$, and $C$. Therefore, the set $S$ spans the vector space $V$.
+So we must solve the following for $x,y,z\in\mathbb{R}$:
+$$
+	\begin{bmatrix}a & b\\b & c\end{bmatrix} = x\begin{bmatrix}2 & 1\\1 & 3\end{bmatrix} + y\begin{bmatrix}-1 & 2\\2 & 1\end{bmatrix} + z\begin{bmatrix}0 & 1\\1 & -2\end{bmatrix}
+
+	First, we can create a system of linear equations:
+	\begin{align*}
+		2x - y      & = a \\
+		x + 2y + z  & = b \\
+		3x + y - 2z & = c
+	\end{align*}
+
+	We must prove that this system of linear equations has a solution for every $a,b,c\in\mathbb{R}$. We can do this by showing that the matrix of coefficients has a non-zero determinant. The matrix of coefficients is
+$$
+\begin{bmatrix}
+	2 & -1 & 0  \\
+	1 & 2  & 1  \\
+	3 & 1  & -2
+\end{bmatrix}
+$$
+
+	We can find the determinant of this matrix via the diagonal method found on page 114 of the textbook. First we copy the first two columns to the right of the matrix:
+$$
+\begin{vmatrix}
+	2 & -1 & 0  & 2 & -1 \\
+	1 & 2  & 1  & 1 & 2  \\
+	3 & 1  & -2 & 3 & 1
+\end{vmatrix}
+$$
+
+	Then we find the product of the diagonals from the top left to the bottom right and the product of the diagonals from bottom left to top right:
+
+	\begin{align*}
+		d_1 & = 2\cdot2\cdot(-2) = -8 \\
+		d_2 & = -1\cdot1\cdot3 = -3   \\
+		d_3 & = 0\cdot1\cdot3 = 0     \\
+		d_4 & = 3\cdot2\cdot0 = 0     \\
+		d_5 & = 1\cdot1\cdot2 = 2     \\
+		d_6 & = -2\cdot1\cdot-1 = 2
+	\end{align*}
+
+	Then we add the products of the diagonals from the top left to the bottom right and subtract the products of the diagonals from the bottom left to the top right:
+$$
+determinant = (-8) + (-3) + 0 - 0 - 2 - 2 = -15
+$$
+
+Since the determinant is non-zero, the system of linear equations has a unique solution for every $a,b,c\in\mathbb{R}$. Therefore, the set $S$ spans the vector space $V$.
+
