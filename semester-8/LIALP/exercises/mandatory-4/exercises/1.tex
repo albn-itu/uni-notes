@@ -1,0 +1,29 @@
+\section{Exercise 1}
+\question{
+	A light bulb factory relies on two machines, machine A and machine B. Machine A produces 70\% of the stock and machine B the remaining 30\%. Some light bulbs have defects: after coming out of machine A, 20\% of light bulbs have defects, while after coming out of machine B, 10\% of light bulbs have defects. We pick a random light bulb from the stock. Given that it does not present any defect, what is the probability that it came out of machine A?
+}
+
+Let $D_1$ be the event that the light bulb came out of machine A, and $D_2$ the event that the light bulb came out of machine B. Then we are given
+\begin{align*}
+	P(D_1)                 & = 0.7, \\
+	P(D_2)                 & = 0.3, \\
+	P(\text{defect} | D_1) & = 0.2, \\
+	P(\text{defect} | D_2) & = 0.1.
+\end{align*}
+
+We can conclude that $P(\text{no defect} | D_1) = 1 - P(\text{defect} | D_1) = 0.8$ and $P(\text{no defect} | D_2) = 1 - P(\text{defect} | D_2) = 0.9$. We are asked to find $P(D_1 | \text{no defect})$.
+
+Using Bayes' theorem:
+\[
+	P(B | A) = \frac{P(A | B) P(B)}{P(A)} = \frac{P(A|B)P(B)}{P(A|B)P(B)P(A|B^c)P(B^c)}
+\]
+
+Then
+\begin{align*}
+	P(D_1 | \text{no defect}) & = \frac{P(\text{no defect} | D_1) P(D_1)}{P(\text{no defect} | D_1) P(D_1) + P(\text{no defect} | D_2) P(D_2)} \\
+	                          & = \frac{0.8\cdot 0.7}{0.8\cdot 0.7 + 0.9\cdot 0.3}                                                             \\
+	                          & = \frac{0.56}{0.56 + 0.27}                                                                                     \\
+	                          & = \frac{56}{83} \approx 0.6747\approx 67.47\%.
+\end{align*}
+
+So if we pick a random light bulb from the stock and it does not present any defect, the probability that it came out of machine A is approximately 67.47\%.

@@ -1,0 +1,56 @@
+\section{Exercise 2}
+\question{
+	Suppose we roll a fair 4-sided die three times. Let A be the event that the sum of the first two rolls is at least 7, let B be the event that the sum of the last two rolls is at least 7, and let C be the event that the middle roll is 4. Are A and B independent? Are they independent conditional to C? Argue mathematically for your answer by computing the relevant probabilities and conditional probabilities.
+}
+
+The sample space of the experiment would be
+\[
+	\Omega = \{(a_1, a_2, a_3) | a_i \in \{1, 2, 3, 4\}\}
+\]
+
+The size of the sample space is $4^3 = 64$ since there are 4 possible outcomes for each of the 3 rolls.
+
+The event A is the set of outcomes where the sum of the first two rolls is at least 7. The outcomes in A are
+\[
+	A = \{(4, 3, a_3), (4, 4, a_3), (3, 4, a_3)\}
+\]
+
+We have to multiply the number of outcomes in A by 4 to get the size of A, since there are 4 possible outcomes for the third roll. Therefore, $|A| = 3 \cdot 4 = 12$ and $P(A) = \frac{12}{64} = \frac{3}{16}$.\\[1em]
+
+The event B is the set of outcomes where the sum of the last two rolls is at least 7. The outcomes in B are
+\[
+	B = \{(a_1, 4, 3), (a_1, 4, 4), (a_1, 3, 4)\}
+\]
+
+Same as before, we have to multiply the number of outcomes in B by 4 to get the size of B. Therefore, $|B| = 3 \cdot 4 = 12$ and $P(B) = \frac{12}{64} = \frac{3}{16}$.\\[1em]
+
+The event C is the set of outcomes where the middle roll is 4. The outcomes in C are
+\[
+	C = \{(a_1, 4, a_3)\}.
+\]
+
+The size of C should be multipled by $4^2$, since there are 4 possible outcomes for both the first and third rolls. Therefore, $|C| = 1 \cdot 4^2 = 16$ and $P(C) = \frac{16}{64} = \frac{1}{4}$.\\[1em]
+
+The events A and B are independent if $P(A \cap B) = P(A)P(B)$. The outcomes in $A \cap B$ are
+\[
+	A \cap B = \{(3, 4, 3), (3, 4, 4), (4, 3, 4), (4, 4, 3), (4,4,4)\}
+\]
+
+So, $|A \cap B| = 5$ and $P(A \cap B) = \frac{5}{64}$. Since that's not equal to $P(A)P(B) = \frac{9}{256}$, then we can conclude that A and B are not independent.\\[1em]
+
+On the other hand, A and B are independent conditional to C if $P(A \cap B | C) = P(A | C)P(B | C)$. The outcomes would be
+\begin{align*}
+	A \cap C        & = \{(4, 4, a_3), (3, 4, a_3)\},                \\
+	B \cap C        & = \{(a_1, 4, 4), (a_1, 4, 3)\},                \\
+	A \cap B \cap C & = \{(3, 4, 3), (3, 4, 4), (4, 4, 3), (4,4,4)\} \\
+\end{align*}
+So using $P(A|B) = \frac{P(A \cap B)}{P(B)}$, we have
+\begin{align*}
+	P(A | C)        & = \frac{P(A \cap C)}{P(C)} = \frac{\frac{2\cdot 4}{64}}{\frac{1}{4}} = \frac{1}{2}, \\
+	P(B | C)        & = \frac{P(B \cap C)}{P(C)} = \frac{\frac{2\cdot 4}{64}}{\frac{1}{4}} = \frac{1}{2}, \\
+	P(A \cap B | C) & = \frac{P(A \cap B \cap C)}{P(C)} = \frac{\frac{4}{64}}{\frac{1}{4}} = \frac{1}{4}  \\
+\end{align*}
+
+Therefore since $P(A | C)P(B | C) = \frac{1}{4}$, we can conclude that A and B are independent conditional to C.
+
+
