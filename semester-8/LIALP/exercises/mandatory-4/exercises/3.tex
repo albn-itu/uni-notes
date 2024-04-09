@@ -1,3 +1,59 @@
 \section{Exercise 3}
 \question{
+	Suppose $X$ is a random variable with probability density function (PDF) $f(x) = 4x^3$ for $0 \leq x \leq 1$ and $0$ for $x < 0$ or $x > 1$. Compute the mean and variance of $X$.
 }
+
+To compute the mean of $X$, we need to compute the expected value of $X$:
+\begin{align*}
+	\intertext{The expected value of $X$ is given by:}
+	\mathbb{E}[X] & = \int_{-\infty}^{\infty} x f(x) dx      \\
+	\intertext{Since $f(x) = 0$ for $x < 0$ and $x > 1$, we have:}
+	              & = \int_{0}^{1} x \cdot 4x^3 dx           \\
+	\intertext{Simplify}
+	              & = 4 \int_{0}^{1} x^4 dx                  \\
+	\intertext{Using the antiderivative power rule, we get:} \\
+	              & = 4 \left[ \frac{x^5}{5} \right]_{0}^{1} \\
+	              & = 4 \left( \frac{1}{5} - 0 \right)       \\
+	              & = \frac{4}{5}
+\end{align*}
+
+Therefore, the mean of $X$ is $\frac{4}{5}$.\\[1em]
+
+To compute the variance of $X$ we use the formula for variance where $\mu = \mathbb{E}[X]$:
+\[
+	Var(X) = \int_{-\infty}^{\infty} (x - \mu)^2 f(x) dx
+\]
+
+Substitute $\mu = \frac{4}{5}$ and $f(x) = 4x^3$:
+
+\begin{align*}
+	Var(X) & = \int_{0}^{1} \left(x - \frac{4}{5}\right)^2 \cdot 4x^3 dx \\
+	\intertext{Calculate the antiderivative, see below for details}
+	       & = \left[\frac{50x^6 - 96x^5 + 48x^4}{75}\right]_{0}^{1}     \\
+	       & = \frac{50 - 96 + 48}{75}                                   \\
+	       & = \frac{2}{75}
+\end{align*}
+
+Therefore the variance of $X$ is $\frac{2}{175}$.
+
+\subsection{Antiderivative}
+This section calculates the antiderivative in detail, and is mostly for my own reference and training.
+\begin{align*}
+	\intertext{Simplify}
+	 & = 4 \int_{0}^{1} \left(x - \frac{4}{5}\right)^2 x^3 dx                                                     \\
+	\intertext{Expand the square using the perfect square formula}
+	 & = 4 \int_{0}^{1} \left(x^2 - \frac{8}{5}x + \frac{16}{25}\right) x^3 dx                                    \\
+	\intertext{Simplify}
+	 & = 4 \int_{0}^{1} x^5 - \frac{8}{5}x^4 + \frac{16}{25}x^3 dx                                                \\
+	\intertext{Apply the linearity rule}
+	 & = 4 \left(\int_{0}^{1} x^5 dx - \frac{8}{5} \int_{0}^{1} x^4 dx + \frac{16}{25} \int_{0}^{1} x^3 dx\right) \\
+	\intertext{Using the antiderivative power rule}
+	 & = 4 \left(\frac{x^6}{6} - \frac{8}{5} \frac{x^5}{5} + \frac{16}{25} \frac{x^4}{4}\right)                   \\
+	\intertext{Simplify}
+	 & = 4 \left(\frac{x^6}{6} - \frac{8x^5}{25} + \frac{16x^4}{100}\right)                                       \\
+	 & = \frac{4x^6}{6} - \frac{32x^5}{25} + \frac{64x^4}{100}                                                    \\
+	 & = \frac{2x^6}{3} - \frac{32x^5}{25} + \frac{16x^4}{25}                                                     \\
+	\intertext{Use the LCM of 75 to simplify}
+	 & = \frac{50x^6}{75} - \frac{96x^5}{75} + \frac{48x^4}{75}                                                   \\
+	 & = \frac{50x^6 - 96x^5 + 48x^4}{75}                                                                         \\
+\end{align*}
