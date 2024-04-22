@@ -1,5 +1,87 @@
 \section{Exercise 2}
 \question{
-	A covid test center can test 82 patients in an hour. On average 1 in 5 patients do not show for an appointment, so the test center books 100 patients an hour. Use the normal approximation of the binomial to approximate the probability that 82 patients or more arrive for the first hour of testing. You should not use continuity correction, so just compute the probability of $>$ 82 patients arriving. What is the probability that 164 patients or more arrive for the first 2 hours? Management decides that the probability that the number of patients arriving in a day is equal to or larger than the capacity should not exceed $10\%$. Suppose the test center still accepts 100 patient bookings for each openning hour, how many hours should the center be open each day to ensure that managements goal is met. Again you should use the normal approximation to compute an approximation. \textit{Hint:} Start by generalising your solution to the first two problems to a formula for computing the probability that $>$ 82k patients arrive in k hours
+	A covid test center can test 82 patients in an hour. On average 1 in 5 patients do not show for an appointment, so the test center books 100 patients an hour. Use the normal approximation of the binomial to approximate the probability that 82 patients or more arrive for the first hour of testing. You should not use continuity correction, so just compute the probability of $>$ 82 patients arriving. What is the probability that 164 patients or more arrive for the first 2 hours? Management decides that the probability that the number of patients arriving in a day is equal to or larger than the capacity should not exceed $10\%$. Suppose the test center still accepts 100 patient bookings for each openning hour, how many hours should the center be open each day to ensure that managements goal is met. Again you should use the normal approximation to compute an approximation. \textit{Hint:} Start by generalising your solution to the first two problems to a formula for computing the probability that $> 82k$ patients arrive in $k$ hours
 }
 
+% A covid test center can test 82 patients in an hour. On average 1 in 5 patients do not show for an appointment, so the test center books 100 patients an hour.
+% - [x] Use the normal approximation of the binomial to approximate the probability that 82 patients or more arrive for the first hour of testing. You should not use continuity correction, so just compute the probability of $>$ 82 patients arriving.
+% - [x] What is the probability that 164 patients or more arrive for the first 2 hours? 
+
+% Management decides that the probability that the number of patients arriving in a day is equal to or larger than the capacity should not exceed $10\%$.
+% - [x] Suppose the test center still accepts 100 patient bookings for each openning hour, how many hours should the center be open each day to ensure that managements goal is met. Again you should use the normal approximation to compute an approximation. \textit{Hint:} Start by generalising your solution to the first two problems to a formula for computing the probability that $> 82k$ patients arrive in $k$ hours
+
+First we define the random variable $X$ as $X \sim Bin(100, 0.8)$, where $X$ is the number of patients that show up for the test. $100$ is the number of patients booked an hour and $0.8$ is the probability that a patient shows up for the appointment ($1-\frac{1}{5}$).
+
+\subsection{$P(X > 82)$}
+The first problem is to find the probability that $82$ or more patients show up for the test in the first hour. We use the normal approximation of the binomial distribution ($Bin(n,p)$) to solve this problem. First we calculate the mean of the binomial distribution
+\[
+	E[X] = np = 100 \cdot 0.8 = 80
+\]
+
+and the variance
+\[
+	Var(X) = np(1-p) = 100 \cdot 0.8 \cdot 0.2 = 16
+\]
+
+the standard deviation then is
+
+\[
+	\sigma = \sqrt{Var(X)} = \sqrt{16} = 4
+\]
+
+We can now use the normal approximation to find the probability that $X > 82$.
+
+\begin{align*}
+	P(X > 82) & = P\left(\frac{X - E[X]}{\sigma} > \frac{82 - 80}{\sigma}\right) \\
+	          & = \Phi\left(\frac{2}{4}\right)
+	\intertext{Lookup value in the standard normal table. The value is $0.6915$ for $P{Z \leq 0.5}$ and must be reversed.}
+	          & \approx 1 - 0.6915 = 0.3085
+\end{align*}
+
+So the probability that $82$ or more patients show up for the test in the first hour is $0.3085$.
+
+\subsection{$P(X > 164)$}
+The second problem is to find the probability that $164$ or more patients show up for the test in the first two hours. We can use the same approach as in the first problem, but we need to adjust the mean and variance for two hours by multiplying by two.
+
+\begin{align*}
+	E[X]   & = 2 \cdot 80 = 160         \\
+	Var(X) & = 2 \cdot 16 = 32          \\
+	\sigma & = \sqrt{32} \approx 5.6569
+\end{align*}
+
+Then as before use the normal approximation to find the probability that $X > 164$.
+
+\begin{align*}
+	P(X > 164) & = P\left(\frac{X - E[X]}{\sigma} > \frac{164 - 160}{\sigma}\right) \\
+	           & = \Phi\left(\frac{4}{5.6569}\right)
+	\intertext{Lookup value in the standard normal table. The value is $0.7611$ for $P{Z \leq 0.71}$ and must be reversed.}
+	           & \approx 1 - 0.7611 = 0.2389
+\end{align*}
+
+So the probability that $164$ or more patients show up for the test in the first two hours is $0.2389$.
+
+\subsection{General formula}
+To find the probability that $82k$ or more patients show up for the test in $k$ hours we can use the same approach as in the previous problems. We can define the random variable $Y$ as $Y \sim Bin(100k, 0.8)$, where $Y$ is the number of patients that show up for the test in $k$ hours. The mean, variance and standard deviation is then
+
+\begin{align*}
+	E[Y]   & = 100k \cdot 0.8 = 80k           \\
+	Var(Y) & = 100k \cdot 0.8 \cdot 0.2 = 16k \\
+	\sigma & = \sqrt{16k} = 4\sqrt{k}
+\end{align*}
+
+Resulting in a general formula of:
+\begin{align*}
+	P(Y > 82k) & = P\left(\frac{Y - E[Y]}{\sigma} > \frac{82k - 80k}{4\sqrt{k}}\right) \\
+	           & = \Phi\left(\frac{2k}{4\sqrt{k}}\right)                               \\
+\end{align*}
+
+If we lookup in a standard normal table we find that $P(Z > 1.28) = 0.1$ we can solve for $k$ by simply trying different values of $k$ until we find the correct value.
+\begin{align*}
+	\frac{3 \cdot 2}{4\sqrt{3}} & \approx 0.866 \\
+	\frac{4 \cdot 2}{4\sqrt{4}} & = 1           \\
+	\frac{5 \cdot 2}{4\sqrt{5}} & \approx 1.118 \\
+	\frac{6 \cdot 2}{4\sqrt{6}} & \approx 1.225 \\
+	\frac{7 \cdot 2}{4\sqrt{7}} & \approx 1.323
+\end{align*}
+
+So the test center should be open for $7$ hours to ensure that the probability that the number of patients arriving in a day is equal to or larger than the capacity does not exceed $10\%$.
