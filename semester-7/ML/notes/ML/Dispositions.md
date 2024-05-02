@@ -2,6 +2,17 @@
 tags:
   - meta
   - exam
+header-includes:
+  - \usepackage{enumitem}
+  - \setlistdepth{20}
+  - \renewlist{itemize}{itemize}{20}
+  - \renewlist{enumerate}{enumerate}{20}
+  - \setlist[itemize]{label=$\cdot$}
+  - \setlist[itemize,1]{label=\textbullet}
+  - \setlist[itemize,2]{label=--}
+  - \setlist[itemize,3]{label=*}
+output: pdf_document
+geometry: margin=2cm
 ---
 
 # Dispositions
@@ -11,6 +22,7 @@ For each prepare a 5-6 minute presentation which covers
 - The parts of the question
 - Illustrate using the exercise
 
+\newpage
 ## Q1: Week 2 - Vectors
 - A **vector** is a set of scalars to the $\hat{i}$, $\hat{j}$, $\hat{k}$ basis vectors.
   - These basis vectors have a length of 1 and are orthogonal to each other.
@@ -60,6 +72,7 @@ For each prepare a 5-6 minute presentation which covers
     - We then calculate the Euclidean distance (L2 Norm) of each pose compared to the other poses to find their similarity.
     - We can use those distances to find the most similar poses and most different poses.
 
+\newpage 
 ## Q2: Week 3 - Matrices
 ### General
 - A **matrix** is a 2D array of scalars arranged in rows and columns
@@ -126,6 +139,7 @@ For each prepare a 5-6 minute presentation which covers
         - $\begin{bmatrix}a & b \\ d & e\end{bmatrix}\begin{bmatrix}x_1 \\ x_2\end{bmatrix} = \begin{bmatrix}c \\ f\end{bmatrix}$
 
 
+\newpage 
 ## Q3: Week 4 - Linear transformations
 ### General
 - Transformations
@@ -191,6 +205,7 @@ For each prepare a 5-6 minute presentation which covers
     - Take the matrices $\mathbf{A}$, $\mathbf{B}$ and $\mathbf{C}$ then the composition of the linear transformations is $C(B(Ax))$
     - But we can simplify to $Dx$ where $D=CBA$
 
+\newpage 
 ## Q4: Week 5 - Least squares
 ### General
 - Least squares is a method for finding the best fit of a set of data points.
@@ -259,6 +274,7 @@ $$
 - Mandatory 1 is about finding the best function to map a set of points from one space to another. Specifically from a pupil position to a screen coordinate.
 - We map both a linear and a quadratic function to the points and then calculate the error of each function.
 
+\newpage 
 ## Q5: Week 6 - Data, Data cleaning, Uncertainty
 ### General
 - The exercise attempts to handle missing data using
@@ -367,6 +383,7 @@ $$
     - $z = \frac{x-\overline{x}}{\sigma}$
     - If $z$ is greater than 3 or less than -3 then the data point is an outlier
 
+\newpage 
 ## Q6: Week 7 - Regularization, Filtering
 ### General
 
@@ -454,6 +471,7 @@ $$
                 - $\overline{y}$ is the mean of the data
         - $y_i$ is the actual value
 
+\newpage 
 ## Q7: Week 8 - Classification
 ### General
 - **Classification** is a method of predicting a discrete class
@@ -502,6 +520,7 @@ $$
         - Fx. in the exercise we calculate the HOG Features of a Cat and a Human and compare the similarity
         - Can be used with a sliding window to detect objects in an image
 
+\newpage 
 ## Q8: Week 9 - Evaluation
 ### Metrics/Evaluation of Classifiers
 - **Accuracy** is the number of correct predictions divided by the total number of predictions
@@ -630,6 +649,7 @@ $$
         - Undersampling is the process of randomly removing observations from the majority class to prevent its signal from dominating the learning algorithm.
         - Carries an inherent risk of information loss in the majority class
 
+\newpage 
 ## Q9: Week 10 - Principal component analysis
 ### General
 - **Eigenvalues** and **eigenvectors**
@@ -711,6 +731,7 @@ $$
     - Basis vectors for 2D: ($\begin{bmatrix}1\\0\end{bmatrix}$ and $\begin{bmatrix}0\\1\end{bmatrix}$)
 - For higher dimensions it all works the same, there are just $k$ basis vectors instead of 2 or 3, each basis vector has a 1 placed in some position.
 
+\newpage 
 ## Q10: Week 11 - Clustering and non-linear optimization
 - **K-means** is a clustering algorithm that tries to partition a set of points into $k$ clusters, where each point belongs to the cluster with the nearest mean (also known as cluster centers).
     - The algorithm works as follows:
@@ -797,6 +818,7 @@ $$
             - A small bump or plateau in the hill will not stop the ball, but will slow it down
             - This is what momentum does
 
+\newpage 
 ## Q11: Week 12 - Neural networks
 - A **Neural network** is a series of functions.
     - Each **Layer** is a function much like the ones we've been discussing up to this point. 
@@ -893,6 +915,7 @@ $$
             - Root Mean Squared Logarithmic Error is a good metric when the errors exhibit exponential growth or decay
         - $\mathbf{R^2}$ is the proportion of the variance in the dependent variable that is predictable from the independent variable(s)
 
+\newpage 
 ## Q12: Week 13 / 14 - Architectures
 ### Model architectures: Difference between fully connected/multi layer perceptron (MLP) and CNN
 - A **Perceptron** is a linear classifier. It's a single layer neural network that can only classify linearly separable data
