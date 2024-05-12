@@ -5,12 +5,14 @@
 - AI: 7 exams
   
 ## Day by day
-- [ ] May 12th
-  - [ ] Both: Prepare schedule
+- [x] May 12th
+  - [x] Both: Prepare schedule
+  - [x] AI: 2017 exam part 1
 - [ ] May 13th
   - EH: Hacking and report (13-NA)
 - [ ] May 14th
   - [ ] EH: Hacking and report (9-14)
+  - [ ] AI: 2017 exam part 2
 - [ ] May 15th
   - Work
 - [ ] May 16th
