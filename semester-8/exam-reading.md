@@ -1,0 +1,69 @@
+# Exam reading
+## Overview:
+- EH: 2 days
+- LA: 8 exams
+- AI: 7 exams
+  
+## Day by day
+- [ ] May 12th
+  - [ ] Both: Prepare schedule
+- [ ] May 13th
+  - EH: Hacking and report (13-NA)
+- [ ] May 14th
+  - [ ] EH: Hacking and report (9-14)
+- [ ] May 15th
+  - Work
+- [ ] May 16th
+  - Work
+- [ ] May 17th
+  - [ ] AI: 2018 exam
+- [ ] May 18th
+  - [ ] AI: 2019 exam
+- [ ] May 19th
+  - [ ] LA: May 2020 exam
+- [ ] May 20th
+  - [ ] AI: 2020 exam
+- [ ] May 21th
+  - [ ] LA: Aug 2020 exam
+- [ ] May 22th
+  - Work
+- [ ] May 23th
+  - Work
+- [ ] May 24th
+  - [ ] AI: 2021 exam
+- [ ] May 25th
+  - [ ] LA: May 2021 exam
+  - [ ] LA: Aug 2021 exam
+- [ ] May 26th
+  - [ ] AI: 2022 exam
+  - [ ] AI: 2023 exam
+- [ ] May 27th
+  - [ ] LA: Aug 2022 exam
+- [ ] May 28th
+  - [ ] LA: May 2022 exam
+- [ ] May 29th
+  - [ ] LA: May 2023 exam
+  - [ ] LA: Aug 2023 exam
+- [ ] May 30th
+  - [ ] LA: Exam (9-13)
+  - [ ] Optional: AI: 2018 exam
+- [ ] May 31th
+  - [ ] AI: Exam (9-13)
+
+  - [ ] AI: 2017 exam
+  - [ ] AI: 2018 exam
+  - [ ] AI: 2019 exam
+  - [ ] AI: 2020 exam
+  - [ ] AI: 2021 exam
+  - [ ] AI: 2022 exam
+  - [ ] AI: 2023 exam
+
+  - [ ] LA: May 2020 exam
+  - [ ] LA: Aug 2020 exam
+  - [ ] LA: May 2021 exam
+  - [ ] LA: Aug 2021 exam
+  - [ ] LA: May 2022 exam
+  - [ ] LA: Aug 2022 exam
+  - [ ] LA: May 2023 exam
+  - [ ] LA: Aug 2023 exam
+
