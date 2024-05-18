@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{forest}
+\usepackage{rotating}
+
+\usetikzlibrary{shapes,trees}
+\usetikzlibrary{graphs}
+
+\newcommand*{\defeq}{\stackrel{\text{def}}{=}}
+\begin{document}
+
+\begin{figure}
+	\centering
+
+	\begin{forest}
+		[$x_0$, name=x0
+		[,phantom]
+		[$x_1$, name=x1
+		[$0$, name=leaf0]
+		[$1$, edge=dashed, name=leaf1]
+		]
+		]
+		\draw[->, dashed] (x0) to[out=south east, in=north east] (leaf1);
+	\end{forest}
+
+	\caption{BDD}
+\end{figure}
+
+\end{document}
