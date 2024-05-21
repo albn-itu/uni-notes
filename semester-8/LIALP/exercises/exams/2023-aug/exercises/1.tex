@@ -1,0 +1,69 @@
+\section{Exercise 1}
+\subsection{Part a}
+Consider the matrix $A$:
+\[
+	\begin{gmatrix}[b]
+		2 & -2 & -4 & 6   & \BAR & 10\\
+		3 & -3 & -6 & 7   & \BAR & 11\\
+		4 & -4 & -8 & 15  & \BAR & 26
+	\end{gmatrix}
+\]
+
+We can reduce this matrix to row echelon form by performing the following row operations:
+\begin{align*}
+	 & \begin{gmatrix}[b]
+		   1 & - 1 & -2 & 3   & \BAR & 5\\
+		   0 & 0 & 0 & -2   & \BAR & -4\\
+		   0 & 0 & 0 & 3  & \BAR & 6
+		   \rowops
+		   \mult{0}{\cdot \frac{1}{2}}
+		   \add[-3]{0}{1}
+		   \add[-4]{0}{2}
+	   \end{gmatrix} \rightsquigarrow  \\
+	 & \begin{gmatrix}[b]
+		   1 & - 1 & -2 & 3   & \BAR & 5\\
+		   0 & 0 & 0 & 1   & \BAR & 2\\
+		   0 & 0 & 0 & 0  & \BAR & 0
+		   \rowops
+		   \mult{1}{\cdot -\frac{1}{2}}
+		   \add[-3]{1}{2}
+	   \end{gmatrix} \rightsquigarrow \\
+	 & \begin{gmatrix}[b]
+		   1 & - 1 & -2 & 0   & \BAR & -1\\
+		   0 & 0 & 0 & 1   & \BAR & 2\\
+		   0 & 0 & 0 & 0  & \BAR & 0
+		   \rowops
+		   \add[-3]{1}{0}
+	   \end{gmatrix}
+\end{align*}
+
+From this we set $x$ and $y$ as free variables $s$ and $t$ respectively which means we can formulate the solution as:
+
+\begin{align*}
+	w & = -1 + s + 2t
+	  & x             & = s
+	  & y             & = t
+	  & z             & = 2
+\end{align*}
+
+\subsection{Part b}
+Since we have the Row Echelon form already the basis of the row space can be trivially found and is:
+\[
+	RA = \left\{(1,-1,-2,0), (0,0,0,1)\right\}
+\]
+
+While the null space can be found by calculating $[A|0]$ we've already reduced so we just calculate the system of equations:
+\begin{align*}
+	w-x-2y & = 0 \\
+	z      & = 0
+\end{align*}
+
+We set this up with the free variabes as to solve $Ax=0$:
+\[
+	x = \begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=\begin{bmatrix}-1+s + 2t\\s\\t\\z\end{bmatrix}=s\begin{bmatrix}1\\1\\0\\0\end{bmatrix}+t\begin{bmatrix}2\\0\\1\\0\end{bmatrix}
+\]
+
+So the basis for the null space is:
+\[
+	NA = \left\{\begin{pmatrix}1\\1\\0\\0\end{pmatrix}, \begin{pmatrix}2\\0\\1\\0\end{pmatrix}\right\}
+\]

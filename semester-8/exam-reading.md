@@ -8,25 +8,25 @@
 - [x] May 12th
   - [x] Both: Prepare schedule
   - [x] AI: 2017 exam part 1
-- [ ] May 13th
+- [x] May 13th
   - EH: Hacking and report (13-NA)
-- [ ] May 14th
-  - [ ] EH: Hacking and report (9-14)
-  - [ ] AI: 2017 exam part 2
-- [ ] May 15th
+- [x] May 14th
+  - [x] EH: Hacking and report (9-14)
+  - [ ] ~~AI: 2017 exam part 1~~
+- [x] May 15th
   - Work
-- [ ] May 16th
+- [x] May 16th
   - Work
 - [ ] May 17th
-  - [ ] AI: 2018 exam
-- [ ] May 18th
-  - [ ] AI: 2019 exam
+  - [x] AI: 2017 exam part 2 ~~AI: 2018 exam~~
+- [x] May 18th
+  - [x] AI: 2023 exam part 1,2,3 ~~AI: 2019 exam~~
 - [ ] May 19th
-  - [ ] LA: May 2020 exam
-- [ ] May 20th
-  - [ ] AI: 2020 exam
-- [ ] May 21th
-  - [ ] LA: Aug 2020 exam
+  - [ ] ~~LA: May 2020 exam~~
+- [x] May 20th
+  - [x] LA: Aug 2023 exam part 1 ~~LA: Aug 2023 exam~~ ~~AI: 2020 exam~~
+- [x] May 21th
+  - [x] LA: Aug 2023 exam part 2-7 ~~LA: Aug 2020 exam~~
 - [ ] May 22th
   - Work
 - [ ] May 23th
@@ -52,13 +52,13 @@
 - [ ] May 31th
   - [ ] AI: Exam (9-13)
 
-  - [ ] AI: 2017 exam
+  - [x] AI: 2017 exam
   - [ ] AI: 2018 exam
   - [ ] AI: 2019 exam
   - [ ] AI: 2020 exam
   - [ ] AI: 2021 exam
   - [ ] AI: 2022 exam
-  - [ ] AI: 2023 exam
+  - [x] AI: 2023 exam
 
   - [ ] LA: May 2020 exam
   - [ ] LA: Aug 2020 exam
@@ -67,5 +67,5 @@
   - [ ] LA: May 2022 exam
   - [ ] LA: Aug 2022 exam
   - [ ] LA: May 2023 exam
-  - [ ] LA: Aug 2023 exam
+  - [x] LA: Aug 2023 exam
 

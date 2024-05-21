@@ -1,0 +1,45 @@
+\section{Exercise 6}
+\subsection{Part a}
+\[
+	f_{X,Y}(x,y) = \begin{cases}
+		\frac{1}{20}\left(18xy^2+3x^2\right) & \text{if } 0 < x < 2 \text{ and } 0 < y < 1 \\
+		0                                    & \text{otherwise}
+	\end{cases}
+\]
+
+Calculate mean of $X$ using
+\[
+	E[X] = \int x \left(\int f_{X,Y}(x,y) dy\right) dx
+\]
+
+\begin{align*}
+	E[X] & = \int_0^2 x \left(\int_0^1 \frac{1}{20}\left(18xy^2+3x^2\right) dy\right) dx \\
+	\intertext{See below for integral calculation}
+	     & = \int_0^2 x \frac{6x + 3x^2}{20} dx
+	\intertext{See below for integral calculation}
+	     & = \frac{7}{5}
+\end{align*}
+
+Inner integral:
+\begin{align*}
+	\int_0^1 \frac{9x}{10}y^2+3x^2 dy & = \frac{9x}{10} \int y^2 dy + \frac{3x^2}{20} \int 1 dy                                               \\
+	                                  & = \frac{9x}{10} \frac{y^3}{3} +  \frac{3x^2}{20} y                                                    \\
+	                                  & = \frac{3xy^3}{10} + \frac{3x^2y}{20}                                                                 \\
+	                                  & = \left[\frac{3xy^3}{10} + \frac{3x^2y}{20}\right]_0^1                                                \\
+	                                  & = \left(\frac{3x1^3}{10} + \frac{3x^21}{20}\right) - \left(\frac{3x0^3}{10} + \frac{3x^20}{20}\right) \\
+	                                  & = \frac{3x}{10} + \frac{3x^2}{20}                                                                     \\
+	                                  & = \frac{6x + 3x^2}{20}
+\end{align*}
+
+Outer integral:
+\begin{align*}
+	\int_0^2 x \frac{6x + 3x^2}{20} dx & = \frac{6x^2 + 3x^3}{20}                                                           \\
+	                                   & = \frac{3}{20}\int x^3 dx + 2\int x^2 dx                                           \\
+	                                   & = \frac{3}{20}\left(\frac{x^4}{4} + 2 \frac{x^3}{3}\right)                         \\
+	                                   & = \frac{3}{20}\left(\frac{x^4}{4} + \frac{2x^3}{3}\right)                          \\
+	                                   & = \frac{3x^4}{80} + \frac{x^3}{10}                                                 \\
+	                                   & = \frac{x^3 \left(3x+8\right)}{80}                                                 \\
+	                                   & = \left[\frac{x^3 \left(3x+8\right)}{80}\right]_0^2                                \\
+	                                   & = \frac{2^3 \left(3\cdot 2+8\right)}{80} - \frac{0^3 \left(3 \cdot 0+8\right)}{80} \\
+	                                   & = \frac{112}{80} = \frac{7}{5}
+\end{align*}

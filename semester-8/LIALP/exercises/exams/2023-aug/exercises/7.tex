@@ -1,0 +1,97 @@
+\section{Exercise 7}
+2 hit songs, 3 boring songs
+\subsection{Part a}
+The PMF would look like:
+\[
+	p(k)=P(X=k)
+\]
+
+Where $k$ is the first hit song. Each value looks like:
+\begin{align*}
+	p_X(1) & = \frac{2}{5}  &
+	p_X(2) & = \frac{3}{10} &
+	p_X(3) & = \frac{1}{5}  &
+	p_X(4) & = \frac{1}{10}
+\end{align*}
+
+\subsection{Part b}
+The expected value of $X$ is:
+\[
+	E[X] = \sum_{k=1}^{4} k \cdot p_X(X=k)
+\]
+
+\begin{align*}
+	E[X] & = 1 \cdot \frac{2}{5} + 2 \cdot \frac{3}{10} + 3 \cdot \frac{1}{5} + 4 \cdot \frac{1}{10} \\
+	     & = \frac{2}{5} + \frac{6}{10} + \frac{3}{5} + \frac{4}{10}                                 \\
+	     & = \frac{2}{5} + \frac{3}{5} + \frac{3}{5} + \frac{2}{5}                                   \\
+	     & = 2
+\end{align*}
+
+Compute $E[X^2]$:
+\[
+	E[X^2] = \sum_{k=1}^{4} k \cdot p_X(X^2=k)
+\]
+
+\begin{align*}
+	E[X^2] & = 1 \cdot \frac{2}{5} + 4 \cdot \frac{3}{10} + 9 \cdot \frac{1}{5} + 16 \cdot \frac{1}{10} \\
+	       & = \frac{2}{5} + \frac{12}{10} + \frac{9}{5} + \frac{16}{10}                                \\
+	       & = \frac{2}{5} + \frac{6}{5} + \frac{9}{5} + \frac{8}{5}                                    \\
+	       & = 5
+\end{align*}
+
+The variance of $X$ is:
+\[
+	Var(X) = E[X^2] - E[X]^2
+\]
+
+\begin{align*}
+	Var(X) & = 5 - 2^2 \\
+	       & = 5 - 4   \\
+	       & = 1
+\end{align*}
+
+\subsection{Part c}
+The conditional PMF of $Y$ is:
+\begin{align*}
+	p_{Y|B_1}(2) & = \frac{1}{2}                                &
+	p_{Y|B_1}(3) & = \frac{1}{2}\cdot \frac{2}{3} = \frac{1}{3} &
+	p_{Y|B_1}(4) & = \frac{1}{6}                                &
+\end{align*}
+
+Compute $E[Y|B_1]$:
+\[
+	E[Y|B_1] = \sum_{k=2}^{4} k \cdot p_{Y|B_1}(Y=k)
+\]
+
+\begin{align*}
+	E[Y|B_1] & = 2 \cdot \frac{1}{2} + 3 \cdot \frac{1}{3} + 4 \cdot \frac{1}{6} \\
+	         & = 1 + 1 + \frac{2}{3}                                             \\
+	         & = 2\frac{2}{3} = \frac{8}{3}
+\end{align*}
+
+\subsection{Part d}
+Calculate $P(B_1|Y=3)$:
+\[
+	P(B_1|Y=3) = \frac{P(Y=3|B_1)P(B_1)}{P(Y=3)}
+\]
+
+Let $B^C$ be the event that the first song is a hit:
+\[
+	P(Y=3|B_1) = \frac{1}{2}\cdot\frac{2}{3} = \frac{1}{3}
+\]
+
+\[
+	P(Y=3|B^C) = \frac{3}{4}\cdot \frac{1}{3} = \frac{1}{4}
+\]
+
+\begin{align*}
+	P(Y=3) & = P(Y=3|B_1)P(B_1) + P(Y=3|B^C)P(B^C)                           \\
+	       & = \frac{1}{3} \cdot \frac{3}{5} + \frac{1}{4} \cdot \frac{2}{5} \\
+	       & = \frac{1}{5} + \frac{1}{10}                                    \\
+	       & = \frac{3}{10}
+\end{align*}
+
+\begin{align*}
+	P(B_1|Y=3) & = \frac{\frac{1}{3} \cdot \frac{3}{5}}{\frac{3}{10}} \\
+	           & = \frac{2}{3}
+\end{align*}
