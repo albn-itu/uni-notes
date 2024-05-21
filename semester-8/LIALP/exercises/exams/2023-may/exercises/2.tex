@@ -1,0 +1,124 @@
+\section{Exercise 2}
+\[
+	A = \begin{bmatrix} 2 & 0 \\ 1 & -3 \end{bmatrix}
+\]
+
+\subsection{Part a}
+First solve the characteristic polynomial:
+\begin{align*}
+	|A-\lambda I| & = \begin{vmatrix}
+		                  2-\lambda & 0          \\
+		                  1         & -3-\lambda
+	                  \end{vmatrix}               \\
+	              & = det\left(\begin{vmatrix}
+		                           2-\lambda & 0          \\
+		                           1         & -3-\lambda
+	                           \end{vmatrix}\right)      \\
+	              & = (2-\lambda)(-3-\lambda) - 0\cdot 1   \\
+	              & = -6 - 2\lambda + 3\lambda + \lambda^2 \\
+	              & = \lambda^2 + \lambda - 6
+\end{align*}
+
+Then calculate roots:
+\begin{align*}
+	\frac{-b -+ \sqrt{b^2-4ac}}{2a} & = \frac{-1 + \sqrt{1^2-4\cdot 1\cdot -6}}{2\cdot 1} = 2  \\
+	                                & = \frac{-1 - \sqrt{1^2-4\cdot 1\cdot -6}}{2\cdot 1} = -3
+\end{align*}
+
+Thus the eigenvalues are $\lambda_1 = 2$ and $\lambda_2 = -3$.
+
+To find the eigenvectors first $A - \lambda I$ for each eigenvalue, first $\lambda_1 = 2$:
+\begin{align*}
+	A - \lambda_1 I & = \begin{bmatrix}
+		                    2-2 & 0    \\
+		                    1   & -3-2
+	                    \end{bmatrix} \\
+	                & = \begin{bmatrix}
+		                    0 & 0  \\
+		                    1 & -5
+	                    \end{bmatrix}
+	\intertext{Row reduce}
+	                & = \begin{bmatrix}
+		                    1 & -5 \\
+		                    0 & 0
+	                    \end{bmatrix}
+\end{align*}
+
+Thus the eigenvector for $\lambda_1 = 2$ is:
+\[
+	\mathbf{x}=\begin{bmatrix}x_1\\x_2\end{bmatrix}=\begin{bmatrix}5\\1\end{bmatrix}
+\]
+
+Now for $\lambda_2 = -3$:
+\begin{align*}
+	A - \lambda_2 I & = \begin{bmatrix}
+		                    2-(-3) & 0       \\
+		                    1      & -3-(-3)
+	                    \end{bmatrix} \\
+	                & = \begin{bmatrix}
+		                    5 & 0 \\
+		                    1 & 0
+	                    \end{bmatrix}   \\
+	\intertext{Row reduce}
+	                & = \begin{bmatrix}
+		                    1 & 0 \\
+		                    0 & 0
+	                    \end{bmatrix}
+\end{align*}
+Thus the eigenvector for $\lambda_2 = -3$ is:
+\[
+	\mathbf{x}=\begin{bmatrix}x_1\\x_2\end{bmatrix}=\begin{bmatrix}0\\1\end{bmatrix}
+\]
+
+So the eigenvectors are:
+\[
+	\begin{bmatrix}5\\1\end{bmatrix}, \begin{bmatrix}0\\1\end{bmatrix}
+\]
+
+\subsection{Part b}
+Consider the number sequence:
+\begin{align*}
+	x_0 & = 5 & x_{n+1} & = 2x_n       \\
+	y_0 & = 0 & y_{n+1} & = x_n - 3y_n \\
+\end{align*}
+
+
+We can write the vector $\begin{bmatrix}5\\0\end{bmatrix}$ as a linear combination of the eigenvectors for $A$:
+\[
+	\begin{bmatrix}5\\0\end{bmatrix} = c_1\begin{bmatrix}5\\1\end{bmatrix} + c_2\begin{bmatrix}0\\1\end{bmatrix}
+\]
+
+We can solve for $c_1$ and $c_2$ by setting up the following system of equations:
+\begin{align*}
+	5c_1      & = 5 \\
+	c_1 + c_2 & = 0
+\end{align*}
+
+Which results in $c_1 = 1$ and $c_2 = -1$. So
+\[
+	\begin{bmatrix}5\\0\end{bmatrix} = 1\begin{bmatrix}5\\1\end{bmatrix} - 1\begin{bmatrix}0\\1\end{bmatrix}
+\]
+
+We can express this as $w = \mathbf{v_1} - \mathbf{v_2}$.\\[2ex]
+\begin{align*}
+	\intertext{We can then express our sequence as}
+	\begin{bmatrix}x_{n}\\y_{n}\end{bmatrix} & =  A^n\begin{bmatrix}5\\0\end{bmatrix}                                                                  \\
+	                                         & = A^n\cdot w                                                                                            \\
+	                                         & = A^n\cdot (\mathbf{v_1}-\mathbf{v_2})                                                                  \\
+	                                         & = A^n\cdot \mathbf{v_1}- A^n \cdot \mathbf{v_2}                                                         \\
+	                                         & = \lambda_1^n\cdot \mathbf{v_1}- \lambda_2^n \cdot \mathbf{v_2}                                         \\
+	\intertext{If we replace $\mathbf{v_1}$ and $\mathbf{v_2}$ with their respective eigenvectors we get}
+	                                         & = \lambda_1^n\cdot \begin{bmatrix}5\\1\end{bmatrix}- \lambda_2^n \cdot \begin{bmatrix}0\\1\end{bmatrix} \\
+	                                         & = \begin{bmatrix}\lambda_1^{n}\cdot 5\\\lambda_1^n-\lambda_2^n\end{bmatrix}
+\end{align*}
+
+So we have derived a closed formula for $y_n$:
+\[
+	y_n = \lambda_1^{n}-\lambda_2^n
+\]
+
+If we replace $\lambda_1$ and $\lambda_2$ with their respective eigenvalues we get
+\[
+	y_n = 2^n-(-3)^n
+\]
+

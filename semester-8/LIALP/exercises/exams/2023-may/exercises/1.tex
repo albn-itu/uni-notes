@@ -1,0 +1,43 @@
+\section{Exercise 1}
+\subsection{Part a}
+Consider the equations:
+\begin{align*}
+	4w - 4x + 4y + 12z & = 12 \\
+	3w - 3x + 5y + 11z & = 13 \\
+	2w - 2x + 5y + 9z  & = 12
+\end{align*}
+
+Convert to an augmented matrix and reduce
+\begin{align*}
+	 & \begin{gmatrix}[b]
+		   4 & -4 & 4 & 12 & \BAR & 12\\
+		   3 & -3 & 5 & 11 & \BAR & 13\\
+		   2 & -2 & 5 & 9  & \BAR & 12
+	   \end{gmatrix}\rightsquigarrow        \\
+	 & \begin{gmatrix}[b]
+		   1 & -1 & 1 & 3 & \BAR & 3\\
+		   0 & 0 & 2 & 2 & \BAR & 4\\
+		   0 & 0 & 3 & 3  & \BAR & 6
+		   \rowops
+		   \mult{0}{\cdot \frac{1}{4}}
+		   \add[-3]{0}{1}
+		   \add[-2]{0}{2}
+	   \end{gmatrix}\rightsquigarrow \\
+	 & \begin{gmatrix}[b]
+		   1 & -1 & 0 & 2 & \BAR & 1\\
+		   0 & 0 & 1 & 1 & \BAR & 2\\
+		   0 & 0 & 0 & 0  & \BAR & 0
+		   \rowops
+		   \mult{1}{\cdot \frac{1}{2}}
+		   \add[-1]{1}{0}
+		   \add[-3]{1}{2}
+	   \end{gmatrix}
+\end{align*}
+
+From this we set $x$ and $z$ as free variables $s$ and $t$ respectively which means we can formulate the solution as:
+\begin{align*}
+	w & = 1+s-2t
+	  & x        & = s
+	  & y        & = 2-t
+	  & z        & = t
+\end{align*}

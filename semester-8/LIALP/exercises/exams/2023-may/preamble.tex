@@ -1,0 +1,92 @@
+% =======================
+% Imports
+% =======================
+\usepackage[a4paper, bottom=3cm, top=2cm, left=2.6cm, right=2.6cm]{geometry} % layouting
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{gauss} % Required for gauss elimination
+
+% =======================
+% Layouting
+% =======================
+\setlength{\parindent}{0pt} % Disable paragraph indentation
+
+% =======================
+% Question box
+% =======================
+\tikzstyle{questionbox} = [
+draw=black,
+fill=gray!15,
+very thick,
+rectangle,
+rounded corners,
+inner sep=10pt,
+inner ysep=20pt
+]
+
+\newcommand{\question}[1]{%
+	\begin{center}
+		\begin{tikzpicture}
+			\node[questionbox] (box){%
+				\begin{minipage}{0.8\textwidth}
+					#1
+				\end{minipage}
+			};
+		\end{tikzpicture}
+	\end{center}
+}
+
+
+% =======================
+% Matrix
+% =======================
+% Source: https://tex.stackexchange.com/questions/2233/whats-the-best-way-make-an-augmented-coefficient-matrix/2244#2244 
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{#1}}
+\makeatother
+
+% source: https://tex.stackexchange.com/questions/241444/augmented-matrix-with-fractions 
+
+% patch gauss macros for doing their work in `align'
+% and other amsmath environments; see
+% http://tex.stackexchange.com/questions/146532/
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\g@matrix
+{\vbox\bgroup}
+{\vbox\bgroup\normalbaselines}% restore the standard baselineskip
+{}{}
+\makeatother
+
+\newcommand{\gfrac}[2]{\frac{\smash[b]{\mathstrut}#1}{\smash[t]{\mathstrut}#2}}
+
+\newcommand{\BAR}[1][0pt]{%
+	\hspace{-\arraycolsep}%
+	\ifdim#1>0pt
+		\dimen0=\ht\strutbox \dimen2=\dimen0
+		\advance\dimen0 #1\relax
+		\ht\strutbox=\dimen0
+	\fi
+	\smash{\strut\vrule} % the `\vrule` is as high and deep as a strut
+	% since assignments to \ht\strutbox are global, we restore the height
+	\ifdim#1>0pt
+		\ht\strutbox=\dimen2
+	\fi
+	\hspace{-\arraycolsep}%
+}
+
+% =======================
+% tikz
+% =======================
+\usetikzlibrary{calc,arrows}
+\newcommand{\tikzmark}[1]{%
+	\tikz[overlay,remember picture] \node (#1) {};}
