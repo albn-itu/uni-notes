@@ -1,0 +1,45 @@
+\section{Exercise 5}
+$\lambda = \frac{1}{2}$
+
+\subsection{Part a}
+An exponentially distributed random variable $X$ has the following probability density function:
+\[
+	f(x;\lambda) = \begin{cases}
+		\lambda e^{-\lambda x} & x \geq 0 \\
+		0                      & x < 0
+	\end{cases}
+\]
+So:
+\[
+	f(x;\frac{1}{2}) = \begin{cases}
+		\frac{1}{2} e^{-\frac{1}{2} x} & x \geq 0 \\
+		0                              & x < 0
+	\end{cases}
+\]
+
+To calculate $P(a\leq X \leq b)$ we integrate the probability density function from $a$ to $b$. In our case $a=2$ and $b=6$:
+\begin{align*}
+	P(2\leq X \leq 6) & = \int_2^6 \frac{1}{2} e^{-\frac{1}{2} x} dx         \\
+	\intertext{Rewrite to}
+	                  & = \int_2^6 \frac{e^{-\frac{1}{2}x}}{2}
+	\intertext{Becomes}
+	                  & = \left[-e^{-\frac{1}{2}x}\right]_2^6                \\
+	\intertext{Substitute}
+	                  & = -e^{-\frac{6}{2}} - \left(-e^{-\frac{2}{2}}\right) \\
+	                  & = -e^{-3} + e^{-1}                                   \\
+\end{align*}
+
+\subsection{Part b}
+$Y$ has $\lambda = \frac{1}{4}$ and $Cov(X, Y) = -3$.
+
+First we calculate the expected value of $X$. In a exponentially distributed random variable the expected value is $\frac{1}{\lambda}$ so $E[X] = 2$.
+
+Then we calculate the expected value of $Y$ which is $E[Y] = 4$.
+
+Therefore the expected value of $X+Y$ is $E[X+Y] = E[X] + E[Y] = 2 + 4 = 6$.
+
+The varianc of $X$ is given by $Var(X) = \frac{1}{\lambda^2}$ so $Var(X) = 4$.
+
+The variance of $Y$ is given by $Var(Y) = \frac{1}{\lambda^2}$ so $Var(Y) = 16$.
+
+The variance of $X+Y$ is given by $Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$ so $Var(X+Y) = 4 + 16 + 2\cdot -3 = 14$.
