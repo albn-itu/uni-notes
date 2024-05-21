@@ -23,10 +23,10 @@
   - [x] AI: 2023 exam part 1,2,3 ~~AI: 2019 exam~~
 - [ ] May 19th
   - [ ] ~~LA: May 2020 exam~~
-- [ ] May 20th
-  - [ ] LA: Aug 2023 exam ~~AI: 2020 exam~~
-- [ ] May 21th
-  - [ ] LA: Aug 2020 exam
+- [x] May 20th
+  - [x] LA: Aug 2023 exam part 1 ~~LA: Aug 2023 exam~~ ~~AI: 2020 exam~~
+- [x] May 21th
+  - [x] LA: Aug 2023 exam part 2-7 ~~LA: Aug 2020 exam~~
 - [ ] May 22th
   - Work
 - [ ] May 23th
@@ -52,13 +52,13 @@
 - [ ] May 31th
   - [ ] AI: Exam (9-13)
 
-  - [ ] AI: 2017 exam
+  - [x] AI: 2017 exam
   - [ ] AI: 2018 exam
   - [ ] AI: 2019 exam
   - [ ] AI: 2020 exam
   - [ ] AI: 2021 exam
   - [ ] AI: 2022 exam
-  - [ ] AI: 2023 exam
+  - [x] AI: 2023 exam
 
   - [ ] LA: May 2020 exam
   - [ ] LA: Aug 2020 exam
@@ -67,5 +67,5 @@
   - [ ] LA: May 2022 exam
   - [ ] LA: Aug 2022 exam
   - [ ] LA: May 2023 exam
-  - [ ] LA: Aug 2023 exam
+  - [x] LA: Aug 2023 exam
 
