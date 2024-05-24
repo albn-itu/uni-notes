@@ -17,30 +17,71 @@ To check whether $u_1,u_2,u_3$ span $V$ we must find whether all vectors in $V$ 
 
 Create a system of equations:
 \begin{align*}
-	2a-2b+2x & = -2x \\
-	-a+b     & = x   \\
-	a+2b     & = y   \\
-	2a       & = z
+	2a-2b   & = -2x \\
+	-a+b    & = x   \\
+	a+2b+2c & = y   \\
+	2a+c    & = z
 \end{align*}
 
-Since we must prove that all vectors in $V$ can be written as a linear combination of $u_1,u_2,u_3$ we must show that the system of equations has a solution for all $w,x,y,z$. We can do this by showing
+We can then solve for each of the variables. Use the second to $b$:
 \begin{align*}
-	\begin{bmatrix}
-		2  & -2 & 2 & 0 \\
-		-1 & 1  & 0 & 0 \\
-		1  & 2  & 0 & 0 \\
-		2  & 0  & 0 & 0
-	\end{bmatrix} \rightsquigarrow \\
-	\begin{bmatrix}
-		1 & -1 & 1  & 0 \\
-		0 & 0  & 1  & 0 \\
-		0 & 3  & -1 & 0 \\
-		0 & 2  & -2 & 0
-	\end{bmatrix} \rightsquigarrow \\
-	\begin{bmatrix}
-		1 & -1 & 1  & 0 \\
-		0 & 3  & -1 & 0 \\
-		0 & 0  & 1  & 0 \\
-		0 & 0  & 0  & 0
-	\end{bmatrix}
+	b & = x+a \\
 \end{align*}
+
+We can check this by substituting into the first:
+\begin{align*}
+	2a-2(x+a) & = -2x \\
+	2a-2x-2a  & = -2x \\
+	-2x       & = -2x
+\end{align*}
+
+This is true, so we can continue to solve for $c$:
+\begin{align*}
+	2a+c & = z   \\
+	2a   & = z-c \\
+	z-2a & = c
+\end{align*}
+
+We can then substitute $b$ and $c$ into the third equation:
+\begin{align*}
+	a+2(x+a)+2(z-2a) & = y        \\
+	a+2x+2a+2z-4a    & = y        \\
+	-a+2x+2z         & = y
+	\intertext{Solve for $a$}
+	a                & = -y+2x+2z \\
+\end{align*}
+
+Status now is:
+\begin{align*}
+	a & = -y+2x+2z \\
+	b & = x+a      \\
+	c & = z-2a
+\end{align*}
+
+Substitute $a$ into $b$:
+\begin{align*}
+	b & = x+(-y+2x+2z) \\
+	b & = x-y+2x+2z    \\
+	b & = -y+3x+2z
+\end{align*}
+
+Substitute $a$ into $c$:
+\begin{align*}
+	c & = z-2(-y+2x+2z) \\
+	c & = z+2y-4x-4z    \\
+	c & = 2y-4x-3z
+\end{align*}
+
+So we have:
+\begin{align*}
+	a & = -y+2x+2z = 2x-y+2z   \\
+	b & = -y+3x+2z = 3x-y+2z   \\
+	c & = 2y-4x-3z = -4x+2y-3z
+\end{align*}
+
+So:
+\[
+	(-2x,x,y,z) = (2x-y+2z)u_1 + (3x-y+2z)u_2 + (-4x+2y-3z)u_3
+\]
+
+

@@ -1,2 +1,41 @@
 \section{Exercise 5}
-\subsection{Part a}
+\question{
+	Charlie suggests the following bet: If you give him 9 kr, he will let you roll a fair 4-sided die 10 times and give you 4 kr in return for each time you roll a 4. Let X be a random variable giving the amount you win on this bet (which might be negative). For example, if you roll a 4 two times out of the 10 attempts, then $X = -1$
+}
+
+\section{Part a}
+\question{
+	Compute the mean and variance of $X$.
+}
+
+We can set this up as a binomial distribution, where $n=10$ and $p=\frac{1}{4}$. Denoted as $S_n \sim Bin\left(10, \frac{1}{4}\right)$. Then we define $X$ as:
+\[
+	X = 4 \cdot \text{number of 4's rolled} - 9 = 4S_n - 9
+\]
+
+The mean of $X$ is then:
+\begin{align*}
+	E[X] & = E[4S_n - 9]                      \\
+	     & = 4E[S_n] - 9                      \\
+	     & = 4 \cdot 10 \cdot \frac{1}{4} - 9 \\
+	     & = 10 - 9                           \\
+	     & = 1
+\end{align*}
+
+The variance is calculated using the Binomial variance formula, we only calculate it for $S_n$
+\begin{align*}
+	Var(S_n) & = E[S_n^2]-E[S_n]^2                      \\
+	         & = n(n-1)p^2+np - n^2p^2                  \\
+	         & = np-np^2                                \\
+	         & = np(1-p)                                \\
+	         & = 10 \cdot \frac{1}{4} \cdot \frac{3}{4} \\
+	         & = 1.875
+\end{align*}
+
+We can then find the variance of $X$ using the formula $Var(aX+b) = a^2Var(X)$:
+\begin{align*}
+	Var(X) & = 4^2Var(S_n)    \\
+	       & = 16 \cdot 1.875 \\
+	       & = 30
+\end{align*}
+

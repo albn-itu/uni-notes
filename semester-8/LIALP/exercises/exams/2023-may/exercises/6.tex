@@ -1,2 +1,46 @@
 \section{Exercise 6}
-\subsection{Part a}
+\question{
+	Let $X,Y$ be random variables with joint PDF given by
+	\[
+		f_{X,Y}(x,y) =  \begin{cases}
+			\frac{3}{7}(xy^2+3x^2) & \text{for } 0 \leq x \leq 1 \text{ and } -1 \leq y \leq 1 \\
+			0                      & \text{else}
+		\end{cases}
+	\]
+}
+
+\section{Part a}
+\question{
+	Compute the conditional PDF $f_{Y|X}(x|y)$.
+}
+
+We can find the conditional PDF by using the formula:
+\[
+	f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)}
+\]
+
+We can find $f_X(x)$ by integrating $f_{X,Y}(x,y)$ over $y$:
+\begin{align*}
+	f_X(x) & = \int_{-\infty}^{\infty} f_{X,Y}(x,y)\ dy                                \\
+	       & = \int_{-1}^{1} \frac{3}{7}(xy^2+3x^2)\ dy                                \\
+	       & = \frac{3x}{7} \left(\int_{-1}^{1} y^2\ dy+3x^2\int_{-1}^{1} 1\ dy\right) \\
+	       & = \frac{3x}{7} \left(\frac{y^3}{3}+3x^2y\right)                           \\
+	       & = \frac{xy^3}{7}+\frac{9x^2y}{7}                                          \\
+	       & = \frac{xy^3 + 9x^2y}{7}                                                  \\
+	       & = \left[\frac{xy (y^2 + 9x)}{7}\right]^{-1}_1                             \\
+	       & = \frac{x\cdot 1 (1^2 + 9x)}{7} - \frac{x\cdot -1 (-1^2 + 9x)}{7}         \\
+	       & = \frac{9x^2}{7} - \left(-\frac{x (9x-1)}{7}\right)                       \\
+	       & = \frac{9x^2}{7} + \frac{9x^2-x}{7}                                       \\
+	       & = \frac{9x^2 + 9x^2-x}{7}                                                 \\
+	       & = \frac{2(9x^2+x)}{7}                                                     \\
+\end{align*}
+
+We can then find the conditional PDF:
+\begin{align*}
+	f_{Y|X}(y|x) & = \frac{f_{X,Y}(x,y)}{f_X(x)}                        \\
+	             & = \frac{\frac{3}{7}(xy^2+3x^2)}{\frac{2(9x^2+x)}{7}} \\
+	             & = \frac{3(xy^2+3x^2)}{2(9x^2+x)}                     \\
+	             & = \frac{3(xy^2+3x^2)}{2x(9x+1)}                      \\
+	             & = \frac{3(x(y^2+3x))}{2x(9x+1)}                      \\
+	             & = \frac{3(y^2+3x)}{2(9x+1)}                          \\
+\end{align*}
