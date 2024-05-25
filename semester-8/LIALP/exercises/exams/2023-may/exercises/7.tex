@@ -97,7 +97,102 @@ This leaves us with the probability $P(Z_n \leq -1.5) = \Phi(-1.5)$. We can then
 
 \section{Part d}
 \question{
-	Even later that summer, the ice cream shop sells 5 different flavours, which we refer to as $a$,$b$,$c$,$d$,$e$. Bob wants a cup with 2 scoops, and will choose uniformly among the flavours, making sure not to choose the same flavour twice. Let $YA$ and $YB$ be the Bernoulli random variables associated with the events that Bob’s ice cream contains flavours $a$ and $b$ respectively.\\[1ex]
+	Even later that summer, the ice cream shop sells 5 different flavours, which we refer to as $a$,$b$,$c$,$d$,$e$. Bob wants a cup with 2 scoops, and will choose uniformly among the flavours, making sure not to choose the same flavour twice. Let $Y_A$ and $Y_B$ be the Bernoulli random variables associated with the events that Bob’s ice cream contains flavours $a$ and $b$ respectively.\\[1ex]
 
-	Compute the mean and variance of $YA$, and the covariance of $YA$ and $YB$ .
+	Compute the mean and variance of $Y_A$, and the covariance of $Y_A$ and $Y_B$ .
 }
+
+We define $Y_A$ and $Y_B$ as:
+\begin{align*}
+	Y_A & \sim \text{Bernoulli}(p) \\
+	Y_B & \sim \text{Bernoulli}(p)
+\end{align*}
+
+There is a total of $\begin{pmatrix}5\\2\end{pmatrix} = 10$ possible combinations of flavours. Now, there are 4 combinations of flavours that contain $a$ and 4 combinations of flavours that contain $b$. So $p = \frac{4}{10} = \frac{2}{5}$.
+
+Combinations:
+\[
+	\{ab, ac, ad, ae, bc, bd, be, cd, ce, de\}
+\]
+
+The mean and variance of a Bernoulli distribution is:
+\begin{align*}
+	E[Y]   & = p      \\
+	Var(Y) & = p(1-p)
+\end{align*}
+
+So the mean and variance of $Y_A$ is:
+\begin{align*}
+	E[Y_A]   & = \frac{2}{5}                                  \\
+	Var(Y_A) & = \frac{2}{5} \cdot \frac{3}{5} = \frac{6}{25}
+\end{align*}
+
+The covariance of $Y_A$ and $Y_B$ is:
+\[
+	Cov(Y_A, Y_B) = E[Y_AY_B] - E[Y_A]E[Y_B]
+\]
+
+We must calculate $E[Y_AY_B]$, which is the probability that both $a$ and $b$ are present. There is only one case where those sets overlap, so it's:
+\begin{align*}
+	Y_AY_B    & \sim \text{Bernoulli}(p^2) \\
+	p         & = \frac{1}{10}             \\
+	E[Y_AY_B] & = \frac{1}{10}
+\end{align*}
+
+So the covariance of $Y_A$ and $Y_B$ is:
+\begin{align*}
+	Cov(Y_A, Y_B) & = \frac{1}{10} - \frac{2}{5} \cdot \frac{2}{5} \\
+	              & = \frac{1}{10} - \frac{4}{25}                  \\
+	              & = \frac{5}{50} - \frac{8}{50} = -\frac{3}{50}
+\end{align*}
+
+\section{Part e}
+\question{
+	Suppose now that the ice cream shop charges per scoop as given in the table below. So for example, an ice cream with one scoop of flavour $a$ and one scoop of flavour $b$ is 5 kr. Let $Z$ be the price of Bob’s ice cream\\[1ex]
+
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			flavour & a & b & c & d & e \\
+			price   & 2 & 3 & 4 & 4 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+
+	Compute the mean of $Z$ and the covariance of $Y_A$ and $Z$. (Hint: use the results of the previous question)
+}
+
+We define $Z$ as:
+\[
+	Z = 2Y_A + 3Y_B + 4Y_C + 4Y_D + 5Y_E
+\]
+
+The mean of $Z$ is:
+\begin{align*}
+	E[Z] & = E[2Y_A + 3Y_B + 4Y_C + 4Y_D + 5Y_E]                                      \\
+	     & = 2E[Y_A] + 3E[Y_B] + 4E[Y_C] + 4E[Y_D] + 5E[Y_E]                          \\
+	     & = 2\frac{2}{5} + 3\frac{2}{5} + 4\frac{2}{5} + 4\frac{2}{5} + 5\frac{2}{5} \\
+	     & = \frac{2}{5} + \frac{6}{5} + \frac{8}{5} + \frac{8}{5} + \frac{10}{5}     \\
+	     & = \frac{10}{5} + \frac{16}{5} + \frac{10}{5} = \frac{36}{5}
+\end{align*}
+
+The covariance of $Y_A$ and $Z$ is:
+\[
+	Cov(Y_A, Z) = E[Y_AZ] - E[Y_A]E[Z]
+\]
+
+Since the covariance consists of variables, a solution is to calculate it as so:
+\[
+	Cov(Y_A, Z) = 2\cdot Cov(Y_A, Y_A) + 3\cdot Cov(Y_A, Y_B) + 4\cdot Cov(Y_A, Y_C) + 4\cdot Cov(Y_A, Y_D) + 5\cdot Cov(Y_A, Y_E)
+\]
+
+We know all apart from $Cov(Y_A, Y_A)$ which, when getting the covariance of the same variable, is just the variance of the variable. Therefore we have:
+\begin{align*}
+	Cov(Y_A, Z) & = 2\cdot \frac{6}{25} + (-\frac{3}{50}(3+4+5+6)) \\
+	            & = \frac{12}{25} - \frac{3}{50} \cdot 16          \\
+	            & = \frac{24}{50} - \frac{48}{50}                  \\
+	            & = \frac{-24}{50}
+\end{align*}
+
+
+
