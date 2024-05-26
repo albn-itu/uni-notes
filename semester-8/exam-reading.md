@@ -12,43 +12,41 @@
   - EH: Hacking and report (13-NA)
 - [x] May 14th
   - [x] EH: Hacking and report (9-14)
-  - [ ] ~~AI: 2017 exam part 1~~
 - [x] May 15th
   - Work
 - [x] May 16th
   - Work
 - [ ] May 17th
-  - [x] AI: 2017 exam part 2 ~~AI: 2018 exam~~
+  - [x] AI: 2017 exam part 2
 - [x] May 18th
-  - [x] AI: 2023 exam part 1,2,3 ~~AI: 2019 exam~~
-- [ ] May 19th
-  - [ ] ~~LA: May 2020 exam~~
+  - [x] AI: 2023 exam part 1,2,3
+- [x] May 19th
+  - [x] nothing 
 - [x] May 20th
-  - [x] LA: Aug 2023 exam part 1 ~~LA: Aug 2023 exam~~ ~~AI: 2020 exam~~
+  - [x] LA: Aug 2023 exam part 1
 - [x] May 21th
-  - [x] LA: Aug 2023 exam part 2-7 ~~LA: Aug 2020 exam~~
-- [ ] May 22th
+  - [x] LA: Aug 2023 exam part 2-7
+  - [x] LA: May 2023 exam part 1-4
+- [x] May 22th
   - Work
-- [ ] May 23th
+- [x] May 23th
   - Work
-- [ ] May 24th
-  - [ ] AI: 2021 exam
-- [ ] May 25th
-  - [ ] LA: May 2021 exam
-  - [ ] LA: Aug 2021 exam
+- [x] May 24th
+  - [x] LA: May 2023 exam part 4-7 ~~AI: 2021 exam~~
+- [x] May 25th
+  - [x] LA: May 2023 exam part 7
+  - [x] Bike work
 - [ ] May 26th
-  - [ ] AI: 2022 exam
-  - [ ] AI: 2023 exam
+  - [x] LA: 2022 exam
 - [ ] May 27th
-  - [ ] LA: Aug 2022 exam
+  - [ ] AI: 2022 exam
 - [ ] May 28th
-  - [ ] LA: May 2022 exam
+  - [ ] AI: 2021 exam
 - [ ] May 29th
-  - [ ] LA: May 2023 exam
-  - [ ] LA: Aug 2023 exam
+  - [ ] LA: May 2022 exam
 - [ ] May 30th
   - [ ] LA: Exam (9-13)
-  - [ ] Optional: AI: 2018 exam
+  - [ ] Optional: AI: 2020 exam
 - [ ] May 31th
   - [ ] AI: Exam (9-13)
 
@@ -65,7 +63,7 @@
   - [ ] LA: May 2021 exam
   - [ ] LA: Aug 2021 exam
   - [ ] LA: May 2022 exam
-  - [ ] LA: Aug 2022 exam
-  - [ ] LA: May 2023 exam
+  - [x] LA: Aug 2022 exam
+  - [x] LA: May 2023 exam
   - [x] LA: Aug 2023 exam
 
