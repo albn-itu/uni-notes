@@ -1,0 +1,67 @@
+\section{Exercise 4}
+\begin{align*}
+	u_1 & = \begin{bmatrix}1\\1\\2\end{bmatrix}  &
+	u_2 & = \begin{bmatrix}-1\\2\\1\end{bmatrix} &
+	w   & = \begin{bmatrix}1\\5\\7\end{bmatrix}
+\end{align*}
+
+\subsection{Part a}
+\question{
+	Is $w$ in the subspace of $\mathbb{R}^3$ spanned by $u_1$ and $u_2$?
+}
+
+We check this by creating the setup:
+\[
+	\begin{bmatrix}
+		1 \\5\\7
+	\end{bmatrix} = a\begin{bmatrix}
+		1 \\1\\2
+	\end{bmatrix} + b\begin{bmatrix}
+		-1 \\2\\1
+	\end{bmatrix}
+\]
+
+Convert to a matrix:
+\begin{align*}
+	 & \begin{gmatrix}[b]
+		   1 & -1 & \BAR & 1 \\
+		   1 & 2  & \BAR & 5 \\
+		   2 & 1  & \BAR & 7
+	   \end{gmatrix} \rightsquigarrow \\
+	 & \begin{gmatrix}[b]
+		   1 & -1 & \BAR & 1 \\
+		   0 & 3  & \BAR & 4 \\
+		   0 & 3  & \BAR & 5
+		   \rowops
+		   \add[-1]{0}{1}
+		   \add[-2]{0}{2}
+	   \end{gmatrix} \rightsquigarrow \\
+	 & \begin{gmatrix}[b]
+		   1 & -1 & \BAR & 1 \\
+		   0 & 3  & \BAR & 4 \\
+		   0 & 0  & \BAR & 1
+		   \rowops
+		   \add[-1]{1}{2}
+	   \end{gmatrix} \rightsquigarrow \\
+\end{align*}
+
+Since the third row implies $a0\cdot b0 = 1$, which is inconsistent. This means that $w$ is not in the subspace spanned by $u_1$ and $u_2$.
+
+\subsection{Part b}
+\question{
+	Suppose $V$ is a vector space and $v_1$ and $v_2$ are elements in $V$.\\
+
+	Suppose the set $\{v_1, v_2\}$ spans $V$. Show also that the set $\{v_1 + v_2, v_2\}$ spans $V$.
+}
+
+We want to show that any vector $v\in V$ can be written as a linear combination of $v_1 + v_2$ and $v_2$.\\
+
+Since $\{v_1, v_2\}$ spans $V$, we know that $v = av_1 + bv_2$ for some $a, b\in\mathbb{R}$. And we want to show that $v = x(v_1+v_2) + yv_2$\\
+
+We can compare these and see that:
+\[
+	x(v_1 + v_2) + y(v_2) = xv_1 + (x+y)v_2 = av_1 + bv_2
+\]
+
+So we can conclude that $x = a$ and $x+y = b$. Which implies that $y = b - a$. This means that $v$ can be written as a linear combination of $v_1 + v_2$ and $v_2$.
+

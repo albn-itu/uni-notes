@@ -1,0 +1,46 @@
+\section{Exercise 1}
+\subsection{Part a}
+Consider the equations:
+\begin{align*}
+	4w + 4x + 4y - 16z & = 12 \\
+	3w + 3x + 5y - 14z & = 11 \\
+	2w + 2x - y - 5z   & = 3
+\end{align*}
+
+Convert to an augmented matrix and reduce
+\begin{align*}
+	 & \begin{gmatrix}[b]
+		   4 & 4 & 4 & -16 & 12 \\
+		   3 & 3 & 5 & -14 & 11 \\
+		   2 & 2 & -1 & -5 & 3
+	   \end{gmatrix}\rightsquigarrow        \\
+	 & \begin{gmatrix}[b]
+		   1 & 1 & 1 & -4 & 3 \\
+		   0 & 0 & 2 & -2 & 2 \\
+		   0 & 0 & -3 & 3 & -3
+		   \rowops
+		   \mult{0}{\cdot \frac{1}{4}}
+		   \add[-3]{0}{1}
+		   \add[-2]{0}{2}
+	   \end{gmatrix}\rightsquigarrow \\
+	 & \begin{gmatrix}[b]
+		   1 & 1 & 0 & -3 & 2 \\
+		   0 & 0 & 1 & -1 & 1 \\
+		   0 & 0 & 0 & 0 & 0
+		   \rowops
+		   \mult{1}{\cdot \frac{1}{2}}
+		   \add[-1]{1}{0}
+		   \add[-3]{1}{2}
+	   \end{gmatrix} \rightsquigarrow \\
+\end{align*}
+
+From this we set $x$ and $z$ as free variables $s$ and $t$ respectively which means we can formulate the solution as:
+\begin{align*}
+	w & = 2-s+3t
+	  & x        & = s
+	  & y        & = 1+t
+	  & z        & = t
+\end{align*}
+
+
+

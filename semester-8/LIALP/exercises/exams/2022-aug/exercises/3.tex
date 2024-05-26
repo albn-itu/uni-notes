@@ -1,0 +1,30 @@
+\section{Exercise 3}
+\begin{align*}
+	A & = \begin{bmatrix}
+		      4 & -1 \\
+		      1 & 2
+	      \end{bmatrix} &
+	B & = \begin{bmatrix}
+		      3 & 1 \\
+		      0 & 2
+	      \end{bmatrix}
+\end{align*}
+
+\subsection{Part a}
+\question{
+	Is $V = \left\{C\in Mat_{2,2} | AC=BC\right\}$ a subspace of $Mat_{2,2}$?
+}
+
+To check if $V$ is a subspace we must check if it is closed under addition and scalar multiplication.
+
+Consider $C_1$ and $C_2$. Then $AC_1 = BC_1$ and $AC_2 = BC_2$. We want to show that $A(C_1 + C_2) = B(C_1 + C_2)$.
+
+We can expand to get:
+\[
+	A(C_1 + C_2) = AC_1 + AC_2 = BC_1 + BC_2 = B(C_1 + C_2)
+\]
+
+Thus $V$ is closed under addition.
+
+Consider $C\in V$ and a scalar $k$. We want to show that $A(kC) = B(kC)$.
+We know that $A(kC) = kAC$ and $B(kC) = kBC$. Since $AC = BC$ we can conclude that $A(kC) = k(BC) = B(kC)$. So it's closed under multiplication
