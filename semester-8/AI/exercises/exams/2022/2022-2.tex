@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{forest}
+\usepackage{rotating}
+\usepackage{subcaption}
+
+\usetikzlibrary{shapes,trees}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{graphs}
+
+\newcommand*{\defeq}{\stackrel{\text{def}}{=}}
+\begin{document}
+
+\begin{figure}
+	\centering
+
+	\begin{forest}
+		[$x$
+		[$x$, edge=dashed
+		[1, edge=dashed]
+		[0]
+		]
+		[$y$
+		[$x$, edge=dashed
+		[1, edge=dashed]
+		[0]
+		]
+		[0]
+		]
+		]
+	\end{forest}
+
+	\caption{BDD}
+\end{figure}
+
+\begin{figure}
+	\centering
+
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+
+		\begin{forest}
+			[$x$
+			[1, edge=dashed]
+			[$y$
+			[$x$, edge=dashed
+			[1, edge=dashed]
+			[0]
+			]
+			[0]
+			]
+			]
+		\end{forest}
+	\end{subfigure}%
+	~
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+
+		\begin{forest}
+			[$x$
+				[1, edge=dashed]
+					[$y$
+						[0, edge=dashed]
+							[0]
+					]
+			]
+		\end{forest}
+	\end{subfigure}
+
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+
+		\begin{forest}
+			[$x$
+				[1, edge=dashed]
+					[0]
+			]
+		\end{forest}
+	\end{subfigure}
+
+	\caption{ROBDD}
+\end{figure}
+\end{document}
