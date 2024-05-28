@@ -38,9 +38,10 @@
   - [x] Bike work
 - [ ] May 26th
   - [x] LA: 2022 exam
-- [ ] May 27th
-  - [ ] AI: 2022 exam
+- [x] May 27th
+  - [x] Finish Ethical Hacking
 - [ ] May 28th
+  - [x] AI: 2022 exam
   - [ ] AI: 2021 exam
 - [ ] May 29th
   - [ ] LA: May 2022 exam
@@ -55,7 +56,7 @@
   - [ ] AI: 2019 exam
   - [ ] AI: 2020 exam
   - [ ] AI: 2021 exam
-  - [ ] AI: 2022 exam
+  - [x] AI: 2022 exam
   - [x] AI: 2023 exam
 
   - [ ] LA: May 2020 exam
