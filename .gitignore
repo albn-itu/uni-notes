@@ -1,3 +1,5 @@
+*.pdf
+
 # Obsidian
 **/.obsidian/*
 !**/.obsidian/app.json
