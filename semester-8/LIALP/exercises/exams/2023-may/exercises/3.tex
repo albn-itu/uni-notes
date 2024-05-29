@@ -1,4 +1,16 @@
 \section{Exercise 3}
+Consider the subspace $V$ of $R^2$ defined as
+\[
+	V = \left\{\begin{bmatrix}x\\y\end{bmatrix} \in \mathbb{R}^2 \bigg| x = y\right\}
+\]
+You may take it for granted that $V$ is a subspace and do not have to prove that. Let $Mat_{2,2}$ be the vector space of $2 \times 2$-matrices and consider the subset $W$ of $Mat_{2,2}$ defined as
+
+\[
+	W = \left\{A\in Mat_{2,2} \bigg| A\begin{bmatrix}1\\2\end{bmatrix}\in V\right\}
+\]
+
+Finally, consider the matrices
+
 \begin{align*}
 	A & = \begin{bmatrix}
 		      1 & 2 \\
@@ -15,6 +27,10 @@
 \end{align*}
 
 \subsection{Part a}
+\question{
+	Which among the matrices $A, B, C$ are elements of $W$? Argue for your answer
+}
+
 To check whether $A,B,C$ are in the subspace we must calculate
 \[
 	X\begin{bmatrix}
@@ -86,7 +102,9 @@ For $C$:
 So $A$ and $C$ are in the subspace, but $B$ is not.
 
 \subsection{Part b}
-Is $W = \left\{A\in Mat_{2,2} | A\begin{bmatrix}1\\2\end{bmatrix}\in V\right\}$ a subspace of $Mat_{2,2}$?
+\question{
+	Is W a subspace of $Mat_{2,2}$? Argue for your answer.
+}
 
 To check if $W$ is a subspace we must check if it is closed under addition and scalar multiplication.
 
