@@ -45,6 +45,7 @@
   - [x] AI: 2021 exam
 - [x] May 29th
   - [x] LA: May 2022 exam
+  - [x] LA: May 2021 exam
 - [ ] May 30th
   - [ ] LA: Exam (9-13)
   - [ ] Optional: AI: 2020 exam
@@ -62,7 +63,7 @@
   - [ ] LA: May 2020 exam
   - [ ] LA: Aug 2020 exam
   - [ ] LA: May 2021 exam
-  - [ ] LA: Aug 2021 exam
+  - [x] LA: Aug 2021 exam
   - [x] LA: May 2022 exam
   - [x] LA: Aug 2022 exam
   - [x] LA: May 2023 exam
