@@ -40,11 +40,11 @@
   - [x] LA: 2022 exam
 - [x] May 27th
   - [x] Finish Ethical Hacking
-- [ ] May 28th
+- [x] May 28th
   - [x] AI: 2022 exam
-  - [ ] AI: 2021 exam
-- [ ] May 29th
-  - [ ] LA: May 2022 exam
+  - [x] AI: 2021 exam
+- [x] May 29th
+  - [x] LA: May 2022 exam
 - [ ] May 30th
   - [ ] LA: Exam (9-13)
   - [ ] Optional: AI: 2020 exam
@@ -55,7 +55,7 @@
   - [ ] AI: 2018 exam
   - [ ] AI: 2019 exam
   - [ ] AI: 2020 exam
-  - [ ] AI: 2021 exam
+  - [x] AI: 2021 exam
   - [x] AI: 2022 exam
   - [x] AI: 2023 exam
 
@@ -63,7 +63,7 @@
   - [ ] LA: Aug 2020 exam
   - [ ] LA: May 2021 exam
   - [ ] LA: Aug 2021 exam
-  - [ ] LA: May 2022 exam
+  - [x] LA: May 2022 exam
   - [x] LA: Aug 2022 exam
   - [x] LA: May 2023 exam
   - [x] LA: Aug 2023 exam
