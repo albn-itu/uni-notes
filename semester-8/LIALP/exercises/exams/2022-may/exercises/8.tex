@@ -1,0 +1,90 @@
+\section{Exercise 8}
+The Cheap Broadcasting Corporation runs a quiz show in which contestants can win incredibly small prizes. James has won 20 pounds so far in the show and is now shown a board with 5 choices of which 2 are winning answers and 3 are not. He gets to pick two answers, and for each correct answer he wins an additional 10 pounds. James has no clue which ones are right, so picks two answers uniformly at random (making sure not to pick the same answer twice).
+
+\subsection{Part a}
+\question{
+	Let $X$ be a random variable indicating the amount won in pounds by James after giving his first answer of the two allowed. That is, $X$ is 20 if the first answer is wrong, and 30 if the answer is correct. Compute the mean and variance of $X$
+}
+
+We define $X$ using a Bernoulli distribution with $p = \frac{2}{5}$ and $q = \frac{3}{5}$, where $p$ is the probability of winning and $q$ is the probability of losing, then the random variable is:
+\[
+	X = 10\cdot Bernoulli(p) + 20
+\]
+
+We can use the following rules to calculate the mean and variance:
+\begin{align*}
+	E[aX+b]   & = aE[X]+b   \\
+	Var(aX+b) & = a^2Var(X)
+\end{align*}
+
+The mean and variance of a Bernoulli distribution is:
+\begin{align*}
+	E[X]   & = p                 \\
+	Var(X) & = p(1-p) = p\cdot q
+\end{align*}
+
+So the mean and variance of $X$ is:
+\begin{align*}
+	E[X]   & = 10\cdot E[Bernoulli(p)] + 20 = 10\cdot \frac{2}{5} + 20 = 24              \\
+	Var(X) & = 10^2\cdot Var(Bernoulli(p)) = 10^2\cdot \frac{2}{5}\cdot \frac{3}{5} = 24
+\end{align*}
+
+\subsection{Part b}
+\question{
+	Let $Y_1$ and $Y_2$ be random variables indicating the amounts earned by answer 1 and 2 respectively. That is, $Y_1$ is 10 if the first answer picked by James is correct, and 0 otherwise, and likewise $Y_2$ is 10 if the second answer is correct, and 0 else.
+
+	Compute the covariance of $Y_1$ and $Y_2$
+}
+
+These variables are identically distributed, and have the same mean and variance as $X$, except that you remove the 20, so the mean is $4$.
+
+The covariance of two random variables is defined as:
+\[
+	Cov(X,Y) = E[XY] - E[X]E[Y]
+\]
+
+We can calculate $E[XY]$ by the shared outcome of 10, so 100, and then:
+\[
+	E[XY] = 100\cdot \frac{2}{5}\frac{1}{4} = 10
+\]
+
+Then the covariance is:
+\[
+	Cov(Y_1,Y_2) = E[Y_1Y_2] - E[Y_1]E[Y_2] = 10 - 4\cdot 4 = -6
+\]
+
+\subsection{Part c}
+\question{
+	Let $Z$ be a random variable giving the total amount won by James after giving both his answers, including the amount of 20 pounds won earlier in the show.
+
+	Compute the mean and variance of $Z$.
+}
+
+This is just:
+\[
+	Z = Y_1 + Y_2+20
+\]
+
+So by the total expectation rule:
+\[
+	E[Z] = E[Y_1] + E[Y_2] + 20 = 4 + 4 + 20 = 28
+\]
+
+Same with variance:
+\[
+	Var(Z) = Var(Y_1) + Var(Y_2) + 2Cov(Y_1,Y_2) = 24 + 24 - 12 = 36
+\]
+
+\subsection{Part d}
+\question{
+	Now suppose the rules change, so that James is allowed to give 3 answers instead of 2. There are still 2 winning answers out of 5 on the board. Let W denote the amount won in this question, that is $W$ is 20 if James finds both correct answers, 10 if he finds just one and 0 else
+	Compute the mean and variance of $W$
+}
+
+This simply adds $Y_3$ to the previous question, so the mean and variance is:
+\begin{align*}
+	E[W]   & = E[Y_1] + E[Y_2] + E[Y_3] = 4 + 4 + 4 = 12                                      \\
+	Var(W) & = Var(Y_1) + Var(Y_2) + Var(Y_3) + 2Cov(Y_1,Y_2) + 2Cov(Y_1,Y_3) + 2Cov(Y_2,Y_3) \\
+	       & = 24 + 24 + 24 - 12 - 12 - 12 = 36
+\end{align*}
+

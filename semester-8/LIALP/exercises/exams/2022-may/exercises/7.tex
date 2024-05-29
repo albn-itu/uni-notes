@@ -1,0 +1,38 @@
+\section{Exercise 7}
+Let $X, Y$ be random variables with the following PDFs provided:
+\[
+	f_X(x)\begin{cases}
+		\frac{6}{5}(x^2+x) & 0 < x < 1        \\
+		0                  & \text{otherwise}
+	\end{cases}
+\]
+
+\[
+	f_{Y|X}(y|x)\begin{cases}
+		\frac{10y}{9x} & 0 < x,y < 1      \\
+		0              & \text{otherwise}
+	\end{cases}
+\]
+
+\subsection{Part a}
+\question{
+	Compute the marginal distribution for $Y$
+}
+
+The marginal distribution for $Y$ is given by joint probability density function. Which can be defined as the product of the marginal density function $f_X(x)$ and the conditional density function $F_{Y|X}(y|x)$:
+\[
+	f_Y(y) = \int_{-\infty}^{\infty}f_{Y|X}(y|x)f_X(x)dx
+\]
+
+Therefore:
+\begin{align*}
+	f_Y(y) & = \int_{0}^{1}\frac{10y}{9x}\frac{6}{5}(x^2+x)dx \\
+	       & = \int_{0}^{1}\frac{60y}{45}(x+1)dx              \\
+	       & = \frac{60y}{45}\left[\frac{x^2}{2}+x\right]_0^1 \\
+	       & = \frac{60y}{45}\left[\frac{1}{2}+1\right]       \\
+	       & = \frac{60y}{45}\left[\frac{3}{2}\right]         \\
+	       & = \frac{60y}{30}                                 \\
+	       & = 2y
+\end{align*}
+
+So the marginal distribution for $Y$ is $f_Y(y) = 2y$ for $0 < y < 1$ and $0$ otherwise.
