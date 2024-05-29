@@ -1,6 +1,13 @@
 \section{Exercise 7}
-2 hit songs, 3 boring songs
+Anna looks forward to hearing the new mini-album by her favourite artist. The album contains 5 songs out of which 2 are hits and 3 turn out to be boring songs. Anna plays the album on shuffle, which means that the 5 songs will be played in random order without repeat. We will assume that all possible orderings of the 5 songs are equally likely.\\
+
+Let $X$ be a random variable indicating the number of songs played when Anna has heard the first hit. For example, if the two first songs played are boring, but the third is a hit, then $X = 3$
+
 \subsection{Part a}
+\question{
+	Describe the PMF (probability mass function) for $X$.
+}
+
 The PMF would look like:
 \[
 	p(k)=P(X=k)
@@ -15,6 +22,10 @@ Where $k$ is the first hit song. Each value looks like:
 \end{align*}
 
 \subsection{Part b}
+\question{
+	Compute the mean of $X$, the mean of $X^2$ and the variance of $X$.
+}
+
 The expected value of $X$ is:
 \[
 	E[X] = \sum_{k=1}^{4} k \cdot p_X(X=k)
@@ -51,6 +62,12 @@ The variance of $X$ is:
 \end{align*}
 
 \subsection{Part c}
+\question{
+	Now let $B_1$ be the event that the first song played is boring, and let $Y$ be the random variable indicating the number of songs played before Anna has heard both a hit and a boring song. For example, if all three boring songs are played before any of the hits, then $Y = 4$\\
+
+	Describe the conditional PMF of $Y$, given $B_1$ and compute the conditional mean $E[Y | B_1]$
+}
+
 The conditional PMF of $Y$ is:
 \begin{align*}
 	p_{Y|B_1}(2) & = \frac{1}{2}                                &
@@ -70,6 +87,10 @@ Compute $E[Y|B_1]$:
 \end{align*}
 
 \subsection{Part d}
+\question{
+	Compute the conditional probability $P(B_1 | Y = 3)$
+}
+
 Calculate $P(B_1|Y=3)$:
 \[
 	P(B_1|Y=3) = \frac{P(Y=3|B_1)P(B_1)}{P(Y=3)}
