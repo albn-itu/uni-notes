@@ -1,4 +1,6 @@
 \section{Exercise 3}
+For this problem, consider the following four polynomials
+
 \begin{align*}
 	p & = 2x^3 + x + 1         \\
 	q & = x^3 + x^2 + 3        \\
@@ -6,7 +8,12 @@
 	s & = 2x^3 - 4x^2 + 3x - 9
 \end{align*}
 
+We write $P_3$ for the vector space of polynomials of degree at most 3.
+
 \subsection{Part a}
+\question{
+	Are the polynomials $p, q, r$ linearly independent as elements of $P_3$? Argue for your answer
+}
 To calculate whether or not they are linearly indepenedent we must solve
 \[
 	c_1 p + c_2 q + c_2 r = 0
@@ -57,6 +64,11 @@ Convert to matrix and row reduce:
 The matrix can be reduced to row echelon form with a rank of 4, the amount of variables, therefore there is only one solution, this means that the vectors are linearly independent.
 
 \subsection{Part b}
+\question{
+	For the next subquestion, consider the subspace $V$ of $P_3$ spanned by $p$ and $q$. You may take for granted that $B = \{p, q\}$ is a basis for $V$, and do not have to prove that.\\
+
+	Compute the coordinates of $s$ relative to $B$.
+}
 We have the basis $B = \{p,q\}$ for the subspace $V$. $B$ can also be expressed as
 \[
 	B = \left\{\begin{bmatrix}2\\0\\1\\1\end{bmatrix}, \begin{bmatrix}1\\1\\0\\3\end{bmatrix} \right\}

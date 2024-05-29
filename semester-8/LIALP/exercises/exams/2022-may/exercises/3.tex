@@ -1,0 +1,43 @@
+\section{Exercise 3}
+Let $a, b\in\mathbb{R}$ and define
+
+\begin{align*}
+	u & = \begin{bmatrix}a\\0\\b\\b\end{bmatrix} &
+	v & = \begin{bmatrix}b\\b\\a\\a\end{bmatrix} &
+	w & = \begin{bmatrix}a\\0\\0\\b\end{bmatrix}
+\end{align*}
+
+\subsection{Part a}
+\question{
+	Does $a \neq 0$ and $ \neq 0$ imply that $u, v, w$ are linearly independent? Argue for your answer
+}
+
+To check for linear independence we must determine whether 3 variables $x,y,z$ exists such that $xu + yv + zw = 0$. Therefore we must show that $x=y=z=0$.
+
+\[
+	x\begin{bmatrix}a\\0\\b\\b\end{bmatrix} + y\begin{bmatrix}b\\b\\a\\a\end{bmatrix} + z\begin{bmatrix}a\\0\\0\\b\end{bmatrix} = \begin{bmatrix}0\\0\\0\\0\end{bmatrix}
+\]
+
+Considering the second coordinate we have:
+\[
+	yb = 0
+\]
+
+This implies that $y=0$ as $b\neq 0$. Similarly considering the third coordinate we have:
+
+\begin{align*}
+	xb+ya & = 0 \\
+	\intertext{As $y=0$ then}
+	xb    & = 0 \\
+\end{align*}
+
+Again since $b\neq 0$ this implies that $x=0$
+
+Lastly considering the last coordinate:
+\begin{align*}
+	xb+ya+zb & = 0 \\
+	\intertext{As $x=0$ and $y=0$ then}
+	zb       & = 0 \\
+\end{align*}
+
+This implies that $z=0$ as $b\neq 0$. Therefore $x=y=z=0$ and $u,v,w$ are linearly independent.

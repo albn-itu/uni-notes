@@ -1,7 +1,13 @@
 \section{Exercise 5}
-$\lambda = \frac{1}{2}$
+Let X be an exponentially distributed random variable with parameter $\lambda = \frac{1}{2}$.
+
+For the next question your answer may be an expression involving exponential functions that needs not be reduced to a decimal number
 
 \subsection{Part a}
+\question{
+	Compute the probability that $2 \leq X \leq 6$.
+}
+
 An exponentially distributed random variable $X$ has the following probability density function:
 \[
 	f(x;\lambda) = \begin{cases}
@@ -30,16 +36,42 @@ To calculate $P(a\leq X \leq b)$ we integrate the probability density function f
 \end{align*}
 
 \subsection{Part b}
+\question{
+	Let $Y$ be another exponentially distributed random variable, which has parameter $\lambda = \frac{1}{4}$ , and suppose $Cov(X, Y) = -3$.\\
+
+	Compute the mean and variance of $X + Y$
+}
 $Y$ has $\lambda = \frac{1}{4}$ and $Cov(X, Y) = -3$.
 
 First we calculate the expected value of $X$. In a exponentially distributed random variable the expected value is $\frac{1}{\lambda}$ so $E[X] = 2$.
 
 Then we calculate the expected value of $Y$ which is $E[Y] = 4$.
 
-Therefore the expected value of $X+Y$ is $E[X+Y] = E[X] + E[Y] = 2 + 4 = 6$.
+Therefore the expected value of $X+Y$ is
+\[
+	E[X+Y] = E[X] + E[Y] = 2 + 4 = 6
+\]
 
-The varianc of $X$ is given by $Var(X) = \frac{1}{\lambda^2}$ so $Var(X) = 4$.
+The varianc of $X$ is given by
+\[
+	Var(X) = \frac{1}{\lambda^2}
+\]
 
-The variance of $Y$ is given by $Var(Y) = \frac{1}{\lambda^2}$ so $Var(Y) = 16$.
+so $Var(X) = 4$.
 
-The variance of $X+Y$ is given by $Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$ so $Var(X+Y) = 4 + 16 + 2\cdot -3 = 14$.
+The variance of $Y$ is given by
+\[
+	Var(Y) = \frac{1}{\lambda^2}
+\]
+
+so $Var(Y) = 16$.
+
+The variance of $X+Y$ is given by
+\[
+	Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)
+\]
+
+so
+\[
+	Var(X+Y) = 4 + 16 + 2\cdot -3 = 14
+\]

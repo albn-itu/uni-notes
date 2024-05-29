@@ -1,0 +1,57 @@
+\section{Exercise 6}
+Police officer Wigum is on traffic duty on the motorway. The point he observes has the following statistics:
+
+\begin{enumerate}
+	\item At any point in time, the next vehicle that goes by is a car with probability 0.8 and a truck with probability 0.2
+	\item The speed of the trucks that pass the point follows a normal distribution with mean 78 km/h and variance 16. The speed limit for trucks is 80 km/h
+	\item The speed of the cars that pass the point follow a normal distribution with mean 106 km/h and variance of 25. The speed limit for cars is 110 km/h
+\end{enumerate}
+
+You may assume that the type and speed of any vehicle on the motorway is independent of the type and speed of any other. When answering the questions below, you may round off the numbers found in the table for the normal distribution to the nearest single decimal point, so e.g., 0.8849 should be rounded off to 0.9. Results can be given as decimal numbers or fractions
+
+\subsection{Part a}
+\question{
+	What is the probability that the first vehicle observed by Wigum after 9 AM goes faster than the speed limit?
+}
+
+First compute the standard deviations from the mean of each distribution. For trucks this is $\sqrt{16} = 4$ and for cars this is $\sqrt{25} = 5$. Then each speed limit is
+\begin{align*}
+	\frac{80-78}{4}   & = 0.5 \\
+	\frac{110-106}{5} & = 0.8
+\end{align*}
+
+from the mean.
+
+Then the probability that a truck goes faster than the speed limit is $P(Z>0.5) = 1-P(Z\leq 0.5) = 1-\phi(0.5) = 0.3085$ and the probability that a car goes faster than the speed limit is $P(Z>0.8) = 1-P(Z\leq 0.8) = 1-\phi(0.8) = 0.2119$. $0.3$ and $0.2$ for the rest of the assignment.
+
+Let $C$ be the event the next vehicle is a car and $T$ be the complementary event the next vehicle is a truck. Then the probability that the first vehicle observed by Wigum after 9 AM goes faster than the speed limit is
+\[
+	P(S) = P(S|C)P(C) + P(S|T)P(T) = 0.2\cdot 0.8 + 0.3\cdot 0.2 = 0.22
+\]
+
+\subsection{Part b}
+\question{
+	What is the probability that at least one of the first two vehicles observed by Wigum after 10 AM has a speed below the speed limit?
+}
+
+Let $S_1$ be the event that the first vehicle is speeding, and let $S_2$ be the event that the second vehicle is speeding. Then the question is asking for
+\[
+	P(S_1^c \cup S_2^c) = 1-P(S_1\cap S_2)
+\]
+
+The probability that both vehicles are speeding is
+\[
+	P(S_1\cap S_2) = P(S_1)P(S_2) = 0.22^2 = 0.0484
+\]
+
+Therefore the probability that at least one of the first two vehicles observed by Wigum after 10 AM has a speed below the speed limit is $1-0.0484 = 0.9516$.
+
+\subsection{Part c}
+\question{
+	Suppose we know that the first vehicle that goes by after 11 AM goes faster than the speed limit. What is the probability that that vehicle is a car?
+}
+
+This event can be denoted as $P(C|S)$ and can be computed using Bayes' theorem
+\[
+	P(C|S) = \frac{P(S|C)P(C)}{P(S)} = \frac{0.2\cdot 0.8}{0.22} = \frac{8}{11}
+\]
