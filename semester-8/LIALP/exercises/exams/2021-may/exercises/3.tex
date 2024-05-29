@@ -1,0 +1,106 @@
+\section{Exercise 3}
+For this problem, consider the four vectors in $\mathbb{R}^4$:
+\begin{align*}
+	v_1 & = \begin{bmatrix}1\\2\\2\\-1\end{bmatrix}
+	    & v_2                                       & = \begin{bmatrix}2\\3\\-1\\1\end{bmatrix}
+	    & v_3                                       & = \begin{bmatrix}4\\5\\-7\\5\end{bmatrix}
+	    & v_4                                       & = \begin{bmatrix}0\\2\\1\\-1\end{bmatrix}
+\end{align*}
+
+\subsection{Part a}
+\question{
+	Is $v_3$ in the subspace $Span({v_1, v_2})$ of $\mathbb{R}^4$? Argue for your answer.
+}
+
+To determine if $v_3$ is in the subspace $Span({v_1, v_2})$ we need to determine if $v_3$ can be written as a linear combination of $v_1$ and $v_2$. This is equivalent to solving the system of equations:
+\begin{align*}
+	\begin{bmatrix}4\\5\\-7\\5\end{bmatrix} & = c_1\begin{bmatrix}1\\2\\2\\-1\end{bmatrix} + c_2\begin{bmatrix}2\\3\\-1\\1\end{bmatrix}
+\end{align*}
+
+We can trivially solve this as
+\begin{align*}
+	 & \begin{gmatrix}[b]
+		   1 & 2 & \BAR & 4 \\
+		   2 & 3 &\BAR & 5 \\
+		   2 & -1 & \BAR & -7 \\
+		   -1 & 1 & \BAR & 5
+	   \end{gmatrix}\rightsquigarrow        \\
+	 & \begin{gmatrix}[b]
+		   1 & 2 & \BAR & 4 \\
+		   0 & -1 & \BAR & -3 \\
+		   0 & -5 & \BAR & -15 \\
+		   0 & 3 & \BAR & 9
+		   \rowops
+		   \add[-2]{0}{1}
+		   \add[-2]{0}{2}
+		   \add[1]{0}{3}
+	   \end{gmatrix}\rightsquigarrow        \\
+	 & \begin{gmatrix}[b]
+		   1 & 0 & \BAR & -2 \\
+		   0 & 0 & \BAR & 0 \\
+		   0 & 0 & \BAR & 0 \\
+		   0 & 1 & \BAR & 3
+		   \rowops
+		   \mult{3}{\cdot \frac{1}{3}}
+		   \add[5]{3}{2}
+		   \add[1]{3}{1}
+		   \add[-2]{3}{0}
+	   \end{gmatrix}\rightsquigarrow \\
+\end{align*}
+
+So we have that $c_1 = -2$ and $c_2 = 3$ which means that $v_3$ is in the subspace $Span({v_1, v_2})$.
+
+\subsection{Part b}
+\question{
+	Are the vectors $v_1, v_2, v_4$ linearly independent? Argue for your answer.
+}
+
+To check for linear independence we need to determine if the equation
+\begin{align*}
+	c_1\begin{bmatrix}1\\2\\2\\-1\end{bmatrix} + c_2\begin{bmatrix}2\\3\\-1\\1\end{bmatrix} + c_3\begin{bmatrix}0\\2\\1\\-1\end{bmatrix} = \begin{bmatrix}0\\0\\0\\0\end{bmatrix}
+\end{align*}
+
+has a non-trivial solution. We can solve this by setting up the augmented matrix and reducing it:
+
+\begin{align*}
+	 & \begin{gmatrix}[b]
+		   1 & 2 & 0 & \BAR & 0 \\
+		   2 & 3 & 2 & \BAR & 0 \\
+		   2 & -1 & 1 & \BAR & 0 \\
+		   -1 & 1 & -1 & \BAR & 0
+	   \end{gmatrix}\rightsquigarrow         \\
+	 & \begin{gmatrix}[b]
+		   1 & 2 & 0 & \BAR & 0 \\
+		   0 & -1 & 2 & \BAR & 0 \\
+		   0 & -5 & 1 & \BAR & 0 \\
+		   0 & 3 & -1 & \BAR & 0
+		   \rowops
+		   \add[-2]{0}{1}
+		   \add[-2]{0}{2}
+		   \add[1]{0}{3}
+	   \end{gmatrix}\rightsquigarrow         \\
+	 & \begin{gmatrix}[b]
+		   1 & 0 & 4 & \BAR & 0 \\
+		   0 & 1 & -2 & \BAR & 0 \\
+		   0 & 0 & -9 & \BAR & 0 \\
+		   0 & 0 & 5 & \BAR & 0
+		   \rowops
+		   \mult{1}{\cdot -1}
+		   \add[2]{1}{0}
+		   \add[5]{1}{2}
+		   \add[-3]{1}{3}
+	   \end{gmatrix}\rightsquigarrow         \\
+	 & \begin{gmatrix}[b]
+		   1 & 0 & 0 & \BAR & 0 \\
+		   0 & 1 & 0 & \BAR & 0 \\
+		   0 & 0 & 0 & \BAR & 0 \\
+		   0 & 0 & 1 & \BAR & 0
+		   \rowops
+		   \mult{3}{\cdot \frac{1}{5}}
+		   \add[-4]{3}{0}
+		   \add[2]{3}{1}
+		   \add[9]{3}{2}
+	   \end{gmatrix}\rightsquigarrow \\
+\end{align*}
+
+From this we can see that the system has a trivial solution, which means that the vectors $v_1, v_2, v_4$ are linearly independent.

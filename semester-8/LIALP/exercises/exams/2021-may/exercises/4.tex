@@ -1,0 +1,79 @@
+\section{Exercise 4}
+Shocking news! One in 4 children do not like chocolate!
+A child invites 10 school mates over for a birthday party. At the party, guests who like chocolate are each given 4 pieces of chocolate. Those who do not like chocolate receive a different kind of candy. Let $X$ be the total number of pieces of chocolate that the guests receive at the party
+
+\subsection{Part a}
+\question{
+	Compute the mean and variance of $X$. You may assume that the probability that each guest likes chocolate is $\frac{3}{4}$ independently of the other guests.
+}
+
+$X$ is a Binomial distribution, where $n = 10$ and $p = \frac{3}{4}$. Denoted as $S\sim Bin(10, \frac{3}{4})$, then
+\[
+	X = 4S
+\]
+
+The mean of $X$ is then:
+\begin{align*}
+	E[X] & = E[4S]                        \\
+	     & = 4E[S]                        \\
+	     & = 4 \cdot 10 \cdot \frac{3}{4} \\
+	     & = 40 \cdot \frac{3}{4}         \\
+	     & = 30
+\end{align*}
+
+The variance is calculated using the Binomial variance formula, we only calculate it for $S$
+\begin{align*}
+	Var(S) & = E[S^2]-E[S]^2                          \\
+	       & = n(n-1)p^2+np - n^2p^2                  \\
+	       & = np-np^2                                \\
+	       & = np(1-p)                                \\
+	       & = 10 \cdot \frac{3}{4} \cdot \frac{1}{4} \\
+	       & = 1.875
+\end{align*}
+
+We can then find the variance of $X$ using the formula $Var(aX+b) = a^2Var(X)$:
+\begin{align*}
+	Var(X) & = 4^2Var(S_n)    \\
+	       & = 16 \cdot 1.875 \\
+	       & = 30
+\end{align*}
+
+\subsection{Part b}
+\question{
+	Use the normal approximation of the binomial to approximate the probability that in a randomly chosen group of 48 children there are at least 10 and at most 15 who do not like chocolate. For simplicity of calculations, you should not use the continuity correction.
+}
+
+We can approximate the Binomial distribution using the Normal distribution. We have $n = 48$ and $p = \frac{1}{4}$, and we want to find $P(10 \leq X \leq 15)$. We can use the Normal approximation to the Binomial distribution:
+
+As before, we denote $S\sim Bin(48, \frac{1}{4})$, and calculate the mean and variance
+
+\begin{align*}
+	E[S]   & = 48 \cdot \frac{1}{4}                   \\
+	       & = 12                                     \\
+	Var(S) & = 48 \cdot \frac{1}{4} \cdot \frac{3}{4} \\
+	       & = 9
+\end{align*}
+
+Then we use the central limit theorem:
+\[
+	Z = \frac{X - E[X]}{\sqrt{Var(X)}}
+\]
+
+We want to calculate $P(10\leq X\leq 15)$ so $X$ is 10 and 15. We can then calculate $Z$:
+\begin{align*}
+	Z_{10} & = \frac{10 - 12}{\sqrt{9}} \\
+	       & = \frac{-2}{3}             \\
+	       & = -0.6667                  \\
+	Z_{15} & = \frac{15 - 12}{\sqrt{9}} \\
+	       & = \frac{3}{3}              \\
+	       & = 1
+\end{align*}
+
+So $P(-0.6667 \leq Z \leq 1)$ is the probability we want to calculate. We can then use the standard normal distribution to find the probability:
+\begin{align*}
+	P(-0.6667 \leq Z \leq 1) & = \Phi(1) - \Phi(-0.6667)      \\
+	                         & = \Phi(1) - (1 - \Phi(0.6667)) \\
+	                         & = 0.8413 - (1-0.7454)          \\
+	                         & = 0.8413 - 0.2546              \\
+	                         & = 0.5867
+\end{align*}

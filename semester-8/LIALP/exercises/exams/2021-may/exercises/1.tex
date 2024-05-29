@@ -1,0 +1,99 @@
+\section{Exercise 1}
+\subsection{Part a}
+\question{
+	Compute the set of solutions to the following system of linear equations.
+
+	\begin{align*}
+		3w + 6x + 24y + 3z  & = 0  \\
+		-2w - 2x - 10y + 2z & = 2  \\
+		3w + 3x + 15y + z   & = -3
+	\end{align*}
+}
+
+Convert to an augmented matrix and reduce
+\begin{align*}
+	 & \begin{gmatrix}[b]
+		   3 & 6 & 24 & 3 & \BAR & 0 \\
+		   -2 & -2 & -10 & 2  & \BAR & 2 \\
+		   3 & 3 & 15 & 1 & \BAR & -3
+	   \end{gmatrix}\rightsquigarrow        \\
+	 & \begin{gmatrix}[b]
+		   1 & 2 & 8 & 1 & \BAR & 0 \\
+		   0 & 2 & 6 & 4  & \BAR & 2 \\
+		   0 & -3 & -9 & -2 & \BAR & -3
+		   \rowops
+		   \mult{0}{\cdot \frac{1}{3}}
+		   \add[2]{0}{1}
+		   \add[-3]{0}{2}
+	   \end{gmatrix}\rightsquigarrow \\
+	 & \begin{gmatrix}[b]
+		   1 & 0 & 2 & -3 & \BAR & -2 \\
+		   0 & 1 & 3 & 2  & \BAR & 1 \\
+		   0 & 0 & 0 & 4 & \BAR & 0
+		   \rowops
+		   \mult{1}{\cdot \frac{1}{2}}
+		   \add[-2]{1}{0}
+		   \add[3]{1}{2}
+	   \end{gmatrix}\rightsquigarrow \\
+	 & \begin{gmatrix}[b]
+		   1 & 0 & 2 & 0 & \BAR & -2 \\
+		   0 & 1 & 3 & 0  & \BAR & 1 \\
+		   0 & 0 & 0 & 1 & \BAR & 0
+		   \rowops
+		   \mult{2}{\cdot \frac{1}{4}}
+		   \add[3]{2}{0}
+		   \add[-2]{2}{1}
+	   \end{gmatrix}\rightsquigarrow \\
+\end{align*}
+
+From this we set $y$ as the free variable $s$ which means we can formulate the solution as:
+\begin{align*}
+	w & = -2 - 2s
+	  & x         & = 1 -3s
+	  & y         & = s
+	  & z         & = 0
+\end{align*}
+
+\subsection{Part b}
+\question{
+	Consider the matrix $A$
+
+	\[
+		A= \begin{gmatrix}[b]
+			3 & 6 & 24 & 3\\
+			-2 & -2 & -10 & 2\\
+			3 & 3 & 15 & 1
+		\end{gmatrix}
+	\]
+
+	Compute the rank and the dimensions of the row and column space of $A$. Give a basis for the null space of $A$.
+}
+
+Since we've already reduced the matrix to row-echelon form we have the basis of the row space:
+\[
+	RA = \left\{(1,0,2,0),(0,1,3,0),(0,0,0,1)\right\}
+\]
+
+This basis is formed of 3 vectors, so the column and row space has a dimension of 3. The rank is simply the dimension of the row space, so the rank is 3.
+
+The null space is the set of solutions to the equation $Ax = 0$. We've already found the solution to this equation in the previous exercise, so the basis for the null space is:
+\[
+	\left\{(-2,-3,1,0)\right\}
+\]
+
+by:
+\[
+	x = \begin{gmatrix}[b]
+		w\\x\\y\\z
+	\end{gmatrix} = \begin{gmatrix}[b]
+		-2-2s\\1-3s\\s\\0
+	\end{gmatrix} = \begin{gmatrix}[b]
+		-2\\1\\0\\0
+	\end{gmatrix} + s\begin{gmatrix}[b]
+		-2\\-3\\1\\0
+	\end{gmatrix}
+\]
+
+The constants do not matter, so the solution is the vector $\begin{gmatrix}[b]
+		-2\\-3\\1\\0
+	\end{gmatrix}$ with a dimension of 1.
