@@ -47,30 +47,23 @@ class Introduce(Node):
 
     def create_relations(self):
         print(f"\\intertext{{Introduce {self.new}}}")
-        combs = self.get_combs()
 
         child_str = self.get_value_as_set_string(self.child.value)
-        for comb in combs:
-            comb_str = self.get_value_as_set_string(comb)
-            if self.new in comb:
-                no_v = comb.copy()
-                no_v.remove(self.new)
-                relations = []
-                for subcomb in Node.get_combs_of_set(no_v):
-                    subcomb_str = self.get_value_as_set_string(subcomb)
-                    relations.append(f"DP[{child_str}][{subcomb_str}]")
 
-                if len(relations) == 1:
-                    res_str = relations[0] + " + 1"
-                else:
-                    res_str = "min(" + ", ".join(relations) + ") + 1"
-            else:
-                res_str = f"DP[{child_str}][{comb_str}]"
+        relations = []
+        relations.append((EMPTYSET, f"DP[{child_str}][{EMPTYSET}] + 1"))
+        relations.append((self.new, f"DP[{child_str}][{EMPTYSET}]"))
 
+        for value in self.value:
+            if value != self.new:
+                relations.append((value, f"DP[{child_str}][{value}] + 1"))
+
+        self_str = self.get_value_as_set_string(self.value)
+        for relation in relations:
             Node.print_dp(
-                self.get_value_as_set_string(self.value),
-                comb_str,
-                res_str
+                self_str,
+                relation[0],
+                relation[1]
             )
 
 
@@ -85,26 +78,18 @@ class Forget(Node):
         print(f"\\intertext{{Forget {self.forget}}}")
         child_str = self.get_value_as_set_string(self.child.value)
 
-        combs = self.get_combs()
-        for comb in combs:
-            comb_str = self.get_value_as_set_string(comb)
+        relations = []
+        relations.append(
+            (EMPTYSET, f"min(DP[{child_str}][{EMPTYSET}], DP[{child_str}][{self.forget}])"))
+        for value in self.value:
+            relations.append((value, f"DP[{child_str}][{value}]"))
 
-            if comb is None:
-                comb = set()
-            with_v = comb.copy()
-            with_v.add(self.forget)
-            with_v_str = self.get_value_as_set_string(with_v)
-
-            res_str = "min(DP[{child_str}][{comb_str}], DP[{child_str}][{with_v_str}])".format(
-                child_str=child_str,
-                comb_str=comb_str,
-                with_v_str=with_v_str
-            )
-
+        self_str = self.get_value_as_set_string(self.value)
+        for relation in relations:
             Node.print_dp(
-                self.get_value_as_set_string(self.value),
-                comb_str,
-                res_str
+                self_str,
+                relation[0],
+                relation[1]
             )
 
 
@@ -119,21 +104,21 @@ class Join(Node):
         print("\\intertext{Join}")
         left_str = self.get_value_as_set_string(self.left.value)
         right_str = self.get_value_as_set_string(self.right.value)
+        self_str = self.get_value_as_set_string(self.value)
 
-        combs = self.get_combs()
-        for comb in combs:
-            comb_str = self.get_value_as_set_string(comb)
+        relations = []
+        relations.append(
+            (EMPTYSET, f"DP[{left_str}][{EMPTYSET}] + DP[{right_str}][{EMPTYSET}] - |{self_str}|"))
 
-            res_str = "DP[{left_str}][{comb_str}] + DP[{right_str}][{comb_str}]) - |{comb_str}|".format(
-                left_str=left_str,
-                right_str=right_str,
-                comb_str=comb_str,
-            )
+        for value in self.value:
+            relations.append(
+                (value, f"DP[{left_str}][{value}] + DP[{right_str}][{value}] - (|{self_str}| - 1)"))
 
+        for relation in relations:
             Node.print_dp(
-                self.get_value_as_set_string(self.value),
-                comb_str,
-                res_str
+                self_str,
+                relation[0],
+                relation[1]
             )
 
 
