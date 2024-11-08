@@ -161,6 +161,7 @@ class Join(Node):
 
 
 def small_sample() -> list[Node]:
+    # Lecture notes from lecture 15, page 6
     nodes: list[Node] = []
     nodes.append(Leaf())
     nodes.append(Introduce("e", nodes[0]))
@@ -182,6 +183,7 @@ def small_sample() -> list[Node]:
 
 
 def big_sample() -> list[Node]:
+    # Lecture 16s Drawing from the "tv board"
     nodes: list[Node] = []
     nodes.append(Leaf())  # 0
     nodes.append(Introduce("f", nodes[0]))  # 1
