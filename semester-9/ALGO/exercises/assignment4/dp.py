@@ -6,8 +6,12 @@ EMPTYSET = "\\emptyset"
 
 
 class Node:
-    value: set[str] = set()
-    dp: dict[str, dict[str, int]] = defaultdict(lambda: {})
+    value: set[str]
+    dp: dict[str, dict[str, int]]
+
+    def __init__(self):
+        self.value = set()
+        self.dp = defaultdict(lambda: {})
 
     @staticmethod
     def get_value_as_set_string(values: set[str]) -> str:
@@ -59,6 +63,7 @@ class Introduce(Node):
     child: Node
 
     def __init__(self, new: str, child: Node):
+        super().__init__()
         self.value = child.value.copy()
         self.value.add(new)
         self.new = new
@@ -79,6 +84,7 @@ class Introduce(Node):
                 no_v_str = self.get_value_as_set_string(no_v)
 
                 res_int, res_str = self.child.get_dp(child_str, no_v_str)
+                res_str += " + 1"
                 res_int += 1
             else:
                 res_int, res_str = self.child.get_dp(child_str, comb_str)
@@ -92,6 +98,7 @@ class Forget(Node):
     child: Node
 
     def __init__(self, forget: str, child: Node):
+        super().__init__()
         self.value = child.value.copy()
         self.value.remove(forget)
         self.forget = forget
@@ -130,6 +137,7 @@ class Join(Node):
     right: Node
 
     def __init__(self, left: Node, right: Node):
+        super().__init__()
         self.value = left.value.union(right.value)
         self.left = left
         self.right = right
