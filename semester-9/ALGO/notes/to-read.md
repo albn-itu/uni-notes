@@ -5,9 +5,9 @@
 - [ ] Randomized algorithms
     - [x] [02-jan] Polynomial identity testing
     - [x] [02-jan] Freivalds’ algorithm
-    - [ ] [03-jan] Karger’s algorithm
-    - [ ] [03-jan] The Monte Carlo method
-    - [ ] [03-jan] Primality testing
+    - [x] [03-jan] Karger’s algorithm
+    - [x] [03-jan] The Monte Carlo method
+    - [x] [03-jan] Primality testing
     - [ ] [04-jan] Algebraic algorithms
     - [ ] [04-jan] Markov chains
 - [ ] Divide/Conquer and FFT
@@ -51,28 +51,28 @@
             - [x] Describe the random choices made by the algorithm. Depending on the random choices, when does the algorithm succeed and when does it fail?
             - [x] What is the failure probability of the algorithm? Use probability theory to give an argument for your answer.
 
-    - [ ] Karger’s algorithm:
-        - [ ] What is a global min-cut in a graph?
-        - [ ] Describe Karger’s algorithm to find a global min-cut in a graph.
-        - [ ] What is the failure probability of Karger’s algorithm? Sketch an analysis using probability theory and highlight where exactly properties of an assumed min-cut are used in the analysis.
-        - [ ] Why does the success probability analysis of Karger’s algorithm imply that any graph has at most $\left(n \choose 2\right)$ global min-cuts?
+    - [x] Karger’s algorithm:
+        - [x] What is a global min-cut in a graph?
+        - [x] Describe Karger’s algorithm to find a global min-cut in a graph.
+        - [x] What is the failure probability of Karger’s algorithm? Sketch an analysis using probability theory and highlight where exactly properties of an assumed min-cut are used in the analysis.
+        - [x] Why does the success probability analysis of Karger’s algorithm imply that any graph has at most $\left(n \choose 2\right)$ global min-cuts?
 
-    - [ ] The Monte Carlo method:
-        - [ ] Sketch how you can determine the number π by throwing darts.
-        - [ ] What does it mean for a randomized algorithm to (ε,δ)-approximate a value?
-        - [ ] How many samples are sufficient to (ε,δ)-approximate the mean μ of an indicator random variable X? What is the name of the bound used to prove this? (You don’t need to prove this bound, but have a rough idea how the proof works.)
-        - [ ] Consider the following algorithm: To determine the number of satisfying assignments for a Boolean formula F with n variables, randomly sample some number T of assignments. Among those sampled assignments, let S be the number of assignments that satisfy F. Then output S/T * 2^n.
-            - [ ] Is the expected output of this algorithm correct?
-            - [ ] What other problem is there?
-        - [ ] Describe the randomized approximation algorithm for counting satisfying assignments to DNFs discussed in class.
-            - [ ] What exactly is the set it samples from?
-            - [ ] Which condition does it check on such a sample?
-            - [ ] How does this algorithm solve the problem encountered by the algorithm in the previous bullet point?
+    - [x] The Monte Carlo method:
+        - [x] Sketch how you can determine the number π by throwing darts.
+        - [x] What does it mean for a randomized algorithm to (ε,δ)-approximate a value?
+        - [x] How many samples are sufficient to (ε,δ)-approximate the mean μ of an indicator random variable X? What is the name of the bound used to prove this? (You don’t need to prove this bound, but have a rough idea how the proof works.)
+        - [x] Consider the following algorithm: To determine the number of satisfying assignments for a Boolean formula F with n variables, randomly sample some number T of assignments. Among those sampled assignments, let S be the number of assignments that satisfy F. Then output S/T * 2^n.
+            - [x] Is the expected output of this algorithm correct?
+            - [x] What other problem is there?
+        - [x] Describe the randomized approximation algorithm for counting satisfying assignments to DNFs discussed in class.
+            - [x] What exactly is the set it samples from?
+            - [x] Which condition does it check on such a sample?
+            - [x] How does this algorithm solve the problem encountered by the algorithm in the previous bullet point?
 
-    - [ ] Primality testing
-        - [ ] What is a strong probable prime?
-        - [ ] What is the repeated squaring algorithm? What is its running time?
-        - [ ] Describe one algorithm that efficiently checks whether an integer is a prime or not w.h.p.
+    - [x] Primality testing
+        - [x] What is a strong probable prime?
+        - [x] What is the repeated squaring algorithm? What is its running time?
+        - [x] Describe one algorithm that efficiently checks whether an integer is a prime or not w.h.p.
 
     - [ ] Algebraic algorithms:
         - [ ] Roughly, what does the DeMillo-Lipton-Schwartz-Zippel lemma say?
