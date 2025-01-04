@@ -8,7 +8,7 @@
     - [x] [03-jan] Karger’s algorithm
     - [x] [03-jan] The Monte Carlo method
     - [x] [03-jan] Primality testing
-    - [ ] [04-jan] Algebraic algorithms
+    - [x] [04-jan] Algebraic algorithms
     - [ ] [04-jan] Markov chains
 - [ ] Divide/Conquer and FFT
     - [ ] [05-jan] Divide & Conquer and the Master theorem
@@ -74,12 +74,12 @@
         - [x] What is the repeated squaring algorithm? What is its running time?
         - [x] Describe one algorithm that efficiently checks whether an integer is a prime or not w.h.p.
 
-    - [ ] Algebraic algorithms:
+    - [x] Algebraic algorithms:
         - [x] Roughly, what does the DeMillo-Lipton-Schwartz-Zippel lemma say?
         - [x] What is the difference between the two mathematical concepts ring and field?
-        - [ ] Name one combinatorial problem matrix determinants can be used to solve and describe roughly how it works.
-        - [ ] How computationally hard is it to compute an nxn symbolic matrix determinant with polynomials in several variables as entries with total degree bounded by O(n)? How computationally hard is it to compute an nxn numeric matrix determinant with elements from a finite field as entries?
-        - [ ] Describe one way of computing a numeric determinant.
+        - [x] Name one combinatorial problem matrix determinants can be used to solve and describe roughly how it works.
+        - [x] How computationally hard is it to compute an nxn symbolic matrix determinant with polynomials in several variables as entries with total degree bounded by O(n)? How computationally hard is it to compute an nxn numeric matrix determinant with elements from a finite field as entries?
+        - [x] Describe one way of computing a numeric determinant.
 
     - [ ] Markov chains:
         - [ ] What is a Markov chain?

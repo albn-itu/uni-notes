@@ -1,3 +1,5 @@
+[[toc]]
+
 # General notes
 ## Fields
 A **field** is a set $\mathbb{F}$ and two operations, addition $+$ and multiplication $\times$, such that:
@@ -295,7 +297,7 @@ $$
 
 Where $b_i$ is the $i$th bit of $b$. The algorithm only does the multiplying when the corresponding digit of $b$ is 1, which also skips some computations. Each computation is also done modulo $n$, since $a*b\mod n = (a\mod n)(b\mod n)\mod n$. The full algorithm goes as follows:
 
-1. Set $c=1$ and $a_{cur}=a
+1. Set $c=1$ and $a_{cur}=a$
 2. For $i=0,1,\dots,k$, where $k$ is the number of bits in $b$:
     1. If $b_i=1$ then set $c=c*a_{cur} \mod n$
     2. Set $a_{cur}=a_{cur}^2 \mod n$
@@ -322,7 +324,7 @@ The Miller-Rabin primality test is a probabilistic algorithm that determines whe
 
 The algorithm is correct with probability at least $\frac{3}{4}$, and can be made arbitrarily close to 1 by repeating the process $k$ times. The running time of the algorithm is $O(k\log^3 n)$ for $k$ iterations. This is pretty good as the algorithm usually deals with very large numbers.
 
-## Algebraic algorithms
+## Algebraic algorithms (Lecture 8)
 > Q: Roughly, what does the DeMillo-Lipton-Schwartz-Zippel lemma say?
 
 The DeMillo-Lipton-Schwartz-Zippel lemma states that if we have a non-zero polynomial $p(x_1,\dots,x_n)$ of degree $d$ over some field $\mathbb{F}$, then if we pick $y_1,\dots,y_k$ uniformly at random from $\mathbb{F}$ and evaluate then
@@ -377,12 +379,59 @@ If everything above is fulfilled except the criteria that all non-zero elements 
 ---
 > Q: Name one combinatorial problem matrix determinants can be used to solve and describe roughly how it works.
 
+Perfect matchings. A perfect matching is a set of vertices such that every vertex is included exactly once. Formally defined as: Given a graph $G=(V,E)$, a perfect matching is a set of edges $M\subseteq E$ such that every vertex in $V$ is incident to exactly one edge in $M$.
+
+If a matrix $A$ is a matrix over some field $\mathbb{F}$ then the determinant $det(A)$ is a scalar value in $\mathbb{F}$ that detects when $A$ is invertible. Aka if $det(A)\neq 0$ then a matrix $A^{-1}$ exists such that $AA^{-1}=I$.
+
+A graph can be mapped to a matrix where the rows and columns are the vertices and the entries are the edges, so a $1$ in $A_{ij}$ means that there is an edge between $i$ and $j$. 
+
+In a bipartite graph, one takes and assigns half of the vertices to the rows and the other half to the columns. The determinant is then the number of perfect matchings in the graph. There may though be a case where the determinant is 0, but there are still perfect matchings in the graph. We can then use the Schwartz-Zippel lemma to determine if there are perfect matchings in the graph. First pick $r_1, r_2, \dots r_m$ uniform points over a large field $\mathbb{F}$. Then replace the entries in the matrix with the points. This, because of Leipnitz formula gives a polynomial $p(r_1,r_2,\dots,r_m)$ which is the determinant of the matrix. If the result is non-zero then there must be a perfect matching in the graph with the extreme probability $1-\frac{m}{|\mathbb{F}|}$.
+
+This also solves the problem of calculating the polynomials which may be an extremely slow process.
+
+For general graphs one can use the Tutte matrix of a graph. The Tutte matrix has the same representation but both rows and columns are $|V|$ long. This makes the algorithm much slower, as the matrix is far bigger. Because of how the Leibnitz expansion works it cancels out all odd-length cycles, leaving only even length cycles which can be decomposed into perfect-matchings. This is because a cycle cover where every cycle is even length can be seen as being composed of two directed perfect matchings. Therefore, if the determinant of the Tutte matrix is non-zero, then there must be a perfect matching in the graph. Same problem as before persists however, so we can use the Schwartz-Zippel lemma to determine if there are perfect matchings in the graph.
 
 ---
-    - [ ] Algebraic algorithms:
-        - [ ] Name one combinatorial problem matrix determinants can be used to solve and describe roughly how it works.
-        - [ ] How computationally hard is it to compute an nxn symbolic matrix determinant with polynomials in several variables as entries with total degree bounded by O(n)? How computationally hard is it to compute an nxn numeric matrix determinant with elements from a finite field as entries?
-        - [ ] Describe one way of computing a numeric determinant.
+> Q: How computationally hard is it to compute an $n \times n$ symbolic matrix determinant with polynomials in several variables as entries with total degree bounded by $O(n)$? How computationally hard is it to compute an $n \times n$ numeric matrix determinant with elements from a finite field as entries?
+
+Let's split this question into 2 parts, first one that handles the symbolic matrix determinant, and the second one that handles the numeric matrix determinant.
+
+**Symbolic Matrix Determinant**:
+
+A symbolic matrix is a $n\times n$ matrix where each entry is a polynomial in several variables. So each entry $A_{ij}$ is a polynomial $p_{ij}(x_1,\dots,x_m)$ where $m$ is the number of variables. The total degree of each polynomial is bounded by $O(n)$.
+
+Calculation of the determinant of a symbolic matrix is a computationally hard problem, as it involves polynomial arithmetic. It can be done by unfolding the polynomial into it's monomials and cancelling a bunch of terms to create a large multivariate and multilinear polynomial. This is a very slow process, as it involves a lot of terms and operations. The time complexity of computing the determinant of a symbolic matrix is $O(n!)$, which is very slow for large $n$.
+
+In most cases the symbolic matrix takes exponential time to compute the determinant of due to the large number of monomials.
+
+**Numeric Matrix Determinant**:
+
+A numeric matrix is a $n\times n$ matrix where each entry is a number from a finite field $\mathbb{F}$. 
+
+The numeric matrix determinant can be computed using Gaussian elimination, which reduces the time complexity to $O(n^3)$, with each subroutine costing $O(n)$ time. This is much faster than the symbolic matrix determinant.
+
+--
+>Q: Describe one way of computing a numeric determinant.
+
+The determinant can be calculated using the Leibnitz formula, which involves summing over all permutations of the rows or columns of the matrix. Specifically:
+
+$$
+det(A) = \sum_{\sigma: [n]\rightarrow[n]} \text{sgn}(\sigma) \prod_{i=1}^n A_{i,\sigma(i)}
+$$
+
+Where $\sigma$ is a permutation, eg $1\rightarrow 2$ and sgn is a function that returns the sign of the permutation:
+$$
+\text{sgn}(\sigma) = (-1)^{\text{number of inversions in } \sigma}
+$$
+
+An inversion is a tuple $i<j$ such that $\sigma(i)<\sigma(j)$
+
+Overall this algorithm runs in $O(n!)$ time, which is very slow for large $n$. However, the algorithm can be sped up using Gaussian elimination, which reduces the time complexity to $O(n^3)$, with each subroutine costing $O(n)$ time.
+
+## Markov chains (Lecture 10)
+
+
+---
 
     - [ ] Markov chains:
         - [ ] What is a Markov chain?
