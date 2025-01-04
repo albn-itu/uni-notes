@@ -122,11 +122,13 @@ class Forget(Node):
             if len(with_v) == 3:
                 with_v_int = -1
                 with_v_str = Node.get_dp_str(child_str, with_v_str)
+
+                res = comb_res_str
+                res_int = comb_res_int
             else:
                 with_v_int, with_v_str = self.child.get_dp(child_str, with_v_str)
-
-            res = f"max({comb_res_str}, {with_v_str})"
-            res_int = max(comb_res_int, with_v_int)
+                res = f"max({comb_res_str}, {with_v_str})"
+                res_int = max(comb_res_int, with_v_int)
 
             self.print_and_set_relation(self_str, comb_str, res, res_int)
 

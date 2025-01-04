@@ -75,8 +75,8 @@
         - [x] Describe one algorithm that efficiently checks whether an integer is a prime or not w.h.p.
 
     - [ ] Algebraic algorithms:
-        - [ ] Roughly, what does the DeMillo-Lipton-Schwartz-Zippel lemma say?
-        - [ ] What is the difference between the two mathematical concepts ring and field?
+        - [x] Roughly, what does the DeMillo-Lipton-Schwartz-Zippel lemma say?
+        - [x] What is the difference between the two mathematical concepts ring and field?
         - [ ] Name one combinatorial problem matrix determinants can be used to solve and describe roughly how it works.
         - [ ] How computationally hard is it to compute an nxn symbolic matrix determinant with polynomials in several variables as entries with total degree bounded by O(n)? How computationally hard is it to compute an nxn numeric matrix determinant with elements from a finite field as entries?
         - [ ] Describe one way of computing a numeric determinant.

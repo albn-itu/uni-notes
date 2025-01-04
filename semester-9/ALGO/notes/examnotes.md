@@ -31,13 +31,19 @@ This is different from the zero everywhere problem where we ask for every choice
 
 > _Q: How many points do you have to query in the worst-case in order to find out whether p is the zero polynomial?
 
+According to the fundamental theory of Algebra, a polynomial of degree $n$ has at most $n$ roots. Therefore we only need to query $n+1$ distinct points. If all of these points evaluate to 0 then we know that the polynomial is the zero polynomial. If any of the points do not evaluate to 0 then we know that the polynomial is not the zero polynomial.
+
+We can go further and calculate the probability of error:
+
 This is the DeMillo-Lipton-Schwartz-Zippel lemma which states that if we have a polynomial $p(x_1,\dots,x_n)$ of degree at most $d$ over some field $\mathbb{F}$, and the finite set $S \subseteq \mathbb{F}$, then if we pick $y_1,\dots,y_k$ uniformly at random from $S$ and evaluate $p(y_i)\forall i$, then the probability that $p = 0$ is at most $\frac{d}{|S|}^k$.
 
 So essentially. If we pick a random point then there is a $\frac{d}{|S|}$ chance that we chose a root. Now, to solve the problem, assume that $d < |\mathbb{F}|$ then we simply pick $y_1,\dots,y_k$ uniformly at random from $\mathbb{F}$ and evaluate $p(y_i)\forall i$, if we get 0 then we know say that $p$ is the zero polynomial. If we don't get 0 then we know that $p$ is not the zero polynomial. The latter case is always correct. While the formers probability of error is $\frac{d}{|\mathbb{F}|} < 1$, we can repeat the process $k$ times to get a probability of error of  $\left(\frac{d}{|\mathbb{F}|}\right)^k$.
 
-There is an extremely low chance of success. The case where $d=|\mathbb{F}|-1$ and repeating the process $k=|\mathbb{F}|$ times gives a success probability of 
+So to we need to query $d+1$ points which gives us:
+$$
+\left(\frac{d}{|\mathbb{F}|}\right)^{d+1}
+$$
 
-$$\frac{|\mathbb{F}|-1}{|\mathbb{F}|} \leq \left(1-\frac{1}{|\mathbb{F}|}\right)^{|\mathbb{F}|}\leq 1/e$$
 
 > _Q: How can you recover the coefficients of p in this model
 
@@ -315,3 +321,73 @@ The Miller-Rabin primality test is a probabilistic algorithm that determines whe
 5. If $x\neq 1$ then return "composite", otherwise return "prime".
 
 The algorithm is correct with probability at least $\frac{3}{4}$, and can be made arbitrarily close to 1 by repeating the process $k$ times. The running time of the algorithm is $O(k\log^3 n)$ for $k$ iterations. This is pretty good as the algorithm usually deals with very large numbers.
+
+## Algebraic algorithms
+> Q: Roughly, what does the DeMillo-Lipton-Schwartz-Zippel lemma say?
+
+The DeMillo-Lipton-Schwartz-Zippel lemma states that if we have a non-zero polynomial $p(x_1,\dots,x_n)$ of degree $d$ over some field $\mathbb{F}$, then if we pick $y_1,\dots,y_k$ uniformly at random from $\mathbb{F}$ and evaluate then
+$$
+Pr[p(y_1,\dots,y_k)=0]\leq \frac{d}{|\mathbb{F}|}
+$$
+
+This means that if we pick a random point then there is a $\frac{d}{|\mathbb{F}|}$ chance that we chose a root. 
+
+---
+> Q: What is the difference between the two mathematical concepts ring and field?
+
+A **field** is a set $\mathbb{F}$ and two operations, addition $+$ and multiplication $\times$, such that:
+
+- **Associativity**: $a + (b + c) = (a + b) + c$ and $a \times (b \times c) = (a \times b) \times c$.
+- **Commutativity**: $a + b = b + a$ and $a \times b = b \times a$.
+- **Identities**: There exist elements $0$ and $1$ such that $a + 0 = a$ and $a \times 1 = a$.
+- **Inverses**: For every element $a$, there exists an additive inverse $-a$ such that $a + (-a) = 0$, and if $a \neq 0$, there exists a multiplicative inverse $a^{-1}$ such that $a \times a^{-1} = 1$.
+- **Distributivity**: $a \times (b + c) = (a \times b) + (a \times c)$.
+
+If everything above is fulfilled except the criteria that all non-zero elements have a multiplicative inverse, we instead get a **(commutative) ring**.
+
+**Examples**:
+
+- $\mathbb{Z}_p$, the set of integers $\{0, 1, \dots, p-1\}$ with addition and multiplication computed modulo $p$, is a finite field for $p$ prime, but only a ring when $p$ is not. For instance, in $\mathbb{Z}_6$, there is no multiplicative inverse to $2$.
+
+**Key Differences**:
+| Property                  | Ring                                      | Field                                     |
+|---------------------------|-------------------------------------------|-------------------------------------------|
+| **Multiplicative Inverse** | Not required for non-zero elements.       | Required for all non-zero elements.       |
+| **Multiplicative Commutativity** | Not required (unless commutative ring). | Required for all elements.                |
+| **Division**              | Division is not always possible.          | Division (by non-zero elements) is always possible. |
+| **Examples**              | Integers $\mathbb{Z}$, matrices.     | Rationals $\mathbb{Q}$, reals $\mathbb{R}$. |
+
+
+**Examples of Rings**:
+- The set of integers $\mathbb{Z}$ with addition and multiplication.
+- The set of $n \times n$ matrices with matrix addition and multiplication.
+- Polynomial rings $R[x]$, where $R$ is a ring.
+
+**Examples of Fields**:
+- The set of rational numbers $\mathbb{Q}$ with addition and multiplication.
+- The set of real numbers $\mathbb{R}$ with addition and multiplication.
+- The set of complex numbers $\mathbb{C}$ with addition and multiplication.
+- Finite fields (Galois fields), such as $\mathbb{Z}_p$ where $p$ is a prime number.
+
+**Summary**:
+- A **ring** is a more general structure than a field. It requires fewer constraints, particularly regarding multiplicative inverses and commutativity.
+- A **field** is a special type of ring where every non-zero element has a multiplicative inverse, and multiplication is commutative.
+- All fields are rings, but not all rings are fields. For example, $\mathbb{Z}$ is a ring but not a field, while $\mathbb{Q}$ is both a ring and a field.
+
+---
+> Q: Name one combinatorial problem matrix determinants can be used to solve and describe roughly how it works.
+
+
+---
+    - [ ] Algebraic algorithms:
+        - [ ] Name one combinatorial problem matrix determinants can be used to solve and describe roughly how it works.
+        - [ ] How computationally hard is it to compute an nxn symbolic matrix determinant with polynomials in several variables as entries with total degree bounded by O(n)? How computationally hard is it to compute an nxn numeric matrix determinant with elements from a finite field as entries?
+        - [ ] Describe one way of computing a numeric determinant.
+
+    - [ ] Markov chains:
+        - [ ] What is a Markov chain?
+        - [ ] What is a stationary solution to a Markov chain?
+        - [ ] What is the cover time of a random walk on a graph?
+        - [ ] Show a tight asymptotic upper bound on the cover time of a random walk on an undirected non-bipartite connected graph.
+        - [ ] Show an example of a strongly connected directed graph in which the cover time is exponential.
+        - [ ] Describe how the algorithm for 2SAT can be analyzed as a random walk on a graph. What is the graph and what is its cover time?
