@@ -4,15 +4,15 @@
 ## Fields
 A **field** is a set $\mathbb{F}$ and two operations, addition $+$ and multiplication $\times$, such that:
 
-- **Associativity**: $a + (b + c) = (a + b) + c$ and $a \times (b \times c) = (a \times b) \times c$.
-- **Commutativity**: $a + b = b + a$ and $a \times b = b \times a$.
-- **Identities**: There exist elements $0$ and $1$ such that $a + 0 = a$ and $a \times 1 = a$.
-- **Inverses**: For every element $a$, there exists an additive inverse $-a$ such that $a + (-a) = 0$, and if $a \neq 0$, there exists a multiplicative inverse $a^{-1}$ such that $a \times a^{-1} = 1$.
-- **Distributivity**: $a \times (b + c) = (a \times b) + (a \times c)$.
+- **Associativity:** $a + (b + c) = (a + b) + c$ and $a \times (b \times c) = (a \times b) \times c$.
+- **Commutativity:** $a + b = b + a$ and $a \times b = b \times a$.
+- **Identities:** There exist elements $0$ and $1$ such that $a + 0 = a$ and $a \times 1 = a$.
+- **Inverses:** For every element $a$, there exists an additive inverse $-a$ such that $a + (-a) = 0$, and if $a \neq 0$, there exists a multiplicative inverse $a^{-1}$ such that $a \times a^{-1} = 1$.
+- **Distributivity:** $a \times (b + c) = (a \times b) + (a \times c)$.
 
 If everything above is fulfilled except the criteria that all non-zero elements have a multiplicative inverse, we instead get a **(commutative) ring**.
 
-**Examples**:
+**Examples:**
 
 - $\mathbb{Z}_p$, the set of integers $\{0, 1, \dots, p-1\}$ with addition and multiplication computed modulo $p$, is a finite field for $p$ prime, but only a ring when $p$ is not. For instance, in $\mathbb{Z}_6$, there is no multiplicative inverse to $2$.
 
@@ -339,19 +339,19 @@ This means that if we pick a random point then there is a $\frac{d}{|\mathbb{F}|
 
 A **field** is a set $\mathbb{F}$ and two operations, addition $+$ and multiplication $\times$, such that:
 
-- **Associativity**: $a + (b + c) = (a + b) + c$ and $a \times (b \times c) = (a \times b) \times c$.
-- **Commutativity**: $a + b = b + a$ and $a \times b = b \times a$.
-- **Identities**: There exist elements $0$ and $1$ such that $a + 0 = a$ and $a \times 1 = a$.
-- **Inverses**: For every element $a$, there exists an additive inverse $-a$ such that $a + (-a) = 0$, and if $a \neq 0$, there exists a multiplicative inverse $a^{-1}$ such that $a \times a^{-1} = 1$.
-- **Distributivity**: $a \times (b + c) = (a \times b) + (a \times c)$.
+- **Associativity:** $a + (b + c) = (a + b) + c$ and $a \times (b \times c) = (a \times b) \times c$.
+- **Commutativity:** $a + b = b + a$ and $a \times b = b \times a$.
+- **Identities:** There exist elements $0$ and $1$ such that $a + 0 = a$ and $a \times 1 = a$.
+- **Inverses:** For every element $a$, there exists an additive inverse $-a$ such that $a + (-a) = 0$, and if $a \neq 0$, there exists a multiplicative inverse $a^{-1}$ such that $a \times a^{-1} = 1$.
+- **Distributivity:** $a \times (b + c) = (a \times b) + (a \times c)$.
 
 If everything above is fulfilled except the criteria that all non-zero elements have a multiplicative inverse, we instead get a **(commutative) ring**.
 
-**Examples**:
+**Examples:**
 
 - $\mathbb{Z}_p$, the set of integers $\{0, 1, \dots, p-1\}$ with addition and multiplication computed modulo $p$, is a finite field for $p$ prime, but only a ring when $p$ is not. For instance, in $\mathbb{Z}_6$, there is no multiplicative inverse to $2$.
 
-**Key Differences**:
+**Key Differences:**
 | Property                  | Ring                                      | Field                                     |
 |---------------------------|-------------------------------------------|-------------------------------------------|
 | **Multiplicative Inverse** | Not required for non-zero elements.       | Required for all non-zero elements.       |
@@ -360,18 +360,18 @@ If everything above is fulfilled except the criteria that all non-zero elements 
 | **Examples**              | Integers $\mathbb{Z}$, matrices.     | Rationals $\mathbb{Q}$, reals $\mathbb{R}$. |
 
 
-**Examples of Rings**:
+**Examples of Rings:**
 - The set of integers $\mathbb{Z}$ with addition and multiplication.
 - The set of $n \times n$ matrices with matrix addition and multiplication.
 - Polynomial rings $R[x]$, where $R$ is a ring.
 
-**Examples of Fields**:
+**Examples of Fields:**
 - The set of rational numbers $\mathbb{Q}$ with addition and multiplication.
 - The set of real numbers $\mathbb{R}$ with addition and multiplication.
 - The set of complex numbers $\mathbb{C}$ with addition and multiplication.
 - Finite fields (Galois fields), such as $\mathbb{Z}_p$ where $p$ is a prime number.
 
-**Summary**:
+**Summary:**
 - A **ring** is a more general structure than a field. It requires fewer constraints, particularly regarding multiplicative inverses and commutativity.
 - A **field** is a special type of ring where every non-zero element has a multiplicative inverse, and multiplication is commutative.
 - All fields are rings, but not all rings are fields. For example, $\mathbb{Z}$ is a ring but not a field, while $\mathbb{Q}$ is both a ring and a field.
@@ -396,7 +396,7 @@ For general graphs one can use the Tutte matrix of a graph. The Tutte matrix has
 
 Let's split this question into 2 parts, first one that handles the symbolic matrix determinant, and the second one that handles the numeric matrix determinant.
 
-**Symbolic Matrix Determinant**:
+**Symbolic Matrix Determinant:**
 
 A symbolic matrix is a $n\times n$ matrix where each entry is a polynomial in several variables. So each entry $A_{ij}$ is a polynomial $p_{ij}(x_1,\dots,x_m)$ where $m$ is the number of variables. The total degree of each polynomial is bounded by $O(n)$.
 
@@ -404,13 +404,13 @@ Calculation of the determinant of a symbolic matrix is a computationally hard pr
 
 In most cases the symbolic matrix takes exponential time to compute the determinant of due to the large number of monomials.
 
-**Numeric Matrix Determinant**:
+**Numeric Matrix Determinant:**
 
 A numeric matrix is a $n\times n$ matrix where each entry is a number from a finite field $\mathbb{F}$. 
 
 The numeric matrix determinant can be computed using Gaussian elimination, which reduces the time complexity to $O(n^3)$, with each subroutine costing $O(n)$ time. This is much faster than the symbolic matrix determinant.
 
---
+---
 >Q: Describe one way of computing a numeric determinant.
 
 The determinant can be calculated using the Leibnitz formula, which involves summing over all permutations of the rows or columns of the matrix. Specifically:
@@ -429,14 +429,199 @@ An inversion is a tuple $i<j$ such that $\sigma(i)<\sigma(j)$
 Overall this algorithm runs in $O(n!)$ time, which is very slow for large $n$. However, the algorithm can be sped up using Gaussian elimination, which reduces the time complexity to $O(n^3)$, with each subroutine costing $O(n)$ time.
 
 ## Markov chains (Lecture 10)
+> Q: What is a Markov chain?
 
+**Description:**
+
+A markov chain is a model of events where the probability of every event depends on the state of the previous event. One thing to note is that the even $t$ only depends on the state, not how we got to the state. This is known as being *memoryless*.
+
+Formally, a Markov chain consists of a stochastic process, which is just a collection of random variables $X_0, X_1, \dots$. This process is a Markov chain if:
+$$
+Pr[X_t=s_t|X_{t-1}=s_{t-1},X_{t-2}=s_{t-2},\dots,X_0=s_0]=Pr[X_t=s_t|X_{t-1}=s_{t-1}]
+$$
+
+Where $s_t$ is the state of the process at time $t$. This means that the probability of the next state only depends on the current state.
+
+Transition probabilities are the probabilities of moving from one state to another. These are usually represented as a matrix $P$, called the transition matrix, where $P_{ij}$ is the probability of moving from state $s_i$ to state $s_j$. 
+
+**Irreducibility:**
+
+A finite Markov chain is irreducible if and only if it's state graph, from the matrix, is strongly connected. This means that it is possible to move from any state to any other state in a finite number of steps.
+
+**Recurrent:**
+
+Let $r^t_{ij}$ be the probability of moving from state $s_i$ to state $s_j$ in $t$ steps. A state $s_i$ is recurrent if $\sum_{t\geq 1}r^t_{ii}=1$. This means that the probability of returning to the state is 1. 
+
+On the other hand if $\sum_{t\geq 1}r^t_{ii}<1$ then the state is transient. This means that the probability of returning to the state is less than 1.
+
+A Markov chain is recurrent if all states are recurrent, and transient if all states are transient.
+
+**Return time:**
+
+Let $h_{ij}$ denote the expected time to reach state $s_j$ from state $s_i$, defined as
+$$
+    h_{ij}=\sum_{t\geq 1}t\cdot r^t_{ij}
+$$
+
+$h_ij$ may be infinite if the Markov chain has infinite states. On the other hand if the Markov chain is finite, then $h_{ij}$ converges to a fixed value, this is known as the recurrent state being positive recurrent.
+
+**Periodicity:**
+
+A state $s_i$ is periodic if there exists an integer $\Delta>1$ such that $Pr[X_{t+s}=s_j|X_t=s_j] = 0$ unless $\Delta|s$. This means that the chain can only return to the state only at multiples of $\Delta$.
+
+Forexample: If $\Delta=2$ then the chain can only return to the state at even times. Such as if you have a Markov chain with states equal to the natural numbers, and at every discrete time step you move to one of the at most two adjacent integers, then you will be at odd integers every other time step and at even integers the remaining time. 
+
+**Ergodicity:**
+
+A finite, aperiodic and positive recurrent state is called an ergodic state. A Markov chain is ergodic if all it's states are ergodic. This means that it is possible to eventually get from every state to every other state with some positive probability. It also means we will infinitely ofent visit every state.
+
+**Inequality:**
+
+Markovs inequality states that for any non-negative random variable $X$ and any $a>0$ then the probability that $X$ is at least $a$ is at most the expected value of $X$ divided by $a$:
+$$
+Pr[X\geq a]\leq \frac{E[X]}{a}
+$$
 
 ---
+> Q: What is a stationary solution to a Markov chain?
 
-    - [ ] Markov chains:
-        - [ ] What is a Markov chain?
-        - [ ] What is a stationary solution to a Markov chain?
-        - [ ] What is the cover time of a random walk on a graph?
-        - [ ] Show a tight asymptotic upper bound on the cover time of a random walk on an undirected non-bipartite connected graph.
-        - [ ] Show an example of a strongly connected directed graph in which the cover time is exponential.
-        - [ ] Describe how the algorithm for 2SAT can be analyzed as a random walk on a graph. What is the graph and what is its cover time?
+Take a time $t$, then we can define a vector of probabilities as $v_t$ which contains one entry per state $s$. The entry $v_t(s)$ is the probability of being in state $s$ at time $t$. The next state then is defined as $v_{t+1}=v_tP$ where $P$ is the transition matrix. This means that the probability of being in state $s$ at time $t+1$ is the sum of the probabilities of being in all states at time $t$ multiplied by the probability of moving from state $s$ to state $s'$.
+
+The sum of all probabilities in $v_t$ is 1, since the probability of being in some state is 1.
+
+A stationary distribution then is a probability vector $\overline{\pi}$ such that $\overline{\pi}P=\overline{\pi}$. This means that the probability of being in state $s$ at time $t+1$ is the same as the probability of being in state $s$ at time $t$. This means that the distribution is stationary, and the chain has reached equilibrium.
+
+Take for example the Markov chain with states $S=\{A,B\}$ then the transition matrix:
+$$
+P=\begin{bmatrix}
+0.7 & 0.3\\
+0.4 & 0.6
+\end{bmatrix}
+$$
+
+To find the stationary distribution $\pi = (\pi_A, \pi_B)$, we solve the equation $\pi = \pi P$:
+
+1. $\pi_A = 0.7 \pi_A + 0.4 \pi_B$
+2. $\pi_B = 0.3 \pi_A + 0.6 \pi_B$
+
+Additionally, we have the normalization condition:
+
+3. $\pi_A + \pi_B = 1$
+
+Solving these equations:
+- From equation 1: $\pi_A - 0.7 \pi_A = 0.4 \pi_B$ → $0.3 \pi_A = 0.4 \pi_B$ → $\pi_A = \frac{4}{3} \pi_B$.
+- Substitute $\pi_A = \frac{4}{3} \pi_B$ into equation 3: $\frac{4}{3} \pi_B + \pi_B = 1$ → $\frac{7}{3} \pi_B = 1$ → $\pi_B = \frac{3}{7}$.
+- Then, $\pi_A = \frac{4}{3} \cdot \frac{3}{7} = \frac{4}{7}$.
+
+Thus, the stationary distribution is:
+
+\[
+\pi = \left( \frac{4}{7}, \frac{3}{7} \right)
+\]
+
+This means that, in the long run, the system spends about $\frac{4}{7}$ of the time in state $A$ and $\frac{3}{7}$ of the time in state $B$.
+
+---
+> Q: What is the cover time of a random walk on a graph?
+
+Let $G=(V,E)$ be a graph with $n$ vertices and $m$ edges. The cover time of a random walk on $G$ is the expected number of steps it takes for the random walk to visit every vertex at least once from a vertex $v$. The probability of moving from a vertex $v$ with degree $d$ to any of its neighbors is $\frac{1}{d}$.
+
+The cover time is the maximum over all starting vertices $v$ of the expected number of steps to visit every vertex at least once. This is a measure of how long it takes for the random walk to explore the entire graph.
+
+---
+> Q: Show a tight asymptotic upper bound on the cover time of a random walk on an undirected non-bipartite connected graph.
+
+<!-- TODO: I don't think this is deep enough. -->
+
+First, choose a spanning tree of the graph. Then consider a tour that starts at any vertex $v_0$ and visits every subtree rooted at $v_0$. Then each edge in the tree is traversed twice, once in each direction, one to go down, and one to go up to the start again.
+
+Let $v_0, v_1, v_{2n-2}=v_0$ be the sequence of visisted vertices. Then the expected number of steps to visit every vertex at least once is the sum of the expected number of steps to visit every vertex in the subtree rooted at $v_i$ for $i=0,1,\dots,n-1$. This is equivalent to $h_{uv}=2m$, thereby the upper bound is:
+
+$$
+\sum^{2n-3}_{i=0}h_{v_iv_{i+1}} < (2n-2)(2m) < 4mn
+$$
+
+---
+> Q: Show an example of a strongly connected directed graph in which the cover time is exponential.
+
+The simplest graph would be the line graph, so one where every vertex $v_t$ only has 2 outgoing edges, one to $v_0$ and one to $v_{t+1}$. From each vertex, except the first, there is a $1/2$ probability of resetting progress and going back to $v_0$.
+
+So to reach all vertices you must traverse from $v_0$ to $v_n$ which happens with probability $1/2^{n-1}$. 
+
+You can make it even worse by attachin a self loop of $n/2$ size to one end and letting the back vertices go to the start of said loop, such that it only enters the path after the cycle with probability $1/2$.
+
+The cover time can be shown to be $O(2^{n/2})$
+
+---
+> Q: Describe how the algorithm for 2SAT can be analyzed as a random walk on a graph. What is the graph and what is its cover time?
+
+**The problem:**
+
+The 2SAT problem is a boolean formula in conjunctive normal from on $n$ variables with 2 literals in each clause, fx:
+$$
+(x_1 \vee \overline{x_3}) \wedge (\overline{x_1} \vee x_2) \wedge (\overline{x_2} \vee x_4)\wedge (\overline{x_3} \vee \overline{x_4})
+$$
+
+The problem is to find an assignment to the variables such that the formula is satisfied. The example has satisfying assignment $x_1=true, x_2=true, x_3=false, x_4=false$.
+
+**The idea:**
+
+Imagine a satisfying assinment, call it $T$. Then the idea of the algorithm is to pick some assignment called $S$ and make progress towards $T$ by looking at clauses not currently satisfied by $S$.
+
+Since we pick an unsatisfied clause, then we know that we must set at least one of the literals and change it. So if we randomly select one and change its value in $S$ then we have a new assignment $S'$ which with probability $1/2$ comes one variable closer to $T$.
+
+**The process:**
+
+Let $X_t$ be the number of variables assigned correctly in $S_t$ at time $t$. So how many variables in $S_t$ equal $T$. The we have the stochastic process for $1\geq j< n$:
+
+$$
+\begin{align*}
+    Pr[X_{t+1}=j+1|X_t=j] &\geq \frac{1}{2}\\
+    Pr[X_{t+1}=j-1|X_t=j] &\leq \frac{1}{2}\\
+\end{align*}
+$$
+
+This is a random walk on the integers from 0 to $n$, but is not a Markov Chain as every state does not depend on the previous, this is:
+
+$$
+\begin{align*}
+    Y_0 &= X_0\\
+    Pr[Y_{t+1}=1|Y_t=0] &= 0\\
+    Pr[Y_{t+1}=j+1|Y_t=j] &\geq \frac{1}{2}\\
+    Pr[Y_{t+1}=j-1|Y_t=j] &\leq \frac{1}{2}\\
+\end{align*}
+$$
+
+Let $Z_j$ be a random variable representing the number of steps to reach $n$ from $j$, then we have:
+
+$$
+h_j = E[Z_j] = E\left[\frac{1}{2}(1+Z_{j-1})+\frac{1}{2}(1+Z_{j+1})\right]
+$$
+
+This can be rewritten with the linearity of expectation as:
+
+$$
+\begin{align*}
+h_n &= 0\\
+h_0 &= h_1 + 1\\
+h_j &= \frac{h_{j-1}}{2}+\frac{h_{j+1}}{2}+1 \text{ for } 1<j<n
+\end{align*}
+$$
+
+We can solve for $h_0$ with a lemma that states that $h_j=h_{j+1}+2j+1$ for $0\geq j\geq n-1$ as we can then say:
+$$
+\begin{align*}
+    h_0 &= h_1+1\\
+    &= h_2+1+3\\
+    &\vdots\\
+    &= \sum_{i=0}^{n-1}2i+1\\
+    &= n^2
+\end{align*}
+$$
+
+**Runtime:**
+
+Assuming a 2SAT formula with $n$ variables, that has a satisfying assignment and that the walk is allowed to run until it finds the satisfying assignment, then the expected number of steps is at most $n^2$.
+
+So if we abort after $2n^2$ then by Markovs inequality the probability of not finding the satisfying assignment is at most $1/2$, even if the assignment exists.
+

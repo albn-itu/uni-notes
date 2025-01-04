@@ -2,14 +2,14 @@
 
 ## Study plan
 
-- [ ] Randomized algorithms
+- [x] Randomized algorithms
     - [x] [02-jan] Polynomial identity testing
     - [x] [02-jan] Freivalds’ algorithm
     - [x] [03-jan] Karger’s algorithm
     - [x] [03-jan] The Monte Carlo method
     - [x] [03-jan] Primality testing
     - [x] [04-jan] Algebraic algorithms
-    - [ ] [04-jan] Markov chains
+    - [x] [04-jan] Markov chains
 - [ ] Divide/Conquer and FFT
     - [ ] [05-jan] Divide & Conquer and the Master theorem
     - [ ] [05-jan] Integer Multiplication
@@ -36,7 +36,7 @@
 
 ## Detailed:
 
-- [ ] Randomized algorithms
+- [x] Randomized algorithms
     - [x] Polynomial identity testing
         - [x] What is the polynomial identity testing problem? Why can it be reduced to deciding whether a given polynomial is the zero polynomial?
         - [x] Assume black-box access to a polynomial p of degree at most n: You can choose a query point s and get back p(s) as the result of your query.
@@ -81,13 +81,13 @@
         - [x] How computationally hard is it to compute an nxn symbolic matrix determinant with polynomials in several variables as entries with total degree bounded by O(n)? How computationally hard is it to compute an nxn numeric matrix determinant with elements from a finite field as entries?
         - [x] Describe one way of computing a numeric determinant.
 
-    - [ ] Markov chains:
-        - [ ] What is a Markov chain?
-        - [ ] What is a stationary solution to a Markov chain?
-        - [ ] What is the cover time of a random walk on a graph?
-        - [ ] Show a tight asymptotic upper bound on the cover time of a random walk on an undirected non-bipartite connected graph.
-        - [ ] Show an example of a strongly connected directed graph in which the cover time is exponential.
-        - [ ] Describe how the algorithm for 2SAT can be analyzed as a random walk on a graph. What is the graph and what is its cover time?
+    - [x] Markov chains:
+        - [x] What is a Markov chain?
+        - [x] What is a stationary solution to a Markov chain?
+        - [x] What is the cover time of a random walk on a graph?
+        - [x] Show a tight asymptotic upper bound on the cover time of a random walk on an undirected non-bipartite connected graph.
+        - [x] Show an example of a strongly connected directed graph in which the cover time is exponential.
+        - [x] Describe how the algorithm for 2SAT can be analyzed as a random walk on a graph. What is the graph and what is its cover time?
 
 - [ ] Divide/Conquer and FFT
     - [ ] Divide & Conquer and the Master theorem
