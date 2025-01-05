@@ -625,3 +625,160 @@ Assuming a 2SAT formula with $n$ variables, that has a satisfying assignment and
 
 So if we abort after $2n^2$ then by Markovs inequality the probability of not finding the satisfying assignment is at most $1/2$, even if the assignment exists.
 
+# Divide/Conquer and FFT
+## Divide & Conquer and the Master theorem
+> Q: Give the statement of the Master theorem for recurrence relations of the form $T(n) \leq aT(n/b) + O(n^c)$. Explain which cases can occur depending on $a,b,c$.
+
+** Formally:**
+
+Given a recurrence relation of the form:
+$$
+T(n) = aT(n/b) + f(n)
+$$
+
+- $a$ is the number of subproblems.
+- $b$ is the factor by which the problem size is reduced.
+- $f(n)$ is the cost of the work done outside the recursive calls.
+
+Where $a\geq 1$, $b>1$ and $f(n)$ is a function, called the driving function. The Master theorem states that the behaviour of $T(n)$ can be characterized by the following cases:
+
+1. If there exists a constant $\epsilon > 0$ such that $f(n) = O(n^{\log_b a - \epsilon})$, then $T(n) = \Theta(n^{\log_b a})$.
+2. If there exists a constant $k \geq 0$ such that $f(n) = \Theta(n^{\log_b a} \log^k n)$, then $T(n) = \Theta(n^{\log_b a} \log^{k+1} n)$.
+3. If there exists a constant $\epsilon > 0$ such that $f(n) = \Omega(n^{\log_b a + \epsilon})$ and if $a f(n/b) \leq k f(n)$ for some constant $k < 1$ and sufficiently large $n$, then $T(n) = \Theta(f(n))$.
+    - The condition $a f(n/b) \leq k f(n)$ is known as the regularity condition.
+
+**Explanation:**
+The function $n^{log_b a}$ is called the watershed function. In every case we compare the driving function to this function. In the first case the watershed function grows faster than the driving function. In the second case the driving function grows mostly at the same rate as the watershed function. In the third case the driving function grows faster than the watershed function.
+
+Specifically, in case 1 the watershed function must grow polynomially faster with a factor of $\Theta(n^{\epsilon})$ for some $\epsilon>0$. In case 2 the driving function grows at nearly the same rate as the watershed function, but specifrically it grows faster by a factor of $\Theta(\log^k n)$ for some $k\geq 0$. In case 3 the driving function grows faster than the watershed function by a factor of $\Theta(n^{\epsilon})$ for some $\epsilon>0$.
+
+**Our case**
+
+Take the given case:
+$$
+T(n) \leq aT(n/b) + O(n^c)
+$$
+
+With $a\geq 1, b>1$ and $c\geq 0$ a constant. 
+
+First lets define the critical exponent as $k=\log_b(a)$. Then in our case $f(n)=O(n^c)$, where $c$ is a constant. This means that the driving function grows at a rate of $O(n^c)$. We can then compare this to the watershed function $n^k$. We can simply redefine the cases then to:
+
+1. If $c<k$ then $T(n)=\Theta(n^k)$.
+    - The subproblem dominates the cost and the solution is $\Theta(n^{\log_b a})$.
+2. If $c=k$ then $T(n)=\Theta(n^c\log n)$.
+    - The subproblem and the cost are of the same order and the solution is $\Theta(n^{\log_b a}\log n)$.
+3. If $c>k$ then $T(n)=\Theta(n^c)$.
+    - The cost dominates the subproblem and the solution is $\Theta(n^c)$.
+
+---
+> Q: Sketch a proof for one of the cases.
+
+Let's prove case 1 where $c<k$ and $k=\log_b(a)$, we have the recurrence relation:
+$$
+T(n) \leq aT\left(\frac{n}{b}\right) + O(n^c)
+$$
+
+We want to show that $T(n)=\Theta(n^k)$, where $k=\log_b(a)$,
+
+Let's look at the recursion tree:
+
+- At level 0 the cost is $O(n^c)$.
+- At level 1 we have $a$ subproblems of size $\frac{n}{b}$, each with cost $O\left(\left(\frac{n}{b}\right)^c\right)$.
+- At level 2 we have $a^2$ subproblems of size $\frac{n}{b^2}$, each with cost $O\left(\left(\frac{n}{b^2}\right)^c\right)$.
+- At level $i$ we have $a^i$ subproblems of size $\frac{n}{b^i}$, each with cost $O\left(\left(\frac{n}{b^i}\right)^c\right)$.
+
+The total work at depth $i$ would be the number of subproblems times the cost of each subproblem:
+$$
+\begin{align*}
+a^i \cdot O\left(\left(\frac{n}{b^i}\right)^c\right) &= O\left(a^i \cdot \left(\frac{n^c}{b^{ci}}\right)\right)\\
+&= O\left(n^c \cdot \left(\frac{a}{b^c}\right)^i\right)
+\end{align*}
+$$
+
+Then define the ratio of the sequence as $r=\frac{a}{b^c}$, we know that $c<k$ so $c<\log_b(a)$ which means that $b^c<b^{\log_b(a)}=a$. Therefore $r=a/b^c>1$.
+
+The total cost across all levels is then:
+$$
+\sum_{i=0}^{\log_b(n)}O\left(n^c \cdot r^i\right)
+$$
+
+This is a geometric series, with $r>1$ where the sum would be dominated by last term where $i=\log_b(n)$. This gives us:
+
+$$
+\begin{align*}
+O\left(n^c \cdot r^i\right) &= O\left(n^c \cdot r^{\log_b(n)}\right)\\
+&= O\left(n^c \cdot \left(\frac{a}{b^c}\right)^{\log_b(n)}\right)\\
+&= O\left(n^c \cdot \left(\frac{a^{\log_b(n)}}{n^c}\right)\right)\\
+&= O\left(n^{\log_b(a)}\right)
+\end{align*}
+$$
+
+So we've proven that when $c<k$ then $T(n)=\Theta(n^k)$.
+
+Intuitively this makes sense because when the cost is low $c<k$, then the branching cost dominates on each levels total work $O(n^c)$, which makes the cost of the leaves the dominant term.
+
+## Integer Multiplication
+> Q: What is Karatsuba’s algorithm? What is its running time?
+
+When multiplying integers, the usual approach is to use the grade-school algorithm, which has a running time of $O(n^2)$, where $n$ is the number of digits in the integers.
+
+Karatsuba's algorithm takes a different approach. It uses divide and conquer by splitting the number and multiplying the parts. Specifically it uses multiplication and addition to handle numbers with half the size of the originals.
+
+Take 2 large numbers $x$ and $y$ represented as $n$ digit strings in base $B$. For any integer $m<n$ one can write $x$ and $y$ as:
+$$
+\begin{align*}
+x &= x_1B^m+x_0\\
+y &= y_1B^m+y_0
+\end{align*}
+$$
+
+where $x_0$ and $y_0$ are less than $B^m$. Then the product $xy$ can be written as:
+$$
+\begin{align*}
+xy &= (x_1B^m+x_0)(y_1B^m+y_0)\\
+&= x_1y_1B^{2m}+(x_1y_0+x_0y_1)B^m+x_0y_0\\
+&= z_2B^{2m}+z_1B^m+z_0
+\end{align*}
+$$
+
+where
+$$
+\begin{align*}
+z_2 &= x_1y_1\\
+z_1 &= x_1y_0+x_0y_1\\
+z_0 &= x_0y_0
+\end{align*}
+$$
+
+This requires 4 multiplications and 3 additions. Karatsuba's algorithm takes only three multiplications and some additions. If $z_0$ and $z_2$ the same, then we can calculate $z_1$ as:
+$$
+\begin{align*}
+z_2 &= x_1y_1\\
+z_0 &= x_0y_0\\
+z_3 &= (x_1+x_0)(y_1+y_0)\\
+z_1 &= x_1y_0+x_0y_1\\
+    &= (x_1+x_0)(y_1+y_0)-x_1y_1-x_0y_0\\
+    &= z_3-z_2-z_0
+\end{align*}
+$$
+
+
+We can recursively apply this algorithm remember that:
+
+$$
+T(n) = aT(n/b) + f(n)
+$$
+
+where
+
+- $a$ is the number of subproblems.
+- $b$ is the factor by which the problem size is reduced.
+- $f(n)$ is the cost of the work done outside the recursive calls.
+
+Then $a=3$ as we have 3 multiplications, $b=2$ as we split the number in half and $f(n)=O(n)$ as we have to do some additions. This gives us:
+
+$$
+T(n) = 3T(n/2) + O(n)
+$$
+
+Since $c<\log_b(a)=\log_2(3)\sim 1.585$ then we can use the Master theorem to solve this. This gives us $T(n)=\Theta(n^{\log_2(3)})$ which is approximately $O(n^{1.585})$.

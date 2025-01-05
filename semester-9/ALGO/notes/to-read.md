@@ -10,9 +10,9 @@
     - [x] [03-jan] Primality testing
     - [x] [04-jan] Algebraic algorithms
     - [x] [04-jan] Markov chains
-- [ ] Divide/Conquer and FFT
-    - [ ] [05-jan] Divide & Conquer and the Master theorem
-    - [ ] [05-jan] Integer Multiplication
+- [x] Divide/Conquer and FFT
+    - [x] [05-jan] Divide & Conquer and the Master theorem
+    - [x] [05-jan] Integer Multiplication
 - [ ] Algorithms based on matrix multiplications
     - [ ] [06-jan] Matrix multiplication
     - [ ] [06-jan] Matrix multiplication for cliques
@@ -23,8 +23,8 @@
     - [ ] [09-jan] Chordal graphs
     - [ ] [09-jan] Solving problems on chordal graphs
 - [ ] Parameterized algorithms
-    - [ ] [10-jan] Basics and Branching
-    - [ ] [10-jan] Kernelization
+    - [ ] [09-jan] Basics and Branching
+    - [ ] [09-jan] Kernelization
     - [ ] [10-jan] Treewidth
     - [ ] [10-jan] Color-coding
 - [ ] Approximation algorithms
@@ -89,13 +89,13 @@
         - [x] Show an example of a strongly connected directed graph in which the cover time is exponential.
         - [x] Describe how the algorithm for 2SAT can be analyzed as a random walk on a graph. What is the graph and what is its cover time?
 
-- [ ] Divide/Conquer and FFT
-    - [ ] Divide & Conquer and the Master theorem
-        - [ ] Give the statement of the Master theorem for recurrence relations of the form $T(n) \leq aT(n/b) + O(n^c)$. Explain which cases can occur depending on $a,b,c$.
-        - [ ] Sketch a proof for one of the cases.
+- [x] Divide/Conquer and FFT
+    - [x] Divide & Conquer and the Master theorem
+        - [x] Give the statement of the Master theorem for recurrence relations of the form $T(n) \leq aT(n/b) + O(n^c)$. Explain which cases can occur depending on $a,b,c$.
+        - [x] Sketch a proof for one of the cases.
 
-    - [ ] Integer Multiplication
-        - [ ] What is Karatsuba’s algorithm? What is its running time?
+    - [x] Integer Multiplication
+        - [x] What is Karatsuba’s algorithm? What is its running time?
 
 - [ ] Algorithms based on matrix multiplication
     - [ ] Matrix multiplication
