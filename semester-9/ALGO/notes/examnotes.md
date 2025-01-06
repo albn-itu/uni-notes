@@ -782,3 +782,167 @@ T(n) = 3T(n/2) + O(n)
 $$
 
 Since $c<\log_b(a)=\log_2(3)\sim 1.585$ then we can use the Master theorem to solve this. This gives us $T(n)=\Theta(n^{\log_2(3)})$ which is approximately $O(n^{1.585})$.
+
+# Algorithms based on matrix multiplication
+## Matrix multiplication
+> Q: Define the matrix multiplication problem. How many arithmetic operations do you need to solve this problem in the standard way?
+
+If $A$ is an $m\times n$ matrix and $B$ is an $n\times p$ matrix, then the product $C=AB$ is an $m\times p$ matrix where each entry $C_{ij}$ is the dot product of the $i$th row of $A$ and the $j$th column of $B$.
+
+Matrix multiplication shares the same properties as regular multiplication, such as associativity and distributivity. But it doesn't share commutativity, as $AB$ is not always equal to $BA$.
+
+Take 
+$$
+\begin{align*}
+A = \begin{bmatrix}
+1 & 2 & 3\\
+4 & 5 & 6
+\end{bmatrix} & & B = \begin{bmatrix}
+7 & 8\\
+9 & 10\\
+11 & 12
+\end{bmatrix}
+\end{align*}
+$$
+
+Then the product $C=AB$ is:
+$$
+C = \begin{bmatrix}
+1\cdot 7+2\cdot 9+3\cdot 11 & 1\cdot 8+2\cdot 10+3\cdot 12\\
+4\cdot 7+5\cdot 9+6\cdot 11 & 4\cdot 8+5\cdot 10+6\cdot 12
+\end{bmatrix} = \begin{bmatrix}
+58 & 64\\
+139 & 154
+\end{bmatrix}
+$$
+
+In the standard, and worst case it requires $n^3$ multiplications and $n^2(n-1)$ additions.
+
+This is because for each element of $C$ we perform $n$ multiplications and $n-1$ additions. The general way of stating it would be that we perform $m*p*n$ multiplications and $m*p*(n-1)$ additions. Which for square matrices gives the operations above.
+
+---
+> Q: Describe a way to reduce $n\times n$ matrix multiplication recursively to 8 multiplications of $n/2\times n/2$ matrices.
+
+This is an application of Strassens algorithm, which is a divide and conquer approach that divides matrices into equally sized block matrices. It uses $2^n\times 2^n$ matrices, if the matrices are not square then they are padded with zeros, then we can take the matrices $A$, $B$, and $C$ and turn them into block matrices:
+
+$$
+\begin{align*}
+A &= \begin{bmatrix}
+A_{11} & A_{12}\\
+A_{21} & A_{22}
+\end{bmatrix} & B &= \begin{bmatrix}
+B_{11} & B_{12}\\
+B_{21} & B_{22}
+\end{bmatrix} & C &= \begin{bmatrix}
+C_{11} & C_{12}\\
+C_{21} & C_{22}
+\end{bmatrix}
+\end{align*}
+$$
+
+Then we can define the product $C=AB$ as:
+$$
+C = \begin{bmatrix}
+A_{11}B_{11}+A_{12}B_{21} & A_{11}B_{12}+A_{12}B_{22}\\
+A_{21}B_{11}+A_{22}B_{21} & A_{21}B_{12}+A_{22}B_{22}
+\end{bmatrix}
+$$
+
+This reduces the entire thing to 8 multiplications, but this is not the strassen algorithm. Strassens algorithm can reduce it to 7 multiplications by defining:
+
+$$
+\begin{align*}
+M_1 &= (A_{11}+A_{22})(B_{11}+B_{22})\\
+M_2 &= (A_{21}+A_{22})B_{11}\\
+M_3 &= A_{11}(B_{12}-B_{22})\\
+M_4 &= A_{22}(B_{21}-B_{11})\\
+M_5 &= (A_{11}+A_{12})B_{22}\\
+M_6 &= (A_{21}-A_{11})(B_{11}+B_{12})\\
+M_7 &= (A_{12}-A_{22})(B_{21}+B_22)\\
+\end{align*}
+$$
+
+Then we can define the blocks of $C$ as:
+$$
+C = \begin{bmatrix}
+M_1+M_4-M_5+M_7 & M_3+M_5\\
+M_2+M_4 & M_1-M_2+M_3+M_6
+\end{bmatrix}
+$$
+
+This reduces the number of multiplications to 7. This process can be done recursively until the matrices are small enough to be multiplied using the standard algorithm. It depends a bit on the implementation some do it at 32 or 128 width matrices but recent developments in hardware do it already at 512.
+
+---
+> Q: How many recursive multiplications does Strassen's algorithm require, and what running time does this translate to in the end? Argue for the running time bound.
+
+Stranssens algorithm requires 7 recursive multiplications. This is because we can define the blocks of $C$ as in the previous question.
+
+We can argue for the runnint time bound using the recurrence relation. We know that every step takes $7$ multiplications, and at each step the problem size is reduced by a factor of 2. This gives us the recurrence relation:
+
+$$
+T(n) = 7T\left(\frac{n}{2}\right) + O(n^2)
+$$
+
+$O(n^2)$ is the cost of the additions and subtractions. We can then use the Master theorem to solve this with the following variables:
+
+- $a = 7$ as we have 7 multiplications.
+- $b = 2$ as we reduce the problem size by a factor of 2.
+- $f(n) = O(n^2)$ as we have to do some additions and subtractions.
+
+We can then calculate $log_b(a)=log_2(7)\approx 2.807$ and since $f(n)=O(n^c)$ where $c=2$ then $c<log_b(a)$ which means we are in case 1 of the Master theorem. This gives us 
+
+$$
+T(n)=\Theta(n^{log_2(7)})\approx O(n^{2.807})
+$$
+
+This is an improvement over the standard algorithm which has a running time of $O(n^3)$. This is because the Strassen algorithm reduces the number of multiplications required to compute the product of two matrices.
+
+What the theorem essentially states is that the runtime is dominated by the recursive multiplications, not the work done outside the recursive calls ($O(n^2)$), which logically makes sense.
+
+---
+> Q: Define the constant $\omega$. What does the existence of Strassen's algorithm imply for $\omega$? What are the best known lower and upper bounds on $\omega$?
+
+The constants $\omega$ is the exponent of the fastest known matrix multiplication algorithm. So for the naive approach $\omega=3$ and for Strassens algorithm $\omega\approx 2.807$.
+
+Formally $\omega$ is stated as: The smallest real number such that the product of two $n\times n$ matrices can be computed in $O(n^{\omega+\epsilon})$ or $n^{\omega + o(1)}$ arithmetic operations for any $\epsilon>0$.
+
+Currently the best known upper bound is $\omega=2.371552$ as of January 2024, however this is a galactic algorithm (new favourite term). Strassens algorithm is the best known practical algorithm with $\omega\approx 2.8074$. The general upper bound would be $\omega=3$ for the naive approach, it can probably be done slower though.
+
+In general it is believed that $2\leq \omega\leq 3$. It is unknown if $\omega=2$ is possible, but it is known that $\omega\leq 2.371552$.
+
+## Matrix multiplication for cliques
+> Q: How can matrix multiplication be used for detecting and counting triangles?
+
+First represent the graph $G=(V, E)$ as an adjacency matrix $A$ where $A_{ij}=1$ if there is an edge between $i$ and $j$, and $0$ otherwise. Then if we multiply the matrix with itself we get:
+$$
+(A^2)_{ij} = \sum_{k=1}^n A_{ik}A_{kj}
+$$
+
+So get get a contribution of one for each index $k$ where there is an edge $ik$ as well as an edge $kj$, in other words, the $ik$ entry of $A^2$ is the number of paths of length 2 from $i$ to $k$. We can extend this to any length parths. So since a triangle is $ijk$ we need the 2 hop paths $ik,kj,ji$, so we can calculate the number of triangles by taking the trace of $A^3$ and dividing by 6. We need to divide by 6 since each vertex can be traversed in each direction, and we count each vertex 3 times. 
+
+---
+> Q: How can matrix multiplication be used to detect cliques of a given size $k$?
+
+A clique is a subset of vertices where every vertex is connected to every other vertex.
+
+As with the previous question, the $ij$ entry of $A^k$ is the number of paths of length $k$ from $i$ to $j$. Technically a triangle is a clique, and we can calculate them with $A^3$. 
+
+We cannot directly extend this method to $A^k$ but we can use the idea. So if we consider the matrices $A, A^2\dots, A^{k-1}$ then for a set of vertices $v_1,\dots,v_k$ to form a $k$ clique they must have a path. Then for each length $l$ from $2$ to $k-$ we can check if there is a path $v_i$ and $v_j$ for all $i,j$. If there is then we have a clique. 
+
+Formally, for each $l$ from $2$ to $k-1$ then $A^l_{ij}>0$ for all $i,j$ in the set of vertices $v_1,\dots,v_k$ then we have a clique. We only check up to $k-1$ since a vertex cannot be connected to itself.
+
+Essentially if we create a submatrix of the vertices in the original matrix $A$ this matrix will contain only 1s. The corresponding sub matrices in $A^l$ have all positive entries.
+
+The time complexity of this task is $O(n^{\omega}\log k)$ where $\omega$ is the matrix multiplication constant via exponentiaion by squaring.
+
+Not entirely sure about that last part.
+
+---
+> Q: Can you use the clique algorithm to find/count independent sets?
+
+An independent set is a set of vertices where no two vertices are connected by an edge. This is the exact opposite of a clique. So if we define the graph $G'$ as the complement of $G$ where, if 2 vertices are adjacent in $G$ then they aren't in $G'$. Then we can find the independent sets of $G$ by finding the cliques of $G'$.
+
+The algorithm would entail computing $G'$, then finding the cliques of size $k$ in $G'$ and then returning the number of cliques. This would return the number of independent sets of size $k$ in $G$.
+
+It must also be noted that since we compute the complement of $G$ then if $G$ is sparse $G'$ is dense, which could complicate the algorithms running time.
+

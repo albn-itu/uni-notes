@@ -13,9 +13,9 @@
 - [x] Divide/Conquer and FFT
     - [x] [05-jan] Divide & Conquer and the Master theorem
     - [x] [05-jan] Integer Multiplication
-- [ ] Algorithms based on matrix multiplications
-    - [ ] [06-jan] Matrix multiplication
-    - [ ] [06-jan] Matrix multiplication for cliques
+- [x] Algorithms based on matrix multiplications
+    - [x] [06-jan] Matrix multiplication
+    - [x] [06-jan] Matrix multiplication for cliques
 - [ ] Exponential-time algorithms
     - [ ] [07-jan] ETH and SETH
     - [ ] [07-jan] Inclusion/Exclusion
@@ -97,16 +97,16 @@
     - [x] Integer Multiplication
         - [x] What is Karatsuba’s algorithm? What is its running time?
 
-- [ ] Algorithms based on matrix multiplication
-    - [ ] Matrix multiplication
-        - [ ] Define the matrix multiplication problem. How many arithmetic operations do you need to solve this problem in the standard way?
-        - [ ] Describe a way to reduce $n\times n$ matrix multiplication recursively to 8 multiplications of $n/2\times n/2$ matrices.
-        - [ ] How many recursive multiplications does Strassen's algorithm require, and what running time does this translate to in the end? Argue for the running time bound.
-        - [ ] Define the constant . What does the existence of Strassen's algorithm imply for ?ω ω What are the best known lower and upper bounds on ?ω
-    - [ ] Matrix multiplication for cliques
-        - [ ] How can matrix multiplication be used for detecting and counting triangles?
-        - [ ] How can the algorithm for triangles be extended to detect cliques of a given size k? How does this compare to the brute-force algorithm?
-        - [ ] Can you use the clique algorithm to find/count independent sets?
+- [x] Algorithms based on matrix multiplication
+    - [x] Matrix multiplication
+        - [x] Define the matrix multiplication problem. How many arithmetic operations do you need to solve this problem in the standard way?
+        - [x] Describe a way to reduce $n\times n$ matrix multiplication recursively to 8 multiplications of $n/2\times n/2$ matrices.
+        - [x] How many recursive multiplications does Strassen's algorithm require, and what running time does this translate to in the end? Argue for the running time bound.
+        - [x] Define the constant . What does the existence of Strassen's algorithm imply for ?ω ω What are the best known lower and upper bounds on ?ω
+    - [x] Matrix multiplication for cliques
+        - [x] How can matrix multiplication be used for detecting and counting triangles?
+        - [x] How can the algorithm for triangles be extended to detect cliques of a given size k? How does this compare to the brute-force algorithm?
+        - [x] Can you use the clique algorithm to find/count independent sets?
 
 - [ ] Exponential-time algorithms
     - [ ] ETH and SETH
