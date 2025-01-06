@@ -946,3 +946,61 @@ The algorithm would entail computing $G'$, then finding the cliques of size $k$ 
 
 It must also be noted that since we compute the complement of $G$ then if $G$ is sparse $G'$ is dense, which could complicate the algorithms running time.
 
+
+# Exponential-time algorithms
+## ETH and SETH
+> Q: Explain the statement of the exponential-time hypothesis ETH and the strong exponential-time hypothesis SETH. Consider the following:
+
+**ETH:**
+
+ETH stands for the exponential time hypothesis and states that there is no algorithm that can solve 3-CNF boolean problems, also known as 3-SAT in subexponential time, $2^{o(n)}$. 
+
+Formally it's stated as: There is some constant $c>0$ such that no algorithm running in $2^{cn}$ time can solve 3-SAT on $n$ variables with clauses of widht at most 3.
+
+We can reduce to $k$-clique to prove that ETH implies that there is no algorithm that can solve $k$-clique in subexponential time. By grouping clauses in $k$ groups, then for each assignment to the variables in a group make a vertex $v_{i,j=(G_i, a_{i,j})}$. Then add an edge $v_{i,j}v_{i',j'}$ if:
+
+- $i\neq i'$, and
+- the assignments $a_{i,j}$ and $a_{i',j'}$ are consistent with each other. AKA not setting the same variable to opposite values.
+
+**SETH:**
+
+SETH stands for the strong exponential time hypothesis and states that there is a constant $k$ such that no algorithm can solve $k$-SAT on $n$ variables with clauses of width at most $k$ in time $2^{(1-\epsilon)n}$.
+
+Informally this means that the time required to solve $k$-SAT inscreases exponentially with the number of variables.
+
+> _Q: Why do they imply P != NP?
+
+Both ETH and SETH imply that there is no algorithm that can solve 3-SAT in subexponential time. This means that 3-SAT is not in P, as P is the class of problems that can be solved in polynomial time. Since 3-SAT is NP-complete, according to ETH, this implies that P != NP.
+
+> _Q: Is an algorithm with running time $O(1.0001^n)$ for 3-SAT possible under ETH? 
+
+Yes. This grows much like $2^{n\log(0.0001)}=2^{O(n)}$ in this case $c = \log(0.0001)$ which is very close to, but not quite sub-expontial time, so it's allowed under ETH.
+
+It would also not be allowed under SETH, the constants may be very small, but it's still exponential time.
+
+> _Q: Is an algorithm with running time $O(1001^{n/\log n})$ for 3-SAT possible under ETH?    
+
+No. We can simplify this to:
+$$
+1001^{n/\log n} = 2^{\log(1001) \cdot (n/\log(n))} = 2^{O(n/\log(n))}
+$$
+
+This is subexponential time since $O(n/\log(n))=o(n)$ and thus $2^{O(n/\log(n))}=2^{o(n)}$. ETH rules out subexponential time algorithms for 3-SAT, so this is not possible.
+
+This is not possible under SETH as well, since it also implies no algorithm can solve 3-SAT in sub-exponential time. SETH essentially states the same as ETH but for a wider range of problems, and at $k=3$ it is the same.
+
+> _Q: Briefly give two examples for concrete super-polynomial running times for 3-SAT that are ruled out under ETH.
+
+1. $O(2^{n/100})$ this is super-polynomial but sub-exponential time complexity.
+2. $O(1.999^n)$ this is super-polynomial but sub-exponential time complexity.
+
+---
+        - [ ] Explain the statement of the exponential-time hypothesis ETH and the strong exponential-time hypothesis SETH. Consider the following:
+            - [ ] Are either of these algorithms possible under SETH?
+            - [ ] Briefly give two examples for concrete super-polynomial running times for 3-SAT that are ruled out under ETH.
+        - [ ] What is the sparsification lemma, and why is it useful?
+        - [ ] Describe the Orthogonal Vectors problem.
+            - [ ] Which lower bound does SETH yield for this problem? Sketch the lower bound.
+            - [ ] Is an algorithm or an time algorithm possible under𝑂(𝑛2/ log 𝑛) 𝑂(𝑛2/ 𝑛) SETH?
+        - [ ] Describe the k-Dominating Set problem.
+            - [ ] Which lower bound does SETH yield for this problem? Sketch the lower bound.
