@@ -948,7 +948,7 @@ It must also be noted that since we compute the complement of $G$ then if $G$ is
 
 
 # Exponential-time algorithms
-## ETH and SETH
+## ETH and SETH (Lecture 27)
 > Q: Explain the statement of the exponential-time hypothesis ETH and the strong exponential-time hypothesis SETH. Consider the following:
 
 **ETH:**
@@ -974,9 +974,9 @@ Both ETH and SETH imply that there is no algorithm that can solve 3-SAT in subex
 
 > _Q: Is an algorithm with running time $O(1.0001^n)$ for 3-SAT possible under ETH? 
 
-Yes. This grows much like $2^{n\log(0.0001)}=2^{O(n)}$ in this case $c = \log(0.0001)$ which is very close to, but not quite sub-expontial time, so it's allowed under ETH.
+No. This grows much like $2^{n\log(1.0001)}=2^{O(n)}$ this is still subexponential time.
 
-It would also not be allowed under SETH, the constants may be very small, but it's still exponential time.
+It would also not be allowed under SETH, the constants may be very small, but it's still not exponential time.
 
 > _Q: Is an algorithm with running time $O(1001^{n/\log n})$ for 3-SAT possible under ETH?    
 
@@ -995,12 +995,270 @@ This is not possible under SETH as well, since it also implies no algorithm can 
 2. $O(1.999^n)$ this is super-polynomial but sub-exponential time complexity.
 
 ---
-        - [ ] Explain the statement of the exponential-time hypothesis ETH and the strong exponential-time hypothesis SETH. Consider the following:
-            - [ ] Are either of these algorithms possible under SETH?
-            - [ ] Briefly give two examples for concrete super-polynomial running times for 3-SAT that are ruled out under ETH.
-        - [ ] What is the sparsification lemma, and why is it useful?
-        - [ ] Describe the Orthogonal Vectors problem.
-            - [ ] Which lower bound does SETH yield for this problem? Sketch the lower bound.
-            - [ ] Is an algorithm or an time algorithm possible under𝑂(𝑛2/ log 𝑛) 𝑂(𝑛2/ 𝑛) SETH?
-        - [ ] Describe the k-Dominating Set problem.
-            - [ ] Which lower bound does SETH yield for this problem? Sketch the lower bound.
+> Q: What is the sparsification lemma, and why is it useful?
+
+The sparsification lemma states that any instance of $k$-SAT for $k\geq 3$ can be reduced, in sub-exponential time, to a collection of sparse $k$-SAT instances. Specifically:
+
+Given a $k$-SAT formula $\Phi$ with $n$ variables and $m$ clauses, the lemma allows us to decompose $\Phi$ into a disjunction (logical OR) of $2^{\epsilon n} smaller $k$-SAT formulas $\Phi_1, \Phi_2, \dots, \Phi_t$ where:
+
+- Each $\Phi_i$ has at most $f(k, \epsilon) \cdot n$ clauses for some function $f$ depending on $k$ and $\epsilon$.
+- The total size of the decomposition is $O(2^{\epsilon n})$.
+
+In simpler terms, the lemma allows us to "sparsify" a dense kk-SAT formula into a collection of smaller, sparse formulas without significantly increasing the overall complexity of the problem.
+
+This should all take $2^{\epsilon n} \cdot \text{poly}(n)$ time.
+
+**Why is the Sparsification Lemma Useful?**
+
+The Sparsification Lemma has several important implications and applications:
+
+1. **ETH and Lower Bounds:**
+   - The lemma is a key tool in proving lower bounds under ETH. It allows us to focus on sparse instances of $k$-SAT, which are easier to analyze, without losing generality.
+   - For example, it is used to show that $k$-SAT cannot be solved in sub-exponential time (i.e., $O(2^{o(n)})$) unless ETH fails.
+
+2. **Reduction to Sparse Instances:**
+   - The lemma reduces the study of general $k$-SAT instances to the study of sparse instances, where the number of clauses is linear in the number of variables. This simplification is often crucial for proving hardness results or designing algorithms.
+
+3. **Parameterized Complexity:**
+   - In parameterized complexity, the lemma is used to show that certain parameterized problems are unlikely to have fixed-parameter tractable (FPT) algorithms. For example, it helps establish the hardness of problems like $k$-SAT under parameterized complexity assumptions.
+
+4. **Algorithm Design:**
+   - While the lemma is primarily used for hardness results, it can also guide the design of algorithms. By focusing on sparse instances, researchers can develop more efficient algorithms for special cases of $k$-SAT.
+
+5. **Simplification of Proofs:**
+   - The lemma simplifies many proofs in computational complexity by allowing researchers to assume, without loss of generality, that $k$-SAT instances are sparse. This often reduces the technical complexity of arguments.
+
+**Example Application: ETH and 3-SAT**
+
+One of the most important applications of the Sparsification Lemma is in proving that 3-SAT cannot be solved in sub-exponential time unless ETH fails. The lemma allows us to assume that 3-SAT instances are sparse (with $O(n)$ clauses), which makes it easier to analyze the problem and derive lower bounds.
+
+---
+
+> Q: Describe the Orthogonal Vectors problem.
+
+Given two sets $L$ and $R$ of $n$ size vectors from $\{0,1\}^d$ with $d=\text{polylog}(n)$, the problem is to determine if there is a pair of vectors $u\in L$ and $v\in R$ such that $u\cdot v=0$. This generally takes $O(n^2)$ time to check.
+
+> _Q: Which lower bound does SETH yield for this problem? Sketch the lower bound.
+
+We first must reduce the problem to a CNF instance:
+
+- Define $v_1,\dots,v_n$ be boolean variables to a CNF formula on $m$ clauses and $n$ even. This is our vectors.
+- Partition them into the sets $L=\{v_1,\dots,v_{n/2}\}$ and $R=\{v_{n/2+1},\dots,v_n\}$.
+- For each assignment $a$ to the varis in $L$  we build an $m$ long binary vector where entry $i$ is 1 if $a$ does not make clause $i$ true, and 0 otherwise. Do the same of $R$
+- We now have two sets of $2^{n/2}$ binary vectors of length $m$.
+
+We can then reduce the problem to diameter. Diameter in a connected undirected graph is the smallest positive integer $k$ such that every vertex has a path to each other vertex of length at most $k$.
+
+Unless the $OV$ conjecture is false then there is no algorithm that given a sparse graph on $n$ vertices and $O(n^{1+o(1)})$ edges, computes the diameter in time $O(n^{2-\epsilon})$ for any $\epsilon>0$.
+
+> _Q: Is an $O(n^2/\log n)$ algorithm or an $O(n^2/\sqrt{n})$ time algorithm possible under SETH?
+
+**$O(n^2/log n)$**
+
+Yes. The factor of $\log n$ grows much slower than the polynomial factor of $n^2$, so dividing by it does not significantly reduce the time complexity, and it therefore remains in the bounds of SETH.
+
+**$O(n^2/n^{1/2})$**
+
+On the other hand, the square root factor actually reduces this problem to $n^{3/2}$ which is subquadratic time complexity. This would contradict that the OV problem cannot be solved significantly faster than $O(n^2)$ under SETH.
+
+---
+> Q: Describe the k-Dominating Set problem.
+
+A dominating set in an undirected graph is a subset of the vertices such that every vertex is either connected to a vertex in S or is in S itself. A k-dominating set, is a dominating set of size exactly k.
+
+> _Q: Which lower bound does SETH yield for this problem? Sketch the lower bound.
+
+We once again reduce to a CNF instance:
+
+- Partition the variables in $k$ groups $G_1,\dots,G_k$ of size $n/k$.
+- For each assignment $a_1$ to the variables in a group $G_i$, add a vertex (a_i, i) to the graph.
+    - Results in $k2^{n/k}$ vertices.
+- Then add one vertex $s_i$ per group $G_i$, and connect all vertices in the group in a clique manner.
+- Add one vertice for every clause $c_j$ in the input CNF formula.
+- Add an edge from an assignment vertex $(a_i, i)$ to the vertex representing clause $c_j$ if the assignment $a_i$ satisfies the clause $c_j$.
+
+
+## Inclusion/Exclusion
+> Q: State and explain the inclusion-exclusion principle.
+
+The formal definition is, given $n$ subsets $A_1,\dots,A_n\subseteq U$ of a ground set $U$, then the size of the union of the sets is:
+
+$$
+|\bigcup_{i=1}^n A_i| = \sum_{\phi\subset X\subseteq [n]} (-1)^{|X|+1}|\bigcap_{i\in X}A_i|
+$$
+
+This is essentially just an expansion. Take 2 sets $A$ and $B$, then the union is:
+$$
+|A\cup B| = |A|+|B|-|A\cap B|
+$$
+
+We take the sum of the sizes of the sets, then subtract the size of the intersection of the sets. This is because the intersection is counted twice, once for each set, so we need to subtract it once.
+
+Expand to 3 sets $A$, $B$, and $C$:
+$$
+|A\cup B\cup C| = |A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|
+$$
+
+Essentially we add the sizes of the sets, then subtract the sizes of the intersections of the sets, then add the size of the intersection of all sets, this is because we've removed that size twice.
+
+The sum has $2^{n-1}$ terms, so it's not practical to compute by hand.
+
+---
+> Q: Describe how to solve the Hamiltonian cycle problem using inclusion-exclusion.
+
+The Hamiltonian cycle problem is the problem of determining whether a given graph contains a Hamiltonian cycle. A Hamiltonian cycle is a cycle that visits every vertex exactly once. This problem is NP-hard.
+
+> _Q: Describe the role of walks and paths.
+
+A closed $k$-walk in a graph is a sequence of $k$ vertices $v_1,\dots,v_{k+1}$ ending in the vertex it started in, such that $v_1=v_{k+1}$. A path is a walk where all vertices are distinct. Therefore a closed $n$-walk is a Hamiltonian cycle, if all vertices are distinct (except the first and last), so it's actually a $n$-path plus one vertex.
+
+> _Q: How can you count walks in polynomial time?
+
+First define the graph as an $n\times n$ adjacency matrix $A$ where $A_{ij}=1$ if there is an edge between $i$ and $j$, and $0$ otherwise. 
+
+We've looked at this before, and if you calculate $A^k$ then the entry at $u,u$ equals the number of closed $k$-walks starting and ending in $u$.
+
+The *trace* then of a matrix, which is the sum of it's diagonal entries, would be a weighted sum of the number of closed walks of length $k$. So $tr(A^n)$ is a weighted sum of the number of $n$-walks. Remember that a walk is not a path, so it can visit the same vertex multiple times, therefore it's not the Hamiltonian cycle.
+
+Also since we have an entry in both directions, every walk is counted twice, so we need to divide the result by $2n$, once per vertex and direction.
+
+Using matrix multiplication and fast exponentiation we can calculate this in polynomial time.
+
+> _Q: Why do you need to count them, and why is deciding existence not enough?
+
+The inclusion-exclusion principle requires us to count the number of structures (e.g., closed walks) that satisfy certain conditions. By counting walks, we can systematically account for all possible ways to form a Hamiltonian cycle.
+
+The inclusion-exclusion principle relies on exact counts to compute the number of valid Hamiltonian cycles. Deciding whether a Hamiltonian cycle exists (a yes/no question) does not provide the necessary quantitative information for this approach.
+
+With all the background information, we can now outline the approach to solving the Hamiltonian cycle problem using inclusion-exclusion:
+
+Let $A(X)$ for a vertex subset $X\subseteq V$ the the adjacency matrix induced by the vertices in $X$, then the number of Hamiltonian cycles is:
+
+$$
+\frac{1}{2n}\sum_{X\subseteq V}(-1)^{n-|X|}tr(A(X)^n)
+$$
+
+with a running time of $O(2^n\cdot \text{poly}(n))$.
+
+With this formula we only count what we want. The closed $n$-walks that are actually Hamiltonian cycles will be counted only in $tr(A(X)^n)$ where $X=V$, and coutned $2n$ times each.
+
+We also don't count anything else. The closed $n$-walks that revisit some vertices will also miss some vertices, since the walk is of size $n$. Let $W\subset V$ be the vertices visited in the walk. The walk will be counted in $tr(A(X)^n)$, for all $X\supseteq W$, but it will be counted with a factor $-1$ equally often as with the factor $+1$, and hence they will cancel each other.
+
+We can simplify the description of the algorithm to:
+
+1. Count all closed walks of length $n$ in the graph.
+2. Subtract the number of closed walks that miss at least one vertex.
+3. Add the number of closed walks that miss at least two vertices, to correct over subtraction.
+4. Continue this alternating inclusion-exclusion process until all cases are accounted for
+
+We can say that $X$ is the number of vertices that are not excluded in the walk.
+
+> _Q: Briefly compare this approach to the Bellman-Held-Karp dynamic programming algorithm for Hamiltonian cycles. Also outline the DP algorithm.
+
+The Bellman-Held-Karp dynamic programming algorithm is an algorithm for computing the Hamiltonian cycle in a graph. It works as follows:
+
+- For each subset $S$ of vertices and a vertex $v\in S$, let $dp[S][v]$ represent the number of paths that start at a fixed vertex, visit all vertices in $S$ exactly once and end at $v$.
+- The base case is $dp[\{v\}][v]=1$ for the starting vertex $v$.
+- For each subset $S$ and vertex $v$, compute $dp[S][v]$ by iterating over all predecessors $u$ of $v$ in $S$:
+$$
+dp[S][v] = \sum_{u\in S, u\neq v}dp[S\setminus \{v\}][u] \cdot A_{uv}
+$$
+- Finally the number of Hamiltonian cycles is the sum of $dp[V][v]$ for all $v$ adjacent to the starting vertex.
+
+The dynamic programming algorithm is a bottom-up approach that builds up the solution incrementally by considering all possible paths and vertices. It is a more direct and efficient way to compute the Hamiltonian cycle compared to the inclusion-exclusion method, which relies on the principle of inclusion-exclusion to count the number of Hamiltonian cycles.
+
+The time complexity is $O(n^2\cdot 2^n)$. This is essentially combinatorial vs implementation.
+
+---
+> Q: Describe how to count perfect matchings in a graph using inclusion-exclusion. Which structures are counted in the individual terms of the inclusion-exclusion formula? How can you speed this up on bipartite graphs, and what are the structures counted there?
+
+A perfect matching in a graph is a set of edges such that every vertex is incident to exactly one edge. Counting the number of perfect matchings in a graph is a combinatorial problem that can be solved using the inclusion-exclusion principle. Finding a perfect matching is a polynomial time problem, but counting them is NP-hard.
+
+From set partioning we have that we can count the number of perfect matchings in a graph $G=(V,E)$ as:
+
+- Let the family $F$ the the edges $E$ of the graph and set $k=n/2$.
+- Let $t(X)=|\{f:f\in F, f\subseteq X\}|$ for $X\subseteq V$.
+- Then the number of perfect matchings is:
+$$
+\sum_{X\subseteq U}(-1)^{n-|X|}t(X)^{n/2}
+$$
+
+This counts the perfect-matchings with multiplicity $n/2$ and runs in $O(2^n|E|n)$ time with $O(n\log(|E|))$ space.
+
+We can do better via induced subgraphs. Note that $t(X)$ is equal to the number of edges in the induced graph $G[X]$. If we define $a(r,p)$ for $r=1,2,\dots,|E|$ and $p=0,1$ to the number of of $X\subseteq V$ with $t(X)=r$ and $n-|X|\equiv p\mod 2$ then we can rewrite the formula as:
+$$
+\sum_{r=1}^{|E|}(a(r,0)-a(r,1))r^{n/2}
+$$
+
+Which reduces the number of terms to polynomial in $|E|$.
+
+So, now we count the number of induced graphs with $r$ edges. We do this by:
+
+- Dividing the vertices in three sets $V_1\cup V_2\cup V_3=V$.
+- Construct a tripartite graph $H$ with:
+    - one vertex $v_X$ for every subset $X\subseteq V_1$
+    - one vertex $v_Y$ for every subset $Y\subseteq V_2$ 
+    - one vertex $v_Z$ for every subset $Y\subseteq V_3$. 
+- $H$ now has size $N=3\cdot 2^{n/3}$.
+Now add the following edges:
+    - A weighted edge between $v_X$ and $v_Y$ with a weight equal to the number of edges in $G[X\cup Y]$ that have at least on endpoint in $X$.
+    - A weighted edge between $v_Y$ and $v_Z$ with a weight equal to the number of edges in $G[Y\cup Z]$ that have at least on endpoint in $Y$.
+    - A weighted edge between $v_Z$ and $v_X$ with a weight equal to the number of edges in $G[Z\cup X]$ that have at least on endpoint in $Z$.
+- We've now created a graph where a triangle with a total weight of $r$ in $H$ corresponds to an induced graph with $r$ edges in $G$.
+- Now, in a weighted graph where the integers are in the range $[0,1,M]$ we can reduce to triangle counting in an unweighted graph by iterating all possible combinations of $m_1 + m_2 + m_3 = r$. The number of these will be the number of triangles in the original graph with weight $r$.
+
+We need to count triangles in $O(M^3)$ graphs with each taking $O(N^\omega)=O(2^\frac{\omega n}{3}=O(1.73^n)$ time
+
+So.. the algorithm reduces to:
+
+- Construct a large graph $H$
+- Loop all values for $m_1+m_2+m_3=r$ and compute matrix multiplications to count triangles equal to $a(r,0)$ and $a(r,1)$.
+- Then compute the number of perfect matchings as:
+$$
+\sum_{r=1}^{|E|}(a(r,0)-a(r,1))r^{n/2}
+$$
+
+This runs in $O(1.73^n)$ time and $O(2^{2n/3})$ space.
+
+---
+> Q: How can you speed this up on bipartite graphs, and what are the structures counted there?
+
+The permanent of a $0/1$ square matrix is the number of perfect matchings in a bipartite graph. The permanent can by Ryser's algorithm be computes as:
+$$
+per(A)=\sum_{X\subseteq[n]}(-1)^{n-|X|}\prod_{i=1}^n\left(\sum_{j\in X}A_{ij}\right)
+$$
+
+The permanent differs from the determinant by not accounting for the sign of the permutation.
+
+Calculating the permanent takes $O(2^nn^2)$ time but $n$ is now only half the size of the original graph.
+
+---
+> Q: Consider an n-vertex graph G. 
+
+> _Q: How is the chromatic number of G defined? 
+
+Chromatic number is defined as: What is the smallest number of colors needed to color the vertices so that no adjacent pair of vertices have the same color?
+
+- A graph with chromatic number 1 has no edges as all vertices can be colored the same.
+- A graph with chromatic number 2 is bipartite.
+- A graph with chromatic number $n$ is complete.
+
+> _Q: How can you compute the chromatic number in $O(3^n)$ time? The approach we’ve studied reduces the problem to counting certain structures. What are these structures and how fast can you count them?
+
+We can use independent sets to solve the chromatic number problem. An independent set is a set of vertices where no two vertices are connected by an edges. So every color class is an independent set in the graph.
+
+- Let the ground set $U$ be the vertices of the graph.
+- Let $F$ be the independent sets in the graph.
+- If $U$ can be convered by $k$ independent sets, then the chromatic number is $k$ or below.
+- The smallest $k$ is the chromatic number.
+
+We can do the calculation via induced subgraphs. First define $t(X)$ for a subset $X\subseteq V$ as the number of independent sets in the induced graph $G[X]$, then:
+
+- Precompute $t(X)$ for all $X\subseteq V$.
+- Set $k=1$
+- While true:
+    - Compute $r=\sum_{X\subseteq V}(-1)^{n-|X|}t(X)^k$
+    - If $r>0$ then $k$ is the chromatic number.
+    - Increment $k$
+
+The running time of this is $O(2^nn)$.
