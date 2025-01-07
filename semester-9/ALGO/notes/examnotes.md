@@ -1033,7 +1033,6 @@ The Sparsification Lemma has several important implications and applications:
 One of the most important applications of the Sparsification Lemma is in proving that 3-SAT cannot be solved in sub-exponential time unless ETH fails. The lemma allows us to assume that 3-SAT instances are sparse (with $O(n)$ clauses), which makes it easier to analyze the problem and derive lower bounds.
 
 ---
-
 > Q: Describe the Orthogonal Vectors problem.
 
 Given two sets $L$ and $R$ of $n$ size vectors from $\{0,1\}^d$ with $d=\text{polylog}(n)$, the problem is to determine if there is a pair of vectors $u\in L$ and $v\in R$ such that $u\cdot v=0$. This generally takes $O(n^2)$ time to check.
@@ -1078,7 +1077,7 @@ We once again reduce to a CNF instance:
 - Add an edge from an assignment vertex $(a_i, i)$ to the vertex representing clause $c_j$ if the assignment $a_i$ satisfies the clause $c_j$.
 
 
-## Inclusion/Exclusion
+## Inclusion/Exclusion (Lecture 11 and 12)
 > Q: State and explain the inclusion-exclusion principle.
 
 The formal definition is, given $n$ subsets $A_1,\dots,A_n\subseteq U$ of a ground set $U$, then the size of the union of the sets is:
@@ -1262,3 +1261,119 @@ We can do the calculation via induced subgraphs. First define $t(X)$ for a subse
     - Increment $k$
 
 The running time of this is $O(2^nn)$.
+
+# Graph Structure
+## Cordal graphs (Lecture 13, 14 and 15)
+> Q: What is a chordal graph and what is an interval graph?
+
+**Interval Graphs:**
+
+An interval graph is a graph that can be represented on a real line. Each vertex corresponds to an interval, fx an airport schedule. And two vertices are adjacent if and only if their intevals overlap. Formally stated as:
+
+An interval model $I$ for a graph $G$ is a collection of intervals on the real line $I_1, I_2, \dots, I_n$ such that $v_iv_j\in E(G) \iff I_i\cap I_j\neq \emptyset$. The graph $G$ is an interval graph if it has an interval model.
+
+Fx. a square is not an interval graph.
+
+A feature of interval graphs is that a set of intervals that do not overlap is an independent set in the graph.
+
+**Perfect Elimination Ordering:**
+
+What is crucial to interval graphs is the order in which we process the vertices. Specifically we have to process them via a perfect elimination ordering. A perfect elimination ordering is an ordering of the vertices $v_1,v_2, \dots,v_n$ in $V(G)$ such that the neighbours of $v_i$ in the induced subgraph $G[\{v_1,\dots, v_{i-1}\}]$ form a clique.
+
+Denote the neighbours of a vertex $v$ as $N(v)$. Then if $N(v_n)$ is a clique in $G$ the $v_n$ is called a simplicial vertex.
+
+**Chordal Graphs:**
+
+A graph is chordal if every cycle of length 4 or more has a chord. A chord is an edge that connects two non-consecutive vertices in the cycle. Say the edge in a square that makes it 2 triangles.
+
+This means a chordal graph has no induced cycles of length 4 or more.
+
+A graph is chordal if and only if it has a perfect elimination ordering.
+
+All interval graphs are chordal graphs, but not all chordal graphs are interval graphs. This also means that an inteval graph has a perfect elimination ordering.
+
+---
+> Q: Show that every interval graph is a chordal graph.
+
+If suffices to show that every interval graph has a perfect elimination ordering.
+
+Observe that the cycle graph on $i$ vertices called $C_i$ does not have a perfect elimination ordering for any $i\geq 4$. This is because there is no simplicial vertex in $C_i$.
+
+So, the second observation then is that if a graph has $C_i$ as an induced subgraph, then it does not have a perfect elimination ordering. 
+
+Proof: Let $p_1,p_2,\dots,p_i$ be the vertices of the cycle, and assume for a contradiction that $G$ has a perfect eleimination ordering. The let $p_j$ be the rightmost vertex of the cycle in the perfect elimination ordering. That is, all vertices $\{p_1,p_2,\dots,p_i\}\setminus\{p_j\}$ appear before $p_j$ in the perfect elimination ordering. This leads to a contradiction since $p_{j-1}p_{j+1}\notin E(G)$ and both $p_{j-1}$ and $p_{j+1}$ appear before $p_j$ in the perfect elimination ordering.
+
+---
+> Q: Show that a graph is chordal if and only if it has a perfect elimination ordering.
+
+Let $G$ be a chordal graph. We want to show that $G$ has a perfect elimination ordering.
+
+Note that for any $v\in V(G)$, the graph $G-v$ is still chordal as we can never introduce a cycle by removing a vertex. 
+
+It suffices then that if $G$ is chordal, then $G$ has at least one simplicial vertex. We can remove the simplicial vertices one by one from $G$ to obtain the perfect elimination ordering. This would prove that $G$ has a perfect elimination ordering.
+
+---
+> Q: Give a polynomial time algorithm to solve the Graph Coloring problem on chordal graphs. Argue for the correctness of the algorithm. What is the running time?
+
+**Algorithm:**
+
+An interesting property of graph coloring on chordal graphs, is that the chromatic number (described earlier) is equal to the largest clique in the graph. We can solve the problem as:
+
+- Given a chordal graph $G=(V,E)$
+- Find a perfect elminiation ordering $v_1,v_2,\dots,v_n$ of $V(G)$
+    - The guarantee here is that every vertex $v\inN(v_1)$ after $v_1$ in the ordering form a clique.
+- Color the vertices in reverse order $v_n,v_{n-1},\dots,v_1$ of the perfect elimination ordering. For each vertex $v_i$ assign the smallest color not used by any of its neighbours $N(v_i)$.
+- Output the colors. The chromatic number is the largest color used.
+
+**Correctness:**
+
+The correctness of the algorithm follows from the properties of chordal graphs and perfect elimination orderings. Firstly, since it's a chordal graph it must have a perfect elimination ordering. This ordering ensures that when processing a vertex $v_i$ it's neighbours appear after it in the form of a clique.
+
+We are sure to output an optimal coloring since we always assign the smallest color not used by any of the neighbours of $v_i$. As we process them in the order of a perfect elimination ordering then the number of colors required for $v_i$ and it's neighbours is at most the size of it's clique.
+
+By assigning the smallest color every time, then we ensure that no two adjacencent vertices have the same color.
+
+**Running Time:**
+
+Using lexicographic breadth-first search due to Tarjan et al. we can find the PEO in $O(n+m)$ time.
+
+The coloring algorithm runs in $O(n+m)$ time as well, since for each vertex we have to check the colours of it's neighbours.
+
+The total running time is $O(n+m)$.
+
+---
+> Q: What is a clique tree for a chordal graph? Show how to construct a clique tree for a chordal graph in polynomial time.
+
+**Definition:**
+
+A clique tree for a chordal graphs is a tree $T$ with the following properties:
+
+- Each node in $T$ corresponds to a maximal clique in the chordal graph $G$.
+- For every vertex $v\in V(G)$, the set of nodes in $T$ whose cliques contain $v$ form a connected subtree in $T$.
+- The intersection of any two cliques $C_i$ and $C_j$ in $G$ is contained in every clique on the path between the nodes $i$ and $j$ in $T$.
+
+**Construction:**
+
+We can construct a clique tree for a chordal graph in polynomial time using it's perfect elimination ordering:
+
+- Find a perfect elimination ordering $v_1,v_2,\dots,v_n$ of $V(G)$.
+- Find all maximal cliques by iterating over the vertices and savind the cliques formed by each vertex and it's neighbours that appear later in the ordering. A maximal clique is a clique that cannot have more vertices from $V$ added to it.
+- Construct a graph $H$ where each maximal clique is a vertex and two vertices are connected if the corresponding cliques intersect on at least one vertex
+- Assign a weight to each edge in $H$ equal to the number of vertices in the intersection of the corresponding cliques. Formally $w(C_i,C_j)=|C_i\cap C_j|$.
+- Compute a maxmimum spanning tree of $H$ using Kruskal's algorithm.
+- The maximum spanning tree is the clique tree.
+
+**Running Time:**
+
+- Finding the perfect elimination ordering takes, as before, $O(n+m)$ time.
+- Finding the maximal cliques takes $O(n+m)$ time.
+- Constructing the graph $H$ takes $O(k^2)$ time, where $k$ is the number of maximal cliques.
+- Computing the maximum spanning tree takes $O(k^2\log k)$ time.
+
+The running time then is polynomial in the size of the graph, since the number of maximal cliques $k$ is at most $n$.
+
+
+## Solving problems on chordal graphs
+        - [ ] Describe how to solve the Maximum Independent Set problem on trees. How can you solve it on forests?
+        - [ ] What is a nice clique tree?
+        - [ ] Describe the Feedback Vertex Set problem. Give a polynomial time algorithm to solve this problem on chordal graphs using a nice clique tree. What is the running time of the algorithm?

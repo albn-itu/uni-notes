@@ -20,7 +20,7 @@
     - [x] [07-jan] ETH and SETH
     - [x] [07-jan] Inclusion/Exclusion
 - [ ] Graph Structure
-    - [ ] [09-jan] Chordal graphs
+    - [x] [09-jan] Chordal graphs
     - [ ] [09-jan] Solving problems on chordal graphs
 - [ ] Parameterized algorithms
     - [ ] [09-jan] Basics and Branching
@@ -108,7 +108,7 @@
         - [x] How can the algorithm for triangles be extended to detect cliques of a given size k? How does this compare to the brute-force algorithm?
         - [x] Can you use the clique algorithm to find/count independent sets?
 
-- [ ] Exponential-time algorithms
+- [x] Exponential-time algorithms
     - [x] ETH and SETH
         - [x] Explain the statement of the exponential-time hypothesis ETH and the strong exponential-time hypothesis SETH. Consider the following:
             - [x] Why do they imply P != NP?
@@ -128,19 +128,19 @@
             - [x] Describe the role of walks and paths.
             - [x] How can you count walks in polynomial time?
             - [x] Why do you need to count them, and why is deciding existence not enough?
-            - [ ] Briefly compare this approach to the Bellman-Held-Karp dynamic programming algorithm for Hamiltonian cycles. Also outline the DP algorithm.
+            - [x] Briefly compare this approach to the Bellman-Held-Karp dynamic programming algorithm for Hamiltonian cycles. Also outline the DP algorithm.
         - [x] Describe how to count perfect matchings in a graph using inclusion-exclusion. Which structures are counted in the individual terms of the inclusion-exclusion formula? How can you speed this up on bipartite graphs, and what are the structures counted there?
         - [x] Consider an n-vertex graph G.
             - [x] How is the chromatic number of G defined?
             - [x] How can you compute the chromatic number in time? The approach𝑂(3𝑛) we’ve studied reduces the problem to counting certain structures. What are these structures and how fast can you count them?
 
 - [ ] Graph Structure
-    - [ ] Chordal graphs
-        - [ ] What is a chordal graph and what is an interval graph?
-        - [ ] Show that every interval graph is a chordal graph.
-        - [ ] Show that a graph is chordal if and only if it has a perfect elimination ordering.
-        - [ ] Give a polynomial time algorithm to solve the Graph Coloring problem on chordal graphs. Argue for the correctness of the algorithm. What is the running time?
-        - [ ] What is a clique tree for a chordal graph? Show how to construct a clique tree for a chordal graph in polynomial time.
+    - [x] Chordal graphs
+        - [x] What is a chordal graph and what is an interval graph?
+        - [x] Show that every interval graph is a chordal graph.
+        - [x] Show that a graph is chordal if and only if it has a perfect elimination ordering.
+        - [x] Give a polynomial time algorithm to solve the Graph Coloring problem on chordal graphs. Argue for the correctness of the algorithm. What is the running time?
+        - [x] What is a clique tree for a chordal graph? Show how to construct a clique tree for a chordal graph in polynomial time.
     - [ ] Solving problems on chordal graphs
         - [ ] Describe how to solve the Maximum Independent Set problem on trees. How can you solve it on forests?
         - [ ] What is a nice clique tree?
