@@ -23,8 +23,8 @@
     - [x] [09-jan] Chordal graphs
     - [x] [09-jan] Solving problems on chordal graphs
 - [ ] Parameterized algorithms
-    - [ ] [09-jan] Basics and Branching
-    - [ ] [09-jan] Kernelization
+    - [x] [09-jan] Basics and Branching
+    - [ ] [10-jan] Kernelization
     - [ ] [10-jan] Treewidth
     - [ ] [10-jan] Color-coding
 - [ ] Approximation algorithms
@@ -147,12 +147,12 @@
         - [x] Describe the Feedback Vertex Set problem. Give a polynomial time algorithm to solve this problem on chordal graphs using a nice clique tree. What is the running time of the algorithm?
 
 - [ ] Parameterized algorithms
-    - [ ] Basics and Branching
-        - [ ] What is a parameterized problem? What is an FPT algorithm? For which parameter choices does an FPT algorithm run in polynomial time?
-        - [ ] Describe how to solve the Vertex Cover problem in running time, where k is the𝑂(2𝑘𝑛) solution size.
-        - [ ] How can you improve the running time of the above algorithm?
-        - [ ] How can we solve Independent Set on 3-regular graphs in time ?𝑂(4𝑘𝑛)
-        - [ ] Define a tournament. How can we solve Feedback Vertex Set on Tournaments in time ?𝑂(3𝑘𝑛3)
+    - [x] Basics and Branching
+        - [x] What is a parameterized problem? What is an FPT algorithm? For which parameter choices does an FPT algorithm run in polynomial time?
+        - [x] Describe how to solve the Vertex Cover problem in running time, where k is the𝑂(2𝑘𝑛) solution size.
+        - [x] How can you improve the running time of the above algorithm?
+        - [x] How can we solve Independent Set on 3-regular graphs in time ?𝑂(4𝑘𝑛)
+        - [x] Define a tournament. How can we solve Feedback Vertex Set on Tournaments in time ?𝑂(3𝑘𝑛3)
     - [ ] Kernelization
         - [ ] What is a kernel for a parameterized problem?
         - [ ] Argue that a parameterized problem has a kernel if and only if it is FPT

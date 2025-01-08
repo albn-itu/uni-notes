@@ -1489,3 +1489,133 @@ For each bag $B_t$ we create subsets of size 0,1 and 2. This is equivalent to $|
 
 A nice clique tree contains $O(n^2)$ bags, therefore the runtime for computing the DP table is $O(n^2\cdot n^2)=O(n^4)$
 
+# Parameterized algorithms
+## Basics and Branching
+> Q: What is a parameterized problem? What is an FPT algorithm? For which parameter choices does an FPT algorithm run in polynomial time?
+
+**Parameterized Problem:**
+
+A parameterized problem is a decision problem where input has two parts. The input instance and a parameter. The parameter is typically a number or some function/property of the input instance. Take the Vertex Cover problem, the input instance is a graph $G$ and the parameter is an integer $k$. The question is then: Does $G$ have a vertex cover of size at most $k$?
+
+**FPT Algorithm:**
+
+A Fixed-Parameter Tractable (FPT) algorithm is an algorithm that solves a parameterized problem in time $f(k)\cdot \text{poly}(n)$ or $f(k)\cdot n^c$ where $f$ is a function that depends on the parameter $k$, $poly(n)$ or $n^c$ is a polynomial function of the size of the input instance $n$ and $k$ is the parameter.
+
+The key idea is that the exponential or super-polynomial complexity is confined to the parameter $k$, while the dependence on the input size $n$ remains polynomial. This makes FPT algorithms efficient for small values of $k$, even if the problem is NP-hard in general.
+
+**For which parameter choices does an FPT algorithm run in polynomial time:**
+
+When $k$ is fixed to a constant or a small value, then the function $f(k)$ becomes a constant and the running time simplifies to $poly(n)$ or $n^c$. This is when the FPT algorithm runs in polynomial time in the size of the input.
+
+Fx. if $k$ is fixed to 2, then the running time of the FPT algorithm is $O(n^c)$. 
+
+Fx. if $k=O(\log(n))$ then the running time of the FPT algorithm is $O(n^c\log(n))$, which is still polynomial in the size of the input. So if $k$ just grows slowly then it's also polynomial. 
+
+Problems only arise when $k$ starts growing directly as a function of $n$, fx $k=n$ or $k=n^2$.
+
+---
+> Q: Describe how to solve the Vertex Cover problem in running time $O(2^kn)$, where k is the solution size.
+
+The Vertex Cover problem states that given a graph $G=(V,E)$ and a parameter integer $k$, determine whether there exists a subset of vertices $S\subseteq V$ of size at most $k$ such that every edge in $E$ is incident to at least one vertex in $S$.
+
+Within FPT we can solve this using a bounded search tree. The idea is to branch on the vertices of the graph, and at each step, we either include or exclude the vertex in the vertex cover. The branching factor is 2, as we have two choices for each vertex: include it in the vertex cover or exclude it.
+
+Specifically:
+
+- Let $G=(V,E)$ be the input graph and $k\geq 0$ be the parameter.
+- Check the base cases:
+    - If $k=0$, return True if $E=\emptyset$ and False otherwise.
+    - If $E=\emptyset$, return True.
+    - If $k<0$ return False, the vertex cover doesn't exist
+- Recursive case while $k>0$:
+    - Pick an edge $(u,v)\in E$. (For the vertex cover to exist either $u$ or $v$ must be in it)
+    - Branch on two cases:
+        - Include $u$ in the vertex cover and recursively solve the problem on $G-u$ with $k-1$.
+        - Include $v$ in the vertex cover and recursively solve the problem on $G-v$ with $k-1$.
+    - If any of the branches return True, return True, otherwise return False.
+
+We can quickly see that the algorithm branches on 2 cases and that the depth of the recursion is at most $k$, therefore there must be at most $2^k$ leaves in the search tree. At each node in the search tree, we spend, in the worst case, $O(n)$ time to remove a vertex and it's edges. Thus the running time of the algorithm is $O(2^kn)$.
+
+---
+> Q: How can you improve the running time of the above algorithm?
+
+**Kernelization:**
+
+Kernelization is a technique used to reduce the size of the input instance while preserving the solution. The resulting smaller instance, called the kernel, should depend only on the parameter $k$.
+
+For the Vertex Cover problem we can start by removing all vertices without any edges, so called isolated vertices. These vertices would never be part of the solution anyway.
+
+Secondly, we can immediatly select all high-degree vertices, specifically all vertices with a degree $>k$ since they must be in the vertex cover, if they're not then all it's incident neighbours must be included, exceeding the size of $k$. This step also reduces the size of $k$ and thereby the size of the search tree.
+
+Thirdly, remove all vertices with degree 1. These vertices must have their neighbours in the vertex cover, so just add the neighbour and remove the vertex. This works both for cases where its simply $a--b$ and where the neighbours are part of a larger structure.
+
+The resulting size of the kernel is $O(k^2)$ edges and vertices. This is a polynomial kernel.
+
+The resulting running time then goes from $O(2^kn)$ to $O(2^k k^2)+O(n+m)$ since it takes $O(n+m)$ time to go through the Kernelization step. Also remember that $k$ may have been reduced in the kernelization step.
+
+---
+> Q: How can you solve the Independent Set problem on 3-regular graphs in running time $O(4^kn)$?
+
+The Independent Set problem is the problem of finding the largest possible set of vertices in a graph such that no two vertices are adjacent. The problem is NP-hard in general, but we can solve it on 3-regular graphs in time $O(4^kn)$ using a bounded search tree.
+
+The idea is to branch on the vertices of the graph, and at each step, we either include or exclude the vertex in the independent set. The branching factor is 2, as we have two choices for each vertex: include it in the independent set or exclude it. Specifically:
+
+- Let $G=(V,E)$ be the input graph and $k\geq 0$ be the parameter.
+- Check the base cases:
+    - If $k\leq 0$ return True, a set of size 0 is always independent.
+    - If $|V|=0$ return True if $k=0$ and False otherwise.
+- Recursive case while $k>0$:
+    - Pick a vertex $v\in V$ of degree 3 (they all are).
+    - Branch on two cases:
+        - Include $v$ in the independent set and compute $G'$ by removing $v$ and its neighbours from $G$. Recursively solve the problem on $G'$ with $k-1$.
+        - Exclude $v$ from the independent set and recursively solve the problem on $G-v$ with $k$.
+    - If any of the branches return True, return True, otherwise return False.
+
+The running time here is slightly more complicated. In the first case we remove $v$ AND it's neighoburs, which is at most 4 vertices. In the second case we remove $v$ therefore only removing 1, but not reducing $k$. The recurrence relation then is:
+
+$$
+T(k,n) = T(k-1, n-4) + T(k, n-1)
+$$
+
+Solving the recurrence rlation gives a branching factor of approximately 4, and a depth of $k$. Therefore the running time is $O(4^kn)$.
+
+---
+> Q: Define a tournament. How can we solve Feedback Vertex Set on Tournaments in time $O(3^kn^3)$?
+
+**Tournament:**
+
+A tournament is a directed graph retrieved by assigning a direction to each edge in an undirected complete graph. Simplified, for every pair of vertices $u$ and $v$ there is exactly one directed between them, it can be in either direction. Thereby a complete graph is turned into a non complete graph when turned into a tournament. These graphs can be used to model competitions such as round robin tournaments.
+
+**Feedback Vertex Set on Tournaments:**
+
+The Feedback Vertex Set problem is the problem of finding the smallest set of vertices in a graph such that the removal of these vertices makes the graph acyclic. The size of the set of vertices must be at most $k$. The problem is NP-hard in general, but we can solve it on tournaments in time $O(3^kn^3)$ using, once again, a bounded search tree.
+
+- Let $G=(V,E)$ be the input tournament and $k\geq 0$ be the parameter.
+- Check the base cases:
+    - If $k<0$, return False, the feedback vertex set doesn't exist.
+    - If $G$ is acyclic, return True.
+- Recursive case while $k>0$:
+    - Find a directed cycle $C$ in $G$. If no cycle exists, return True
+    - Let $C$ be a directed cycle of length 3. It is guaranteed that such a cycle exists in a tournament. Let $u,v,w$ be the vertices of the cycle.
+    - Branch:
+        - Include $u$ in the feedback vertex set and remove $u$ from the graph and recursively solve the problem on $G-u$ with $k-1$.
+        - Include $v$ in the feedback vertex set and remove $v$ from the graph and recursively solve the problem on $G-v$ with $k-1$.
+        - Include $w$ in the feedback vertex set and remove $w$ from the graph and recursively solve the problem on $G-w$ with $k-1$.
+    - If any of the branches return True, return True, otherwise return False.
+
+The algorithm will terminate when $k<0$ or the problem is solved. Once again let's calculate the running time. We know that the branching factor is 3, and the depth of the recursion is at most $k$. We can define the recurrence relation as:
+
+$$
+T(k,n) = 3T(k-1, n-3)
+$$
+
+Solving this gives a max amount of leaves of $O(3^k)$ but we must keep in mind that finding a cycle (triangle) in a graph takes $O(n^3)$ time using a brute-force algorithm, therefore the running time is $O(3^kn^3)$.
+
+
+---
+    - [ ] Kernelization
+        - [ ] What is a kernel for a parameterized problem?
+        - [ ] Argue that a parameterized problem has a kernel if and only if it is FPT
+        - [ ] What is a polynomial kernel?
+        - [ ] Give a kernel for Vertex Cover parameterized by the solution size k with vertices𝑂(𝑘2)
+        - [ ] Define the Edge Clique Cover problem. Give a kernel for Edge Clique Cover parameterized by the solution size k. Is this a polynomial kernel?
