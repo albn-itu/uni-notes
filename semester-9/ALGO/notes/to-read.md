@@ -19,9 +19,9 @@
 - [x] Exponential-time algorithms
     - [x] [07-jan] ETH and SETH
     - [x] [07-jan] Inclusion/Exclusion
-- [ ] Graph Structure
+- [x] Graph Structure
     - [x] [09-jan] Chordal graphs
-    - [ ] [09-jan] Solving problems on chordal graphs
+    - [x] [09-jan] Solving problems on chordal graphs
 - [ ] Parameterized algorithms
     - [ ] [09-jan] Basics and Branching
     - [ ] [09-jan] Kernelization
@@ -134,17 +134,17 @@
             - [x] How is the chromatic number of G defined?
             - [x] How can you compute the chromatic number in time? The approach𝑂(3𝑛) we’ve studied reduces the problem to counting certain structures. What are these structures and how fast can you count them?
 
-- [ ] Graph Structure
+- [x] Graph Structure
     - [x] Chordal graphs
         - [x] What is a chordal graph and what is an interval graph?
         - [x] Show that every interval graph is a chordal graph.
         - [x] Show that a graph is chordal if and only if it has a perfect elimination ordering.
         - [x] Give a polynomial time algorithm to solve the Graph Coloring problem on chordal graphs. Argue for the correctness of the algorithm. What is the running time?
         - [x] What is a clique tree for a chordal graph? Show how to construct a clique tree for a chordal graph in polynomial time.
-    - [ ] Solving problems on chordal graphs
-        - [ ] Describe how to solve the Maximum Independent Set problem on trees. How can you solve it on forests?
-        - [ ] What is a nice clique tree?
-        - [ ] Describe the Feedback Vertex Set problem. Give a polynomial time algorithm to solve this problem on chordal graphs using a nice clique tree. What is the running time of the algorithm?
+    - [x] Solving problems on chordal graphs
+        - [x] Describe how to solve the Maximum Independent Set problem on trees. How can you solve it on forests?
+        - [x] What is a nice clique tree?
+        - [x] Describe the Feedback Vertex Set problem. Give a polynomial time algorithm to solve this problem on chordal graphs using a nice clique tree. What is the running time of the algorithm?
 
 - [ ] Parameterized algorithms
     - [ ] Basics and Branching

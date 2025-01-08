@@ -1374,6 +1374,118 @@ The running time then is polynomial in the size of the graph, since the number o
 
 
 ## Solving problems on chordal graphs
-        - [ ] Describe how to solve the Maximum Independent Set problem on trees. How can you solve it on forests?
-        - [ ] What is a nice clique tree?
-        - [ ] Describe the Feedback Vertex Set problem. Give a polynomial time algorithm to solve this problem on chordal graphs using a nice clique tree. What is the running time of the algorithm?
+> Q: Describe the Maximum Independent Set problem. How can you solve it on trees? How can you solve it on forests?
+
+**Maximum Independent Set:**
+
+An independent set in a graph is a set of vertices where no two vertices are connected by an edge. The Maximum Independent Set problem is the problem of finding the largest possible independent set in a given graph. This is an NP-hard problem.
+
+**Solving on Trees:**
+
+The Maximum Independent Set problem can be solved using dynamic programming on trees. Consider the tree $T$ rooted in a vertex $r$. Then if we pick $v\in V(T)$ that is not a leaf then $\{v\}$ is a separator of $T$.
+
+A separator in a graph is a set of vertices $S\subseteq V(G)$ such that $G-S$ is disconnected. In a tree, a separator is a vertex that is not a leaf. That is, the removal of $v$ disconnects the tree. Indeed if there are no edges between vertices below $v$ then the rest of the vertices of $T$.
+
+Let $T_v$ be the subtree of $T$ induced by $v$ and the descendants of $v$. Now, the key idea of solving problems on trees is to understand how a solution intersects $T_v$. There are two cases:
+
+- A maximum independent set $I$ of $T$ contains $v$
+- A maximum independent set $I$ of $T$ does not contain $v$
+
+From this we can define our dynamic programming relations:
+
+- $dp[v, 1]$ is the size of the maximum independent set of $T_v$ that contains $v$.
+- $dp[v, 0]$ is the size of the maximum independent set of $T_v$ that does not contain $v$.
+
+We want to calculate $\max(dp[r, 0], dp[r, 1])$ where $r$ is the root of the tree. Our base case for a leaf is 
+
+- $dp[v, 1]=1$
+- $dp[v, 0]=0$
+
+Then let $v_1,\dots,v_q$ be the children of $v$. Then we can calculate the dynamic programming relations as:
+
+- $dp[v, 1]=1+\sum_{i=1}^q dp[v_i, 0]$ because if $v$ is in the solution then none of it's children can be.
+- $dp[v, 0]=\sum_{i=1}^q \max(dp[v_i, 0], dp[v_i, 1])$ because if $v$ is not in the solution then we can pick the maximum of the children.
+
+**Solving on Forests:**
+
+Since a forest is simply `a series of trees we can actually use the same algorithm. First find every tree, then for each tree run the DP algorithm above and sum the results. As the trees are disjoint the independent sets won't overlap, and it's therefore valid and safe to simply sum the results.
+
+**Solving on nice clique trees**
+
+See next question.
+
+---
+> Q: What is a nice clique tree?
+
+First, recall i clique tree is a tree $T$ where every node $X_t$ is a bag of vertices that form a clique in the graph $G$, then we call $G_t$ the subgraph induced by the vertices in $X_t$.
+
+A nice clique tree is a modified clique tree such that each node $t$ is one of the following:
+
+- A leaf node $t$ has no children and is empty, $X_t=\emptyset$.
+- An introduce node $t$ has one child $t'$. There then exists a vertex $v\in V(G)$ such that $X_t=X_{t'}\cup \{v\}$ where $v\notin X_{t'}$
+    - Simplified: $t$ adds a vertex $v$ that was not in the bag $t'$.
+- A forget node $t$ has one child $t'$. There then exists a vertex $v\in V(G)$ such that $X_t=X_{t'}\setminus \{v\}$ where $v\in X_{t'}$
+    - Simplified: $t$ removes a vertex $v$ that was in the bag $t'$.
+- A join node $t$ has two children $t_1$ and $t_2$. Then $X_t=X_{t_1}=X_{t_2}$
+    - Simplified: $t$ is a common ancestor of $t_1$ and $t_2$ and they all have the same bag.
+
+Now to solve the problem we revisit our DP relations, but define cases for each of the node types. First let $dp[t,S]$ be the size of the maximum independent set of $G_t$ that intersects $X_t$ precisely in $S$.
+
+- For a leaf node $t$ we have $dp[t,S]=0$ for all $S$.
+    - This is because a leaf node has no vertices.
+- For an introduce node $t$ let $v$ be the new vertex, then we have the following cases:
+    - $dp[t,\{v\}] = 1 + dp[t',\emptyset]$ because if $v$ is in the solution then none of the vertices in $t'$ can be.
+    - $dp[t,\{u\}] = dp[t',\{u\}]$ for all $u\neq v$ because if $v$ is not in the solution then just keep the results of $t'$.
+    - $dp[t,\emptyset] = dp[t',\emptyset]$ because if $v$ is not in the solution then just keep the results of $t'$.
+        - The latter cases could be written as: $dp[t,S] = dp[t',S]$ for all $S\subseteq X_t,|S|\leq 1$ and $S\neq \{v\}$.
+- For a forget node $t$ let $u\in X_t$ be all vertices of $t$ with $v$ being the forgotten vertex, then there are two cases:
+    - $dp[t,\{u\}] = dp[t',\{u\}]$ because if $u$ is in the solution, then it must also intersect $t'$ precisely at $\{u\}$.
+    - $dp[t,\emptyset] = max(DP[t', \{v\}, dp[t',\emptyset])$ because if $u$ is not in the solution then the solution either intersects $t'$ at $v$ or not at all.
+- For a join node $t$ we have two cases:
+    - $dp[t,\emptyset] = dp[t_1,\emptyset] + dp[t_2,\emptyset]$ because if the solution doesn't intersect $t$ then it must not intersect $t_1$ or $t_2$.
+    - $dp[t,\{v\}] = dp[t_1,\{v\}] + dp[t_2,\{v\}] -1$ foreach vertex $v\in X_t$, because if the solution intersects $v$ then it must intersect both $t_1$ and $t_2$ in that vertex. But since $v$ is counted in both branches, we must subtract 1.
+
+---
+> Q: Describe the Feedback Vertex Set problem. Give a polynomial time algorithm to solve this problem on chordal graphs using a nice clique tree. What is the running time of the algorithm?
+
+**Problem:**
+
+In the Minimum Feedback Vertex Set problem the input is a graph $G$ and the task is to compute the minimum size of a set $S \subseteq V(G)$ such that $G - S$ is acyclic. The goal is to find the smallest set of vertices that need to be removed to make the graph acyclic.
+
+**Algorithm:**
+
+We look at the complement of $S$, let's call this $C$. This complement should then be the largest acyclic graph $G'$. So what we are looking for is the largest induced forest on $G$.
+
+In a nice clique tree, $T$, every bag, $B$, contains a clique, therefore if a bag has 3 or more vertices in it, it must be a cycle, so we have to remove vertices until that is the case.
+
+To define our dynamic programming approach, we first define $t$ as the subtree rooted in the given node of the nice clique tree. Then the bag of said node is $B_t$. Then define $dp[t][S]$ as the largest induced forest that intersects the bag $X_t$ exactly in $S$. $S$ is every subset of size 2 or less of the nodes in the bag $B_t$.
+
+To create the DP table, we must then define a set of recurrence relations, split over each type of nice clique tree node:
+- **Leaf node** The leaf node is empty, and the largest possible induced forest on 0 vertices is 0, therefore: $dp[t][\emptyset] = 0$ 
+- **Introduce node** Let $v$ be the introduced vertex. Then there are 2 cases. Either $v$ is included in the forest, or excluded. So:
+$$
+dp[ t ][ S ] = \begin{cases}
+ dp[ t' ][ S \setminus \{v\} ]+1 &\text{if } v\in S\\
+ dp[ t' ][ S ] &\text{if } v\notin S
+\end{cases}
+$$
+- **Forget node** Let $v$ be the forgotten vertex and $t'$ be the child tree. Again there are 2 possibilities. Either exclude $v$ from the forest, in which case the intersection is just $S$. Or include $v$, in which case the intersection then becomes $S\cup \{v\}$. This raises an issue when working with subsets of size 2, as $|S\cup \{v\}|$ would be 3, to solve this assume that a non-existing DP table entry resolves to $-\infty$, therefore the entry for a subset of size 2 would just be the child trees entry. Formally: 
+$$
+dp[ t ][ S ] = \begin{cases}
+ \max\left(dp[ t' ][ S ],\ dp[ t' ][ S\cup \{v\} ]\right) &\text{if } |S| < 2\\
+ dp[ t' ][ S ] &\text{otherwise}
+\end{cases}
+$$
+- **Join node** Let $t_1$ and $t_2$ be the respective subtrees rooted in $t$. The DP value here should combine the result of both subtrees and then remove the overlap. The overlap must logically be equal to the size of the set $S$, since both subtrees must intersect in $S$, as they include the same vertices. Therefore the join node relation becomes:
+$$
+dp[ t ][ S ] = dp[ t_1 ][ S ] + dp[ t_2 ][ S ] - |S|
+$$
+
+To retrieve the result take the root node of the clique tree $r$ and take it's maxmimum DP value, $\max(dp[ r ][ S ])$. This is the size of the complement of the minimum feedback vertex set, therefore it must be subtracted from $|V(G)|$ to get the minimum feedback vertex set size. So $|V(G)|-\max(dp[ r ][ S ])$.
+
+**Running Time:**
+
+For each bag $B_t$ we create subsets of size 0,1 and 2. This is equivalent to $|{n \choose 0}|+|{n\choose 1}|+|{n \choose 2}|$ which resolves to $1+n+n^2$ so there are $O(n^2)$ subsets for each bag.
+
+A nice clique tree contains $O(n^2)$ bags, therefore the runtime for computing the DP table is $O(n^2\cdot n^2)=O(n^4)$
+
