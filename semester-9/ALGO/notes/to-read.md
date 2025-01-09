@@ -24,7 +24,7 @@
     - [x] [09-jan] Solving problems on chordal graphs
 - [ ] Parameterized algorithms
     - [x] [09-jan] Basics and Branching
-    - [ ] [10-jan] Kernelization
+    - [x] [10-jan] Kernelization
     - [ ] [10-jan] Treewidth
     - [ ] [10-jan] Color-coding
 - [ ] Approximation algorithms
@@ -153,12 +153,12 @@
         - [x] How can you improve the running time of the above algorithm?
         - [x] How can we solve Independent Set on 3-regular graphs in time ?𝑂(4𝑘𝑛)
         - [x] Define a tournament. How can we solve Feedback Vertex Set on Tournaments in time ?𝑂(3𝑘𝑛3)
-    - [ ] Kernelization
-        - [ ] What is a kernel for a parameterized problem?
-        - [ ] Argue that a parameterized problem has a kernel if and only if it is FPT
-        - [ ] What is a polynomial kernel?
-        - [ ] Give a kernel for Vertex Cover parameterized by the solution size k with vertices𝑂(𝑘2)
-        - [ ] Define the Edge Clique Cover problem. Give a kernel for Edge Clique Cover parameterized by the solution size k. Is this a polynomial kernel?
+    - [x] Kernelization
+        - [x] What is a kernel for a parameterized problem?
+        - [x] Argue that a parameterized problem has a kernel if and only if it is FPT
+        - [x] What is a polynomial kernel?
+        - [x] Give a kernel for Vertex Cover parameterized by the solution size k with vertices𝑂(𝑘2)
+        - [x] Define the Edge Clique Cover problem. Give a kernel for Edge Clique Cover parameterized by the solution size k. Is this a polynomial kernel?
     - [ ] Treewidth
         - [ ] Define the treewidth of a graph. Give examples for graph families with small and large treewidth (without proofs). Sketch the tree-decomposition for a grid.
         - [ ] What is a nice tree-decomposition? Why is it useful?

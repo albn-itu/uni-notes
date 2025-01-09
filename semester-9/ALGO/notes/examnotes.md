@@ -1611,11 +1611,128 @@ $$
 
 Solving this gives a max amount of leaves of $O(3^k)$ but we must keep in mind that finding a cycle (triangle) in a graph takes $O(n^3)$ time using a brute-force algorithm, therefore the running time is $O(3^kn^3)$.
 
+## Kernelization
+> Q: What is a kernel for a parameterized problem?
+
+A kernel is the result of preprocessing the input instance. Essentially the kernelization step solves the easy parts of the problem efficiently such that the hard parts, the core problem, can be solved more easily. The kernelization process is usually a polynomial-time algorithm.
+
+Specifically, kernelization is the process of transforming an instance $(I, k)$ of a parameterized problem into a smaller instance $(I', k')$ such that:
+
+- $(I, k)$ is a "yes" instance if and only if $(I', k')$ is a "yes" instance.
+- The size of $I'$ is bounded by a function $f(k)$ (kernel size).
+- The reduction is performed in polynomial time with respect to the input size $n$.
+
+The function $f(k)$ determines the size of the kernel. If $f(k)$ is polynomial in $k$, the problem is said to admit a polynomial kernel. If $f(k)$ is exponential or larger, the kernel is considered less efficient.
+
+Consider the Vertex Cover problem above for an example.
 
 ---
-    - [ ] Kernelization
-        - [ ] What is a kernel for a parameterized problem?
-        - [ ] Argue that a parameterized problem has a kernel if and only if it is FPT
-        - [ ] What is a polynomial kernel?
-        - [ ] Give a kernel for Vertex Cover parameterized by the solution size k with vertices𝑂(𝑘2)
-        - [ ] Define the Edge Clique Cover problem. Give a kernel for Edge Clique Cover parameterized by the solution size k. Is this a polynomial kernel?
+> Q: Argue that a parameterized problem has a kernel if and only if it is FPT.
+
+A Fixed-Parameter Tractable (FPT) algorithm is an algorithm that solves a parameterized problem in time $f(k)\cdot \text{poly}(n)$ or $f(k)\cdot n^c$ where $f$ is a function that depends on the parameter $k$, $poly(n)$ or $n^c$ is a polynomial function of the size of the input instance $n$ and $k$ is the parameter.
+
+Let's argue for 2 different cases 
+
+**If a parameterized problem is FPT, then it has a kernel**
+
+Suppose a parameterized problem $\Pi$ is FPT. This means there exists an algorithm that solves any instance $(I, k)$ of $\Pi$ in time $O(f(k) \cdot n^c)$ for some function $f$ and constant $c$.
+
+To show that $\Pi$ has a kernel, we need to construct a polynomial-time algorithm that reduces $(I, k)$ to an equivalent instance $(I', k')$ whose size is bounded by a function of $k$.
+
+1. Run the FPT algorithm for $O(f(k) \cdot n^c)$ steps.
+2. If the algorithm terminates within this time, it either accepts or rejects the instance. In this case:
+   - If the instance is accepted, reduce it to a trivial "yes" instance of constant size.
+   - If the instance is rejected, reduce it to a trivial "no" instance of constant size.
+3. If the algorithm does not terminate within $O(f(k) \cdot n^c)$ steps, then $n$ must be bounded by a function of $k$. This is because:
+   - If $n > f(k)$, the running time $O(f(k) \cdot n^c)$ would exceed $O(n^{c+1})$, which is polynomial in $n$. However, since the problem is FPT, the algorithm must halt within $O(f(k) \cdot n^c)$ time, implying $n \leq f(k)$.
+   - Thus, the original instance $(I, k)$ already has size $n \leq f(k)$, so no further reduction is needed.
+
+This is the argument the book makes, if we flip it around we can argue the other way.
+
+
+**If a parameterized problem has a kernel, then it is FPT**
+
+Suppose a parameterized problem $\Pi$ has a kernel. This means there exists a polynomial-time algorithm that reduces any instance $(I, k)$ of $\Pi$ to an equivalent instance $(I', k')$ such that:
+- $|I'| \leq f(k)$ for some function $f$, and
+- $k' \leq g(k)$ for some function $g$.
+
+After kernelization, the size of the instance $I'$ depends only on the parameter $k$, not on the original input size $n$.
+
+We can now solve the kernelized instance $(I', k')$ using any brute-force or exact algorithm. Since $|I'| \leq f(k)$, solving $(I', k')$ takes time $h(f(k))$ for some function $h$.
+
+The total time complexity is:
+$$
+\text{Time for kernelization} + \text{Time to solve the kernelized instance}.
+$$
+- Kernelization takes polynomial time, say $O(n^c)$ for some constant $c$.
+- Solving the kernelized instance takes $h(f(k))$, which depends only on $k$.
+
+Thus, the overall time complexity is $O(n^c + h(f(k)))$, which is FPT because the exponential part depends only on $k$.
+
+In both cases, the instance $(I, k)$ is reduced to an equivalent instance $(I', k')$ whose size is bounded by a function of $k$. This satisfies the definition of a kernel.
+
+The two directions together prove that a parameterized problem has a kernel **if and only if** it is FPT. This equivalence is a fundamental result in parameterized complexity and highlights the close relationship between kernelization and fixed-parameter tractability.
+
+---
+> Q: What is a polynomial kernel?
+
+A kernel is the result of preprocessing the input instance. Essentially the kernelization step solves the easy parts of the problem efficiently such that the hard parts, the core problem, can be solved more easily. The kernelization process is usually a polynomial-time algorithm.
+
+Specifically, kernelization is the process of transforming an instance $(I, k)$ of a parameterized problem into a smaller instance $(I', k')$ such that:
+
+- $(I, k)$ is a "yes" instance if and only if $(I', k')$ is a "yes" instance.
+- The size of $I'$ is bounded by a function $f(k)$ (kernel size).
+- The reduction is performed in polynomial time with respect to the input size $n$.
+
+The function $f(k)$ determines the size of the kernel. If $f(k)$ is polynomial in $k$, the problem is said to admit a polynomial kernel. If $f(k)$ is exponential or larger, the kernel is considered less efficient.
+
+---
+> Q: Give a kernel for the Vertex Cover problem parameterized by the solution size k with $O(k^2)$ vertices.
+
+The Vertex Cover problem states that given a graph $G=(V,E)$ and a parameter integer $k$, determine whether there exists a subset of vertices $S\subseteq V$ of size at most $k$ such that every edge in $E$ is incident to at least one vertex in $S$.
+
+Within FPT we can solve this using a bounded search tree. The idea is to branch on the vertices of the graph, and at each step, we either include or exclude the vertex in the vertex cover. The branching factor is 2, as we have two choices for each vertex: include it in the vertex cover or exclude it.
+
+Specifically:
+
+- Let $G=(V,E)$ be the input graph and $k\geq 0$ be the parameter.
+- Check the base cases:
+    - If $k=0$, return True if $E=\emptyset$ and False otherwise.
+    - If $E=\emptyset$, return True.
+    - If $k<0$ return False, the vertex cover doesn't exist
+- Recursive case while $k>0$:
+    - Pick an edge $(u,v)\in E$. (For the vertex cover to exist either $u$ or $v$ must be in it)
+    - Branch on two cases:
+        - Include $u$ in the vertex cover and recursively solve the problem on $G-u$ with $k-1$.
+        - Include $v$ in the vertex cover and recursively solve the problem on $G-v$ with $k-1$.
+    - If any of the branches return True, return True, otherwise return False.
+
+We can quickly see that the algorithm branches on 2 cases and that the depth of the recursion is at most $k$, therefore there must be at most $2^k$ leaves in the search tree. At each node in the search tree, we spend, in the worst case, $O(n)$ time to remove a vertex and it's edges. Thus the running time of the algorithm is $O(2^kn)$.
+
+In terms of kernelization for the Vertex Cover problem we can start by removing all vertices without any edges, so called isolated vertices. These vertices would never be part of the solution anyway.
+
+Secondly, we can immediatly select all high-degree vertices, specifically all vertices with a degree $>k$ since they must be in the vertex cover, if they're not then all it's incident neighbours must be included, exceeding the size of $k$. This step also reduces the size of $k$ and thereby the size of the search tree.
+
+Thirdly, remove all vertices with degree 1. These vertices must have their neighbours in the vertex cover, so just add the neighbour and remove the vertex. This works both for cases where its simply $a--b$ and where the neighbours are part of a larger structure.
+
+The resulting size of the kernel is $O(k^2)$ edges and vertices, assuming it's a yes instance, since if there is more than $k^2$ edges the problem is unsolvable. This is a polynomial kernel.
+
+The resulting running time then goes from $O(2^kn)$ to $O(2^k k^2)+O(n+m)$ since it takes $O(n+m)$ time to go through the Kernelization step. Also remember that $k$ may have been reduced in the kernelization step.
+
+---
+> Q: Define the Edge Clique Cover problem. Give a kernel for Edge Clique Cover parameterized by the solution size k. Is this a polynomial kernel?
+
+**Edge Clique Cover:**
+
+Given a graph $G=(V,E)$ and a parameter $k$, the Edge Clique Cover problem is to determine whether there exists a set of $k$ cliques in $G$ such that every edge in $E$ is covered by at least one of the cliques.
+
+Recall that $N(v)$ is the set of neighbours of a vertex $v$. A clique is a set of vertices where every pair of vertices is connected by an edge. $N[v]=N(v)\cup \{v\}$ is the closed neighbourhood of $v$. Then apply the following rules:
+
+- Remove isolated vertices.
+- If there is an isolated edge $uv$, delete it and decrease $k$ by 1. Leaving $(G-\{u,v\}, k-1)$ 
+- If there is an edge $uv$ whose endpoints have exactly the same closed neighbourhood, that is $N[u]=N[v]$, delete $v$ and decrease $k$ by 1. Leaving $(G-v, k-1)$.
+    - The reason for this is that if $N[u]=N[v]$ then $u$ and $v$ can be treated the same in the final solution, so we just not to handle one of them. This bounds the size of the kernel and the vertices are called true twins.
+
+This emits a kernel with at most $2^k$ vertices. This follows from the claim that if $(G,k)$ is a reduced  yes-instance, on which none the reduction rules can be applied, then $|V(G)|\leq 2^k$. To prove this let $C_1,\dots,C_k$ be the edge clique cover of $G$, where to prove by contradiction $|V|\geq 2^k$. Assign each vertex $v\in V$ a binary vector $b_v$ of length $k$ where bit $i$, $1\leq i\leq k$, is 1 if $v\in C_i$ and 0 otherwise. Since there are only $2^k$ possible vectors there must be a case where $u\neq v$ but $b_u=b_v$. If $b_u$ and $b_v$ are zero vectors then they are eliminated when removing isolated vertices. If $b_u=b_v$ and $b_u$ is not the zero vector then $u$ and $v$ are in the same cliques, which would mean that they have the same neighbourhood, therefore either the first or the second reduction applies. So... if $|V|\geq 2^k$ then the reduction rules can be applied, which is a contradiction to the initial assumption that $G$ was reduced proving the claim.
+
+This is not a polynomial kernel, since the size of the kernel is exponential in $k$.
