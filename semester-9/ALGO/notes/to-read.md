@@ -22,11 +22,11 @@
 - [x] Graph Structure
     - [x] [09-jan] Chordal graphs
     - [x] [09-jan] Solving problems on chordal graphs
-- [ ] Parameterized algorithms
+- [x] Parameterized algorithms
     - [x] [09-jan] Basics and Branching
-    - [x] [10-jan] Kernelization
-    - [ ] [10-jan] Treewidth
-    - [ ] [10-jan] Color-coding
+    - [x] [09-jan] Kernelization
+    - [x] [10-jan] Treewidth
+    - [x] [10-jan] Color-coding
 - [ ] Approximation algorithms
     - [ ] [11-jan] Formalizing approximation problems
     - [ ] [11-jan] Approximating vertex-cover
@@ -146,7 +146,7 @@
         - [x] What is a nice clique tree?
         - [x] Describe the Feedback Vertex Set problem. Give a polynomial time algorithm to solve this problem on chordal graphs using a nice clique tree. What is the running time of the algorithm?
 
-- [ ] Parameterized algorithms
+- [x] Parameterized algorithms
     - [x] Basics and Branching
         - [x] What is a parameterized problem? What is an FPT algorithm? For which parameter choices does an FPT algorithm run in polynomial time?
         - [x] Describe how to solve the Vertex Cover problem in running time, where k is the𝑂(2𝑘𝑛) solution size.
@@ -159,22 +159,22 @@
         - [x] What is a polynomial kernel?
         - [x] Give a kernel for Vertex Cover parameterized by the solution size k with vertices𝑂(𝑘2)
         - [x] Define the Edge Clique Cover problem. Give a kernel for Edge Clique Cover parameterized by the solution size k. Is this a polynomial kernel?
-    - [ ] Treewidth
-        - [ ] Define the treewidth of a graph. Give examples for graph families with small and large treewidth (without proofs). Sketch the tree-decomposition for a grid.
-        - [ ] What is a nice tree-decomposition? Why is it useful?
-        - [ ] Describe how to solve the Maximum Independent Set problem on graphs of bounded treewidth.
-            - [ ] What running time do you achieve?
-            - [ ] Describe what information you store and how it is computed at the nodes of the tree-decomposition from previously computed information.
-            - [ ] How to use this to conclude Vertex Cover is FPT parameterized by treewidth?
-        - [ ] Describe how to solve the 3-coloring problem on graphs of bounded treewidth.
-        - [ ] Describe how to solve the MaxCut problem on graphs of bounded treewidth.
-        - [ ] Describe the idea of a win-win approach to design parameterized algorithms.
-        - [ ] What does it mean that H is a minor of G? What does the Excluded Grid Minor Theorem say? How is it helpful to the win-win approach?
-        - [ ] What does the Planar Excluded Grid Minor Theorem say? How is it helpful to design subexponential parameterized algorithms on planar graphs? (Recall, in this case subexponential algorithms are those with running time where k is the2𝑂( 𝑘)𝑛𝑂(1) solution size.
-        - [ ] How can we solve Vertex Cover and k-Path in time on planar graphs?2𝑂( 𝑘)𝑛
-    - [ ] Color-coding
-        - [ ] Describe the “color-coding” algorithm for deciding whether a graph has a path of length k. Make sure to explain the role of random colorings and walks. What changes if you want to decide the existence of cycles rather than paths?
-        - [ ] How can you determine the existence of a colorful k-path in a vertex-colored graph in time or ? (For the second running time, modify the DP for(𝑘 + 1)! · 𝑛𝑂(1) 2𝑘𝑛𝑂(1) Hamiltonian paths.)
+    - [x] Treewidth
+        - [x] Define the treewidth of a graph. Give examples for graph families with small and large treewidth (without proofs). Sketch the tree-decomposition for a grid.
+        - [x] What is a nice tree-decomposition? Why is it useful?
+        - [x] Describe how to solve the Maximum Independent Set problem on graphs of bounded treewidth.
+            - [x] What running time do you achieve?
+            - [x] Describe what information you store and how it is computed at the nodes of the tree-decomposition from previously computed information.
+            - [x] How to use this to conclude Vertex Cover is FPT parameterized by treewidth?
+        - [x] Describe how to solve the 3-coloring problem on graphs of bounded treewidth.
+        - [x] Describe how to solve the MaxCut problem on graphs of bounded treewidth.
+        - [x] Describe the idea of a win-win approach to design parameterized algorithms.
+        - [x] What does it mean that H is a minor of G? What does the Excluded Grid Minor Theorem say? How is it helpful to the win-win approach?
+        - [x] What does the Planar Excluded Grid Minor Theorem say? How is it helpful to design subexponential parameterized algorithms on planar graphs? (Recall, in this case subexponential algorithms are those with running time where k is the2𝑂( 𝑘)𝑛𝑂(1) solution size.
+        - [x] How can we solve Vertex Cover and k-Path in time on planar graphs?2𝑂( 𝑘)𝑛
+    - [x] Color-coding
+        - [x] Describe the “color-coding” algorithm for deciding whether a graph has a path of length k. Make sure to explain the role of random colorings and walks. What changes if you want to decide the existence of cycles rather than paths?
+        - [x] How can you determine the existence of a colorful k-path in a vertex-colored graph in time or ? (For the second running time, modify the DP for(𝑘 + 1)! · 𝑛𝑂(1) 2𝑘𝑛𝑂(1) Hamiltonian paths.)
 
 - [ ] Approximation algorithms
     - [ ] Formalizing approximation problems

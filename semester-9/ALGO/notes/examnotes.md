@@ -1732,3 +1732,235 @@ Recall that $N(v)$ is the set of neighbours of a vertex $v$. A clique is a set o
 This emits a kernel with at most $2^k$ vertices. This follows from the claim that if $(G,k)$ is a reduced  yes-instance, on which none the reduction rules can be applied, then $|V(G)|\leq 2^k$. To prove this let $C_1,\dots,C_k$ be the edge clique cover of $G$, where to prove by contradiction $|V|\geq 2^k$. Assign each vertex $v\in V$ a binary vector $b_v$ of length $k$ where bit $i$, $1\leq i\leq k$, is 1 if $v\in C_i$ and 0 otherwise. Since there are only $2^k$ possible vectors there must be a case where $u\neq v$ but $b_u=b_v$. If $b_u$ and $b_v$ are zero vectors then they are eliminated when removing isolated vertices. If $b_u=b_v$ and $b_u$ is not the zero vector then $u$ and $v$ are in the same cliques, which would mean that they have the same neighbourhood, therefore either the first or the second reduction applies. So... if $|V|\geq 2^k$ then the reduction rules can be applied, which is a contradiction to the initial assumption that $G$ was reduced proving the claim.
 
 This is not a polynomial kernel, since the size of the kernel is exponential in $k$.
+
+## Treewidth
+> Q: Define the treewidth of a graph. Give examples for graph families with small and large treewidth (without proofs). Sketch the tree-decomposition for a grid.
+
+Informally, threewidth is defined as the tree-likeness of a graph. Essentially, how much like a tree does the graph look like. 
+
+Formally the treewidth is defined as the size of the largest vertex set in a tree decomposition, or as the size of the largest clique minus 1.
+
+**Tree decomposition:**
+
+A tree decomposition of a graph $G$ is a tree $T$ where each node $X_1, \dots, X_t$ is a subset of $V$ with the following properties:
+
+- The union of all bags is the vertex set of $G$.
+- If $X_i$ and $X_j$ both contain a vertex $v$ then all nodes on the path between $X_i$ and $X_j$ must also contain $v$. So... the nodes containing $v$ form a connected subtree in $T$.
+- For every edge $uv$ in $G$ there exists a node $X_i$ containing both $u$ and $v$.
+
+Then the width of a tree decomposition is the size of the largest bag $X_i$ minus 1. The treewidth of the graph $G$ defined as $tw(G)$ is the minimum with over all possible tree decompositions of $G$.
+
+In terms of chordal graphs, the treewidth is the size of the largest clique that can contain $G$ with the smallest clique number. The clique cover number of a graph $G$ is the smallest number of cliques of G whose union covers the set of vertices V of the graph. 
+
+**Examples:**
+
+- The simplest is the tree, it has a treewidth of 1.
+- A cycle has a treewidth of 2.
+- A complete graph has a treewidth of $n-1$.
+- $m\time sn$ grid graphs have a treewidth of $min(m,n)$.
+- Cliques have a treewidth of $n-1$.
+
+**Sketch of a tree decomposition for a grid:**
+
+Consider a $2\times 2$ grid graph. Square grids have a tree decomposition of size $k$, firstly by our knowledge of the treewidth of a grid graph, we know that the treewidth of a $2\times 2$ grid is 2. We can quickly prove this by using the graph:
+
+```
+1 - 2
+|   |
+3 - 4
+```
+
+The bags would be $\{1,2,3\},\{2, 4, 3\}$ and the tree would look like:
+
+```
+\{1,2,3\}
+  |
+\{2,4,3\}
+```
+
+We can say that it is size $k$ since the first set ensures we never have to use vertex 1 again, the second vertex 2, and so on. This is a tree decomposition of size 2. Usually the tree decompositions of a square grid is a "snake" path through the grid, take a $2\times 4$ grid for example:
+
+```
+1 - 2 - 3 - 4
+|   |   |   |
+5 - 6 - 7 - 8
+```
+
+The bags would be $\{1, 2, 5\}, \{2, 3, 6\}, \{3,7,4\}, \{4, 7, 8\}$
+
+All grids compose into a line, same with cycles.
+
+---
+> Q: What is a nice tree-decomposition? Why is it useful?
+
+A nice tree-decomposition is a nice decomposition much like nice-clique trees such that:
+
+- A leaf node $t$ has no children and is empty, $X_t=\emptyset$. This also include the root node.
+- An introduce node $t$ has one child $t'$. There then exists a vertex $v\in V(G)$ such that $X_t=X_{t'}\cup \{v\}$ where $v\notin X_{t'}$
+    - Simplified: $t$ adds a vertex $v$ that was not in the bag $t'$.
+- A forget node $t$ has one child $t'$. There then exists a vertex $v\in V(G)$ such that $X_t=X_{t'}\setminus \{v\}$ where $v\in X_{t'}$
+    - Simplified: $t$ removes a vertex $v$ that was in the bag $t'$.
+- A join node $t$ has two children $t_1$ and $t_2$. Then $X_t=X_{t_1}=X_{t_2}$
+    - Simplified: $t$ is a common ancestor of $t_1$ and $t_2$ and they all have the same bag.
+
+This decomposition is very useful for describing algorithm details. If a tree decomposition exists with a width of at most $k$ then a nice tree decomposition exists with the same width and can be compute in time $O(k^2\cdot \max(|V(T), |V(G)|))$ they can be assumed to have $O(k|V(G))$ nodes.
+
+---
+> Q: Describe how to solve the Maximum Independent Set problem on graphs of bounded treewidth.
+
+**Maximum Independent Set:**
+
+An independent set in a graph is a set of vertices where no two vertices are connected by an edge. The Maximum Independent Set problem is the problem of finding the largest possible independent set in a given graph. This is an NP-hard problem.
+
+**Solution on graphs of bounded treewidth:**
+
+First, assume that we have the tree decomposition, and a nice tree decomposition at that. Call the decomposition $T$, a node in the tree $t$ and it's bag $X_t$.. Then store the table $dp[t][S]$ where $S$ is $S\subseteq X_t$ that stores the size of the largest independent set in the subgraph induced by $X_t$ that intersects exactly in $S$.
+
+Define for each node type:
+
+- Leaf node: $dp[t][\emptyset]=0$
+    - Since a leaf node is always empty
+- Introduce node: Let $v$ be the introduced vertex, then there 2 cases. If $v\in S$ then it must not be adjacent to any vertex in $S$, if not then it can be included in the independent set. So:
+    $$
+    dp[t][S] = \begin{cases}
+    dp[t'][S\setminus \{v\}]+1 &\text{if } v\in S\\
+    dp[t'][S] &\text{if } v\notin S
+    \end{cases}
+    $$
+- Forget node: Let $v$ be the forgotten vertex, the for each subset $S$ we can either exclude $v$ from the independent set, in which case the intersection is just $S$. Or include $v$, in which case the intersection then becomes $S\cup \{v\}$. Select the maximum of the two. So:
+    $$dp[t][S] = \max(dp[t'][S], dp[t'][S\cup \{v\}])$$
+- Join node: Let $t_1$ and $t_2$ be the respective subtrees rooted in $t$. The DP value here should combine the result of both subtrees and then remove the overlap. The overlap must logically be equal to the size of the set $S$, since both subtrees must intersect in $S$, as they include the same vertices. Therefore the join node relation becomes:
+    $$dp[t][S] = dp[t_1][S] + dp[t_2][S] - |S|$$
+
+The answer, since we go bottom up, should then be $\max(dp[r][S])$ where $r$ is the root node of the tree decomposition and $S$ is every set in $dp[r][S]$.
+
+**Running Time:**
+
+We have a treewidth of $k$, and since the treewidth is the size of the largest bag minus 1, then the largest bag must be at most $k+1$ vertices. Therefore there are at most $2^{k+1}$ subsets. The number of nodes in the tree decomposition is $O(k|V(G)|)$, so the running time is $O(2^{k+1}\cdot k\cdot |V(G)|)$.
+
+**Vertex Cover is FPT parameterized by treewidth:**
+
+The Vertex Cover problem states that given a graph $G=(V,E)$ determine the smallest subset of vertices $S\subseteq V$ such that every edge in $E$ is incident to at least one vertex in $S$.
+
+This is simply the complement of the independent set. Formally: A set $C$ is a vertex cover if and only if its complement $V\setminus C$ is an independent set. So the size of the minimum vertex cover is $|V|- \text{size of the maximum independent set}$.
+
+Since we have a solution for the maximum independent set on graphs of bounded treewidth, we can use this to solve the vertex cover problem. The running time is the same as for the maximum independent set, $O(2^{k+1}\cdot k\cdot |V(G)|)$.
+
+- The Vertex Cover problem states that given a graph $G=(V,E)$ and a parameter integer $k$, determine whether there exists a subset of vertices $S\subseteq V$ of size at most $k$ such that every edge in $E$ is incident to at least one vertex in $S$.
+
+---
+> Q: Describe how to solve the 3-coloring problem on graphs of bounded treewidth.
+
+The 3-coloring problem asks whether the vertices of a graph can be colored using at most 3 colors such that no two adjacent vertices share the same color
+
+First, assume that we have the tree decomposition, and a nice tree decomposition at that. Call the decomposition $T$, a node in the tree $t$ and it's bag $X_t$.. Then store the table $dp[t][c]$ where $c$ is a 3-coloring of $X_t$. $dp[t][c]$ is true if the subgraph induced by $X_t$ can be 3-colored with the coloring $c$, otherwise it's false.
+
+- Leaf node: $dp[t][\emptyset]=\text{True}$, an empty graph can always be 3-colored.
+- Introduce node: Let $v$ be the introduced vertex. Then for each coloring $c'$ of the child bag, loop through $\{1,2,3}\}$ called $c$. Check if assigning the color $c$ to $v$ is valid in $c'$, if valid then set $dp[t][c' \cup \{v\rightarrow c\}]=true$, otherwise false.
+- Forget node: Let $v$ be the removed vertex. Then for each coloring $c'$ of the child bag, if $dp[t'][c'\setminus \{v\}]$ is true then set $dp[t][c']=true$, otherwise false.
+- Join node: Let $t_1$ and $t_2$ be the respective subtrees rooted in $t$. Then for each coloring $c$ of the child bags, if $dp[t_1][c]$ and $dp[t_2][c]$ are true then set $dp[t][c]=true$, otherwise false.
+
+The answer is then $\text{True}$ if there exists a coloring $c$ of the root node such that $dp[r][c]=true$.
+
+**Running Time:**
+
+Each bag has at most $k+1$ vertices, with each vertex having 3 possible colors. Therefore each bag has at most $3^{k+1}$ colorings, there are $O(k|V(G)|)$ nodes in the tree decomposition. The running time is then $O(3^{k+1}\cdot k\cdot |V(G)|)$.
+
+---
+> Q: Describe how to solve the MaxCut problem on graphs of bounded treewidth.
+
+See assignment 5 exercise 3.
+
+---
+> Q: Describe the idea of a win-win approach to design parameterized algorithms.
+
+In parameterized complexity, the following win/win approach is commonly exploited. Given some computational problem, let us try to construct a good tree decomposition of the input graph. If we succeed, then we can use dy- namic programming to solve the problem effeciently. On the other hand, if we fail and the treewidth is large, then there is a reason for this outcome. This reason has the form of a combinatorial obstacle embedded in the graph that forbids us to decompose it expeditiously. However, the existence of such an obstacle can also be used algorithmically. For example, for some problems like Vertex Cover or Feedback Vertex Set, we can immediately con- clude that we are dealing with a no-instance in case the treewidth is large. For other problems, like Longest Path, large treewidth implies that we are working with a yes-instance. In more complicated cases, one can examine the structure of the obstacle in the hope of finding a so-called irrelevant vertex or edge, whose removal does not change the answer to the problem. Thus, regardless of whether the initial construction of a good tree decomposition succeeded or failed, we win: we solve the problem by dynamic programming, or we are able to immediately provide the answer, or we can simplify the problem and restart the algorithm.
+
+---
+> Q: What does it mean that H is a minor of G? What does the Excluded Grid Minor Theorem say? How is it helpful to the win-win approach?
+
+A minor $H$ is a graph that can be obtained from $G$ by performing a sequence of:
+
+- Edge deletion
+- Vertex deletion
+- Edge contraction: Contract an edge, merging its two endpoints into a single vertex and preserving all connections to the rest of the graph.
+
+If $H$ can be obtained from $G$ then we say that $G$ contains a minor $H$, denoted $H\preceq G$.
+
+**Excluded Grid Minor Theorem:**
+
+The Exluded Grid Minor Theorem states that there is a function $f=O(t^{98+o(1)})$ such that for every integer $k$, every graph $G$ of treewidth at least $f(k)$ contains a $k\times k$ grid as a minor.
+
+**Win-Win Approach:**
+
+The theorem allows us to focus on the grids in the case that the tree-width is large. Grids are fx. pretty useful when talking about the cycle packing problem, since a grid is a set of cycles.
+
+This picture means i have given up.....
+
+![image](./pictures/FScreenshots_133.png)
+
+---
+> Q: What does the Planar Excluded Grid Minor Theorem say? How is it helpful to design subexponential parameterized algorithms on planar graphs? (Recall, in this case subexponential algorithms are those with running time $2^{O(\sqrt{k})}n^{O(1)}$ where $k$ is the solution size.
+
+*This entire thing is completely bullshit/wrong i'm very tired*
+
+Let $t$ be a nonnegative integer. Then every planar graph $G$ of treewidth at least $9t/2$ contains $\boxplus_t$ as a minor. Furthermore, for every $\epsilon > 0$ there exists an $O(n^2)$ algorithm that, for a given n-vertex planar graph $G$ and integer $t$, either outputs a tree decomposition of G of width at most $(9/2 + \epsilon )t$, or constructs a minor model of $\boxplus_t$ in $G$.
+
+In other words. The function $g$ is linear. Since $\boxplus_t$ has $t^2$ vertices, every graph containing $\boxplus_t$ has at least $t^2$ vertices. This leads to a second conclusion: The treewidth of an $n$ vertex planar graph $H$ is less than $\frac{9}{2}\sqrt{n+1}$ and can be constructed in time $O(n^2)$.
+
+The theorem helps designing parameterized algorithms usin a win-win approach. Given a planar graph $G$ and a parameter $k$ compute it's treewidth $t$. Then by the theorem we have 2 cases:
+
+- If $t\leq 9k/2$ then we can compute a tree decomposition of width at most $(9/2+\epsilon)k$ in time $2^{O(\sqrt{k})}n^{O(1)}$
+- If $t>9k/2$ then $G$ contains $\boxplus_k$ as a minor, and we can in many instances, like vertex cover, conclude that $G$ is a no-instance from such a large grid minor
+
+Both approaches work since we emit a sub-exponential algorithm in the first case and a quick answer in the second case.
+
+---
+> Q: How can we solve Vertex Cover and k-Path in time $2^{O(\sqrt{k})}n$ on planar graphs?
+
+**Vertex Cover:**
+
+First compute the treewidth of the graph $G$. If the treewidth is at most $9k/2$ then compute a tree decomposition of width $O(k)$ and use dynamic programming to solve the problem. The running time is $2^{O(\sqrt{k})}$.
+
+On the other hand if the treewidth is larger than $9k/2$ then the graph contains a $\boxplus_k$ minor. Since $\boxplus_k$ requires a vertex cover of size at least $k$, then it depends on the input parameter whether the answer is yes or no. Let the param be $k'$, then the answer is no if $k'>k$ and yes if $k'\leq k$. The running time is $O(n^2)$.
+
+
+Same case with $k-path$.
+
+## Color-coding
+> Q: Describe the “color-coding” algorithm for deciding whether a graph has a path of length k. Make sure to explain the role of random colorings and walks. What changes if you want to decide the existence of cycles rather than paths?
+
+*I have officially given up. My brain has the same consistency as oatmeal*
+
+The color-coding algorithm is a randomized approach that works as follows:
+
+1. Random Coloring Phase:
+    - Randomly assign each vertex in the graph one of $k$ colors
+    - Each color is chosen independently and uniformly at random
+    - This creates a vertex-colored graph
+2. Dynamic Programming Phase:
+    - Search for a "colorful" path - a path where each vertex has a distinct color
+    - Use dynamic programming to find such a path efficiently:
+      - For each vertex $v$ and each subset $S$ of colors
+      - Compute whether there exists a path ending at $v$ that uses exactly the colors in $S$
+      - Build up from smaller color sets to larger ones
+      - Can find a colorful path in $O(2^k * n)$ time if it exists
+
+
+Since each vertex needs a different color, then if a $k$-length path exists, the probability that our random coloring makes it colorful is $k!/k^k$. By repeating the random coloring $e^k$ times, we get a high probability of success.
+
+For cycles instead of paths:
+- The main modification is in the dynamic programming phase
+- Need to keep track of both:
+  - The starting vertex of the potential cycle
+  - The current vertex we're at
+- When completing a potential cycle, check if we can return to the starting vertex
+- Still look for colorful sequences, but now need to return to the start
+- The probability analysis remains similar since we're still looking for k distinct colors
+
+The beauty of this algorithm is that it converts the problem of finding a specific substructure (k-length path) into finding a colorful path in a randomly colored graph, which turns out to be easier to solve using dynamic programming.
+
+The algorithm runs in $2^{O(k)} * n^{O(1)}$ time and succeeds with high probability, making it an FPT (Fixed-Parameter Tractable) algorithm with parameter k.
+
+---
+> Q: How can you determine the existence of a colorful k-path in a vertex-colored graph in time or ? (For the second running time, modify the DP for(𝑘 + 1)! · 𝑛𝑂(1) 2𝑘𝑛𝑂(1) Hamiltonian paths.)
