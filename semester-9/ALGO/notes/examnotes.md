@@ -1963,4 +1963,4 @@ The beauty of this algorithm is that it converts the problem of finding a specif
 The algorithm runs in $2^{O(k)} * n^{O(1)}$ time and succeeds with high probability, making it an FPT (Fixed-Parameter Tractable) algorithm with parameter k.
 
 ---
-> Q: How can you determine the existence of a colorful k-path in a vertex-colored graph in time or ? (For the second running time, modify the DP for(𝑘 + 1)! · 𝑛𝑂(1) 2𝑘𝑛𝑂(1) Hamiltonian paths.)
+> Q: How can you determine the existence of a colorful k-path in a vertex-colored graph in time $(k+1)!*n^{O(1)}$ or $2^kn^{O(1)}$ (For the second running time, modify the DP for Hamiltonian paths.)
