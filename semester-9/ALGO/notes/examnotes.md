@@ -970,7 +970,7 @@ Informally this means that the time required to solve $k$-SAT inscreases exponen
 
 > _Q: Why do they imply P != NP?
 
-Both ETH and SETH imply that there is no algorithm that can solve 3-SAT in subexponential time. This means that 3-SAT is not in P, as P is the class of problems that can be solved in polynomial time. Since 3-SAT is NP-complete, according to ETH, this implies that P != NP.
+Both ETH and SETH imply that there is no algorithm that can solve 3-SAT in subexponential time. This means that 3-SAT is not in P, as P is the class of problems that can be solved in polynomial time. Since 3-SAT is NP-compleust be at most 2k2k leaves inte, according to ETH, this implies that P != NP.
 
 > _Q: Is an algorithm with running time $O(1.0001^n)$ for 3-SAT possible under ETH? 
 
@@ -1321,7 +1321,7 @@ An interesting property of graph coloring on chordal graphs, is that the chromat
 
 - Given a chordal graph $G=(V,E)$
 - Find a perfect elminiation ordering $v_1,v_2,\dots,v_n$ of $V(G)$
-    - The guarantee here is that every vertex $v\inN(v_1)$ after $v_1$ in the ordering form a clique.
+    - The guarantee here is that every vertex $v\in N(v_1)$ after $v_1$ in the ordering form a clique.
 - Color the vertices in reverse order $v_n,v_{n-1},\dots,v_1$ of the perfect elimination ordering. For each vertex $v_i$ assign the smallest color not used by any of its neighbours $N(v_i)$.
 - Output the colors. The chromatic number is the largest color used.
 
@@ -1565,19 +1565,15 @@ The idea is to branch on the vertices of the graph, and at each step, we either 
     - If $k\leq 0$ return True, a set of size 0 is always independent.
     - If $|V|=0$ return True if $k=0$ and False otherwise.
 - Recursive case while $k>0$:
-    - Pick a vertex $v\in V$ of degree 3 (they all are).
-    - Branch on two cases:
-        - Include $v$ in the independent set and compute $G'$ by removing $v$ and its neighbours from $G$. Recursively solve the problem on $G'$ with $k-1$.
-        - Exclude $v$ from the independent set and recursively solve the problem on $G-v$ with $k$.
+    - Pick a vertex $v\in V$ of degree at most 3.
+    - Branch on at most four cases for each vertex $u_1,u_2,u_3\in N(v)$:
+        - Include $v$ in the independent set and compute $G'$ by removing $v$ and $N(v)$ from $G$. Recursively solve the problem on $G'$ with $k-1$.
+        - Include $u_1$ in the independent set and compute $G'$ by removing $u_1$ and $N(u_1)$ from $G$. Recursively solve the problem on $G'$ with $k-1$.
+        - Include $u_2$ in the independent set and compute $G'$ by removing $u_2$ and $N(u_2)$ from $G$. Recursively solve the problem on $G'$ with $k-1$.
+        - Include $u_3$ in the independent set and compute $G'$ by removing $u_3$ and $N(u_3)$ from $G$. Recursively solve the problem on $G'$ with $k-1$.
     - If any of the branches return True, return True, otherwise return False.
 
-The running time here is slightly more complicated. In the first case we remove $v$ AND it's neighoburs, which is at most 4 vertices. In the second case we remove $v$ therefore only removing 1, but not reducing $k$. The recurrence relation then is:
-
-$$
-T(k,n) = T(k-1, n-4) + T(k, n-1)
-$$
-
-Solving the recurrence rlation gives a branching factor of approximately 4, and a depth of $k$. Therefore the running time is $O(4^kn)$.
+In each branch we remove at most 4 vertices, and we do this at most $k$ times. This leaves $4^k$ leaves in the search tree. At each leaf we've removed at most $n$ vertices, therefore the running time is $O(4^kn)$.
 
 ---
 > Q: Define a tournament. How can we solve Feedback Vertex Set on Tournaments in time $O(3^kn^3)$?
