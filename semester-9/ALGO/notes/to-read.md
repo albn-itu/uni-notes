@@ -29,8 +29,8 @@
     - [x] [10-jan] Color-coding
 - [ ] Approximation algorithms
     - [x] [11-jan] Formalizing approximation problems
-    - [ ] [11-jan] Approximating vertex-cover
-    - [ ] [11-jan] Coloring 3-colorable graphs
+    - [x] [11-jan] Approximating vertex-cover
+    - [x] [11-jan] Coloring 3-colorable graphs
     - [ ] [12-jan] Metric problems and TSP
     - [ ] [12-jan] Semidefinite Programming
 
@@ -181,13 +181,13 @@
         - [x] What is an NP-optimization problem?
         - [x] What is the definition of approximation ratio?
         - [x] What is a PTAS and what is an FPTAS? Which one is more desirable in theory? Give examples for running times that match the definitions of PTAS and FPTAS algorithms.
-    - [ ] Approximating vertex-cover
-        - [ ] Describe the matching-based algorithm for finding a vertex-cover in a graph that is at most twice as large as the minimum vertex-cover. Include the following in your description:
-        - [ ] What does the existence of a k-edge matching imply for the minimum size of a vertex-cover?
-        - [ ] How does it matter whether you consider maximum matchings or maximal matchings in the algorithm? Which is the better choice?
-        - [ ] Give an infinite family of example graphs on which the algorithm indeed outputs only a 2-approximate solution. Also give a family of example graphs on which the algorithm outputs an optimal solution.
-    - [ ] Coloring 3-colorable graphs
-        - [ ] Given a 3-colorable n-vertex graph, show how you can in polynomial time find a proper O(sqrt(n))-coloring of the graph.
+    - [x] Approximating vertex-cover
+        - [x] Describe the matching-based algorithm for finding a vertex-cover in a graph that is at most twice as large as the minimum vertex-cover. Include the following in your description:
+        - [x] What does the existence of a k-edge matching imply for the minimum size of a vertex-cover?
+        - [x] How does it matter whether you consider maximum matchings or maximal matchings in the algorithm? Which is the better choice?
+        - [x] Give an infinite family of example graphs on which the algorithm indeed outputs only a 2-approximate solution. Also give a family of example graphs on which the algorithm outputs an optimal solution.
+    - [x] Coloring 3-colorable graphs
+        - [x] Given a 3-colorable n-vertex graph, show how you can in polynomial time find a proper O(sqrt(n))-coloring of the graph.
     - [ ] Metric problems and TSP
         - [ ] What does it mean that a graph has metric costs/weights?
         - [ ] What is the Steiner Tree problem?

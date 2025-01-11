@@ -1054,7 +1054,7 @@ Unless the $OV$ conjecture is false then there is no algorithm that given a spar
 
 **$O(n^2/log n)$**
 
-Yes. The factor of $\log n$ grows much slower than the polynomial factor of $n^2$, so dividing by it does not significantly reduce the time complexity, and it therefore remains in the bounds of SETH.
+No. The factor of $\log n$ grows much slower than the polynomial factor of $n^2$, so dividing by it does not significantly reduce the time complexity. Not that it matters since $n^2$ is polynomial and it must be exponential.
 
 **$O(n^2/n^{1/2})$**
 
@@ -1998,8 +1998,6 @@ belongs to the class of NP-Optimisation problems if:
 - The measure function $m$ is computable in polynomial time.
 - The goal is to minimize or maximize the measure function $m$.
 
-
-
 ---
 > Q: What is the definition of approximation ratio?
 
@@ -2041,17 +2039,61 @@ In theory FPTAS is more desirable as it's running time scales polynomially in bo
 - Knapsack has a FPTAS running in $O(n^{3}/\epsilon)$. IF we take $n=1000$ and $\epsilon=0.1$ then the running time is $O(1000^3/0.1)=O(10^9)$, which is polynomial in both $n$ and $\epsilon$.
 
 ## Approximating vertex-cover
-> Q: Describe the matching-based algorithm for finding a vertex-cover in a graph that is at most twice as large as the minimum vertex-cover. Include the following in your description:
+> Q: Describe the matching-based algorithm for finding a vertex-cover in a graph that is at most twice as large as the minimum vertex-cover. 
 
----
-> Q: What does the existence of a k-edge matching imply for the minimum size of a vertex-cover?
+The vertex cover problem is to find the smallest subset of vertices in a graph such that every edge is incident to at least one vertex in the subset. 
 
----
-> Q: How does it matter whether you consider maximum matchings or maximal matchings in the algorithm? Which is the better choice?
+The matching-based algorithm works by finding a maximal matching $M$ in the graph. A maximal matching is a matching that cannot be extended by adding more edges. Compared to the maximum matching, which is the largest possible matching in the graph, the maximal matching is easier to find and is not guaranteed to be optimal. Every maximum matching is maximal, but not every maximal matching is maximum:
 
----
-> Q: Give an infinite family of example graphs on which the algorithm indeed outputs only a 2-approximate solution. Also give a family of example graphs on which the algorithm outputs an optimal solution.
+![image](./pictures/FScreenshots_137.png)
 
----
-    - [ ] Coloring 3-colorable graphs
-        - [ ] Given a 3-colorable n-vertex graph, show how you can in polynomial time find a proper O(sqrt(n))-coloring of the graph.
+When we have a maximal matching $M$, we can let the vertex cover be all vertices adjacent to an edge in $M$. This is a vertex cover because every edge in in the graph, by definition, has at least one vertex in a maximal matching $M$. Therefore if we take both endpoints of every such edge, then we have a vertex cover.
+
+If we were to find a minimum vertex cover, then we also know that for each of the edges in the matching, at least one of the endpoints must be in the minimum vertex cover. Therefore the size of the vertex cover is at most twice the size of the maximal matching.
+
+Since the size of a maximal matching is less thant the size of a maximum matching we get the approximation ratio 2.
+
+We can define the algorithm as:
+
+1. Given a graph $G=(V,E)$.
+2. Find a maximal matching $M$ in the graph $G$.
+3. Include both endpoints of each edge in the matching in the vertex cover. Specifically for every edge $(u,v)\in M$, add both $u$ and $v$ to the vertex cover $C$
+4. Return the vertex cover $C$.
+
+> _Q: What does the existence of a k-edge matching imply for the minimum size of a vertex-cover?
+
+If there exists a k-edge matching in a graph, then the minimum size of a vertex cover is at least $k$, since each edge in the matching must have at least one endpoint in the vertex cover.
+
+> _Q: How does it matter whether you consider maximum matchings or maximal matchings in the algorithm? Which is the better choice?
+
+Both will work, by definition "Every maximum matching is maximal, but not every maximal matching is maximum". But, in this case a maximal matching will do the job, and is far easier to find. IT can be found greadily in $O(|E|)$ time, while a maximum matching requires more complex algorithms.
+
+But, the maximum matching will be bigger, by definition, and therefore results in a smaller potentital vertex cover. But in our algorithm we will output a larger vertex cover.
+
+> _Q: Give an infinite family of example graphs on which the algorithm indeed outputs only a 2-approximate solution. Also give a family of example graphs on which the algorithm outputs an optimal solution.
+
+- Bipartite graphs: In this graph type there will be two sets of vertices where every vertex in the set $A$ is connected to every vertex in the set $B$. A maximal matching will be the size of the smallest set, and the vertex cover will be outputted as the size of both sets. So if we say both sets are $n$ size it will output $2n$
+- Star graphs: A start graph is a graph with a center vertex, and $n$ outer vertices. A maximal matching will be the center vertex and 1 outer vertex, and the vertex cover will be the center vetex. So the output will be $2$.
+
+## Coloring 3-colorable graphs
+> Q: Given a 3-colorable n-vertex graph, show how you can in polynomial time find a proper $O(\sqrt{n})$-coloring of the graph.
+
+As input we get an $n$-vertex graph $G$ that we are promised to admit a proper 3-coloring. We want to find a proper $k$-coloring of $G$ in polynomial time in $n$ with as small a $k$ as possible
+
+We know that since the graph is 3-colorable, every vertex neighborhood must be bipartite. We can color a bipartite graph fast by:
+
+1. Pick a vertex with more than $\sqrt{n}$ uncolored neighbors.
+2. Color all of them with 3 new colors
+3. Repeat until there are no such vertices left
+4. Greadily color the remaining vertices using $\sqrt{n}$ colors.
+
+This all uses $O(\sqrt{n})$ colors.
+
+![image](./pictures/FScreenshots_138.png)
+
+The key insight here is that we are looking at the graphs independent set. In a 3-colorable graph, at least one color class must contain at least 1 third of the vertices ($n/3$), which provides us with the strategy of repeatetedly finding a large independent set and coloring it with new colors. So if we rewrite our algorithm:
+
+1. Find a large independent set of size at least $\sqrt{n}$
+2. Color all vertices in the independent set with a new color
+3. Remove the vertices from the graph
+4. Repeat until the graph is empty
