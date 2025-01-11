@@ -28,7 +28,7 @@
     - [x] [10-jan] Treewidth
     - [x] [10-jan] Color-coding
 - [ ] Approximation algorithms
-    - [ ] [11-jan] Formalizing approximation problems
+    - [x] [11-jan] Formalizing approximation problems
     - [ ] [11-jan] Approximating vertex-cover
     - [ ] [11-jan] Coloring 3-colorable graphs
     - [ ] [12-jan] Metric problems and TSP
@@ -177,10 +177,10 @@
         - [x] How can you determine the existence of a colorful k-path in a vertex-colored graph in time or ? (For the second running time, modify the DP for(𝑘 + 1)! · 𝑛𝑂(1) 2𝑘𝑛𝑂(1) Hamiltonian paths.)
 
 - [ ] Approximation algorithms
-    - [ ] Formalizing approximation problems
-        - [ ] What is an NP-optimization problem?
-        - [ ] What is the definition of approximation ratio?
-        - [ ] What is a PTAS and what is an FPTAS? Which one is more desirable in theory? Give examples for running times that match the definitions of PTAS and FPTAS algorithms.
+    - [x] Formalizing approximation problems
+        - [x] What is an NP-optimization problem?
+        - [x] What is the definition of approximation ratio?
+        - [x] What is a PTAS and what is an FPTAS? Which one is more desirable in theory? Give examples for running times that match the definitions of PTAS and FPTAS algorithms.
     - [ ] Approximating vertex-cover
         - [ ] Describe the matching-based algorithm for finding a vertex-cover in a graph that is at most twice as large as the minimum vertex-cover. Include the following in your description:
         - [ ] What does the existence of a k-edge matching imply for the minimum size of a vertex-cover?

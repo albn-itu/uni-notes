@@ -1757,7 +1757,7 @@ In terms of chordal graphs, the treewidth is the size of the largest clique that
 - The simplest is the tree, it has a treewidth of 1.
 - A cycle has a treewidth of 2.
 - A complete graph has a treewidth of $n-1$.
-- $m\time sn$ grid graphs have a treewidth of $min(m,n)$.
+- $m\times n$ grid graphs have a treewidth of $min(m,n)$.
 - Cliques have a treewidth of $n-1$.
 
 **Sketch of a tree decomposition for a grid:**
@@ -1856,7 +1856,7 @@ The 3-coloring problem asks whether the vertices of a graph can be colored using
 First, assume that we have the tree decomposition, and a nice tree decomposition at that. Call the decomposition $T$, a node in the tree $t$ and it's bag $X_t$.. Then store the table $dp[t][c]$ where $c$ is a 3-coloring of $X_t$. $dp[t][c]$ is true if the subgraph induced by $X_t$ can be 3-colored with the coloring $c$, otherwise it's false.
 
 - Leaf node: $dp[t][\emptyset]=\text{True}$, an empty graph can always be 3-colored.
-- Introduce node: Let $v$ be the introduced vertex. Then for each coloring $c'$ of the child bag, loop through $\{1,2,3}\}$ called $c$. Check if assigning the color $c$ to $v$ is valid in $c'$, if valid then set $dp[t][c' \cup \{v\rightarrow c\}]=true$, otherwise false.
+- Introduce node: Let $v$ be the introduced vertex. Then for each coloring $c'$ of the child bag, loop through $\{1,2,3\}$ called $c$. Check if assigning the color $c$ to $v$ is valid in $c'$, if valid then set $dp[t][c' \cup \{v\rightarrow c\}]=true$, otherwise false.
 - Forget node: Let $v$ be the removed vertex. Then for each coloring $c'$ of the child bag, if $dp[t'][c'\setminus \{v\}]$ is true then set $dp[t][c']=true$, otherwise false.
 - Join node: Let $t_1$ and $t_2$ be the respective subtrees rooted in $t$. Then for each coloring $c$ of the child bags, if $dp[t_1][c]$ and $dp[t_2][c]$ are true then set $dp[t][c]=true$, otherwise false.
 
@@ -1964,3 +1964,94 @@ The algorithm runs in $2^{O(k)} * n^{O(1)}$ time and succeeds with high probabil
 
 ---
 > Q: How can you determine the existence of a colorful k-path in a vertex-colored graph in time $(k+1)!*n^{O(1)}$ or $2^kn^{O(1)}$ (For the second running time, modify the DP for Hamiltonian paths.)
+
+
+# Approximation algorithms
+## Formalizing approximation problems
+> Q: What is an NP-optimization problem?
+
+: This involves finding the best solution from a finite set of possible solutions. The "best" solution is typically defined by an objective function that needs to be maximized or minimized. Examples include:
+
+- Graph Coloring: What is the least number of colors needed to color the vertices in a graph so that no two adjacent vertices have the same color?
+- Independent Set: What is the size of the largest subset of vertices such that no two vertices in the set are adjacent?
+- Vertex Cover: What is the size of the smallest subset of vertices such that every edge has at least one endpoint in the set?
+- Maximum Cut: What is the maximum number of edges going from one part to the other in a vertex bipartition?
+- Euclidean TSP: Given set of points in the Euclidean plane, find the length of the shortest closed tour visiting every vertex.
+- Minimize makespan on two identical machines: Given $n$ jobs with individual processing times $t_1, t_2,\dots, t_n$, partition them on two machines so that the time to process all jobs is minimized.
+- Boolean MAX-3-CNF Satisfiability: Given a Boolean formula in conjunctive normal form, with three literals per clause, find an assignment that satisfies as many clauses as possible. 
+- Set Cover: Given a universe set $U$ on n elements and a family $F$ of subsets of $U$. What is the least number of sets from $F$ needed to cover $U$? 
+
+An NP-hard problem is one where the solution can be verified in polynomial time, but there is no known polynomial-time algorithm to find the solution. Approximation algorithms are used to find near-optimal solutions to NP-hard optimization problems.
+
+An optimization problem $P=(I, SOL, m, goal)$, where:
+
+- $I$ is the set of instances
+- $SOL$ is a function that maps an instance $x\in I$ to a set of feasible solutions $SOL(x)$
+- $m$ is a function that maps an instance $x$ and a solution $y$ to a real number $m(x, y)$, the measure of the solution. (i think)
+- $goal$ is either "min" or "max" to indicate whether the goal is to minimize or maximize the measure function $m$.
+
+belongs to the class of NP-Optimisation problems if:
+
+- The set of instances $I$ is recognized in polynomial time.
+- There exists a polynomial $q$ such that given any instance $x\in I$, for any $y$ such that $|y|\leq q(|x|)$, it can be decided in polynomial time whether $y$ is a solution to $x$, $y\in SOL(x)$.
+    - Informally this means that we can verify a solution in polynomial time.
+- The measure function $m$ is computable in polynomial time.
+- The goal is to minimize or maximize the measure function $m$.
+
+
+
+---
+> Q: What is the definition of approximation ratio?
+
+The approximation ratio of an algorithm for an optimization problem is a measure of how well the algorithm approximates the optimal solution. It is defined as the ratio of the value of the solution produced by the algorithm to the value of the optimal solution. Specifically:
+
+- For a minimisation problem, the approximation ratio is the value of the algorithm's solution divided by the value of the optimal solution: $\alpha=\frac{\text{APX}}{\text{OPT}}$.
+- For a maximisation problem, the approximation ratio is the value of the optimal solution divided by the value of the algorithm's solution: $\alpha=\frac{\text{OPT}}{\text{APX}}$.
+
+The approximation value will always be greater than or equal to 1. The closer the approximation ratio is to 1, the better the algorithm's approximation of the optimal solution.
+
+---
+> Q: What is a PTAS and what is an FPTAS? Which one is more desirable in theory? Give examples for running times that match the definitions of PTAS and FPTAS algorithms.
+
+**PTAS (Polynomial-Time Approximation Scheme):**
+
+For every $\epsilon > 0$, there is an $O(n^{f(\epsilon^{-1})}$ algorithm with approximation ratio $\alpha=(1+\epsilon)$.
+
+**FPTAS (Fully Polynomial-Time Approximation Scheme):**
+
+For every $\epsilon > 0$, there is a polynomial-time ($poly(\epsilon^{-1}, n)$) time algorithm with approximation ration $\alpha=(1+\epsilon)$.
+
+Also, if it is a randomized algorithm, only obtaining the approximation guarantee with some nonzero constant probability, we call it a FPRAS (Fully Polynomial Randomized Approximation Scheme).
+
+**EPTAS (Efficient Polynomial-Time Approximation Scheme):**
+
+For every $\epsilon > 0$, there is a $f(\epsilon^{-1}poly(n)$ time algorithm with approximation ration $\alpha=(1+\epsilon)$.
+
+Note that an EPTAS could have much worse dependence on $\epsilon$ than a FPTAS, but it is still polynomial in $n$.
+
+**Desirability:**
+
+In theory FPTAS is more desirable as it's running time scales polynomially in both $\epsilon$ and the input size $n$. The approximation ratio in  these algorithms is defined by $\epsilon$, so, compared to the other algorithms, FPTAS actually still remains computationally feasible when high levels of precision is required, aka when $\epsilon$ is small. PTAS is still useful as it's polynomial in the size of the input size but may be exponential in $\epsilon^{-1}$.
+
+(Quick note: $\epsilon^{-1} = \frac{1}{\epsilon}$))
+
+**Examples:**
+
+- Euclidean TSP has a PTAS ruuning in $O(n^{O(\epsilon^{-1})})$, fx. if $\epsilon=0.1$ the running time is $O(n^{O(10)})$, so it's polynomial in $n$ but exponential in $\epsilon^{-1}$.
+- Knapsack has a FPTAS running in $O(n^{3}/\epsilon)$. IF we take $n=1000$ and $\epsilon=0.1$ then the running time is $O(1000^3/0.1)=O(10^9)$, which is polynomial in both $n$ and $\epsilon$.
+
+## Approximating vertex-cover
+> Q: Describe the matching-based algorithm for finding a vertex-cover in a graph that is at most twice as large as the minimum vertex-cover. Include the following in your description:
+
+---
+> Q: What does the existence of a k-edge matching imply for the minimum size of a vertex-cover?
+
+---
+> Q: How does it matter whether you consider maximum matchings or maximal matchings in the algorithm? Which is the better choice?
+
+---
+> Q: Give an infinite family of example graphs on which the algorithm indeed outputs only a 2-approximate solution. Also give a family of example graphs on which the algorithm outputs an optimal solution.
+
+---
+    - [ ] Coloring 3-colorable graphs
+        - [ ] Given a 3-colorable n-vertex graph, show how you can in polynomial time find a proper O(sqrt(n))-coloring of the graph.
