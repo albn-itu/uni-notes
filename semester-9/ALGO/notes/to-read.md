@@ -31,7 +31,7 @@
     - [x] [11-jan] Formalizing approximation problems
     - [x] [11-jan] Approximating vertex-cover
     - [x] [11-jan] Coloring 3-colorable graphs
-    - [ ] [12-jan] Metric problems and TSP
+    - [x] [12-jan] Metric problems and TSP
     - [ ] [12-jan] Semidefinite Programming
 
 ## Detailed:
@@ -188,16 +188,16 @@
         - [x] Give an infinite family of example graphs on which the algorithm indeed outputs only a 2-approximate solution. Also give a family of example graphs on which the algorithm outputs an optimal solution.
     - [x] Coloring 3-colorable graphs
         - [x] Given a 3-colorable n-vertex graph, show how you can in polynomial time find a proper O(sqrt(n))-coloring of the graph.
-    - [ ] Metric problems and TSP
-        - [ ] What does it mean that a graph has metric costs/weights?
-        - [ ] What is the Steiner Tree problem?
-            - [ ] How can it be reduced to a version in which the input graph is required to have metric costs?
-            - [ ] Give a 2-approximation for Metric Steiner Tree.
-        - [ ] Define the TSP and argue that it is NP-complete.
-        - [ ] Show that TSP remains NP-complete on metric instances.
-        - [ ] How do the general TSP and the metric TSP differ in terms of approximability? Argue that the general TSP cannot be approximated within a constant factor unless P=NP.
-        - [ ] Describe how to obtain a 2-approximation for the metric TSP. Highlight where you use the metric property.
-        - [ ] Describe how to obtain a (3/2)-approximation for the metric TSP.
+    - [x] Metric problems and TSP
+        - [x] What does it mean that a graph has metric costs/weights?
+        - [x] What is the Steiner Tree problem?
+            - [x] How can it be reduced to a version in which the input graph is required to have metric costs?
+            - [x] Give a 2-approximation for Metric Steiner Tree.
+        - [x] Define the TSP and argue that it is NP-complete.
+        - [x] Show that TSP remains NP-complete on metric instances.
+        - [x] How do the general TSP and the metric TSP differ in terms of approximability? Argue that the general TSP cannot be approximated within a constant factor unless P=NP.
+        - [x] Describe how to obtain a 2-approximation for the metric TSP. Highlight where you use the metric property.
+        - [x] Describe how to obtain a (3/2)-approximation for the metric TSP.
     - [ ] Semidefinite Programming
         - [ ] What is a semidefinite program? How fast can we find a solution to a semidefinite program in n variables?
         - [ ] For a positive semidefinite matrix M, what is the name of the algorithm that computes a triangular matrix L so that LL^T=M? What is its running time?

@@ -2097,3 +2097,170 @@ The key insight here is that we are looking at the graphs independent set. In a 
 2. Color all vertices in the independent set with a new color
 3. Remove the vertices from the graph
 4. Repeat until the graph is empty
+
+
+## Metric problems and TSP
+> Q: What does it mean that a graph has metric costs/weights?
+
+A graph has metric costs if the edge weights satisfy the triangle inequality. The triangle inequality states that given a graph $G=(V,E)$ with edge weights $w:E\rightarrow \mathbb{R}_{\geq 0}$, the weights are metric if for any three vertices $u,v,x\in V$ the following holds:
+
+$$
+w(u,v)\leq w(u,x)+w(x,v)
+$$
+
+![image](./pictures/FScreenshots_139.png)
+
+Implications:
+
+1. **Triangle Inequality**: The direct edge between two vertices $u$ and $v$ is no longer than any indirect path through a third vertex $w$. This ensures that the shortest path between two vertices is always the direct edge (if it exists).
+2. **Non-Negativity**: Metric weights are non-negative ($w(u, v) \geq 0$), which is a standard requirement for edge weights in most graph algorithms.
+3. **Symmetry**: Metric weights are symmetric, meaning $w(u, v) = w(v, u)$ for all $u, v \in V$. This is often assumed in undirected graphs.
+4. **Reflexivity**: The weight from a vertex to itself is zero ($w(u, u) = 0$).
+
+---
+> Q: What is the Steiner Tree problem?
+
+Given a graph $G=(V,E)$ with edge weights $w:E\rightarrow \mathbb{R}_{\geq 0}$, and a set of required vertices $\subseteq V$. The Steiner Tree problem is to find a minimum-total-weight tree containing all the vertices in $R$. The tree may use some or all of the vertices in $V$, but the goal is to minimize the total weight of the tree.
+
+![image](./pictures/FScreenshots_140.png)
+
+> _Q: How can it be reduced to a version in which the input graph is required to have metric costs?
+
+Given an instance $I=(G, w, R)$ to the Steiner Tree problem, we can construct an instance $I'=(G', w', R')$ with metric costs as follows:
+
+1. Keep the same vertices in $I'$ as in $I$, but let $G'$ be the complete graph on $V$.
+    - A complete graph has an edge between every pair of vertices.
+2. Let $w(u,v)$ be equal to the length of the shortest path between $u$ and $v$ in the original graph $G$.
+    - This ensures that the edge weights satisfy the triangle inequality.
+3. Let $R'=R$ be the same set of required vertices.
+
+We can then solve the Steiner Tree problem on the instance $I'$ with metric costs, using minimum spanning trees, in polynomial time:
+
+![image](./pictures/FScreenshots_141.png)
+
+> _Q: Give a 2-approximation for Metric Steiner Tree.
+
+A minimum spanning tree is actually a 2-approximation for the Metric Steiner Tree problem. Given a graph $G=(V,E)$ with metric costs, and a set of required vertices $R\subseteq V$, the algorithm works as follows:
+
+1. Consider the subgraph $G'$ induced by the vertices in $R$.
+2. Compute the minimum spanning tree $T$ of $G'$.
+3. Output the tree $T$ as a 2-approximation for the Metric Steiner Tree.
+
+We can see that this works:
+
+1. Consider an optimal Steiner Tree:
+
+![image](./pictures/FScreenshots_142.png)
+
+2. Double all edges and construct an Euler tour, the lenght of the tour will be $2*OPT$:
+
+![image](./pictures/FScreenshots_143.png)
+
+3. Relax the Euler tour to a Hamiltonian cycle of the required vertices. Due to the triangle inequality, the length of the Hamiltonian cycle is at most $2*OPT$, as it can never be larger than the Euler tour:
+
+![image](./pictures/FScreenshots_144.png)
+
+4. Remove an edge from the Hamiltonian cycle to get a spanning tree of the required vertices. The Minimum Spanning Tree can never be of larger weight than this tree, as it by definition is the minimum tree. And this tree will be at most $2*OPT$.
+
+![image](./pictures/FScreenshots_145.png)
+
+---
+> Q: Define the TSP and argue that it is NP-complete.
+
+TSP (Traveling Salesman Problem) is an optimization problem where the goal is to find the shortest possible tour that visits every vertex exactly once and returns to the starting vertex. The tour must be a cycle that visits every vertex in the graph.
+
+Formally, given a complete undirected graph $G=(V,E)$ with positive edge weights $w:E\rightarrow \mathbb{R}_{>0}$, the TSP problem is to find a cycle that visits every vertex in $V$ exactly once and returns to the starting vertex, minimizing the total weight of the cycle.
+
+This problem is special in the fact that it cannot be approximated. We can argue for that by embedding a graph $H=(V,F)$ in the complete undirected graph $G$ with edge weights $w(u,v)=1$ if $(u,v)\in F$ otherwise set $w(u,v)=M$ for an abritrarily large $M$. The result of this would be that any TSP tour that does not correspond to a Hamiltonian cycle in H, must have weight at least $M+(n-1)$. 
+
+---
+> Q: Show that TSP remains NP-complete on metric instances.
+
+Firstly define the metric TSP problem:
+
+Given a complete undirected graph $G=(V,E)$ with metric costs, the metric TSP problem is to find a cycle that visits every vertex in $V$ exactly once and returns to the starting vertex, minimizing the total weight of the cycle. The edge weights satisfy the triangle inequality. As before:
+
+The answer essentially remains the same. We can reduce the Hamiltonian cycle problem to the metric TSP problem by constructing a complete graph with metric costs. So let's do that:
+
+- Let $G=(V,E)$ be an instance of the Hamiltonian cycle problem.
+- Construct a complete graph $G'=(V,E')$ with metric costs:
+    - For each edge $(u,v)\in E(G')$:
+        - If $(u,v)\in E(G)$, set $w(u,v)=1$
+        - If $(u,v)\notin E(G)$, set $w(u,v)=2$
+    - Then a target weight for the solution to TSP would be $|V|$.
+- Ensure the metric property:
+    - For any three vertices $u,v,x$ in $V$, the triangle inequality holds:
+        - If $u,v\in E(G)$, then $w(u,v)=1$ and $w(u,x)+w(x,v)=1+1=2\geq 1=w(u,v)$
+        - If $u,v\notin E(G)$, then $w(u,v)=2$ and $w(u,x)+w(x,v)=1+1\geq 2=w(u,v)$
+- If $G$ has a Hamiltonian cycle, then the same cycle in $G'$ will have weight $|V|$ and be a solution to the metric TSP problem.
+- If $G$ does not have a Hamiltonian cycle, then any cycle in $G'$ must use at least one edge of weight 2, making the total weight at least $|V|+1$.
+
+---
+> Q: How do the general TSP and the metric TSP differ in terms of approximability? Argue that the general TSP cannot be approximated within a constant factor unless P=NP.
+
+We can do the same reduction as before, and then twist it at the end
+
+1. Consider a minimum spanning tree on the TSP problem instance
+2. Double all edges and construct an Euler tour, the length of the tour will be $2*OPT$, but remember that the minimum spanning tree will be less than the minimum TSP tour, since the tree will not contain the edge that goes back to the starting vertex:
+
+![image](./pictures/FScreenshots_146.png)
+
+3. Relax the Euler tour to a Hamiltonian cycle of the required vertices. The hamiltionian cycle will be no longer than twice the weight of the spanning tree:
+
+![image](./pictures/FScreenshots_147.png)
+
+This would compute a 2. approximation of the metric TSP, but we can improve this to a $1.5$ approximation by:
+
+1. Compute a minimum spanning tree $T$ of the graph $G$.
+2. Find a minimum weight matching between odd degree vertices in the tree. The cost of this matching will be at most $OPT/2$ as any TSP tour shortcutted to the odd degree vertices can be divided in two matchings, and one of them must be less than $OPT/2$:
+
+![image](./pictures/FScreenshots_148.png)
+
+3. Find an Euler tour in the resulting graph. Such a tour must exist as all vertices now have even degree and the graph is connected. The length of the Euler tour will be at most $OPT+OPT/2=1.5*OPT$:
+
+![image](./pictures/FScreenshots_149.png)
+
+4. Convert it to a Hamiltonian cycle by removing repeated vertices. The length of the Hamiltonian cycle will be at most $1.5*OPT$.
+
+This is the best approximation we can get for the TSP problem, and it is a $1.5$ approximation. The follwing is an example of the optimality of this approximation:
+
+![image](./pictures/FScreenshots_150.png)
+
+> _Q: Argue that the general TSP cannot be approximated within a constant factor unless P=NP.
+
+We can argue for that by embedding a graph $H=(V,F)$ in the complete undirected graph $G$ with edge weights $w(u,v)=1$ if $(u,v)\in F$ otherwise set $w(u,v)=M$ for an abritrarily large $M$. The result of this would be that any TSP tour that does not correspond to a Hamiltonian cycle in H, must have weight at least $M+(n-1)$. 
+
+Now let's suppose you COULD approximate TSP within a constant factor $c$. Then any approximate solution would distinguish between a valid Hamiltonian cycle with a cost of $n$ or a non-Hamiltonian cycle with a cost much greater than $cn$ due to the large $M$ value. This would then solve the Hamiltonian cycle problem exactly in polynomial time, which is NP-complete. Therefore, unless P=NP, TSP cannot be approximated within a constant factor.
+
+---
+> Q: Describe how to obtain a 2-approximation for the metric TSP. Highlight where you use the metric property.
+
+1. Consider a minimum spanning tree on the TSP problem instance
+2. Double all edges and construct an Euler tour, the length of the tour will be $2*OPT$, but remember that the minimum spanning tree will be less than the minimum TSP tour, since the tree will not contain the edge that goes back to the starting vertex:
+
+![image](./pictures/FScreenshots_146.png)
+
+3. Relax the Euler tour to a Hamiltonian cycle of the required vertices. The hamiltionian cycle will be no longer than twice the weight of the spanning tree:
+
+![image](./pictures/FScreenshots_147.png)
+
+This would compute a 2. approximation of the metric TSP, but we can improve this to a $1.5$ approximation by:
+
+---
+> Q: Describe how to obtain a (3/2)-approximation for the metric TSP.
+
+1. Compute a minimum spanning tree $T$ of the graph $G$.
+2. Find a minimum weight matching between odd degree vertices in the tree. The cost of this matching will be at most $OPT/2$ as any TSP tour shortcutted to the odd degree vertices can be divided in two matchings, and one of them must be less than $OPT/2$:
+
+![image](./pictures/FScreenshots_148.png)
+
+3. Find an Euler tour in the resulting graph. Such a tour must exist as all vertices now have even degree and the graph is connected. The length of the Euler tour will be at most $OPT+OPT/2=1.5*OPT$:
+
+![image](./pictures/FScreenshots_149.png)
+
+4. Convert it to a Hamiltonian cycle by removing repeated vertices. The length of the Hamiltonian cycle will be at most $1.5*OPT$.
+
+This is the best approximation we can get for the TSP problem, and it is a $1.5$ approximation. The follwing is an example of the optimality of this approximation:
+
+![image](./pictures/FScreenshots_150.png)
+
