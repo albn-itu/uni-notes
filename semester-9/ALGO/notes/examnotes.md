@@ -225,6 +225,7 @@ $$
 
 ---
 > Q: Consider the following algorithm: To determine the number of satisfying assignments for a Boolean formula $F$ with $n$ variables, randomly sample some number $T$ of assignments. Among those sampled assignments, let $S$ be the number of assignments that satisfy $F$. Then output $S/T * 2^n$.
+
 > _Q: Is the expected output of this algorithm correct?
 
 Yes. $S/T$ represents the fraction of correct assignments in the samples, while $2^n$ is number of assignments in a single correct assignment, as it is the number of possible assignments for $n$ variables. Therefore $S/T * 2^n$ is the expected number of correct assignments.
@@ -1965,6 +1966,7 @@ The algorithm runs in $2^{O(k)} * n^{O(1)}$ time and succeeds with high probabil
 ---
 > Q: How can you determine the existence of a colorful k-path in a vertex-colored graph in time $(k+1)!*n^{O(1)}$ or $2^kn^{O(1)}$ (For the second running time, modify the DP for Hamiltonian paths.)
 
+no clue
 
 # Approximation algorithms
 ## Formalizing approximation problems
