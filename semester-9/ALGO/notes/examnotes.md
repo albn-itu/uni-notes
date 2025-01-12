@@ -2264,3 +2264,86 @@ This is the best approximation we can get for the TSP problem, and it is a $1.5$
 
 ![image](./pictures/FScreenshots_150.png)
 
+## Semidefinite Programming
+> Q: What is a semidefinite program? How fast can we find a solution to a semidefinite program in n variables?
+
+A semidefinite program (SDP) is an optimization problem where the goal is to minimize or maximize a linear function subject to linear constraints. It generalizes linear programming and quadratic programming. Generalized we can express a semidefinite program as:
+$$
+\begin{aligned}
+\text{minimize} & \quad C \cdot M \\
+\text{subject to} & \quad A_i \cdot M = b_i, \quad i=1,\dots,m \\
+& \quad M \succeq 0
+\end{aligned}
+$$
+
+Where:
+
+- $M$ is a symmetric $n\times n$ matrix, called the decision or optimization variable.
+- $C$ is an $n\times n$ matrix.
+- $A_i$ are $n\times n$ matrices.
+- $b_i$ are scalars.
+- $M\succeq 0$ means that $M$ is positive semidefinite.
+- $C\cdot M$ denotes the inner product $\text{tr}(C^T\cdot M)$.
+
+A symmetric square matrix $M$ is positive semidefinite for all vectors $x\in \mathbb{R}^n$ if $x^T\cdot M\cdot x\geq 0$. This is a generalization of the concept of non-negativity to matrices.
+
+If, and only if, $M$ is positive semidefinite, then there exists a matrix $P$ such that $M=P^T\cdot P$. This is known as the Cholesky factorization. If $P$ exists, then it can be found in polynomial time.
+
+Less formally, we are solving an optimization problem, where the objective function is linear in the entries of a symmetric matrix $M$. The constraints to the problem require that $M$ is positive semidefinite, and there may then be additional linear constraints on $M$.
+
+We can solve semidefinite programs using methods like the Ellipsoid method or the interior point method. Most algorithms consider some value $\epsilon>0$ and then solve the problem to within an additive error of $\epsilon$. Usually in polynomial time in the size of the input and $\log(1/\epsilon)$.
+
+"Surprisingly, if we let the n vectors be unit vectors in n-dimensional Euclidean space, then there is a polynomial time algorithm!"
+
+---
+> Q: For a positive semidefinite matrix M, what is the name of the algorithm that computes a triangular matrix L so that LL^T=M? What is its running time?
+
+A symmetric square matrix $M$ is positive semidefinite for all vectors $x\in \mathbb{R}^n$ if $x^T\cdot M\cdot x\geq 0$. This is a generalization of the concept of non-negativity to matrices.
+
+If, and only if, $M$ is positive semidefinite, then there exists a matrix $P$ such that $M=P^T\cdot P$. This is known as the Cholesky factorization. If $P$ exists, then it can be found in polynomial time.
+
+sing Cholesky decomposition, a real symmetric matrixcan be decomposed, in polynomial time, as $A = UAU^T$, where $A$ is a diagonal matrix whose diagonal entries are the eigenvalues of $A$. Now $A$ is positive semidefinite iff all the entries of $A$ are nonnegative, thus giving a polynomial time test for positive semidefiniteness. The decomposition $WW^T$ is not polynomial time computable because in general it may contain irrational entries. However, it can be approximated to any desired degree by approximating the square roots of the entries of $A$. In the rest of this chapter we will assume that we have an exact decomposition, since the inaccuracy resulting from an approximate decomposition can be absorbed into the approximation factor. This takes $O(n^3)$ time.
+
+---
+> Q: Name two combinatorial problems that can be approximated with the help of semidefinite programming.
+
+**Max-Cut:**
+
+Given a graph $G=(V,E)$, the goal is to partition the vertices into two sets to maximize the number of edges between the two sets. This is a classic NP-hard problem that can be approximated using semidefinite programming.
+
+$$
+\begin{aligned}
+\text{maximise} & \quad \frac{1}{2}\sum_{ij\in E}(1-M_ij) \\
+\text{subject to} & \quad M \text{ is positive semidefinite} \\
+& \quad M_{ii}=1, \quad 1\leq i\leq n
+\end{aligned}
+$$
+
+Algorithm:
+
+- Find an optimal solution $M$ to the semidefinite program.
+- Find the Cholesky factorization $M=LL^T$.
+- The row vectors of $P$ are the vectors of the vertices
+- Repeat several times:
+    - Pick a random vector $r$ uniformly at random
+    - Partition the vertex $i$ depending on $\text{sgn}(p_i^T\cdot r)$
+    - Pick the partition $L,R$ that gets the highest cut
+- Output $L,R$
+
+
+**3-coloring:**
+
+What is the least number of colors needed to color the vertices in a 3-colorable graph so that no two adjacent vertices have the same color?
+
+There is a very long example in the slides for lecture 25.
+
+---
+> Q: How do you get from the vectors obtained from a solution to the semidefinite program to a solution to the combinatorial problem?
+
+We essentially do some sort of rounding scheme, but it heavily depends on the algorithm. As in most linear programming problems we find a solution that is close to the optimal solution, but not necessarily an integer solution. We then need to round the solution to get an integer solution. This is done by using the vectors obtained from the solution to the semidefinite program.
+
+In the Max-Cut algorithm from before the rounding scheme is the "repeat several times" part. Which is a rounding procedure. Goemans and Williamson simply choose a uniformly random hyperplane through the origin and divide the vertices according to which side of the hyperplane the corresponding vectors lie.  
+
+The most important part of a round scheme is to preserve the quality of the SDP solution as much as possible. 
+
+

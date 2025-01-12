@@ -27,12 +27,12 @@
     - [x] [09-jan] Kernelization
     - [x] [10-jan] Treewidth
     - [x] [10-jan] Color-coding
-- [ ] Approximation algorithms
+- [x] Approximation algorithms
     - [x] [11-jan] Formalizing approximation problems
     - [x] [11-jan] Approximating vertex-cover
     - [x] [11-jan] Coloring 3-colorable graphs
     - [x] [12-jan] Metric problems and TSP
-    - [ ] [12-jan] Semidefinite Programming
+    - [x] [12-jan] Semidefinite Programming
 
 ## Detailed:
 
@@ -176,7 +176,7 @@
         - [x] Describe the “color-coding” algorithm for deciding whether a graph has a path of length k. Make sure to explain the role of random colorings and walks. What changes if you want to decide the existence of cycles rather than paths?
         - [x] How can you determine the existence of a colorful k-path in a vertex-colored graph in time or ? (For the second running time, modify the DP for(𝑘 + 1)! · 𝑛𝑂(1) 2𝑘𝑛𝑂(1) Hamiltonian paths.)
 
-- [ ] Approximation algorithms
+- [x] Approximation algorithms
     - [x] Formalizing approximation problems
         - [x] What is an NP-optimization problem?
         - [x] What is the definition of approximation ratio?
@@ -198,8 +198,8 @@
         - [x] How do the general TSP and the metric TSP differ in terms of approximability? Argue that the general TSP cannot be approximated within a constant factor unless P=NP.
         - [x] Describe how to obtain a 2-approximation for the metric TSP. Highlight where you use the metric property.
         - [x] Describe how to obtain a (3/2)-approximation for the metric TSP.
-    - [ ] Semidefinite Programming
-        - [ ] What is a semidefinite program? How fast can we find a solution to a semidefinite program in n variables?
-        - [ ] For a positive semidefinite matrix M, what is the name of the algorithm that computes a triangular matrix L so that LL^T=M? What is its running time?
-        - [ ] Name two combinatorial problems that can be approximated with the help of semidefinite programming.
-        - [ ] How do you get from the vectors obtained from a solution to the semidefinite program to a solution to the combinatorial problem?
+    - [x] Semidefinite Programming
+        - [x] What is a semidefinite program? How fast can we find a solution to a semidefinite program in n variables?
+        - [x] For a positive semidefinite matrix M, what is the name of the algorithm that computes a triangular matrix L so that LL^T=M? What is its running time?
+        - [x] Name two combinatorial problems that can be approximated with the help of semidefinite programming.
+        - [x] How do you get from the vectors obtained from a solution to the semidefinite program to a solution to the combinatorial problem?
