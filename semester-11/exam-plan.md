@@ -1,0 +1,155 @@
+# Available days
+
+- [ ] 01/01
+    - [ ] HPGP: Week 1
+    - [ ] HPGP: Week 2
+- [ ] 02/01
+    - [ ] HPGP: Week 3
+    - [ ] HPGP: Week 4
+- [ ] 03/01
+    - [ ] HPGP: Week 5
+    - [ ] HPGP: Week 6
+- [ ] 04/01
+    - [ ] HPGP: Week 9
+    - [ ] HPGP: Week 10
+- [ ] 06/01
+    - [ ] HPGP: Week 11
+    - [ ] HPGP: Week 12
+    - [ ] HPGP: Week 13
+- [ ] 07/01
+    - [ ] PCPP: Intro to concurrency and the mutual exclusion problem
+    - [ ] PCPP: Synchronization
+    - [ ] PCPP: Visibility
+- [ ] 08/01
+    - [ ] PCPP: Java memory model
+    - [ ] PCPP: Thread-safe classes
+    - [ ] PCPP: Testing
+- [ ] 09/01
+    - [ ] PCPP: Performance measurements
+    - [ ] PCPP: Performance and Scalability
+- [ ] 10/01 (Only til 4pm)
+    - [ ] PCPP: Lock-free Data Structures
+    - [ ] PCPP: Linearizability
+- [ ] 11/01
+    - [ ] PCPP: Streams
+    - [ ] PCPP: Message Passing
+- [ ] 12/01 (HPGP exam)
+- [ ] 13/01
+- [ ] 14/01
+- [ ] 15/01 (PCPP exam)
+
+
+# HPGP
+
+(S=Syllabus, Q=Example Question)
+
+- [ ] Week 1: What is Data Oriented Design?
+    - [ ] S: DOD benefits
+    - [ ] Q: What are the differences between Array of Structs (AOS) and SOA (Structure of Arrays) and how do they relate to how memory can be structured in a DOD way?
+- [ ] Week 2: Hardware and DOD
+    - [ ] S: Memory patterns used in DOD (Array of Structs vs Structure of Arrays)
+    - [ ] S: Memory layout in Unity ECS (Chunks)
+    - [ ] S: Cache structure and benefits of cache
+    - [ ] S: Threads and cores in modern CPU architecture
+    - [ ] S: Temporal and spatial locality of data
+    - [ ] S: Von Neumann architecture and Von Neumann bottleneck
+    - [ ] Q: How does the cache work in most modern CPU architectures? What are cache hits and misses? 
+- [ ] Week 3: Entity Component Systems
+    - [ ] S: Unity ECS (entities, components, systems, archetypes, queries)
+    - [ ] Q: Explain what an ECS component is - how is it different, say, from a Monobehaviour Unity component?
+    - [ ] Q: What is a structural change in Unity ECS?
+- [ ] Week 4: Unity ECS and Profiling Introduction
+    - [ ] S: How to profile performance problems
+    - [ ] S: Unity job system
+    - [ ] S: SIMD/Burst
+    - [ ] Q: How does querying work in Unity ECS?
+    - [ ] Q: How do Dependencies between jobs work?
+    - [ ] Q: What is a chunk in Unity ECS?
+    - [ ] Q: What is SIMD?
+    - [ ] Q: What does the Burst compiler do?
+- [ ] Week 5: Optimization Techniques
+    - [ ] S: GPU and CPU bound
+    - [ ] Q: Given a low framerate and a profile capture that shows a system taking 6 ms, what would be your approach to investigate the problem further?
+- [ ] Week 6: Introduction to Real-Time 3D Physics
+    - [ ] S: Unity Physics Rigid Bodies
+- [ ] Week 9: Iterative Solvers, Collision Detection and Constraint Solving
+    - [ ] S: Unity Physics Collision detection
+    - [ ] S: Unity Physics Constraint solving.
+    - [ ] Q: Name a narrow phase collision detection algorithm
+    - [ ] Q: Name a broad phase collision detection algorithm
+    - [ ] Q: Describe the systems in Unity Physics
+- [ ] Week 10: Maths Refresher, Constraint Solving
+    - [ ] S: Unity Physics Constraint solving.
+    - [ ] S: Unity Physics ODE solving
+    - [ ] Q: Describe the systems in Unity Physics
+- [ ] Week 11: Constraint Solving Continued, SIMD, Burst, Advanced Solvers and Deformation.
+    - [ ] Q: What is an iterative solver?
+    - [ ] Q: Describe the systems in Unity Physics
+- [ ] Week 12: Destructible Joints, Broadphase Deep Dive
+    - [ ] Q: Describe the systems in Unity Physics
+- [ ] Week 13: Incremental Broadphase, Substepping
+    - [ ] Q: Describe the systems in Unity Physics
+- [ ] Week 14: The future 
+
+# PCPP
+
+- [ ] **Intro to concurrency and the mutual exclusion problem**
+    - [ ] Read week 1 material.
+    - [ ] Define and motivate concurrency and mutual exclusion. 
+    - [ ] Explain data races, race conditions, and critical sections.
+    - [ ] Show some examples of code from your solutions to the exercises in week 1.
+- [ ] **Synchronization**
+    - [ ] Read week 2 material.
+    - [ ] Explain and motivate how locks, monitors, and semaphores can be used to address the challenges caused by concurrent access to shared memory.
+    - [ ] Show some examples of code from your solutions to the exercises in week 2.
+- [ ] **Visibility**
+    - [ ] Explain the problems of visibility and reordering in shared memory concurrency.
+    - [ ] Motivate and describe the use of volatile variables and locks to tackle these problems.
+    - [ ] Show some examples of code from your solutions to the exercises in week 2.
+- [ ] **Java memory model**
+    - [ ] Read week 3 material.
+    - [ ] Motivate the need for the Java memory model.
+    - [ ] Explain the elements of the Java memory model including program order, happens-before order, synchronization order, and data races.
+    - [ ] Define what a correctly synchronized program is according to the Java memory model.
+    - [ ] Show some examples of code from your solutions to the exercises in week 3 and illustrate the use of the Java memory model to reason about their correctness.
+- [ ] **Thread-safe classes**
+    - [ ] Read week 4 material.
+    - [ ] Define and explain what makes a class thread-safe.
+    - [ ] Explain the issues that may make classes not thread-safe.
+    - [ ] Show some examples of code from your solutions to the exercises in week 4.
+- [ ] **Testing**
+    - [ ] Read week 5 material.
+    - [ ] Explain the challenges in ensuring the correctness of concurrent programs.
+    - [ ] Describe different testing strategies for concurrent programs, and their advantages and disadvantages.
+    - [ ] Show some examples of code from your solutions to the exercises in week 5.
+- [ ] **Performance measurements**
+    - [ ] Read week 9 material.
+    - [ ] Motivate and explain how to measure the performance of Java code.
+    - [ ] Illustrate some of the pitfalls there are in doing such measurements.
+    - [ ] Show some examples of code from your solutions to the exercises in week 9.
+- [ ] **Performance and Scalability**
+    - [ ] Read week 10 material.
+    - [ ] Explain how to increase the performance of Java code exploiting concurrency. 
+    - [ ] Illustrate some of the pitfalls there are in doing this.
+    - [ ] Show some examples of code from your solutions to the exercises in week 10.
+- [ ] **Lock-free Data Structures**
+    - [ ] Read week 6 material.
+    - [ ] Define and motivate lock-free data structures. 
+    - [ ] Explain how *compare-and-swap* (CAS) operations can be used to solve concurrency problems. 
+    - [ ] Show some examples of code from your solutions to the exercises in week 6.
+- [ ] **Linearizability**
+    - [ ] Read week 7 material.
+    - [ ] Explain and motivate linearizability. 
+    - [ ] Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
+    - [ ] Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
+- [ ] **Streams**
+    - [ ] Read week 11 material.
+    - [ ] Explain and motivate the use of streams to parallelize computation. 
+    - [ ] Discuss issues that arise in operations executed by parallel streams. 
+    - [ ] Show some examples of code from your solutions to the exercises in week 11.
+- [ ] **Message Passing**
+    - [ ] Read week 12 material.
+    - [ ] Explain and motivate the actor model of concurrent computation. 
+    - [ ] Discuss advantages and disadvantages of approaches to distribute computation in actor systems. 
+    - [ ] Show some examples of code from your solutions to the exercises in week 12 and 13.
+

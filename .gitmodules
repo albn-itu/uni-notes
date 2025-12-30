@@ -64,3 +64,6 @@
 [submodule "semester-8/AI/projects/ai-othello"]
   path = semester-8/AI/projects/ai-othello
   url = https://github.com/albn-itu/ai-othello
+[submodule "semester-11/PCPP/slides-and-resources/PCPP2025-Public"]
+	path = semester-11/PCPP/slides-and-resources/PCPP2025-Public
+	url = https://github.itu.dk/jst/PCPP2025-Public
