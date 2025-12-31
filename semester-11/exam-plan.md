@@ -1,8 +1,9 @@
 # Available days
 
+- [x] 31/12
+    - [x] HPGP: Week 1
+    - [x] HPGP: Week 2
 - [ ] 01/01
-    - [ ] HPGP: Week 1
-    - [ ] HPGP: Week 2
 - [ ] 02/01
     - [ ] HPGP: Week 3
     - [ ] HPGP: Week 4
@@ -43,18 +44,18 @@
 
 (S=Syllabus, Q=Example Question)
 
-- [ ] Week 1: What is Data Oriented Design?
-    - [ ] S: DOD benefits
-    - [ ] Q: What are the differences between Array of Structs (AOS) and SOA (Structure of Arrays) and how do they relate to how memory can be structured in a DOD way?
-- [ ] Week 2: Hardware and DOD
-    - [ ] S: Memory patterns used in DOD (Array of Structs vs Structure of Arrays)
-    - [ ] S: Memory layout in Unity ECS (Chunks)
-    - [ ] S: Cache structure and benefits of cache
-    - [ ] S: Threads and cores in modern CPU architecture
-    - [ ] S: Temporal and spatial locality of data
-    - [ ] S: Von Neumann architecture and Von Neumann bottleneck
+- [x] Week 1: What is Data Oriented Design?
+    - [x] S: DOD benefits
+- [x] Week 2: Hardware and DOD
+    - [x] S: Memory patterns used in DOD (Array of Structs vs Structure of Arrays)
+    - [x] S: Cache structure and benefits of cache
+    - [x] S: Threads and cores in modern CPU architecture
+    - [x] S: Temporal and spatial locality of data
+    - [x] S: Von Neumann architecture and Von Neumann bottleneck
+    - [x] Q: What are the differences between Array of Structs (AOS) and SOA (Structure of Arrays) and how do they relate to how memory can be structured in a DOD way?
     - [ ] Q: How does the cache work in most modern CPU architectures? What are cache hits and misses? 
 - [ ] Week 3: Entity Component Systems
+    - [ ] S: Memory layout in Unity ECS (Chunks)
     - [ ] S: Unity ECS (entities, components, systems, archetypes, queries)
     - [ ] Q: Explain what an ECS component is - how is it different, say, from a Monobehaviour Unity component?
     - [ ] Q: What is a structural change in Unity ECS?
