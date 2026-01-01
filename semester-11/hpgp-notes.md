@@ -2,6 +2,8 @@
 
 [[toc]]
 
+# Unity and ECS
+
 ## Terminology (Week 1)
 
 - DOD: Data Oriented Design
@@ -501,7 +503,7 @@
     - 120 FPS = 8.3 ms per frame
 - Generally measure in ms as this gives a better sense of how much time is available for each task, and as FPS is  not linear.
 
-## Profiling (Week 4)
+## Profiling (Week 4 and 5)
 
 - The process of analyzing and monitoring the performance and behaviour of a program to identify performance issues.
 - Involves measuring various metrics such as CPU usage, memory usage, frame rate, etc.
@@ -518,6 +520,12 @@
     - Profile Analyzer: A tool for analyzing and visualizing profiling data collected from the Unity Profiler. Can also compare multiple profiling sessions to see how performance has changed over time.
     - Memory Profiler: A tool for analyzing memory usage in Unity projects. Helps identify memory leaks and optimize memory usage.
     - Project Auditor: A static analysis tool that scans your Unity project for potential issues and provides recommendations for improving performance and code quality.
+
+### Profile Analyzer
+
+- A tool for analyzing and visualizing profiling data collected from the Unity Profiler.
+- Can also compare multiple profiling sessions to see how performance has changed over time.
+- Can calculate statistics such as average, min, max, standard deviation, etc. for each profiling marker.
 
 ## Frame lifecycle (Week 4)
 
@@ -577,3 +585,350 @@
     - Look for:
         - `Gfx.WaitForPresentOnGfxThread`
 
+## Optimization (Week 5)
+
+- The process of improving the performance of a program.
+- The process of modifying a project so that an aspect of it is more efficient or uses fewer resources.
+- There are many reasons to optimize a game:
+    - Improve frame rate
+    - Reduce the build/patch size (ships and installs faster, better for people with limited storage or internet)
+    - Reduce build times (faster iteration times for developers)
+    - Reduce load times (better user experience)
+    - Pass certifications requirements (some platforms have strict performance requirements)
+    - To increase platfrom reach (PC or console might be able to run the game, but mobile devices cant) (Becomes more and more important with the Switch and SteamDeck)
+    - Reduce power consumption (important for mobile devices)
+- The optimization process usually involves the following steps:
+    - Identify performance bottlenecks using profiling tools.
+    - Analyze the bottlenecks to understand the root cause.
+    - Implement optimizations to address the bottlenecks.
+    - Test the optimizations to ensure they have the desired effect.
+    - Repeat the process as needed.
+- We talk about two types of optimizations:
+    - Micro-optimizations: Rewriting existing code to be a faster version at the function level
+        - Using better algorithms or data structures.
+        - Reducing memory allocations to avoid garbage collection.
+        - Identify hot paths and optimize them.
+    - System optimization: Improving the overall architecture and design of the system to be more efficient. Fx. by rewriting a system from OOP to DOD.
+- Remember the 80/20 rule:
+    - 80% of the performance issues are caused by 20% of the code.
+    - Focus on optimizing the parts of the code that have the biggest impact on performance.
+
+### Memory budget
+
+- A target for how much memory a specific task or system should use.
+- There are multiple types of budgets:
+    - Storage budget
+        - The amount of disk space the game uses.
+        - Important for download size and install size.
+        - Includes assets, code, etc.
+    - Runtime memory budget
+        - The amount of memory the game uses while running.
+        - RAM usage is the general purpose memory used by the game
+        - VRAM usage is the memory used by the GPU for textures, meshes, etc.
+- Reducing any of these budgets can improve performance, as it reduces the amount of data that needs to be loaded into memory and processed by the CPU and GPU. It also reduces download and install times as well as load times.
+- Typical memory budgets:
+    - Mobile: 1-4 GB RAM, 512 MB - 2 GB VRAM
+    - Console: 8-16 GB RAM, 2-8 GB VRAM
+    - PC: 16+ GB RAM, 4+ GB VRAM
+- Can be optimized using the memory profiler.
+
+### Common optimization techniques
+
+- Level of Detail (LOD):
+    - Use different levels of detail for objects based on their distance from the camera.
+    - Reduces the number of polygons and textures that need to be rendered.
+    - You cant see them anyway, so why waste resources on them.
+- Imposters:
+    - Use a simple 2D representation of a complex 3D object when it is far away from the camera.
+    - Reduces the number of polygons and textures that need to be rendered.
+    - Can literally be a picture
+    - Always rotates to face the camera.
+- Asset streaming:
+    - Load assets dynamically as needed, rather than loading everything at once when the game starts.
+    - Also unload assets that are no longer needed.
+    - Reduces memory usage and load times.
+    - Think GTA, no need to load the entire city when you are in the desert.
+- Baked lightning:
+    - Precompute lighting for static objects and store it in lightmaps, rather than calculating it in real-time.
+    - Reduces the amount of calculations the GPU needs to do.
+    - Dynamic lighting is still needed for moving objects and characters.
+- Culling:
+    - Don't render objects that are not visible to the camera.
+    - Types of culling:
+        - Frustum culling: Don't render objects outside the camera's view frustum.
+        - Occlusion culling: Don't render objects that are blocked by other objects.
+    - Can be tricky, especially occlusion culling with moving objects.
+    - Must be static assets or precomputed to use in Unity.
+- AI optimization:
+    - Same idea as LOD, use simpler AI for distant or less important characters.
+    - Can more or less teleport them around based on time.
+- Use multithreading:
+    - Offload heavy calculations to worker threads using the Job system.
+    - Reduces the load on the main thread, improving frame rate.
+- Reduce garbage collection:
+    - Avoid unnecessary memory allocations to reduce the frequency and duration of garbage collection.
+    - Use object pooling to reuse objects instead of creating new ones.
+    - Use structs instead of classes where possible to reduce heap allocations.
+- Cache:
+    - Aggresively cache data that is expensive to compute or fetch.
+
+### Shader optimization
+
+- Avoid transparency where possible, as it is expensive to render. Can also be extra tricky with culling
+- Avoid lit wherever possible, if lit, consider simple lighting models.
+- Avoid branching and half precision where possible.
+
+### Tradeoffs
+
+- There are always tradeoffs when optimizing a game.
+- Common tradeoffs include:
+    - Performance vs space: More upfront memory usage to reduce runtime calculations and improve performance.
+    - Speed versus accuracy: Less precise calculations to improve performance. Such as physics and shadows.
+    - Maintainability versus complexity: More complex code can improve performance, such as writing assembly or SIMD instructions, but is harder to maintain and understand. Sometimes the optimization is also very specific and makes it hard to change later.
+
+### Enableable Components
+
+- Instead of adding/removing components to enable/disable features, use `IEnableableComponent` interface.
+- Avoids structural changes when enabling/disabling features.
+- Is still ignored by queries.
+
+### Current trends
+
+- Mesh shaders:
+    - Allow for more complex geometry to be generated on the GPU.
+    - Reduces the amount of data that needs to be sent from the CPU to the GPU.
+    - Can be used for procedural generation, LODs, etc.
+- Mesh LOD:
+    - Instead of having multiple versions of a mesh for different LODs, use a single mesh with multiple levels of detail.
+- Less HDDs:
+    - With less HDDs the streaming has changed.
+    - SSDs can stream in a very different way, with much lower latency and higher bandwidth.
+    - Its also less important to optimize for streaming from disk.
+    - DirectStorage API allows for even better streaming performance by allowing the GPU to directly access data from the SSD.
+- Deep Learning Super Sampling (DLSS) and FidelityFX Super Resolution (FSR):
+    - Techniques that use machine learning to upscale lower resolution images to higher resolutions.
+    - Reduces the amount of data that needs to be rendered by the GPU, improving performance.
+- In general, the trend is that hardware is getting more powerful, and offloading more work to the GPU is becoming more common.
+
+## Design patterns (Week 5)
+
+- Commong, well known, general solutions to common problems in software design.
+- Not a step-by-step, but a template for how to solve a problem that can be used in many different situations.
+- Some are good in game development, but most are made for OOP.
+- Some patterns in game development:
+    - Command Pattern:
+        - Encapsulates a request as an object, allowing for parameterization of clients with queues, requests and operations.
+        - Useful for implementing undo/redo functionality, queuing actions, etc. 
+        - Good for strategy games where players issue commands to units.
+        - Can be used to implement input handling systems, where each input action is represented as a command object, and keys can be changed.
+    - State pattern:
+        - Allows an object to alter its behavior when its internal state changes
+        - State-specific behavior is defined independently from the object itself.
+        - Useful for implementing game AI, character states (e.g. idle, walking, running), etc.
+        - Good for games with complex state machines, such as RPGs or adventure games
+    - Observer pattern:
+        - Defines a one-to-many dependency between objects, where one is the publisher and the others are subscribers.
+        - When the publisher changes state, all subscribers are notified and can react accordingly.
+        - The observer has no knowledge or need to know of the subscribers.
+        - Useful for implementing event systems, UI updates, etc.
+    - Object Pooling:
+        - Generate all the objects you need at start of game and activate/deactive them as needed.
+        - Reduces memory allocations and garbage collection, improving performance.
+        - Trades memory usage for CPU performance.
+        - Useful for objects that are frequently created and destroyed, such as bullets, enemies, etc
+        - Unity has `UnityEngine.Pool` namespace for this.
+    - Singleton:
+        - Make a class have static instance variable that is globally accessible.
+        - Ensures that only one instance of the class exists.
+        - Useful for managing global game state, config, settings etc.
+        - Can lead to tight coupling and global state issues if overused.
+        - Somewhat of an anti-patter.
+        - Supported by ECS though.
+    - Spatial Partitioning:
+        - Divide space into smaller manageable section to optimize spatial queries and collision detection.
+        - Examples: K-d trees, R-trees
+    - Time slicing:
+        - Split the execution large tasks or complex logic over multiple frames or delay execution to only happen every other frame.
+        - Trades precision for performance.
+        - Useful for tasks that are not time critical, such as background loading, AI updates,
+
+# Unity Physics
+
+> What the fuck is a quaternion??????
+
+## Dynamics of rigid bodies (Week 6)
+
+- The ultimate goal of physics simulation is to simulate the motion of objects in a realistic way.
+- Each frame we calculate the forces acting on each object and step them forward in time.
+
+### Rigid Bodies
+
+- A rigid body is a physics object that can move and interact with other objects in the physics simulation.
+
+#### Newton-Euler equations
+
+- Uses the Newton-Euler equations to simulate motion.
+    - $F=m*a=m*v$ (force equals mass times acceleration equals mass times velocity)
+- The Newton-Euler equations are used to extend Newtons second law of motion to rigid bodies.
+    - "At any instant of time, the net force on a body is equal to the body's acceleration multiplied by its mass or, equivalently, the rate at which the body's momentum is changing with time.."
+- To describe how the mass of the body is distributed in space, we use the concept of inertia tensor.
+    - The inertia tensor is a 3x3 matrix that describes how the mass of the body is distributed in space.
+    - It is used to calculate the angular acceleration of the body when a torque is applied.
+- We then formulate the equations in matrix form so that we can apply linear algebra techniques to solve them.
+- After introducing a:
+    - Generalized velocity vector (6x1) $u_i$ that contains both linear and angular velocity.
+    - Generalized force vector (6x6) $g_i$ that contains both linear and angular forces.
+    - Mass matrix (6x6) $M_I$ that contains both mass and inertia tensor.
+- We can then assemble an equation where we stack the velocity vectors together $u$, the force vectors together $g$ and the mass matrices together $M$ for all bodies in the simulation, to create a large system of equations:
+    - $M*u = g$ which corresponds to our $F=m*a$ equation.
+
+
+### Constraints
+
+- Constraints are functions that restrict the motion of rigid bodies relative to each other.
+- Constraints can be used to simulate joints, contacts, and other interactions between rigid bodies.
+- There are are a few types of constraints:
+    - Bilateral constraints:
+        - Constraints that restrict motion in both directions.
+        - Examples: hinge joints, ball-and-socket joints, etc.
+    - Unilateral constraints:
+        - Constraints that restrict motion in one direction only.
+        - Examples: contact constraints, ground constraints, etc.
+    - Equality constraints:
+        - Constraints that enforce equality between two quantities.
+        - These usually only have one solution.
+        - Corresponds to bilateral constraints.
+        - Examples: distance constraints, angle constraints, etc.
+    - Inequality constraints:
+        - Constraints that allow solutions within a range.
+        - These usually have multiple solutions.
+        - Corresponds to unilateral constraints.
+- Kinematic constraints:
+    - Constaints that are simulated on the velocity level.
+    - Used for simulating joints and contacts.
+    - Solved by applying impulses to the rigid bodies to satisfy the constraints.
+- Example - Ball-and-socket joint:
+    - Allows only relative rotational movement between bodies with respect to a common anchor point.
+    - To solve:
+        - Define the constraint function
+        - Take the derivative of the constraint function with respect to time (to get the constraints)
+        - From the time derivate get the position vector and the pivot vector
+        - Bring into a new form to extract the  Jacobian
+        - Create a skew-symmetric matrix to create the Jacobian matrix???
+
+### Solving the system
+
+- After formulating the equations of motion and constraints, we need to solve the system of equations to get the new velocities of the rigid bodies.
+- We do this by applying the acceleration calculated by the forces and constraints to the current velocities of the rigid bodies, with the size of the timestep. OR:
+    - $Mu_{+}=\Delta t g + Mu_{_}$
+    - Where $u_{+}$ is the new velocity, $u_{-}$ is the current velocity, $\Delta t$ is the timestep, $g$ is the generalized force vector and $M$ is the mass matrix.
+- This all results in a new large matrix, much like the previous, which includes the mass matrix, the Jacobian of the constraints and the generalized force vector. Which we can solve to get the new velocities of the rigid bodies.
+- Only problem is that the method used to calculate the constraints, the lagrange multipliers, is prone to drifting. This means that with the discrete time steps, the constraints are not perfectly satisfied, leading to objects slowly drifting apart over time.
+- This can be stabilized using a solution derived from Taylor Series expansion of the constraint function.
+    - This adds a correction term to the constraint equations that helps to keep the constraints satisfied over time.
+
+### Iterative solvers
+
+- The system of equations derived from the equations of motion and constraints can be very large and complex, making it difficult to solve directly.
+- Instead, we use iterative solvers to approximate the solution.
+- Iterative solvers work by starting with an initial guess for the solution and then refining that guess over multiple iterations until it converges to a satisfactory solution.
+
+## Collision detection (Week 6)
+
+- Collision detection is the process of calculating whether two or more objects in a physics world are intersecting or colliding with each other.
+- Collision detection is usually divided into two phases:
+    - Broad phase:
+        - The first phase of collision detection.
+        - Quickly identifies pairs of objects that may be colliding, excluding pairs that are impossible.
+        - Used as a preprocessing step as the narrow phase is more computationally expensive.
+        - Can use simple algorithms like Sweep and Prune.
+    - Narrow pahse:
+        - The second phase of collision detection.
+        - Precisely calculates whether the pairs of objects identified in the broad phase are actually colliding.
+        - Uses more complex algorithms like GJK to calculate convex hull collisions.
+- A common pitfall is tunneling, where fast moving objects pass through other objects without detecting a collision.
+    - This can be mitigated using continuous collision detection, which checks for collisions along the entire path of the object, rather than just at discrete time steps.
+
+### Contact constraints
+
+- When two rigid bodies collide, we need to calculate the contact constraints to prevent them from intersecting.
+- Used to keep the objects separated after a collision.
+
+### Collision queries
+
+- Collision queries can be used to check for collisions between objects in the physics world.
+- Types of collision queries:
+    - Raycasts: Cast a ray from a point in a direction and check for intersections with objects.
+
+## Common physics tech and engines (Week 6)
+
+- Cloth simulation: Simulates the behavior of cloth and other soft bodies.
+- Ragdoll physics: Simulates the behavior of characters, especially when they are hit or fall.
+- Vehicle physics: Simulates the behavior of vehicles, including suspension, steering, and acceleration.
+- Destruction: Simulates how objects break apart and deform.
+
+- Common physics engines:
+    - Unity Physics: A DOTS-based physics engine developed by Unity.
+    - PhysX: A popular physics engine developed by NVIDIA, used in many games and applications.
+    - Havok: A widely used physics engine developed by Microsoft, used in many AAA games.
+    - MujoCo: A physics engine designed for robotics and machine learning applications.
+    - Vortex: A physics engine developed by CM Labs, used in simulation and training applications.
+
+## Unity Physics (Week 6)
+
+- Unity Physics is a DOTS-based physics engine developed by Unity.
+- Uses ECS as its main data format to represent:
+    - Translation: How an object moves in space
+    - Rotation: How an object orients in space
+    - Physics colliders: The shape of an object for collision detection
+    - Physics velocity: The velocity of an object
+    - Physics mass: The mass of an object
+    - Physics joint: The joints between objects
+- It exposes a set of interfaces and systems to interact with the physics world:
+    - `ICollidable`: Can be collided with
+        - Exposes a number of methods to:
+            - Cast rays and colliders and calculate distane to other colliders.
+            - Get a list of the closets/any/all variants of colliders in a certain area.
+            - Calculate the overlap or check if two colliders overlap.
+    - `ISimulation` Interface for rigid body dynamics
+- Physics simulation is often forced to use random access rather than sequential access to rigid body data, as objects can interact with any other object in the world. This makes it hard to optimize memory access patterns.
+    - Queries, finding overlaps, scheduling, building contacts, solving contacts all require random access.
+    - Integration and broadphase can use sequential access.
+- Bodies don't have a sequential place in memory, which causes this.
+- To mitigate this Unity Physics doesn't use ECS data (which is optimized for sequntial access), buth rather use its own runtime data:
+    - `PhysicsWorld`: Contains all the data needed for the physics simulation, including rigid bodies, colliders, joints, etc.
+    - `PhysicsBody`: Contains all the data needed for the physics simulation of a rigid body.
+    - `MotionData`: Contains all the data needed for the motion of a rigid body.
+    - `MotionVelocity`: Contains all the data needed for the velocity of a rigid body.
+- On each frame, Unity Physics invokes a series of systems to create its data:
+    - `BuildPhysicsWorld`: 
+        - Converts ECS data to Unity Physics runtime data.
+        - Builds the data structure to support queries (bounding volume hierarchy).
+        - This is all thats needed if you dont want dynamics.
+    - `BroadphaseSystem`: 
+        - Calculates a bounding volume around all rigid bodies to quickly identify potential collisions.
+        - Contains a tree of static bodies and a tree of dynamic bodies used to quickly find potential collisions.
+        - Uses a 4-way AABB tree to do spatial partitioning.
+    - `NarrowphaseSystem`:
+        - Precisely calculates the contact points between potentially colliding bodies identified in the broad phase.
+        - Uses the GJK algorithm.
+    - `CreateJacobiansSystem`
+        - Crease all joint, motor and contact Jacobians that should be solved.
+    - `SolveAndIntegrateSystem`: 
+        - Solves all Jacobians created in the previous step.
+        - Then integrates the ODE (Ordinary Differential Equations) using Runge-Kutta
+    - `ExportPhysicsWorld`:
+        - Exports the results back into ECS data.
+- Unity Physics has a funny history so it has some APIs that are kind of strange. This is because it has two different backends, with the same data format, queries and slightly different dynamics. The backends are Unity Physics and Havok Physics.
+- The engines support three different threading modes:
+    - Multithreaded:
+        - The default mode
+        - Uses the Job system to schedule jobs for each system. (> 500) jobs per step
+    - "Single" threaded mode:
+        - Runs one single threaded job per physics phase. But its not guaranteed to all run on the same thread.
+    - Immediate mode:
+        - One job per physics step
+        - Truly single threaded
+- Unity Physics has a number of different results that can be used in code:
+    - Collision events: Contains information about collision events that occurred during the physics simulation.
+    - Trigger events: Contains information about trigger events that occurred during the physics simulation.

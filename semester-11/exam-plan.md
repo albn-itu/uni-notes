@@ -6,34 +6,35 @@
 - [x] 01/01
     - [x] HPGP: Week 3
     - [x] HPGP: Week 4
+    - [x] HPGP: Week 5
+    - [x] HPGP: Week 6
 - [ ] 02/01
-- [ ] 03/01
-    - [ ] HPGP: Week 5
-    - [ ] HPGP: Week 6
-- [ ] 04/01
+    - [ ] HPGP: Week 8
     - [ ] HPGP: Week 9
     - [ ] HPGP: Week 10
-- [ ] 06/01
+- [ ] 03/01
     - [ ] HPGP: Week 11
     - [ ] HPGP: Week 12
+- [ ] 04/01
     - [ ] HPGP: Week 13
-- [ ] 07/01
+- [ ] 06/01
     - [ ] PCPP: Intro to concurrency and the mutual exclusion problem
     - [ ] PCPP: Synchronization
     - [ ] PCPP: Visibility
-- [ ] 08/01
+- [ ] 07/01
     - [ ] PCPP: Java memory model
     - [ ] PCPP: Thread-safe classes
     - [ ] PCPP: Testing
-- [ ] 09/01
+- [ ] 08/01
     - [ ] PCPP: Performance measurements
     - [ ] PCPP: Performance and Scalability
-- [ ] 10/01 (Only til 4pm)
+- [ ] 09/01
     - [ ] PCPP: Lock-free Data Structures
     - [ ] PCPP: Linearizability
-- [ ] 11/01
+- [ ] 10/01 (Only til 4pm)
     - [ ] PCPP: Streams
     - [ ] PCPP: Message Passing
+- [ ] 11/01
 - [ ] 12/01 (HPGP exam)
 - [ ] 13/01
 - [ ] 14/01
@@ -68,11 +69,15 @@
     - [x] S: Unity job system
     - [x] Q: How do Dependencies between jobs work?
     - [x] Q: What does the Burst compiler do?
-- [ ] Week 5: Optimization Techniques
-    - [ ] S: GPU and CPU bound
-    - [ ] Q: Given a low framerate and a profile capture that shows a system taking 6 ms, what would be your approach to investigate the problem further?
-- [ ] Week 6: Introduction to Real-Time 3D Physics
-    - [ ] S: Unity Physics Rigid Bodies
+- [x] Week 5: Optimization Techniques
+    - [x] S: GPU and CPU bound
+    - [x] Q: Given a low framerate and a profile capture that shows a system taking 6 ms, what would be your approach to investigate the problem further?
+- [x] Week 6: Introduction to Real-Time 3D Physics
+    - [x] S: Unity Physics Rigid Bodies
+    - [x] Q: Name a narrow phase collision detection algorithm
+    - [x] Q: Name a broad phase collision detection algorithm
+    - [x] Q: Describe the systems in Unity Physics
+- [ ] Week 8: ECS Memory and GPU profiling
 - [ ] Week 9: Iterative Solvers, Collision Detection and Constraint Solving
     - [ ] S: Unity Physics Collision detection
     - [ ] S: Unity Physics Constraint solving.
