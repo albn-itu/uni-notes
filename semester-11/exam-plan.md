@@ -3,10 +3,10 @@
 - [x] 31/12
     - [x] HPGP: Week 1
     - [x] HPGP: Week 2
-- [ ] 01/01
+- [x] 01/01
+    - [x] HPGP: Week 3
+    - [x] HPGP: Week 4
 - [ ] 02/01
-    - [ ] HPGP: Week 3
-    - [ ] HPGP: Week 4
 - [ ] 03/01
     - [ ] HPGP: Week 5
     - [ ] HPGP: Week 6
@@ -53,21 +53,21 @@
     - [x] S: Temporal and spatial locality of data
     - [x] S: Von Neumann architecture and Von Neumann bottleneck
     - [x] Q: What are the differences between Array of Structs (AOS) and SOA (Structure of Arrays) and how do they relate to how memory can be structured in a DOD way?
-    - [ ] Q: How does the cache work in most modern CPU architectures? What are cache hits and misses? 
-- [ ] Week 3: Entity Component Systems
-    - [ ] S: Memory layout in Unity ECS (Chunks)
-    - [ ] S: Unity ECS (entities, components, systems, archetypes, queries)
-    - [ ] Q: Explain what an ECS component is - how is it different, say, from a Monobehaviour Unity component?
-    - [ ] Q: What is a structural change in Unity ECS?
-- [ ] Week 4: Unity ECS and Profiling Introduction
-    - [ ] S: How to profile performance problems
-    - [ ] S: Unity job system
-    - [ ] S: SIMD/Burst
-    - [ ] Q: How does querying work in Unity ECS?
-    - [ ] Q: How do Dependencies between jobs work?
-    - [ ] Q: What is a chunk in Unity ECS?
-    - [ ] Q: What is SIMD?
-    - [ ] Q: What does the Burst compiler do?
+    - [x] Q: How does the cache work in most modern CPU architectures? What are cache hits and misses? 
+- [x] Week 3: Entity Component Systems
+    - [x] S: Memory layout in Unity ECS (Chunks)
+    - [x] S: Unity ECS (entities, components, systems, archetypes, queries)
+    - [x] S: SIMD/Burst
+    - [x] Q: How does querying work in Unity ECS?
+    - [x] Q: What is SIMD?
+    - [x] Q: Explain what an ECS component is - how is it different, say, from a Monobehaviour Unity component?
+    - [x] Q: What is a structural change in Unity ECS?
+    - [x] Q: What is a chunk in Unity ECS?
+- [x] Week 4: Unity ECS and Profiling Introduction
+    - [x] S: How to profile performance problems
+    - [x] S: Unity job system
+    - [x] Q: How do Dependencies between jobs work?
+    - [x] Q: What does the Burst compiler do?
 - [ ] Week 5: Optimization Techniques
     - [ ] S: GPU and CPU bound
     - [ ] Q: Given a low framerate and a profile capture that shows a system taking 6 ms, what would be your approach to investigate the problem further?
