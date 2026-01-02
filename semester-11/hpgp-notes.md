@@ -314,7 +314,7 @@
 
 - A different scene type that has an authoring container that automatically converts GameObjects to ECS entities at edit/play/build time.
 
-## Entities (Week 3)
+## Entities (Week 3 and 8)
 
 - The core building block of ECS.
 - Literally just an index and a version number.
@@ -328,6 +328,26 @@
 - Entities with the same archetype are stored together in memory in chunks.
 - When adding or removing components from an entity, it changes its archetype. This is called a structural change.
 - Structural changes are expensive operations as they require moving the entity to a different chunk in memory.
+
+#### Memory layout
+
+- Within an archetype entities are stored in uniformly sized blocks of memory called chunks.
+- Each chunk is 16 KB in size.
+- Each chunk contains components of the same type for entities of the same archetype. With components bein stored contiguously in memory.
+- When a chunk is filled, a new chunk is allocated for new entities of that archetype.
+- This layout allows for efficient memory access patterns and cache usage, as related data is stored together in memory.
+
+### Sparse sets
+
+- An alternative to the archetype based storage.
+- Not used by Unity.
+- It consists of two arrays:
+    - A dense array that stores the actual component data.
+    - A sparse array that maps entity IDs to indices in the dense array.
+- If only one component is needed for a system, then it can simply loop over that components dense array.
+- If specific components are needed, then the sparse arrays can be used to find the indices in the dense arrays for each entity.
+- For an entity query the system loops through the smallest component array and looks up the entity index sparse array. This index is then used to check if the other components exist for that entity.
+- This method is constant time for structural changes, but has worse cache performance as related data is not stored contiguously in memory. Its also slower to query, requiring multiple lookups and iterations.
 
 ### Entity Manager
 
@@ -752,11 +772,29 @@
         - Trades precision for performance.
         - Useful for tasks that are not time critical, such as background loading, AI updates,
 
+## Rendering debugger (Week 8)
+
+- A tool for stepping through the rendering process frame by frame to see how each draw call is executed.
+- Lets you debug:
+    - Shaders
+    - Materials
+    - Lighting
+    - Post-processing
+    - View depth and Normals
+- Unity uses an open source called RenderDoc for this.
+- RenderDoc shows a detailed breakdown of the frame including:
+    - Draw calls: All the draw calls made during the frame
+    - Textures: Which textures were used and their size
+    - Shaders: Which shaders were used and their complexity
+    - GPU time: How much time was spent on the GPU for each draw call
+
+
+
 # Unity Physics
 
 > What the fuck is a quaternion??????
 
-## Dynamics of rigid bodies (Week 6)
+## Dynamics of rigid bodies (Week 6 and 9)
 
 - The ultimate goal of physics simulation is to simulate the motion of objects in a realistic way.
 - Each frame we calculate the forces acting on each object and step them forward in time.
@@ -832,8 +870,15 @@
 - The system of equations derived from the equations of motion and constraints can be very large and complex, making it difficult to solve directly.
 - Instead, we use iterative solvers to approximate the solution.
 - Iterative solvers work by starting with an initial guess for the solution and then refining that guess over multiple iterations until it converges to a satisfactory solution.
+- Final accuracy depends on the number of iterations.
+- A modernt iterative method with good convergence properties is the Projected Gauss-Seidel (PGS) method.
+- Lets take the ball-and-socket joint as an example again:
+    - The objective is to find positions that respect the ball and socket constraints whilst conserving the centre of mass at each step.
+    - At each step the solver fixes one of the constraints, leaving the other constraints violated.
+    - After a number of iterations all constraints are approximately satisfied.
+- This method can have some inaccuracies, a common solution is to use warm starting, where the solution from the previous frame is used as the initial guess for the current frame. This helps to improve convergence and reduce errors. Unfortunately Unity Physics is stateless and can therefore not use warm starting.
 
-## Collision detection (Week 6)
+## Collision detection (Week 6 and 9)
 
 - Collision detection is the process of calculating whether two or more objects in a physics world are intersecting or colliding with each other.
 - Collision detection is usually divided into two phases:
@@ -859,6 +904,161 @@
 - Collision queries can be used to check for collisions between objects in the physics world.
 - Types of collision queries:
     - Raycasts: Cast a ray from a point in a direction and check for intersections with objects.
+
+### How it works
+
+- Unity Physics uses a two-phase collision detection system:
+
+#### Broad phase
+
+- The broad phase uses two bounding volume hierarchies (BVH) to quickly identify potential collisions:
+    - One for static bodies
+    - One for dynamic bodies
+    - Eac is a tree of axis-aligned bounding boxes (AABB) that encapsulate the objects in the physics world.
+- `ScheduleBroadPhaseJobs`: Schedules the jobs for the broad phase collision detection.
+    - `ScheduleFindOverlapsJob`: Schedules a set of jobs that write all overlapping body pairs to a given stream. At least one of the bodies in each pair must be dynamic.
+        - `FindOverlapsJob`: Schedules jobs that find overlapping AABBs between the static and dynamic BVHs.
+            - `DynamicVsDynamicFindOverlappingPairsJob`: Finds overlapping pairs between dynamic bodies via `SelfBVHOverlap`.
+            - `DynamicVsStaticFindOverlappingPairsJob`: Finds overlapping pairs between dynamic and static trees via `BVHOverlap`.
+        - Now we have all overlapping bodies.
+    - `ScheduleCreatePhasedDispatchPairsJob`: Schedules a series of jobs that merge streams of body and joint pairs and join them into a sorted array of dispatch pairs.
+        - `CreateUnsortedDispatchPairsJob`: Merge all overlapping body pairs from the previous step with joint pairs from the joint system.
+        - `CreateDispatchPairPhasesJob`: Create phases for multi-threading. (I don't know what this means)
+
+#### Narrow phase
+
+- The Gilbert-Johnson-Keerthi (GJK) algorithm is a method for calculating the minimum distance between two convex shapes. It works by:
+    - Some preinfo:
+        - The minkowski sum is a region swept by all points in shape A translated to all points in shape B.
+        - The minkowski difference is a region swept by all points in Shape A translated to all points in shape B, but B is negated.
+        - The algorithm is given an empty simplex $Q$ and an origin point $origin$. 
+        - The goal is to iteratively construct a simplex (point, line, plane, a triangle in 2D, a tetrahedron in 3D).
+    1. It starts by selecting a point A as the initial simplex. Creating the set $Q=\{A\}$
+    2. Then it finds the supporitng point B (the most distant point in a direction) for A in the direction of $origin$. This point is added to the simplex $Q=\{A,B\}$
+    3. We now find the point on the line segment $AB$ that is closest to the origin $origin$. This point is called $C$.
+    4. We then find the supporting point $D$ for $C$ in the direction of $origin$ and add it to the simplex $Q=\{A,B,D\}$
+    5. We then find the point closest to the origin on the triangle $ABD$. This point is called $E$.
+    6. Because only $B$ and $D$ are needed to express $E$ (it will be on that line segment), we can remove $A$ from the simplex, resulting in $Q=\{B,D\}$
+    7. We then, again, find the supporting point $F$ for $E$ in the direction of $origin$ and add it to the simplex $Q=\{B,D,F\}$
+    8. We then find the point closest to the origin on the triangle $BDF$. This point is called $G$.
+    9. Because only $D$ and $F$ are needed to express $G$ (it will be on that line segment), we can remove $B$ from the simplex, resulting in $Q=\{D,F\}$
+    10. This process continues until the point closest to the origin is the same as the supporting point in that direction, meaning we have found the closest point on the minkowski difference to the origin.
+    - In this case no collision has occurred. If a collision had occurred, then the origin would have been inside $Q$ at some point. At which point the algorithm would have terminated.
+- `ScheduleNarrowPhaseJobs`: Schedules the jobs for the narrow phase collision detection.
+    - `ScheduleCreateContactsJob`
+        -  Schedules a set of jobs that iterate over the contact pairs and create contacts based on them.
+        - `ParallelCreateContactsJob`: Calculates the contacts for each pair using GJK.
+        - Writes a set of contact manifolds for a pair of bodies to a stream
+        - The actualy detection first calculates the upper bound on the velocity of the bodies, to determine how far away from the body to look for possible collisions.
+
+## Constraint solving (Week 9)
+
+- As an dynamiv vs static example:
+    - Take a puck against a wall. The puck is moving towards the wall with a certain velocity.
+    - The equation then becomes $v+\frac{\lambda}{m}=0$
+    - Where $v$ is the velocity of the puck, $m$ is the mass of the puck and $\lambda$ is the impulse applied to the puck to stop it. $\lambda$ changes the velocity of the puck by $\frac{\lambda}{m}$.
+    - $\lambda$ is to velocity what force is to acceleration.
+    - So we solve for $\lambda$ to get the impulse needed to stop the puck.
+    - $\lambda = -m*v$. So the heavier the puck is (the larger m is), the larger the impulse needed to stop it. Or the faster the puck is moving (the larger v is), the larger the impulse needed to stop it.
+- Now take a dynamic vs dynamic example:
+    - Take two pucks colliding with each other, where puck 1 is moving towards puck 2 with a certain velocity.   
+    - We want the relative velocity between the two pucks to be zero after the collision.
+    - The equation then becomes $\left(v_1+\frac{\lambda}{m_1}\right)-\left(v_2-\frac{\lambda}{m_2}\right)=0$
+    - We apply the same impulse to both objects, but in opposite directions.
+    - Solving for $\lambda$ gives us $\lambda = -(v_2-v_1)\frac{1}{\left(\frac{1}{m_1}+\frac{1}{m_2}\right)}$
+    - We call the fraction in that term the effective mass.
+        - The effective mass for a constraint is a measure of how much the constraint needs to push to get a given change in velocity.
+- Now, take two objects moving towards each other, but with different directions.
+    - In this case we need to take the direction of the collision into account.
+    - We do this by taking the normal of the collision and multiplying the impulse with the normal.
+    - Also, the velocities in the equation is the dot-product with the normal, as we only care about the velocities in that direction (for the collision).
+    - The equation then becomes $n*\left[\left(v_1+\frac{\lambda n}{m_1}\right)-\left(v_2-\frac{\lambda n}{m_2}\right)\right]=0$
+    - Solving for $\lambda$ gives us $\lambda = n*(v_2-v_1)\frac{1}{\left(\frac{1}{m_1}+\frac{1}{m_2}\right)}$
+- Now, take a static round object and a dynamic box hitting not head on, and rotating while colliding:
+    - In this case we need to take the angular velocity and collision point into account.
+    - $n*(v+\Delta v+(\omega+\Delta \omega) x r)=0$. Where $r$ is the vector from the center of mass to the collision point, and $\omega$ is the angular velocity.
+    - The constraint point is at the tip of the $r$ vector. $\Delta v$ is the change in linear velocity and $\Delta \omega$ is the change in angular velocity when applying the impulse.
+    - Solving for $\lambda$ gives us $\lambda = n*(v+\omega x r)\frac{1}{\left(\frac{1}{m}+*I^{-1}(r x n)*(r x n)\right)}$
+    - Where $I$ is the inertia tensor.
+- In all these examples we see the effective mass appear. In which the inverse mass and Intertia are part of the denominator. The more of either, the larger the impulse needed to change the velocity.
+- Now consider a constraint that simply locks a point to a plane. In this case in 2D, so a point to a line.
+    - In general we can define the constraint as a function $C(T)=0$. Where $T$ is the position of the point (the transform).
+    - The function is $0$ when the constraint is satisfied, and non-zero when it is violated. The larger the function value, the more the constraint is violated.
+    - To constrain the velocities of the object, we need to take the time derivative of the constraint function and ensure that this is always 0.
+        - When we say velocities, we mean the 6-D $u_i=[v_i,\omega_i]$ vector that combines linear and angular velocity.
+    - The reasoning behind the following solution is that we only need to solve for the change in the perpendicular direction to the line. Call this the Jacobian $J$
+    - The impulse we want to apply is in the Jacobian direction.
+    - We can get a nice linear approximation by just dot producting the Jacobian with the velocity vector. Which can then be solved.
+    - I leave out the full equations, but as before we simply solve for the impulse $\lambda$ needed to satisfy the constraint.
+- In some cases the constraint is an inequality constraint, meaning there is a range of valid solutions. Say when a box must be on a line segment. Constraining that its on the line is easy, that its on the segment is not. We could treat the line segment endings as planes, but that makes the constraints conditional and makes the matrix even more complex. No, for this we need a Linear Complementarity Problem (LCP) solver.
+
+### Caveats
+
+- As we are taking discrete time steps and using linear approximations, we wont get a perfect solution. The inperfections wil also accumulate over time, leading to drifting.
+    - We can mitigate this by adding a correction term to the constraint equations:
+        - Calculate the error $d$
+        - Divei by delta time $\Delta t$ to get a velocity correction term
+        - Apply $\frac{-d}{\Delta t}$ to the constraint equation.
+    - This stops us from accumaliting errors over time.
+    - This can be improved by calculating the Jacobian and error for the guess of the next position, rather than the current position. This way we solve for what the error will be, rather than what it is now.
+- All the examples above only solve a single constraint. Realistically we have multiple constraints. The simplest way to solve all of them is to loop over them and solve them indidivually. Then repeat until it hopefully converges.
+    - This is called the Gauss-Seidel method.
+    - Unfortunately it is not exact and converging can be slow. And one constraint can violate another.
+- A better way is to create a large matrix of all the Jacobian vectors and solve them together. 
+    - Effective mass is now a $n x n$ matrix.
+    - It all leads to a large sparse matrix, but it is solvable.
+    - This is more accurate, but also more computationally expensive.
+    - Due to the computational complexity, this is used very rarely in Unity Physics.
+
+### Joints and motors
+
+- Joints in Unity Physics are a series of constraints.
+- The Free Hinge Joint:
+    - Allows rotation around a single axis.
+    - Implemented using two constraints:
+        - A hinge constraint to allow rotation around the hinge axis.
+            - Solver: `AngularLimit2DJacobian`
+        - A ball-and-socket constraint to restrict movement to the hinge axis.
+            - Solver: `LinearLimitJacobian`
+- The Limited Hinge Joint:
+    - Similar to the free hinge joint, but with limits on the rotation.
+    - Implemented using three constraints:
+        - A hinge constraint to allow rotation around the hinge axis.
+            - Solver: `AngularLimit2DJacobian`
+        - A ball-and-socket constraint to restrict movement to the hinge axis.
+            - Solver: `LinearLimitJacobian`
+        - A Twist constraint to limit the rotation around the hinge axis.
+- The rotation motor:
+    - Applies a torque to the joint to achieve a target angular velocity.
+    - Implemented using:
+        - A motor twist constraint to apply the torque.
+            - Solver: `RotatioonMotorJacobian`
+        - A Hinge constraint to allow rotation around the hinge axis.
+            - Solver: `AngularLimit2DJacobian`
+        - A Ball-and-socket constraint to restrict movement to the hinge axis.
+            - Solver: `LinearLimitJacobian`
+- Angular Velocity Motor:
+    - Applies a torque to the joint to achieve a target angular velocity.
+    - Implemented using:
+        - An angular velocity motor constraint to apply the torque.
+            - Solver: `AngularVelocityMotorJacobian`
+        - A Hinge constraint to allow rotation around the hinge axis.
+            - Solver: `AngularLimit2DJacobian`
+        - A Ball-and-socket constraint to restrict movement to the hinge axis.
+            - Solver: `LinearLimitJacobian`
+- Position Motor:
+    - Applies a force to the joint to achieve a target position.
+    - Implemented using:
+        - A Fixed Angle constraint to restrict rotation.
+        - A Motor Planar constraint to apply the force.
+            - Solver: `PositionMotorJacobian`
+        - A Cylindrical constraint to allow movement along a single axis.
+- Linear Velocity Motor:
+    - Applies a force to achieve a target linear velocity.
+    - Implemented using:
+        - A Linear Velocity Motor constraint to apply the force.
+            - Solver: `LinearVelocityMotorJacobian`
+        - A Fixed Angle constraint to restrict rotation.
 
 ## Common physics tech and engines (Week 6)
 
@@ -932,3 +1132,51 @@
 - Unity Physics has a number of different results that can be used in code:
     - Collision events: Contains information about collision events that occurred during the physics simulation.
     - Trigger events: Contains information about trigger events that occurred during the physics simulation.
+
+## Maths refresher (Week 10)
+- Trigonometry:
+    - Sine, cosine, tangent functions
+- Vectors:
+    - A vector is a geometric object that has both a magnitude and a direction.
+    - Common operations:
+        - Addition: $A + B = B + A$ (commutative)
+        - Subtraction: $A - B \neq B - A$ (not commutative)
+        - Scalar multiplication: $cA$ (scales the vector by a scalar)
+        - Dot product: Is equal to the magnitude of the first vector times the magnitude of the second vector, times the cosine of the angle between them. $A \cdot B = |A||B|cos(\theta)$
+            - Measures how much two vectors point in the same direction. When they are at a right angle to each other (orthogonal), the dot product is 0.
+        - Cross product: $A \times B$ results in a vector that is perpendicular to both A and B with a magnitude of $|A||B|sin(\theta)$
+            - Remember the right-hand rule to determine the direction of the resulting vector.
+- Matrices:
+    - A matrix is a rectangular array of numbers or expressions arranged in rows and columns.
+    - A great matrix is the rotation matrix, which can be used to rotate vectors in 2D and 3D space.
+- Number systems:
+    - Real numbers: All the numbers on the number line, including rational and irrational numbers. Always returns a real number when adding, subtracting, multiplying or dividing (except division by 0).
+    - Complex numbers: Numbers that have a real part and an imaginary part. The imaginary part is represented by the letter "i". Example: $3 + 4i$. They behave much like a coordinate system in 2D space. 
+- Quaternions:
+    - A quaternion is a way to describe the orientation and rotation of an object in 3D space, using four values: one real part and three imaginary parts. Example: $3+2i+1j+2k$.
+    - Multiplication of quaternions is not commutative.
+    - Quaternions have a cyclic pattern in their multiplication rules:
+        - $i^2 = j^2 = k^2 = ijk = -1$
+        - $ij = k, ji = -k$
+        - $jk = i, kj = -i$
+        - $ki = j, ik = -j$
+    - Unit quaternions, known as versors, are convenient for representing spatial orientation and rotation in three dimensional space. The encode the axis-angle rotation about an arbitrary axis.
+    - They are much more compact, efficient and numerically stable than other representations like Euler angles or rotation matrices.
+        - They also dont have gimbal lock issues like Euler angles.
+    - Great at Spherical linear interpolation (SLERP) between two rotations.
+- ODEs and mathemathical series:
+    - Differential equations describe how a quantity changes over time.
+    - The initial value problem requires solving a differential equation to find a function that satisfies the equation and meets a specific initial condition. Represented as $x'(t) = f(x, t)$, where f is a function that we can evaluate at any time t, and $x$ is the state of the system at time t. Finally $x'(t)$ is the derivative of $x$ with respect to time.
+        - In 2D x(t) creates a curve that describes the motion of a point over time.
+    - In this course we only focus on actual numerical solutions, by taking discrete time steps.
+    - We conisder the function $f$ to be a black box where we provide numerical solutions for $x$ and $t$ and get back $x'$.
+    - Numerical methods operate by performing one or more of these derivative evaluations per time step to estimate the new state of the system at the next time step.
+    - Common numerical methods:
+        - Euler's method:
+            - The simplest method.
+            - Let our initial value for $x$ be denoted as $x_0=x(t_0)$ and our estimate of $x$ at a later time $t_0 + h$ be $x(t_0 + h)$ where $h$ is the step size.
+            - The formula for Euler's method is: $x(t_0 + h) = x_0 + h * x'(t_0)$
+            - This method is simple and easy to implement, but it can be inaccurate and unstable for large step sizes or stiff equations.
+        - Midpoint method:
+            - An improvement over Euler's method.
+            - It uses the logic behind the Taylor series expansion to get a better estimate of the derivative at the midpoint of the interval.

@@ -9,32 +9,32 @@
     - [x] HPGP: Week 5
     - [x] HPGP: Week 6
 - [ ] 02/01
-    - [ ] HPGP: Week 8
-    - [ ] HPGP: Week 9
-    - [ ] HPGP: Week 10
+    - [x] HPGP: Week 8
+    - [x] HPGP: Week 9
+    - [x] HPGP: Week 10
 - [ ] 03/01
+- [ ] 04/01
+- [ ] 06/01
     - [ ] HPGP: Week 11
     - [ ] HPGP: Week 12
-- [ ] 04/01
     - [ ] HPGP: Week 13
-- [ ] 06/01
+- [ ] 07/01
     - [ ] PCPP: Intro to concurrency and the mutual exclusion problem
     - [ ] PCPP: Synchronization
     - [ ] PCPP: Visibility
-- [ ] 07/01
+- [ ] 08/01
     - [ ] PCPP: Java memory model
     - [ ] PCPP: Thread-safe classes
     - [ ] PCPP: Testing
-- [ ] 08/01
+- [ ] 09/01
     - [ ] PCPP: Performance measurements
     - [ ] PCPP: Performance and Scalability
-- [ ] 09/01
+- [ ] 10/01 (Only til 4pm)
     - [ ] PCPP: Lock-free Data Structures
     - [ ] PCPP: Linearizability
-- [ ] 10/01 (Only til 4pm)
+- [ ] 11/01
     - [ ] PCPP: Streams
     - [ ] PCPP: Message Passing
-- [ ] 11/01
 - [ ] 12/01 (HPGP exam)
 - [ ] 13/01
 - [ ] 14/01
@@ -77,17 +77,17 @@
     - [x] Q: Name a narrow phase collision detection algorithm
     - [x] Q: Name a broad phase collision detection algorithm
     - [x] Q: Describe the systems in Unity Physics
-- [ ] Week 8: ECS Memory and GPU profiling
-- [ ] Week 9: Iterative Solvers, Collision Detection and Constraint Solving
-    - [ ] S: Unity Physics Collision detection
-    - [ ] S: Unity Physics Constraint solving.
-    - [ ] Q: Name a narrow phase collision detection algorithm
-    - [ ] Q: Name a broad phase collision detection algorithm
-    - [ ] Q: Describe the systems in Unity Physics
-- [ ] Week 10: Maths Refresher, Constraint Solving
-    - [ ] S: Unity Physics Constraint solving.
-    - [ ] S: Unity Physics ODE solving
-    - [ ] Q: Describe the systems in Unity Physics
+- [x] Week 8: ECS Memory and GPU profiling
+- [x] Week 9: Iterative Solvers, Collision Detection and Constraint Solving
+    - [x] S: Unity Physics Collision detection
+    - [x] S: Unity Physics Constraint solving.
+    - [x] Q: Name a narrow phase collision detection algorithm
+    - [x] Q: Name a broad phase collision detection algorithm
+    - [x] Q: Describe the systems in Unity Physics
+- [x] Week 10: Maths Refresher, Constraint Solving
+    - [x] S: Unity Physics Constraint solving.
+    - [x] S: Unity Physics ODE solving
+    - [x] Q: Describe the systems in Unity Physics
 - [ ] Week 11: Constraint Solving Continued, SIMD, Burst, Advanced Solvers and Deformation.
     - [ ] Q: What is an iterative solver?
     - [ ] Q: Describe the systems in Unity Physics
