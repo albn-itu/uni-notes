@@ -254,6 +254,32 @@
     - Used to manually write vectorized code.
     - These are harder to write and maintain than auto-vectorized code, but is worth it for performance critical code.
 
+### The burst compiler (Week 11)
+
+- A compiler developed by Unity for high performance C# code.
+- Translate .NET bytecode into highly optimized native code.
+- Made for Unitys job system.
+- To use:
+    - Create a job
+    - Initialize and run the job
+    - Add the `[BurstCompile]` attribute to the job struct.
+- When using the editor, the burst compiler compiles code in the background and uses the original .NET bytecode if it hasn't finished yet.
+    - When building the project the burst compiler is always used, so you only ship burst code.
+- It has some drawbacks:
+    - Cant use reference types
+    - Cant acess game objects or monobehaviours
+    - Cant write to static variables
+    - Cant try/catch
+        - You can still throw exceptions, but they will crash the player, or be caught by the unity exception handler in the editor.
+- It can also auto-vectorize code to use SIMD instructions for better performance.
+- It transforms arrays into NativeArrays for better performance and safety in jobs.
+    - Even does it with 2 dimensional arrays by flattening them into 1 dimensional arrays.
+- Unity ships a burst inspector which can:
+    - Show what jobs were burst compiled, and which ones werent.
+    - Show the generated assembly code for a job. And show the differences between burst and non-burst code.
+- When the code crashed, look in the `player.log` file for a stack trace, it will contain a hash.
+    - Look in lib_burst_generated.txt for the hash, the name of the job will be next to it.
+
 ## GPU (Week 2)
 
 - A GPU (Graphics Processing Unit) is a specialized graphics processor designed to process thousands upong thousands of operations in parallel.
@@ -1059,6 +1085,49 @@
         - A Linear Velocity Motor constraint to apply the force.
             - Solver: `LinearVelocityMotorJacobian`
         - A Fixed Angle constraint to restrict rotation.
+
+### Solvers (Week 11)
+
+#### Quicky on coordinate representations
+
+- Maximal Coordinate representations:
+    - Operate in Cartesian space (x,y,z) and is thus hard to:
+        - Represent rotations
+        - Enforce joint limits
+        - Apply internal joint torques.
+    - Inaccuracy in numeric integration causes bodies to drfit apart.
+- Reduced Coordinate representations:
+    - Use generalized coordinates (joint angles) to represent the system.
+    - Fewer degrees of freedom and fewer constraints to solve.
+    - Well suited for articulated systems like characters and robots.
+
+#### Common solvers
+
+- Unity Physics contains a direct solver which is the process described above, using matrices.
+    - Its solved using Lagrange Multipliers.
+        - A maximal coordinate method.
+        - Is the main solver in Unity Physics.
+- Articulated Body Method (AKA Featherstone's algorithm):
+    - Is a reduced coordinate method.
+    - Available in PhysX.
+    - Existing implementations of articulated bodies:
+        - Use a separate Rigid-Body type.
+        - Use a separate Joint type.
+        - Cannot be mixed with regular rigid bodies or joints  from the lagrange based solver.
+    - It functions on Spatial Algebra, which combines linear and angular quantities into a single 6D vector.
+        
+### Deformation (Week 11)
+
+- Deformation is the process of simulating how objects change shape when forces are applied to them.
+- Traditionally deformation has been done using constrained particle simulations, with breakable joints.
+    - Take a cloth simulation, create a grid of particles connected by breakable joints.
+    - When a force is applied, the joints can break, simulating tearing.
+- Another method is to use finite element methods (FEM) to simulate deformation.
+    - FEM is a numerical method for solving partial differential equations by dividing a large system  into smaller simpler parts called finite elements.
+- Another method again is Position Based Dynamics Material Point Method (PBD-MPM).
+    - PBD is a method for simulating deformable objects by representing them as a collection of particles.
+    - MPM is a method for simulating fluids and solids by representing them as a collection of material points.
+    - PBD-MPM combines the two methods to simulate deformable objects with complex behaviors like plasticity and fracture.
 
 ## Common physics tech and engines (Week 6)
 

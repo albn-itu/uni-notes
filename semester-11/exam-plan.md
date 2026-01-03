@@ -8,14 +8,14 @@
     - [x] HPGP: Week 4
     - [x] HPGP: Week 5
     - [x] HPGP: Week 6
-- [ ] 02/01
+- [x] 02/01
     - [x] HPGP: Week 8
     - [x] HPGP: Week 9
     - [x] HPGP: Week 10
+    - [x] HPGP: Week 11
 - [ ] 03/01
 - [ ] 04/01
 - [ ] 06/01
-    - [ ] HPGP: Week 11
     - [ ] HPGP: Week 12
     - [ ] HPGP: Week 13
 - [ ] 07/01
@@ -81,20 +81,16 @@
 - [x] Week 9: Iterative Solvers, Collision Detection and Constraint Solving
     - [x] S: Unity Physics Collision detection
     - [x] S: Unity Physics Constraint solving.
+    - [x] Q: What is an iterative solver?
     - [x] Q: Name a narrow phase collision detection algorithm
     - [x] Q: Name a broad phase collision detection algorithm
     - [x] Q: Describe the systems in Unity Physics
 - [x] Week 10: Maths Refresher, Constraint Solving
-    - [x] S: Unity Physics Constraint solving.
     - [x] S: Unity Physics ODE solving
     - [x] Q: Describe the systems in Unity Physics
-- [ ] Week 11: Constraint Solving Continued, SIMD, Burst, Advanced Solvers and Deformation.
-    - [ ] Q: What is an iterative solver?
-    - [ ] Q: Describe the systems in Unity Physics
+- [x] Week 11: Constraint Solving Continued, SIMD, Burst, Advanced Solvers and Deformation.
 - [ ] Week 12: Destructible Joints, Broadphase Deep Dive
-    - [ ] Q: Describe the systems in Unity Physics
 - [ ] Week 13: Incremental Broadphase, Substepping
-    - [ ] Q: Describe the systems in Unity Physics
 - [ ] Week 14: The future 
 
 # PCPP
