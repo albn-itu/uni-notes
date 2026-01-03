@@ -17,10 +17,10 @@
     - [x] HPGP: Week 12
     - [x] HPGP: Week 13
     - [x] HPGP: Week 14
+    - [x] PCPP: Intro to concurrency and the mutual exclusion problem
 - [ ] 04/01
 - [ ] 06/01
 - [ ] 07/01
-    - [ ] PCPP: Intro to concurrency and the mutual exclusion problem
     - [ ] PCPP: Synchronization
     - [ ] PCPP: Visibility
 - [ ] 08/01
@@ -96,10 +96,10 @@
 
 # PCPP
 
-- [ ] **Intro to concurrency and the mutual exclusion problem**
-    - [ ] Read week 1 material.
-    - [ ] Define and motivate concurrency and mutual exclusion. 
-    - [ ] Explain data races, race conditions, and critical sections.
+- [x] **Intro to concurrency and the mutual exclusion problem**
+    - [x] Read week 1 material.
+    - [x] Define and motivate concurrency and mutual exclusion. 
+    - [x] Explain data races, race conditions, and critical sections.
     - [ ] Show some examples of code from your solutions to the exercises in week 1.
 - [ ] **Synchronization**
     - [ ] Read week 2 material.
