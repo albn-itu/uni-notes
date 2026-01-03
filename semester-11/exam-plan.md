@@ -13,15 +13,15 @@
     - [x] HPGP: Week 9
     - [x] HPGP: Week 10
     - [x] HPGP: Week 11
-- [ ] 03/01
+- [x] 03/01
     - [x] HPGP: Week 12
     - [x] HPGP: Week 13
     - [x] HPGP: Week 14
     - [x] PCPP: Intro to concurrency and the mutual exclusion problem
+    - [x] PCPP: Synchronization
 - [ ] 04/01
 - [ ] 06/01
 - [ ] 07/01
-    - [ ] PCPP: Synchronization
     - [ ] PCPP: Visibility
 - [ ] 08/01
     - [ ] PCPP: Java memory model
@@ -101,9 +101,9 @@
     - [x] Define and motivate concurrency and mutual exclusion. 
     - [x] Explain data races, race conditions, and critical sections.
     - [ ] Show some examples of code from your solutions to the exercises in week 1.
-- [ ] **Synchronization**
-    - [ ] Read week 2 material.
-    - [ ] Explain and motivate how locks, monitors, and semaphores can be used to address the challenges caused by concurrent access to shared memory.
+- [x] **Synchronization**
+    - [x] Read week 2 material.
+    - [x] Explain and motivate how locks, monitors, and semaphores can be used to address the challenges caused by concurrent access to shared memory.
     - [ ] Show some examples of code from your solutions to the exercises in week 2.
 - [ ] **Visibility**
     - [ ] Explain the problems of visibility and reordering in shared memory concurrency.

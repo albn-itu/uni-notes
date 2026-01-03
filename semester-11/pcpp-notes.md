@@ -199,10 +199,21 @@ try {
 - In Java, the `ReentrantLock` class can be created as fair or unfair by passing a boolean parameter to its constructor.
 - Fairness is also important to ensure predicatable behavior in concurrent programs.
 
+### volatile variables (Week 2)
+
+- The `volatile` keyword in Java is used to indicate that a variable's value may be changed by different threads.
+- Its a form of weak synchronization.
+- When a variable is declared as `volatile`, it ensures that:
+    - Reads and writes to the variable are directly done to main memory, not cached in CPU caches
+    - Changes made by one thread to a `volatile` variable are immediately visible to other threads.
+    - Changes made to the volatile variables flush registers and low level caches to the main memory, and reload them from main memory when read.
+    - The variables cannot be reordered.
+
 ### Things to avid (Week 1)
 
 - Busy waiting: Continuously checking for a condition to be true, which wastes CPU resources and memory bus traffic. (Github safe sleep is a great example of this)
 - Memory contention: When multiple threads try to access the same memory location, leading to performance degradation due to cache invalidation.
+- Not synchronizing reads, as it may lead to visibility issues.
 
 ## Common hardware and programming language concurrency issues (Week 2)
 
@@ -232,3 +243,18 @@ try {
 - This can lead to unexpected behavior in concurrent programs if threads rely on a specific order of operations.
 - Most progamming languages include these optimizations.
 - Synchronization actions cannot prevent the reordering of instructions within a single thread, but they can prevent reordering across threads.
+
+## Publication and escape (Week 2)
+
+- Publication refers to the process of making an object accessible outside its current or intended scope
+- Escape refers to the situation where an object is published when it shouldn't be. Can happen when:
+    - An object is assigned to a static field
+    - Return from a non-private method
+    - Pass to a method in another class
+    - Add to a public data structure
+- Safe publication can be achieved through:
+    - Initializing an object in a static initializer
+    - Storing a reference to it in a `volatile` field or an `AtomicReference`
+    - Storing a reference to it in a final field of a properly constructed object
+    - Storing a reference to it in a field that is properly guarded by a lock
+
