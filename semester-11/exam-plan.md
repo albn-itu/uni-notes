@@ -14,10 +14,11 @@
     - [x] HPGP: Week 10
     - [x] HPGP: Week 11
 - [ ] 03/01
+    - [x] HPGP: Week 12
+    - [x] HPGP: Week 13
+    - [x] HPGP: Week 14
 - [ ] 04/01
 - [ ] 06/01
-    - [ ] HPGP: Week 12
-    - [ ] HPGP: Week 13
 - [ ] 07/01
     - [ ] PCPP: Intro to concurrency and the mutual exclusion problem
     - [ ] PCPP: Synchronization
@@ -89,9 +90,9 @@
     - [x] S: Unity Physics ODE solving
     - [x] Q: Describe the systems in Unity Physics
 - [x] Week 11: Constraint Solving Continued, SIMD, Burst, Advanced Solvers and Deformation.
-- [ ] Week 12: Destructible Joints, Broadphase Deep Dive
-- [ ] Week 13: Incremental Broadphase, Substepping
-- [ ] Week 14: The future 
+- [x] Week 12: Destructible Joints, Broadphase Deep Dive
+- [x] Week 13: Incremental Broadphase, Substepping
+- [x] Week 14: The future 
 
 # PCPP
 

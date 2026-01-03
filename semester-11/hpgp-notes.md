@@ -951,6 +951,76 @@
         - `CreateUnsortedDispatchPairsJob`: Merge all overlapping body pairs from the previous step with joint pairs from the joint system.
         - `CreateDispatchPairPhasesJob`: Create phases for multi-threading. (I don't know what this means)
 
+##### Deep dive (Week 12)
+
+- Starts in `BuildPhysicsWorld.OnUpdate`
+- Calls `PhysicsWorldBuilder.SchedulePhysicsWorldBuild`
+    - Queries the number of dynamic, static bodies and joints.
+    - If the number of static bodies has changed since last frame, it rebuilds the static BVH.
+    - If there are any dynamic bodies it runs `Jobs.CreateRigidBodies` to create them in the physics world and their motiosn using `Jobs.CreateMotions`.
+    - It also creates the static bodies using `Jobs.CreateRigidBodies`.
+    - Then we build the joints using `Jobs.CreateJoints`.
+    - Finally we schedule the broad phase jobs using `world.CollisionWorld.ScheduleBuildBroadPhaseJobs`.
+        - This builds the static tree using `ScheduleStaticTreeBuildJobs`
+        - And `ScheduleDynamicTreeBuildJobs` builds the dynamic tree.
+        - Which both eventually call `BoundingVolumeHierarchy.Build`
+            - This builds the BVH
+            - `BuildFirstNLevels`: Builds the first N levels of the tree sequentially
+            - `BuildBranchesJob`: Builds the branches of the tree in parallel
+                - `BuildBranch`: Does all the work by calling:
+                    - `Builder.Build`
+                        - `Builder.ProcessSmallRange`: Is called if the range is small enough to be processed directly.
+                            - `Builder.ComputeAxisAndPivot`: Computes the axis and pivot for splitting the AABBs.
+                            - `Builder.SortRange`: Sorts the AABBs in the range based on the pivot and axis.
+                            - `Builder.CreateChildren`: Creates the child nodes for the AABBs in the range.
+                        - `Builder.ProcessLargeRange`: Is called if the range is too large to be processed directly
+                            - Splits the range to process
+                            - `Builder.Segregate`: Takes a part of the range and processes it
+                                - `Builder.SplitRange`: Splits the range into two parts
+                            - `Builder.SegregateSAH`: Uses Surface Area Heuristic to split the range
+                                - `Builder.ProcessAxis`: Processes the AABBs along a given axis to find the best split point.
+            - `FinalizeTreeJob`: Finalizes the tree structure
+- Now we have the BVHs built we can use it in `BroadPhaseSystem`
+    - Which calls `ScheduleBroadPhaseJobs`
+        - Which calls `ScheduleFindOverlapsJob`
+            - Which calls `DynamicVsDynamicFindOverlappingPairsJob` and `StaticVsDynamicFindOverlappingPairsJob`
+                - These both call `BVHOverlap` or `SelfBVHOverlap` which traverse the BVHs to find overlapping AABBs.
+        - Then we call `ScheduleCreatePhasedDispatchPairsJob`
+            - Which calls `CreateUnsortedDispatchPairsJob` and `CreateDispatchPairPhasesJob`
+                - These create the dispatch pairs for the narrow phase.
+
+##### Incremental Broadphase (Week 13)
+
+- Unity Physics supports incremental broadphase updates to optimize performance when only a few objects move.
+- Instead of rebuilding the entire BVH each frame, only the parts of the tree that have changed are updated.
+- This is done by keeping track of which objects have moved and updating their AABBs in the BVH
+    - The BVH is a 4-way hierarchical bounding volume tree with AABBs as volumes.
+    - At each level the subdomain is split in 4
+    - A leaf node can contain 4 colliders
+    - The spatial split can be done using the Surface Area Heuristic (SAH)
+        - SAH is a method for determining the optimal way to split a set of objects in a BVH.
+        - It works by calculating the surface area of the bounding boxes of the objects and using that to determine the best split point.
+- When building the broadphase the splitting is done based on the centers of the colliders.
+- After the splitting process is done, the AABBs in the leaf nodes get set and the inner node's AABBs get computed as the union of the AABBs of its children. This process is called bottom-up refitting.
+    - The parallel implementation of this work starts by sequentially building some N levels until enough branches are created to be processed in parallel.
+        -  N is usually the number of worker threads plus 1
+- Now, the general idea behind the incremental broadphase is that when a collider moves, changes size, changes its filter, gets added or removed, we only need to update the parts of the BVH that are affected by that change.
+- In most cases the incremental update is optional and turned off.
+    - To avoid having to detect changes, the incremental broadphase can be user guided.
+- In most cases it works like this:
+    - When a collider moves, its AABB is updated in the BVH.
+    - If the new AABB still fits within its current leaf node, no further action is needed.
+    - If the new AABB no longer fits, then we refit the tree.
+    - After refitting, if the score is above a certain threshold, then we remove the collider from the tree and reinsert it.
+        - The score is calculated based on how much the AABB overlaps other AABBs in the tree.
+- Then in the background we create an entirely new tree that is "perfect" and swap it in when it's done.
+    - This is done to avoid the tree becoming too unbalanced over time.
+- The insertion algorithm works by:
+    - Starting at the root node and traversing down the tree to find the best leaf node to insert the new AABB into.
+    - We then make sure the tree is still correct, by updating the AABBs of the parent nodes.
+- The removal algorithm works by:
+    - Simply removing it. We dont update the AABBs
+
 #### Narrow phase
 
 - The Gilbert-Johnson-Keerthi (GJK) algorithm is a method for calculating the minimum distance between two convex shapes. It works by:
@@ -1085,6 +1155,19 @@
         - A Linear Velocity Motor constraint to apply the force.
             - Solver: `LinearVelocityMotorJacobian`
         - A Fixed Angle constraint to restrict rotation.
+
+### Breakable joints (Week 12)
+
+- Adds a member called `MaxImpulse` to some constraints
+- Some constraints do not get broken, such as motorized constraints.
+- Each breakable constraint has a corresponding Jacobian with a function called `HandleImpulseEvent`
+- Examples:
+    - `AngularLimit1DJacobian`: A 1-dimensional constraint, so the impulse is a float.
+    - `AngularLimit2DJacobian`: A 2-dimensional constraint, so the impulse is a float2.
+    - `AngularLimit3DJacobian`: A 2-dimensional constraint, so the impulse is a float3.
+    - `LinearLimit3DJacobian`: A 3-dimensional constraint, so the impulse is a float3.
+- In all cases, once `AccumulatedImpulse` exceeds `MaxImpulse`, the constraint is broken by sending a `ImpulseEvent` to the `ImpulseEvents` stream.
+- `ImpulseEvents` are processed by the `ImpulseEventsJob` and then the `DestroyBokenJointsJob` removes the broken joints using a command buffer.
 
 ### Solvers (Week 11)
 
@@ -1249,3 +1332,18 @@
         - Midpoint method:
             - An improvement over Euler's method.
             - It uses the logic behind the Taylor series expansion to get a better estimate of the derivative at the midpoint of the interval.
+
+## Kinematic vs Dynamic (Week 12)
+
+- Kinematic:
+    - Kinematic objects are objects that are not affected by forces or collisions.
+    - They are moved directly by setting their position and rotation.
+- Dynamic:
+    - Dynamic objects are objects that are affected by forces and collisions.
+    - They are moved by applying forces and torques to them.
+
+## Substepping (Week 13)
+
+- A new feature in Unity Physics used to get stabler simulations.
+- Works by taking multiple smaller time steps within a single physics update, if the framerate is too low.
+- This essentially ensures that the physics simulation always runs at a fixed timestep, regardless of the framerate.
