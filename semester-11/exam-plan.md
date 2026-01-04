@@ -20,19 +20,19 @@
     - [x] PCPP: Intro to concurrency and the mutual exclusion problem
     - [x] PCPP: Synchronization
     - [x] PCPP: Visibility
-- [ ] 04/01
+- [x] 04/01
     - [x] PCPP: Java memory model
     - [x] PCPP: Thread-safe classes
     - [x] PCPP: Testing
+    - [x] PCPP: Lock-free Data Structures
 - [ ] 06/01
 - [ ] 07/01
 - [ ] 08/01
 - [ ] 09/01
+    - [ ] PCPP: Linearizability
+- [ ] 10/01 (Only til 4pm)
     - [ ] PCPP: Performance measurements
     - [ ] PCPP: Performance and Scalability
-- [ ] 10/01 (Only til 4pm)
-    - [ ] PCPP: Lock-free Data Structures
-    - [ ] PCPP: Linearizability
 - [ ] 11/01
     - [ ] PCPP: Streams
     - [ ] PCPP: Message Passing
@@ -150,6 +150,16 @@
     - [x] Explain the challenges in ensuring the correctness of concurrent programs.
     - [x] Describe different testing strategies for concurrent programs, and their advantages and disadvantages.
     - [ ] Show some examples of code from your solutions to the exercises in week 5.
+- [x] **Lock-free Data Structures**
+    - [x] Read week 6 material.
+    - [x] Define and motivate lock-free data structures. 
+    - [x] Explain how *compare-and-swap* (CAS) operations can be used to solve concurrency problems. 
+    - [ ] Show some examples of code from your solutions to the exercises in week 6.
+- [ ] **Linearizability**
+    - [ ] Read week 7 material.
+    - [ ] Explain and motivate linearizability. 
+    - [ ] Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
+    - [ ] Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
 - [ ] **Performance measurements**
     - [ ] Read week 9 material.
     - [ ] Motivate and explain how to measure the performance of Java code.
@@ -160,16 +170,6 @@
     - [ ] Explain how to increase the performance of Java code exploiting concurrency. 
     - [ ] Illustrate some of the pitfalls there are in doing this.
     - [ ] Show some examples of code from your solutions to the exercises in week 10.
-- [ ] **Lock-free Data Structures**
-    - [ ] Read week 6 material.
-    - [ ] Define and motivate lock-free data structures. 
-    - [ ] Explain how *compare-and-swap* (CAS) operations can be used to solve concurrency problems. 
-    - [ ] Show some examples of code from your solutions to the exercises in week 6.
-- [ ] **Linearizability**
-    - [ ] Read week 7 material.
-    - [ ] Explain and motivate linearizability. 
-    - [ ] Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
-    - [ ] Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
 - [ ] **Streams**
     - [ ] Read week 11 material.
     - [ ] Explain and motivate the use of streams to parallelize computation. 

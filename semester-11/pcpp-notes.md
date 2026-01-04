@@ -454,7 +454,7 @@ try {
 
 ### Counter-examples (Week 5)
 
-- A counter-example for a safety property is a finite interleaving that leads to a violation of the property.
+- A counter-example for a safety property is a finite prefix of a (possibly infinite) interleaving that leads to a violation of the property.
     - Example: A finite interleaving of traffic light controller that leads to both lights being green at the same time.
 - A counter-example for a liveness property is an infinite interleaving that never leads to the desired outcome.
     - Example: An infinite interleaving where the traffic light controller never changes the light from red to green.
@@ -595,3 +595,111 @@ try {
 - Code review: Reviewing the code manually to find potential concurrency issues, bugs, and code smells.
     - Can be done in pairs or in groups.
     - Can be done using tools like GitHub, GitLab, Bitbucket, etc.
+
+## Non-blocking synchronization (Week 6)
+
+- Non-blocking synchronization is a technique for achieving concurrency without using locks.
+- To be non-blocking, a synchronization mechanism must satisfy one of the following progress properties:
+    - Wait-free: A method of an object implementation is wait-free if every call to the method is guaranteed to complete in a finite number of steps, regardless of the actions of other threads.
+        - My operations are guaranteed to complete in a bounded number of steps.
+    - Lock-free: A method of an object implementation is lock-free if executing the method guarantees that some method call wil complete in a finite number of steps, regardless of the actions of other threads.
+        - This means that at least one thread makes progress, but not necessarily all threads.
+    - Obstruction-free: A method of an object implementation is obstruction-free if, from any point after which it executes in isolation, it is guaranteed to complete in a finite number of steps.
+        - This means that a thread makes progress if it executes in isolation, but not necessarily when other threads are executing concurrently. 
+- Wait-freedom implies lock-freedom, which implies obstruction-freedom.
+- Non-blocking synchronization IS NOT busy wait, because threads cannot be blocked forever, even in obstruction-free completion is guaranteed if a thread executes in isolation.
+
+### Progress conditions in general (Week 6)
+
+- From strongest to weakest:
+1. Wait-freedom (maximal, independent, nonblocking)
+   - Every thread makes progress
+   - Works on any platform
+2. Lock-freedom (minimal, independent, nonblocking)
+   - Some thread makes progress
+   - Works on any platform
+3. Obstruction-freedom (maximal, dependent, nonblocking)
+   - Thread in isolation makes progress
+   - Requires contention management
+4. Starvation-freedom (maximal, dependent, blocking)
+   - Every thread makes progress (if fair scheduling)
+   - Can be blocked
+5. Deadlock-freedom (minimal, dependent, blocking)
+   - Some thread makes progress (if fair scheduling)
+   - Can be blocked
+
+## Lock-freedom and lock-free data structures (Week 6)
+
+- Lock-free data structures are concurrent data structures that do not use locks for synchronization.
+- They are designed to allow multiple threads to access and modify the data structure concurrently without blocking each other.
+- Lock-free data structures provide several advantages over lock-based data structures:
+
+### Hardware support for atomic operations (Week 6)
+
+- Early processors implemented atomic operations entirely to implement mutexes with test-and-set instructions. This is not suitable for implementing lock-free data structures.
+- Modern processors, however, provide special instructions for managing concurrent access to shared variables, such as store-condition and compare-and-swap (CAS).
+
+### Compare-and-swap (CAS) (Week 6)
+
+- At the programming language level most languages provide atomic operations through libraries or built-in constructs.
+- In java it is `val.compareAndSwap(expected, newValue)`, where `val` is an atomic variable.
+- It compares the value of `val` with `expected`. If they are equal, it sets `val` to `newValue`. Otherwise, it does nothing.
+    - In both cases it returns the original value of `val`.
+- This is translated to `CMPXCHG` instruction or similar by the compiler or runtime.
+    - "The CMPXCHG [...] If the values contained in the destination operand and the EAX register are equal, the destination operand is replaced with the value of the other source operand (the value not in the EAX register). [...] For multiple processor systems, CMPXCHG can be combined with the LOCK prefix to perform the compare and exchange operation atomically." 
+    - "Intel 64 and IA-32 processors provide a LOCK# signal [...] While this output signal is asserted, requests from other processors or bus agents for control of the bus are blocked [...]"
+- CAS is a powerful primitive that can be used to implement lock-free data structures.
+- For example, AtomicInteger can be implemented using CAS:
+    - To increment the value, we read the current value, compute the new value, and use CAS to update the value. If the CAS fails, we repeat the process until it succeeds.
+```java
+public int incrementAndGet() {
+    int oldValue, newValue;
+    do {
+        oldValue = value.get();
+        newValue = oldValue + 1;
+    } while (!value.compareAndSet(oldValue, newValue));
+    return newValue;
+}
+```
+- This is called optimistic concurrency, in a nutshell trying to do the operation assuming no other thread is interfering, and if it does, retrying.
+- It is non-blocking, with the lock-free property, as at least one thread will make progress.
+- In Java atomic classes are provided by the `Atomic*` classes in the `java.util.concurrent.atomic` package.
+    - They all follow the same memory semantics as volatile variables.
+    - All methods on atomic classes are atomic operations.
+- If we would want to set multiple values atomically, we can create an immutable class and use an `AtomicReference` to hold a reference to an instance of that class.
+    - To update multiple values, we create a new instance of the immutable class with the new values and use CAS to update the reference.
+
+#### A note on correctness (Week 6)
+
+- Due to the volatile semantics of atomic variables, we can use their visibility semantics to reason about safe-publication.
+- However, they are not part of the Java Memory Model, and we can therefore not reason about correctness or thread-safety.
+- We can however produce a specification for them, such that we can reason about correctness and thread-safety.
+- We can also reason using linearizability, which we will cover in a later section.
+
+#### CAS based locks (Week 6)
+
+- CAS can also be used to implement locks.
+- The simplest lock is the try lock implemented using an atomic reference:
+    - Simply get a reference to the current thread using `Thread.currentThread()`.
+    - Use CAS to set the atomic reference to the current thread if it is null.
+    - If the CAS succeeds, we have acquired the lock. Otherwise, the lock is held by another thread.
+    - In both cases return whether the CAS succeeded.
+    - This is a non-blocking lock.
+
+#### Scalability of CAS (Week 6)
+
+- Pros:
+    - Faster than acquiring and releasing locks, as there is no context switching or blocking.
+    - An unsuccessful CAS does not cause blocking
+- Cons:
+    - High contention can lead to many retries, which can degrade performance.
+    - Can lead to starvation, as some threads may never succeed in acquiring the lock.
+    - High memory bus traffic, as CAS operations require exclusive access to the memory bus.
+
+#### The ABA problem (Week 6)
+
+- The ABA problem occurs when a thread reads a value A from a shared variable, then another thread changes the value to B, and then back to A. When the first thread performs a CAS operation, it sees the value A and assumes that nothing has changed, leading to incorrect behavior.
+- This can be solved by using version numbers or timestamps along with the value, so that the CAS operation checks both the value and the version number.
+- ITs not a problem in Java as it ensures newly created objects have different references. It's mostly a problem in low-level programming with pointers and without garbage collection.
+
+
