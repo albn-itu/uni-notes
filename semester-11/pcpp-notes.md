@@ -32,6 +32,7 @@
     - The buffer has a limited size
     - The producer must wait if the buffer is full
     - The consumer must wait if the buffer is empty
+    - A good solution must be deadlock free and avoid starvation
 
 #### Readers-Writers problem (Week 2)
 
@@ -123,7 +124,7 @@
 - A data race occurs when two more threads access the same shared memory location concurrently, and at least one of the accesses is a write.
 - Not all race conditions are data races, and not all data races result in race conditions.
 
-## Synchronization (Week 1)
+## Synchronization (Week 1 and 4)
 
 ### Critical Sections (Week 1)
 
@@ -209,7 +210,25 @@ try {
     - Changes made to the volatile variables flush registers and low level caches to the main memory, and reload them from main memory when read.
     - The variables cannot be reordered.
 
-### Things to avid (Week 1)
+### Semaphores (Week 4)
+
+- A semaphore is a synchronization primitive that allows some amount of threads to access the same cricital section.
+- The consist of:
+    - An integer value called the capacity, or permits in Java. It is the initial number of available accesses.
+    - Two operations:
+        - `acquire()`: Decreases the number of available permits by 1. If no permits are available, the thread is blocked until a permit becomes available.
+        - `release()`: Increases the number of available permits by 1. If there are threads waiting for a permit, one of them is signalled to wake up and acquire the permit.
+- Semaphores can be used to implement resource pools, where a limited number of resources are available for use by multiple threads
+
+### Barriers (Week 4)
+
+- A barrier is a synchronization primitive that blocks at a certain point until a set number of threads reach that point.
+- They consist of:
+    - An integer value called the parties, which is the number of threads that must reach the barrier before any of them can proceed.
+    - A method called `await()`, which is called by each thread when it reaches the barrier. The thread is blocked until the specified number of threads have called `await()`.
+- Java provides the `CyclicBarrier` class to implement barriers. It resets after the threads have been released, allowing it to be reused.
+
+### Things to avoid (Week 1)
 
 - Busy waiting: Continuously checking for a condition to be true, which wastes CPU resources and memory bus traffic. (Github safe sleep is a great example of this)
 - Memory contention: When multiple threads try to access the same memory location, leading to performance degradation due to cache invalidation.
@@ -243,20 +262,6 @@ try {
 - This can lead to unexpected behavior in concurrent programs if threads rely on a specific order of operations.
 - Most progamming languages include these optimizations.
 - Synchronization actions cannot prevent the reordering of instructions within a single thread, but they can prevent reordering across threads.
-
-## Publication and escape (Week 2)
-
-- Publication refers to the process of making an object accessible outside its current or intended scope
-- Escape refers to the situation where an object is published when it shouldn't be. Can happen when:
-    - An object is assigned to a static field
-    - Return from a non-private method
-    - Pass to a method in another class
-    - Add to a public data structure
-- Safe publication can be achieved through:
-    - Initializing an object in a static initializer
-    - Storing a reference to it in a `volatile` field or an `AtomicReference`
-    - Storing a reference to it in a final field of a properly constructed object
-    - Storing a reference to it in a field that is properly guarded by a lock
 
 ## Memory models (Week 3)
 
@@ -340,3 +345,253 @@ try {
     - Find data races
     - Show absence of data races and correct synchronization
     - Predict the value of variables in the executions of the program.
+
+## Program correctness (Week 4)
+
+- A program is correct if and only if it satifies its specification.
+- A specification defines the expected behavior of a program.
+- Reasoning about correctness is difficult, as it quickly gets out of hand with many threads and interleavings.
+- It is easier to separately analyze parts of the code and then combine them in safe ways. In OOP we can focus on analysing the correctness of classes/objects.
+
+### Thread-safe classes and programs (Week 4)
+
+- A class is thread-safe if and only if no concurrent execution of method calls or field accesses result in data races on the fields of the class.
+- We can extend this definition to programs: A program is thread-safe if and only if it is data race free.
+- To analyze whether a class is thread safe we must ensure that for any concurrent execution of method calls or field access (where at least one write is involved) that actions are ordered by happens-before.
+- The elements to identify/consider are:
+    - Class state
+    - Escaping
+    - Publication
+    - Immutability
+    - Mutual exclusion
+
+#### Class state (Week 4)
+
+- Uncontrolled concurrent access to shared mutable state is the main cause of date races.
+- The state of a class includes the fields defined in the class
+- The goal is to ensure that concurrent accesses to the class state are properly synchronized.
+- To help achieve this, follow the following guidelines:
+    - Methods should only manipulate the class state. Avoid accessing global state, state of other classes, or the state of the parent classes.
+    - Methods should avoid using references to objects as parameters, as we cannot ensure the happens-before relation on a referenced object. Instead use copies.
+- Keep in mind that these are guidelines, not strict rules. Breaking them does not necessarily make a class not thread-safe, but it makes it harder to reason about its correctness.
+
+#### Escape and publication (Week 2 and 4)
+
+- Exposing (or publication) refers to the process of making an object accessible outside its current or intended scope
+- It is important to not expose class fields, otherwise threads may use them without proper synchronization.
+- Escape refers to the situation where an object is exposed when it shouldn't be.
+    - Thus, we can't enforce the happens-before relation on such fields.
+    - For primitive fields, we can simply make them private. In which case they cannot escape.
+    - For reference fields, we must ensure that the referenced object does not escape.
+- Safe publication requires that initialization of an object is completed before it is made accessible to other threads. AKA, the initialization happens-before the publication.
+    - This can lead to visibility issues if not done correctly.
+    - Safe publication can be achieved for:
+        - Primitive types:
+            - Declare them as volatile
+            - Declare them as final (if they are only assigned once during construction)
+            - Initialize them as the default value (if the default value is acceptable)
+            - Declare them as static (if they are shared across all instances)
+            - Use an atomic class
+        - Reference types:
+            - Declare them as final
+            - Initialize them as the default value (if the default value is acceptable)
+            - Declare them as static (if they are shared across all instances)
+            - Use the AtomicReference class
+    - These techniques enforce the happens-before relation between initialization and publication. Because:
+        - Volatile writes happen-before subsequent volatile reads
+        - Final and static fields are guaranteed to initialize before any thread can access them (unless the constructor leaks them)
+        - The default initialization happens-before any thread can access the object
+        - Atomic classes provide atomic read/write operations with proper memory visibility guarantees
+
+#### Immutability (Week 4)
+
+- An immutable object is an object whose state cannot be modified after it is constructed.
+- Immutable objects are inherently thread-safe, as there are no mutable states
+- An immutable class is one whose instances are immutable objects.
+- To ensure thread-safety of an immutable class, we must ensure that:
+    - No fields can be modified after publication (i.e., no setters and final)
+    - Objects are safely published
+    - Access to the objects state does not escape (i.e., no references to mutable objects)
+
+#### Mutual exclusion (Week 4)
+
+- Whenever shared mutable state is accessed concurrently, we must ensure mutual exclusion.
+
+#### Putting it all together (Week 4)
+
+- To analyze whether a class is thread-safe, follow these steps:
+    1. Identify the class state (fields)
+    2. Ensure that fields do not escape
+    3. Ensure safe publication
+    4. Wherever possible, define fields as immutable
+    5. For mutable fields, ensure mutual exclusion on all accesses
+- If all these steps are satisfied, then the class is thread-safe.
+
+#### Instance confinement (Week 4)
+
+- Instance confinement is a technique, in which a non-thread-safe object is wrapped in a thread-safe class, such that the non-thread-safe object is only accessed by one thread at a time.
+- This is useful when we want to use a non-thread-safe class in a concurrent program.
+
+#### Extending thread-safe classes (Week 4)
+
+- When extending a thread-safe class, we must ensure that the subclass is also thread-safe.
+- But it can be very useful, as it then inherits the intrinsic lock of the parent.
+
+## Properties of concurrency (Week 5)
+
+- Safety: Something bad will never happen.
+- Liveness: Something good will eventually happen.
+
+## Testing (Week 5)
+
+> Use JUnit 5 for testing examples.
+
+- Testing concurrent programs is difficult due to the non-deterministic nature of thread scheduling and interleavings.
+- The goal of testing is to find bad interleavings that lead to incorrect behavior. (counter-example)
+- Remember: Testing can show the presence of bugs, but not their absence.
+- It is not guaranteed that a test will find the bug all the time due to the non-deterministic nature of concurrency.
+- When testing concurrent programs, test it sequentially first to ensure basic functionality.
+
+### Counter-examples (Week 5)
+
+- A counter-example for a safety property is a finite interleaving that leads to a violation of the property.
+    - Example: A finite interleaving of traffic light controller that leads to both lights being green at the same time.
+- A counter-example for a liveness property is an infinite interleaving that never leads to the desired outcome.
+    - Example: An infinite interleaving where the traffic light controller never changes the light from red to green.
+
+### Types of concurrency tests (Week 5)
+
+- Functional tests:
+    - Focusses on testing that a program behaves correctly according to its specification, regardless of the interleaving.
+- Performance tests:
+    - Focusses on measuring the performance of a program under different interleavings and workloads.
+
+### Testing strategies (Week 5)
+
+- Precisely define the property to be tested.
+    - Use assertions to check the property during the test.
+    - Example: "after N threads have incremented a counter M times each, the final value of the counter should be N * M"
+- If you are testing multiple implementations, ensure that they all satisfy the same specification. Can be achieved using interface definitions.
+- Concurrent tests require setup for starting and running multiple threads.
+    - Maximize contention by having threads start at the same time, to avoid sequential execution.
+        - Achieved by maximizing the number of concurrent threads
+        - Use a barrier to synchronize the start of all threads
+    - You may have to define thread classes to encapsulate the behavior of each thread.
+- Maxmimze the chances of finding bad interleavings by running the test multiple times.
+    - Can be done easily using `@RepeatedTest` in JUnit.
+- Use argument generation to test a wide range of inputs.
+- Yield the CPU to increase the chances of context switches and different interleavings.
+    - Can be done using `Thread.yield()` in Java.
+- Use sleep to introduce delays and increase the chances of different interleavings.
+    - Can be done using `Thread.sleep(milliseconds)` in Java.
+
+### Example test of BoundedBuffer (Week 5)
+
+- We want to test the BoundedBuffer class, which is a thread-safe implementation of a bounded buffer.
+    - Producers may put elements into the buffer as long as it is not full. Otherwise they block until space is available.
+    - Consumers may take elements from the buffer as long as it is not empty. Otherwise they block until elements are available.
+    - It is implemented as a circular array.
+    - Synchronization is implemented using monitors (intrinsic locks and condition variables).
+        - Condition 1: notFull - signalled when space becomes available
+        - Condition 2: notEmpty - signalled when elements become available
+- We want to test the following properties:
+    - After several threads put and take the same number of elements, the sum of the put elements and the sum of the taken elements should be equal.
+        - Formally: After N producer threads have put $x_1,\dots,x_M$ elements, and several consumer threads have taken $y_1,\dots,y_M$ elements, it must hold that $\sum_{i=1}^{M} x_i = \sum_{i=1}^{M} y_i$
+    - A consumer may take more than one element if the buffer is not empty.
+    - A producer may put more than one element if the buffer is not full.
+- The test:
+    - Define two atomic integers to keep track of the sum of put and taken elements.
+    - Define a barrier to synchronize the start of all threads.
+    - Define producers with how many elements to put.
+    - Define consumers with how many elements to take.
+    - Define producer threads, which wait at the barrier, then put elements into the buffer and update the sum of put elements.
+    - Define consumer threads, which wait at the barrier, then take elements from the buffer and update the sum of taken elements.
+    - Start all threads and wait for them to finish.
+    - Assert that the sum of put elements equals the sum of taken elements.
+    - Repeat the test multiple times to increase the chances of finding bad interleavings.
+    - Repeat the test with different buffer sizes and number of threads to test different scenarios.
+
+### Testing frameworks (Week 5)
+
+- JUnit: A popular testing framework for Java. Supports annotations for defining tests, setup, and teardown methods. Provides assertions for checking conditions.
+- jcstress: A specialized framework for testing concurrent programs in Java. It allows defining tests with multiple threads and provides tools for analyzing the results.
+- Coyote: A framework for systematic testing of concurrent programs. It explores different interleavings and checks for violations of specified properties.
+
+### Testing for deadlocks (Week 5)
+
+- A deadlock occurs when two or more threads are blocked forever, waiting for each other to release resources.
+- The classic example is waiting for locks in a circular manner. For example in in the dining philosophers problem.
+- Testing for deadlocks is difficult and often impossible, as it requires exploring all possible interleavings.
+- Deadlock freedom is a liveness property, so we need to look for infinite interleavings that lead to deadlock.
+- To test for deadlocks we must be able to characterize the state in which a deadlock occurs.
+    - This can be done by defining a timeout for the test. If the test does not complete within the timeout, we assume a deadlock has occurred, but it's not guaranteed.
+    - Another approach is to use thread dumps to analyze the state of the threads and identify deadlocks.
+- The better way is formal verification
+
+### Formal verification (Week 5)
+
+- Formal verification is the process of mathematically proving the correctness of a program with respect to its specification.
+- It treats programs and properties as mathematical objects, and uses logic and proof techniques to reason about them, it can be done:
+    - Manually: By writing formal proofs or using proof assistants.
+    - Automatically: By using model checkers, SAT solvers, SMT solvers, static verification, symbolic execution, etc.
+- Formal verification is great, but with large programs we run into the state explosion problem, where the number of possible states grows exponentially with the number of variables and threads. Making it infeasible to analyze all possible states.
+- We can try an use the same model as for thread-safety, where we analyze classes/objects separately and then combine them in safe ways.
+- A plus of formal verification is that it can be implemented into static analysis tools that can be run as part of the build process, and thus catch bugs early.
+
+#### Model checking (Week 5)
+
+- Model checking is an automatic technique for verifying finite-state concurrent systems.
+- It does so transforming the program into finite-state models that encapsulate all possible interleavings.
+- Properties are specified in some type of logic: Linear Temporal Logic (LTL), Computation Tree Logic (CTL), First-Order Logic (FOL), etc.
+- The model and the properties are typically expressed in the same langauge, so that it can be automatically checked.
+- Has been very successful in hardware verification.
+- JavaPathFinder is such a model checker for Java programs.
+
+## Performance testing (Week 5)
+
+- Performance testing is the process of measuring the performance of a program.
+- Can sometimes be extended from functionality tests.
+- Should reflect real-world usage as much as possible.
+- Select appropriate metrics to measure, such as throughput, latency, resource utilization, etc.
+- Select appropriate workloads to test, such as number of threads, size of data, etc.
+- Can be different kinds:
+    - Raw run time: Measure the time taken to complete a task.
+    - Responsiveness: The time taken for an individual operation to complete.
+        - Sometimes acceptable to have high average responsiveness if the variance is low
+    - Throughput: The number of operations completed in a given time period.
+
+### Common pitfalls (Week 5)
+
+- Garbage collection: Can introduce pauses and affect performance measurements.
+    - Is usually unpredictable, so try to minimize its impact by running tests multiple times and averaging results.
+    - Can be solved by:
+        - Ensuring its not running, add: `-verbose:gc`, if you see GC activity, then restart the test. (Nearly impossible in longer tests)
+        - Forcing GC to run at predictable points using `System.gc()`. (Not guaranteed to work). This is useful to reflect real-world performance.
+- JIT compilation: The Just-In-Time compiler can optimize code at runtime, leading to performance variations.
+    - To minimize its impact, run tests multiple times to allow the JIT compiler to optimize the code before measuring performance.
+    - Can be verified with `-XX:+PrintCompilation` flag.
+    - Can be solved by:
+        - Using `-Xint` to run in interpreted mode only. (Not recommended, as it does not reflect real-world performance)
+        - Running a warm-up phase before measuring performance, to allow the JIT compiler to optimize the code.
+- Unrealistic workloads: Using workloads that do not reflect real-world usage can lead to misleading performance measurements.
+    - Ensure that the workloads used in tests are representative of real-world scenarios.
+- Unrealistic contention: Using too few or too many threads can lead to unrealistic contention levels.
+    - Ensure that the number of threads used in tests reflects real-world usage patterns.
+- Unrealistic hardware: Running tests on hardware that does not reflect the target environment can lead to misleading performance measurements.
+    - Ensure that the hardware used in tests is representative of the target environment.
+    - (See bethesda monitor issue)
+- Dead code elimination: The compiler may optimize away code that does not affect the program's observable behavior.
+    - Could theoretically optimize the benchmark iteself away. (Seems unlikely in practice)
+    - To prevent this, ensure that the results of operations are used in a way that affects the program's observable behavior.
+    - For example, store results in a volatile variable or print them to the console.
+    - "Writing effective performance tests requires tricking the optimizer into not optimizing away your benchmark as dead code. Requires every computed result be used somehow - in a way that doesn't require synchronization or substantial computation"
+
+## Additional testing methods (Week 5)
+
+- Static analysis: Analyzing the code without executing it, to find potential concurrency issues, bugs, and code smells.
+    - Tools: FindBugs, PMD, Checkstyle, SonarQube, etc.
+- Dynamic analysis: Analyzing the program during execution, to find concurrency issues, bugs, and performance bottlenecks.
+    - Tools: Java VisualVM, YourKit, JProfiler, etc.
+- Code review: Reviewing the code manually to find potential concurrency issues, bugs, and code smells.
+    - Can be done in pairs or in groups.
+    - Can be done using tools like GitHub, GitLab, Bitbucket, etc.

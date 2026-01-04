@@ -22,8 +22,8 @@
     - [x] PCPP: Visibility
 - [ ] 04/01
     - [x] PCPP: Java memory model
-    - [ ] PCPP: Thread-safe classes
-    - [ ] PCPP: Testing
+    - [x] PCPP: Thread-safe classes
+    - [x] PCPP: Testing
 - [ ] 06/01
 - [ ] 07/01
 - [ ] 08/01
@@ -140,15 +140,15 @@
     - [x] Explain the elements of the Java memory model including program order, happens-before order, synchronization order, and data races.
     - [x] Define what a correctly synchronized program is according to the Java memory model.
     - [ ] Show some examples of code from your solutions to the exercises in week 3 and illustrate the use of the Java memory model to reason about their correctness.
-- [ ] **Thread-safe classes**
-    - [ ] Read week 4 material.
-    - [ ] Define and explain what makes a class thread-safe.
-    - [ ] Explain the issues that may make classes not thread-safe.
+- [x] **Thread-safe classes**
+    - [x] Read week 4 material.
+    - [x] Define and explain what makes a class thread-safe.
+    - [x] Explain the issues that may make classes not thread-safe.
     - [ ] Show some examples of code from your solutions to the exercises in week 4.
-- [ ] **Testing**
-    - [ ] Read week 5 material.
-    - [ ] Explain the challenges in ensuring the correctness of concurrent programs.
-    - [ ] Describe different testing strategies for concurrent programs, and their advantages and disadvantages.
+- [x] **Testing**
+    - [x] Read week 5 material.
+    - [x] Explain the challenges in ensuring the correctness of concurrent programs.
+    - [x] Describe different testing strategies for concurrent programs, and their advantages and disadvantages.
     - [ ] Show some examples of code from your solutions to the exercises in week 5.
 - [ ] **Performance measurements**
     - [ ] Read week 9 material.
