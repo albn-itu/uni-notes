@@ -19,14 +19,14 @@
     - [x] HPGP: Week 14
     - [x] PCPP: Intro to concurrency and the mutual exclusion problem
     - [x] PCPP: Synchronization
+    - [x] PCPP: Visibility
 - [ ] 04/01
-- [ ] 06/01
-- [ ] 07/01
-    - [ ] PCPP: Visibility
-- [ ] 08/01
-    - [ ] PCPP: Java memory model
+    - [x] PCPP: Java memory model
     - [ ] PCPP: Thread-safe classes
     - [ ] PCPP: Testing
+- [ ] 06/01
+- [ ] 07/01
+- [ ] 08/01
 - [ ] 09/01
     - [ ] PCPP: Performance measurements
     - [ ] PCPP: Performance and Scalability
@@ -36,6 +36,31 @@
 - [ ] 11/01
     - [ ] PCPP: Streams
     - [ ] PCPP: Message Passing
+    - [ ] Create cheat sheet for PCPP
+        - [ ] Q1
+            - [ ] Select exercises 
+        - [ ] Q2
+            - [ ] Select exercises 
+        - [ ] Q3
+            - [ ] Select exercises 
+        - [ ] Q4
+            - [ ] Select exercises 
+        - [ ] Q5
+            - [ ] Select exercises 
+        - [ ] Q6
+            - [ ] Select exercises 
+        - [ ] Q7
+            - [ ] Select exercises 
+        - [ ] Q8
+            - [ ] Select exercises 
+        - [ ] Q9
+            - [ ] Select exercises 
+        - [ ] Q10
+            - [ ] Select exercises 
+        - [ ] Q11
+            - [ ] Select exercises 
+        - [ ] Q12
+            - [ ] Select exercises 
 - [ ] 12/01 (HPGP exam)
 - [ ] 13/01
 - [ ] 14/01
@@ -105,15 +130,15 @@
     - [x] Read week 2 material.
     - [x] Explain and motivate how locks, monitors, and semaphores can be used to address the challenges caused by concurrent access to shared memory.
     - [ ] Show some examples of code from your solutions to the exercises in week 2.
-- [ ] **Visibility**
-    - [ ] Explain the problems of visibility and reordering in shared memory concurrency.
-    - [ ] Motivate and describe the use of volatile variables and locks to tackle these problems.
+- [x] **Visibility**
+    - [x] Explain the problems of visibility and reordering in shared memory concurrency.
+    - [x] Motivate and describe the use of volatile variables and locks to tackle these problems.
     - [ ] Show some examples of code from your solutions to the exercises in week 2.
-- [ ] **Java memory model**
-    - [ ] Read week 3 material.
-    - [ ] Motivate the need for the Java memory model.
-    - [ ] Explain the elements of the Java memory model including program order, happens-before order, synchronization order, and data races.
-    - [ ] Define what a correctly synchronized program is according to the Java memory model.
+- [x] **Java memory model**
+    - [x] Read week 3 material.
+    - [x] Motivate the need for the Java memory model.
+    - [x] Explain the elements of the Java memory model including program order, happens-before order, synchronization order, and data races.
+    - [x] Define what a correctly synchronized program is according to the Java memory model.
     - [ ] Show some examples of code from your solutions to the exercises in week 3 and illustrate the use of the Java memory model to reason about their correctness.
 - [ ] **Thread-safe classes**
     - [ ] Read week 4 material.

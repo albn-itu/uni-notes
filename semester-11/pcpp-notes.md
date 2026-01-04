@@ -258,3 +258,85 @@ try {
     - Storing a reference to it in a final field of a properly constructed object
     - Storing a reference to it in a field that is properly guarded by a lock
 
+## Memory models (Week 3)
+
+- A memory model defines the behavior of memory operations in a concurrent environment.
+- We do this because reasoning at the hardware level is not adequate:
+    - Hardware may be different across systems
+    - Different hardwares have different sets of instructions
+    - Different architectures treat memory consistency differently
+- The combination of compilers and runtime environments introduce further complexity:
+    - Compilers may reorder instructions for optimization
+    - Runtime environments may introduce additional layers of abstraction
+    - Code rewriting may occur, fx branch elimination and loop unrolling
+- Memory models ensure non-paradoxical behavior in concurrent programs:
+    - This can be done by being sequnetially consistent, meaning that the intra-thread order of operations is preserved and that operations appear to occur at the same time across threads. (See section on sequential consistency)
+- The Java Memory Model (JMM) defines the behavior of memory operations in Java programs.
+- It defines the rules for how threads interact through memory and how changes made by one thread become visible to other threads.
+- Definitions in the java memory model:
+    - Actions: 
+        - An action is a pair t(o) where t is a thread and o is an operation performed by that thread.
+        - There are 3 types of actions:
+            - Variable access: Read/write accesses on program variables
+            - Synctionization actions: Lock/unlock operations, volatile variable accesses, thread start/join operations
+            - Other actions: e.g., I/O operations
+        - We use the notation `m(o)` to denote actions on the main thread and `t<number>(o)` to denote actions on other threads.
+    - Executions:
+        - A sequence of actions
+    - Program order:
+        - The intra-thread order of execution of the actions performed by a thread.
+        - Given two actions a1 and a2 performed by the same thread t, then a1 occurs before a2 in the program only if a would be performed before a2 when t is executed sequentially.
+    - Happens-before order:
+        - Given two actions a and b in an execution we say that a happens-before b (denoted a -> b) if:
+            - Program Order Rule: Each action in a thread happens-before every action in that thread that comes later in the program order.
+            - Monitor Lock Rule: An unlock on a monitor lock happens-before every subsequent lock on that same monitor lock. (Locks and unlocks on explicit `Lock` objects have the same memory semantics as intrinsic locks)
+            - Volatile Variable Rule: A write to a volatile field happens-before every subsequent read of that same field. (Note: Reads and writes of atomic variables have the same memory semantics as volatile variables)
+            - Thread Start Rule: A call to `Thread.start()` on a thread happens-before every action in the started thread.
+            - Thread Termination Rule: Any action in a thread happens-before any other thread detects that thread has terminated (either by successful return from `Thread.join()` or by `Thread.isAlive()` returning false).
+            - Interruption Rule: A thread calling `interrupt()` on another thread happens-before the interrupted thread detects the interrupt (either by having `InterruptedException` thrown, or invoking `isInterrupted()` or `interrupted()`).
+            - Finalizer Rule: The end of a constructor for an object happens-before the start of the finalizer for that object.
+            - Transitivity: If A happens-before B, and B happens-before C, then A happens-before C.
+        - Happens-before is a partial order among the actions in an execution.
+    - Synchronization order:
+        - A total order among the synchronization actions of an execution.
+        - Must satisfy two properties:
+            - Must be consistent with mutual exclusion
+            - Must be consistent with happens-before
+        - Due to the non-deterministic nature of thread scheduling, there may be multiple valid synchronization orders for a given execution
+        - Every execution has at least one valid synchronization order
+    - Well-formed executions:
+        - An execution is well-formed if it is consistent with:
+            - Program order
+            - Synchronization order
+            - Happens-before order
+        - Java is guaranteed to produce only well-formed executions.
+- Correctness of the Java Memory Model:
+    - Conflicting actions:
+        - A pair of actions that could lead to concurrency issues.
+        - "Given actions a, b in an execution, we say that actions a, b are conflicting iff they are accesses on the same (non-volatile) variable and at least one of them is a write access"
+        - By definition, volatile variable accesses are never conflicting actions.
+        - This is essentially the definition of a data races, we can define it as:
+            - Given actions a, b in an execution, there exists a data race between a and b iff:
+                - a and b are conflicting actions
+                - a and b are not ordered by happens-before (i.e., neither a -> b nor b -> a)
+    - Correctly synchronized programs:
+        - A program is correctly synchronized if there are no data races
+        - The JMM guarantees that all executions of a correctly synchronized program are sequentially consistent.
+    - Visibility:
+        - If action a happens-before action b, then the effects of a are visible to b.
+        - This means that if a writes to a variable and b reads that variable, then b will see the value written by a (or a later value).
+        - This is crucial for ensuring that threads can communicate correctly through shared memory. And to ensure predictable behavior in concurrent programs.
+
+### Reasoning using the JMM (Week 3)
+
+1. Identify actions and categorize them as variable accesses, synchronization actions, or other actions.
+2. Define action pairs from the program order rule $HB_{po}$.
+3. Define actions pairs from synchronization actions $HB_{sync}$.
+4. Define possible synchronization orders.
+5. Determine differences in happens-before pairs in the different synchronization orders.
+6. For each of the differences, define the happens-before order set associated to the executions corresponding to each synchronization order.
+
+- Use the happens-before order to:
+    - Find data races
+    - Show absence of data races and correct synchronization
+    - Predict the value of variables in the executions of the program.
