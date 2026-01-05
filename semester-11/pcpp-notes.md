@@ -702,4 +702,54 @@ public int incrementAndGet() {
 - This can be solved by using version numbers or timestamps along with the value, so that the CAS operation checks both the value and the version number.
 - ITs not a problem in Java as it ensures newly created objects have different references. It's mostly a problem in low-level programming with pointers and without garbage collection.
 
+## Linearizability (Week 7)
 
+- Linearizability is a way to reason about the correctness of concurrent objects.
+- Specifications of sequential objects are easy to reason about and are typically expressed in terms of preconditions and postconditions of methods.
+- Linearizability allows us to reason about concurrent objects using their sequential specifications.
+- Informally we would actually just like our concurrent programs to behave as if they were sequential.
+- Notation:
+```
+A: -| q.enq(x) |-------| p.enq(y) |--->
+B: -----| q.deq(x) |------| p.deq(y) |->B: -----| q.deq(x) |------| p.deq(y) |-
+```
+- Time horizontal: `---` (nothing) or `| action |` (method call)
+- Left `|` : method invocation
+- Right `|` : response received
+- Width: duration
+
+### Sequential consistency (Week 7)
+
+- Recall that in sequential programs operations can be reordered as long as the program result is not affected.
+    - As an example take this program: `q.enq(x)` -> `q.deq(x)` -> `q.enq(y)` -> `q.deq(y)`
+    - `q.enq(x)` -> `q.enq(y)` -> `q.deq(x)` -> `q.deq(y)` is a valid reordering, as the result is the same.
+    - `q.enq(x)` -> `q.deq(y)` -> `q.enq(y)` -> `q.deq(x)` is not a valid reordering, as the result is different.
+- For concurrent programs we must define conditions that assert that every thread is behaving consitently with the sequential specification.
+- For executions of concurrent objects, an execution is sequentially consistent if:
+    - Method calls appear to happen one at a tim in sequential order.
+    - Method calls should appear to take effect in program order.
+- We can reword this to: A concurrent execution is sequentially consistent if there exists a reordering of  operations that produces a sequential execution where:
+    - Operations happen one at a time.
+    - Program order is preserved for each thread.
+    - The executions satisfies the specification of the object.
+- This is not compositional so concurrent executions involving sequentially consitent objects are not necessarily sequentially consistent.
+
+### Linearizability definition (Week 7)
+
+- Linearizability extends sequential consitency by requiring that the real time order of executions is preserved.
+- Linearizability extends sequential consitency with another condition:
+    - Each method call appears to take effect instantaneously at some point between its invocation and its response.
+- We do this by defining linearization points for each method call.
+    - A linearization point is a point in time between the invocation and response of a method call where the method call takes effect.
+    - It essentially defines when the method call takes effect.
+
+### Linearizable concurrent objects (Week 7)
+
+- Lets extend the property of executions to objects.
+- A concurrent object is linearizable if all its concurrent executions are linearizable. (This is hard to prove)
+- Linearizability IS compositional, so concurrent executions involving linearizable objects are also linearizable.
+- This makes it easier to reason about the correctness of concurrent programs using linearizable objects.
+- To show that an object implementation is linearizable we:
+    1. Identify the linearization points for each method call.
+    2. Argue about the sates of the object at each linearization point.
+    3. Show that the reordering of method calls based on their linearization points produces a sequential execution that satisfies the specification of the object.

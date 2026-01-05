@@ -25,11 +25,12 @@
     - [x] PCPP: Thread-safe classes
     - [x] PCPP: Testing
     - [x] PCPP: Lock-free Data Structures
+- [x] 05/01
+    - [x] PCPP: Linearizability
 - [ ] 06/01
 - [ ] 07/01
 - [ ] 08/01
 - [ ] 09/01
-    - [ ] PCPP: Linearizability
 - [ ] 10/01 (Only til 4pm)
     - [ ] PCPP: Performance measurements
     - [ ] PCPP: Performance and Scalability
@@ -155,10 +156,10 @@
     - [x] Define and motivate lock-free data structures. 
     - [x] Explain how *compare-and-swap* (CAS) operations can be used to solve concurrency problems. 
     - [ ] Show some examples of code from your solutions to the exercises in week 6.
-- [ ] **Linearizability**
-    - [ ] Read week 7 material.
-    - [ ] Explain and motivate linearizability. 
-    - [ ] Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
+- [x] **Linearizability**
+    - [x] Read week 7 material.
+    - [x] Explain and motivate linearizability. 
+    - [x] Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
     - [ ] Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
 - [ ] **Performance measurements**
     - [ ] Read week 9 material.
