@@ -28,15 +28,16 @@
 - [x] 05/01
     - [x] PCPP: Linearizability
 - [ ] 06/01
+    - [x] PCPP: Performance measurements
+    - [x] PCPP: Performance and Scalability
+    - [x] PCPP: Streams
+    - [x] PCPP: Message Passing I
+    - [x] PCPP: Message Passing II
 - [ ] 07/01
 - [ ] 08/01
 - [ ] 09/01
 - [ ] 10/01 (Only til 4pm)
-    - [ ] PCPP: Performance measurements
-    - [ ] PCPP: Performance and Scalability
 - [ ] 11/01
-    - [ ] PCPP: Streams
-    - [ ] PCPP: Message Passing
     - [ ] Create cheat sheet for PCPP
         - [ ] Q1
             - [ ] Select exercises 
@@ -161,24 +162,24 @@
     - [x] Explain and motivate linearizability. 
     - [x] Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
     - [ ] Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
-- [ ] **Performance measurements**
-    - [ ] Read week 9 material.
-    - [ ] Motivate and explain how to measure the performance of Java code.
-    - [ ] Illustrate some of the pitfalls there are in doing such measurements.
+- [x] **Performance measurements**
+    - [x] Read week 9 material.
+    - [x] Motivate and explain how to measure the performance of Java code.
+    - [x] Illustrate some of the pitfalls there are in doing such measurements.
     - [ ] Show some examples of code from your solutions to the exercises in week 9.
-- [ ] **Performance and Scalability**
-    - [ ] Read week 10 material.
-    - [ ] Explain how to increase the performance of Java code exploiting concurrency. 
-    - [ ] Illustrate some of the pitfalls there are in doing this.
+- [x] **Performance and Scalability**
+    - [x] Read week 10 material.
+    - [x] Explain how to increase the performance of Java code exploiting concurrency. 
+    - [x] Illustrate some of the pitfalls there are in doing this.
     - [ ] Show some examples of code from your solutions to the exercises in week 10.
-- [ ] **Streams**
-    - [ ] Read week 11 material.
-    - [ ] Explain and motivate the use of streams to parallelize computation. 
-    - [ ] Discuss issues that arise in operations executed by parallel streams. 
+- [x] **Streams**
+    - [x] Read week 11 material.
+    - [x] Explain and motivate the use of streams to parallelize computation. 
+    - [x] Discuss issues that arise in operations executed by parallel streams. 
     - [ ] Show some examples of code from your solutions to the exercises in week 11.
-- [ ] **Message Passing**
-    - [ ] Read week 12 material.
-    - [ ] Explain and motivate the actor model of concurrent computation. 
-    - [ ] Discuss advantages and disadvantages of approaches to distribute computation in actor systems. 
+- [x] **Message Passing**
+    - [x] Read week 12 and 13 material.
+    - [x] Explain and motivate the actor model of concurrent computation. 
+    - [x] Discuss advantages and disadvantages of approaches to distribute computation in actor systems. 
     - [ ] Show some examples of code from your solutions to the exercises in week 12 and 13.
 

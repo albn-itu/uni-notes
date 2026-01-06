@@ -586,6 +586,115 @@ try {
     - For example, store results in a volatile variable or print them to the console.
     - "Writing effective performance tests requires tricking the optimizer into not optimizing away your benchmark as dead code. Requires every computed result be used somehow - in a way that doesn't require synchronization or substantial computation"
 
+## Performance measurements (Week 9)
+
+- The process of measuring performance.
+- Measurements are key in many sciences and engineering disciplines.
+- There are two primary motivations for performance measurements:
+    1. To establish what parts of the code are performance bottlenecks, to guide optimization efforts.
+    2. To evaluate the impact of optimizations and changes to the code.
+- To show how to do performance measurements, and how we avoid pitfalls, we go through the versions of the benchmark functionality in benchmark
+    - Mark0: A simple timer on each side of the code to be benchmarked.
+        - Essentially useless, as:
+            - Really slow
+            - May measure JIT compilation
+            - Does not account for garbage collection
+            - Does not account for dead code elimination
+            - Timer resulution may be too low
+    - Mark1: Runs the code to be benchmarked multiple times in a loop, and measures the total time taken.
+        - Better, but still does not account for garbage collection and other
+        - It measures the loop overhead as well.
+        - Increasing count of iterations makes the results implausible as it uses the same data over and over again, which may lead to caching effects.
+    - Mark2: Actually uses the result from the benchmarks to prevent dead code elimination.
+        - Still does not account for garbage collection and other issues.
+    - Mark3: Creates a timer for each loop iteration, to minimize the impact of garbage collection and other issues.
+        - It doesn't show the average time taken anymore.
+        - It's good for showing the distribution of times taken and variations in performance.
+    - Mark4: Computes standard deviations on the measurements to show variations in performance.
+        - Still does not account for garbage collection and other issues.
+        - Should tend to a normal distribution (68 of observations within 1 standard deviation, 95 within 2, 99.7 within 3)
+        - This prints the mean and standard deviation of the measurements.
+    - Mark5: Adds automatic iteration count adjustments.
+        - Starts at 1 iteration, and doubles the number of iterations until the total time taken is at least 0.25 seconds. Is limited to 1 billion iterations.
+        - Shows the convergence of mean and standard deviations.
+    - Mark6: Generalize to any function using an interface.
+        - Only supports the interface defined in the benchmark.
+        - Still does not account for garbage collection and other issues.
+        - Simple functions are heavily influence by inlining, scheduling etc.
+    - Mark7: Move mean and standard deviation calculations out of the loop and only calculate them once at the end.
+        - Assumes JIT optimization stabilize eventually.
+    - Mark8: Adds problem size params.
+        - Adds n and minimum time as parameters to the benchmark function. (n is the amount of times we run the count loop inside the benchmark function)
+        - Still has a problem with caching, as it uses the same data over and over again.
+    - Mark8.1: Adds setup functions used to initialize data or code that should not be included in the benchmark.
+        - Use only for things that take a long time to setup, otherwise it may skew the results.
+- When doing performance measurements, there might be times where we have stuff happening that we do not want to benchmark. Fx. Thread creation
+    - When measuing threads we are actually measuring:
+        1. Creating a thread object
+        2. Calculating the hash code of the thread object, to return
+        3. Starting the thread
+    - A strategy to deal with this is to measure the overhead of the unwanted stuff separately, and then subtract it from the total time taken.
+    - We can even split it up so we measure the time taken for each part separately, and then combine them to get the total time taken for the desired operation.
+    - Thread work can easily take 72000 ns, while the work itself only takes 650 ns.
+
+### Hints and warnings about performance measurements (Week 9)
+
+- Control your environment:
+    - Minimize interference:
+        - Shut down external programs
+        - Web browsers, Skype, Microsoft Office, OpenOffice
+        - Mail clients, virus checkers, iTunes
+        - Virtual machines (Virtual PC, Parallels, VMware)
+        - Web servers, database servers
+        - Windows Update particularly problematic
+    - Code preparation:
+        - Remove/disable all logging and debugging messages
+        - Can consume 90%+ execution time
+        - Completely distorts measurements
+    - Execution environment:
+        - Never measure from IDE (Eclipse, Visual Studio)
+        - Use command line
+        - IDEs may inject debugging code or consume CPU
+    - Power management:
+        - Turn off power savings in OS and BIOS
+        - Prevent CPU speed reduction mid-benchmark
+        - Laptops may slow on battery vs. mains power
+        - Desktops may slow with no user activity
+    - Compilation:
+        - Compile with optimization flags (e.g., `csc /o MyProg.cs`)
+        - Without optimization: extraneous no-op instructions
+- Be aware of how the platform affects measurements:
+    - JVM implementations:
+        - Different JVMs (Oracle, IBM) have different performance
+        - Statements about "the speed of Java" need large grains of salt
+    - Garbage collectors:
+        - Java/.NET have several different GCs
+        - Very different performance characteristics
+    - CPU variations:
+        - Different brands (Intel, AMD) have different characteristics
+        - Different microarchitectures (Netburst, Core, Nehalem)
+        - Different versions (desktop, mobile)
+        - Same instruction set (x86) doesn't mean same performance
+        - Different microarchitectures marketed under same name (Pentium)
+        - Same microarchitecture under different names (Pentium, i3, i5, i7)
+        - Note processor model number
+        - Rest of system matters: RAM speed, memory bus latency/bandwidth, cache sizes
+    - Asynchronous operations:
+        - Threads, I/O, GPU calls
+        - Ensure actually complete before calling `timer.check()`
+        - Use `thread.join()` or similar
+- Reflect on your results:
+    - Unreasonably fast:
+        - May have overlooked something
+        - Example: Array never actually allocated in RAM
+          - Memory pages just entered in MMU table
+          - Assumed to contain zeroes
+          - Writing first forces actual allocation
+    - Unreasonably slow:
+        - Example: Scala Application trait code in constructor
+          - JVM didn't optimize
+          - Moving to ordinary function: 12× faster
+
 ## Additional testing methods (Week 5)
 
 - Static analysis: Analyzing the code without executing it, to find potential concurrency issues, bugs, and code smells.
@@ -753,3 +862,194 @@ B: -----| q.deq(x) |------| p.deq(y) |->B: -----| q.deq(x) |------| p.deq(y) |-
     1. Identify the linearization points for each method call.
     2. Argue about the sates of the object at each linearization point.
     3. Show that the reordering of method calls based on their linearization points produces a sequential execution that satisfies the specification of the object.
+
+## Scalability (Week 10)
+
+- Some ways to scale is to know how to properly use concurrency to increase performance.
+    - Use tasks over threads for better resource management.
+        - A Thread creates a lot of overhead as it physically starts a new OS thread.
+        - A Task is a unit of work that can be executed by a thread pool, which manages a pool of threads and reuses them for multiple tasks.
+    - Thread pools are a good way to manage threads and avoid the overhead of creating and destroying threads.
+        - We can then schedule a bunch of tasks to be executed by the thread pool, which will efficiently switch work out as necessary
+            - This is great as the tasks may not be be the same size, fx. in prime counting the smaller numbers are faster to compute than larger numbers.
+        - There are 2 types of tasks:
+            - Runnable: Does not return a value and cannot throw checked exceptions.
+            - Callable: Returns a value and can throw checked exceptions.
+        - For small enought tasks, then the overhead of scheduling the task may be larger than the task itself, in these cases just run it sequentially on the main thread.
+    - There are many kinds of thread pools:
+        - ForkJoinPool: A thread pool that uses work-stealing to efficiently execute tasks that can be recursively split into smaller tasks.
+        - FixedThreadPool: A thread pool with a fixed number of threads.
+        - WorkStealingPool: A thread pool that uses work-stealing to efficiently execute tasks.
+    - You can shutdown pools, this does not interrupt running tasks, but prevents new tasks from being submitted.
+        - `shutdown()`: Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
+        - `awaitTermination(timeout, unit)`: Blocks until all tasks have completed execution after a shutdown request, or the timeout occurs, or the current thread is interrupted, whichever happens first.
+
+### Amdahl's law (Week 10)
+
+- Amdahl's law states that the speedup of a program using multiple processors is limited by the sequential fraction of the program.
+- The speedup S is given by the formula:
+    - S = 1 / (F + (1 - F) / P)
+    - Where F is the fraction of the program that is sequential, and N is the number of threads.
+- This means that even if we have an infinite number of processors, the speedup is limited by the sequential fraction of the program.
+- Example:
+    - If 10% of the program is sequential (F = 0.1), then the maximum speedup is:
+        - S = 1 / (0.1 + (1 - 0.1) / P) = 1 / (0.1 + 0.9 / P)
+        - As P approaches infinity, the speedup approaches 10.
+- This shows that to achieve significant speedup, we must minimize the sequential fraction of the program.
+- Amdahl's law assumes a fixed problem size, meaning that the amount of work to be done does not change as we increase the number of processors.
+
+### Loss of scalability (Week 10)
+
+- Starvation loss: Minimize the the time threads are idle waiting for work.
+    - Can be caused by load imbalance, where some threads have more work than others.
+    - Can be caused by contention, where multiple threads are trying to access the same resource.
+- Separation loss: Find a good threshold to distribute work evenly:
+- Saturation loss: Minimize the time threads are blocked waiting for resources.
+    - Can be caused by locks, where multiple threads are trying to acquire the same lock.
+- Braking loss: Stop all tasks as soon as the problem is solved.
+    - Can be caused by tasks that are not aware of the global state of the program.
+    - Example: In a search problem, if one thread finds the solution, all other threads should stop searching.
+
+## Streams (Week 11)
+
+- Streams are a high-level abstraction for processing sequences of elements.
+- They allow for functional-style operations on collections of elements, such as map, filter, reduce, etc.
+- Streams can be sequential or parallel.
+- Parallel streams allow for concurrent processing of elements in the stream, which can lead to significant performance improvements for large datasets.
+- Streams are lazy, meaning that operations on the stream are not executed until a terminal operation is invoked.
+    - This is great for memory efficiency, as intermediate results are not stored in memory.
+- Streams can be created from various sources, such as collections, arrays, I/O channels, etc.
+- Streams can be processed using a pipeline of operations, which can be source, intermediate or terminal.
+    - Sources are the starting point of the stream, such as a collection or an array.
+        - All java collections have a `stream()` method that returns a sequential stream 
+    - Intermediate operations transform the stream into a different stream using operations such as map, filter, etc.
+        - They are lazy and do not produce a result until a terminal operation is invoked.
+        - Example: `map`, `filter`, `sorted`, `distinct`, `skip`, `limit`, etc.
+    - Terminal operations produce a result or a side-effect from the stream, such as collect, count, forEach, etc.
+- Example:
+    - Take a stream of words
+    - The function F discards all words with just one character
+    - The function G converts all words to uppercase
+    - The function H counts the number of words in the stream
+    - This is equivalent to: `H(G(F(words)))`
+- Streams may or may not be ordered.
+- Parallelization of streams is really easy.
+    - Disjoint streams are assigned to different threads for processing.
+    - The framework handles the splitting and merging of streams.
+    - Streams (if written correctly) are akin to functional programming, and are therefore entirely thread-safe.
+
+### A note on RxJava (Week 11)
+
+- RxJava is a library for composing asynchronous and event-based programs using observable sequences for the Java VM.
+- Closely related to streams, but with a focus on asynchronous programming.
+- Input elements are obsvervables, which can emit items over time.
+- Observers receive notifications from observables when items are emitted.
+- Observables can be transformed using operators, similar to stream operations.
+- Observables can be subscribed to, which allows for processing of emitted items.
+- Unlike streams, an observable (a source) can be subscribed to by multiple observers.
+- Backpressure is when a producer emits items faster than a consumer can consume them.
+    - RxJava provides mechanisms to handle backpressure, such as buffering, dropping, or sampling items.
+
+## Message passing (Week 12 and 13)
+
+- Message passing is a concurrency model where threads communicate by sending and receiving messages.
+- It is an alternative to shared memory concurrency, where threads communicate by reading and writing shared variables
+- Message passing is everywhere in distributed systems, where processes communicate over a network.
+- Messages are usually recieved in some kind of "mailbox" or "message queue". For the internet each port can be seen as a mailbox.
+- Message passing can be assymetric or symmetric.
+    - In asymmetric message passing, one thread is the sender and the other is the receiver.
+        - On the internet clients and servers are asymmetric, where clients send requests and servers send responses. The server cannot initiate communication, unless the client is also a server (webhooks are a good example of this).
+    - In symmetric message passing, both threads can send and receive messages.
+- Messages can have many formats. On the internet they are simply string that can then be parsed.
+
+### Actor model (Week 12)
+
+- The actor model is a concurrency model where actors are the fundamental units of computation.
+- Actors can only send messages to other actors, and cannot share state.
+- An actor is an abstraction of a thread.
+- An actor can only execute one of 4 actions:
+    - Send a message to another actor.
+    - Recieve a message from another actor.
+    - Create a new actor.
+    - Change its own state (computing)
+- Every actor has a unique identifer (address) that other actors can use to send messages to it.
+- Actors can only recieve and send finitely many messages. Recieved messages are placed in the mailbox for later processing.
+- Sending is non blocking, while receiving is blocking (if no messages are available).
+- Do not make assumptions about the order of message delivery.
+- The actor model encourages spawning many actors that perform small tasks and communicate via message passing.
+    - This is great for building distributed systems, as actors can be distributed across multiple machines.
+    - There is of course a limit to how small tasks can be, as the overhead of message passing can be significant. And how many actors can be spawned and still make a difference.
+
+#### Erlang/OTP (Week 12)
+
+- Erlang uses the actor model for concurrency.
+- Each Erlang process is an actor.
+- Good for building distributed systems.
+- Patterns:
+    - Define an `init` function to initialize the actor's state.
+    - Define a `loop` function to handle incoming messages.
+    - Use pattern matching to handle different message types.
+    - Use `spawn` to create new actors.
+    - Consume messages not recognized by the actor to avoid mailbox overflow.
+- `recieve` is used to block and wait for messages.
+- `stop` can be used to terminate an actor.
+- Remember that it is stateless, so you must pass the state around as parameters to functions.
+- The mailbox in Erlang is FIFO, so messages are processed in the order they are recieved.
+- Erlang maps perfectly to the actor model:
+    - Actor: Module
+    - Mailbox address: Process identifier (PID)
+    - Message: Any Erlang term
+    - State: Function parameters
+    - Behavior: `loop` function
+    - Create actor: `spawn` function
+    - Send message: `Pid ! Message` operator
+    - Recieve message: `receive` construct
+- Subscriptions can be implemented using message passing.
+    - An actor can maintain a list of subscribers (PIDs).
+    - When an event occurs, the actor sends a message to all subscribers.
+    - Subscribers can unsubscribe by sending a message to the actor to remove their PID from the list.
+
+##### Fault tolerance in Erlang/OTP (Week 13)
+
+- Erlang/OTP has built-in support for fault tolerance.
+- Actors are encouraged to fail fast and let other actors handle the failure.
+- Actor systems shoud be developed with the assumption that actors will fail, and that the system should be able to recover from failures.
+- We only focus on process monitoring for how to handle failures.
+    - An actor can monitor another actor using the `monitor` function.
+    - If the monitored actor fails, the monitoring actor receives a `DOWN` message.
+    - The monitoring actor can then take appropriate action, such as restarting the failed actor or logging the failure.
+    - Down can either be normal termination or abnormal termination (crash). Abnormal terminations include a reason for the crash.
+
+##### Load balancing with actors (Week 13)
+
+- Load balancing refers to the process of distributing work evenly across multiple actors.
+- One load balancing pattern is Scatter-Gather systems:
+    - Scatter-Gather is a commond pattern for distributing work across multiple actors.
+    - The scatter actor receives a request and distributes it to multiple worker actors.
+    - The amount of actors depends on the load and the nature of the work.
+    - The actor types are:
+        - Scatterer: Receives requests, splits the computation into smaller tasks, and sends them to gatherer actors.
+        - Gatherer: Recieves data from scattrers and combines them into a single result. Then it sends the result to a higher level gatherer.
+    - Great for tasks on ranges of numbers.
+    - In this case the size of the problem determines the load balancing strategy. This is not always the case.
+- Another type of adaptive load balancing is elastic load balancing:
+    - Actors can be created and destroyed dynamically based on the load.
+    - If the load increases, new actors can be created to handle the increased load.
+    - If the load decreases, actors can be destroyed to free up resources.
+    - This is great for systems with fluctuating loads, as it allows the system to adapt to changing conditions.
+
+#### Actor model and happened-before (Week 12)
+
+- We can use the happened-before relation to reason about message passing.
+- An action a happens-before an action b if:
+    - a and b are in the same actor, and a comes before b in the actor's execution order.
+    - a is the sending of a message, and b is the receiving of that message.
+
+#### Topology (Week 13)
+
+- The topology of an actor system is the way actors are connected to each other.
+- A static topology is one where the connections between actors are fixed. And where actors cannot be created or destroyed.
+- Dynamic topology is one where actors can be created and destroyed, and where connections between actors can change.
+    - This is more common in real-world systems, as actors can be created and destroyed as needed.
+    - Great for load balancing where actors can be created to handle increased load, and destroyed when the load decreases.
+- A common worker type is one that only does one thing and then terminates. This ensures a finite number of steps.
