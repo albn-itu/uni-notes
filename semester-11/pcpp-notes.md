@@ -742,6 +742,10 @@ try {
 - Lock-free data structures are concurrent data structures that do not use locks for synchronization.
 - They are designed to allow multiple threads to access and modify the data structure concurrently without blocking each other.
 - Lock-free data structures provide several advantages over lock-based data structures:
+    - Scales better
+    - Offer liveness guarantees
+    - Avoid deadlocks
+    - Less scheduling overhead
 
 ### Hardware support for atomic operations (Week 6)
 
@@ -1053,3 +1057,280 @@ B: -----| q.deq(x) |------| p.deq(y) |->B: -----| q.deq(x) |------| p.deq(y) |-
     - This is more common in real-world systems, as actors can be created and destroyed as needed.
     - Great for load balancing where actors can be created to handle increased load, and destroyed when the load decreases.
 - A common worker type is one that only does one thing and then terminates. This ensures a finite number of steps.
+
+
+
+# Final notes
+
+## 1. Intro to Concurrency & Mutual Exclusion
+
+> Define and motivate concurrency and mutual exclusion. 
+> Explain data races, race conditions, and critical sections.
+> Show some examples of code from your solutions to the exercises in week 1.
+
+**Concurrency**: Multiple computations at once. Motivation: performance (exploit HW), non-blocking apps, handling simultaneous events.
+
+**Data Race**: Two+ threads access same memory location concurrently, at least one is a write.
+
+**Race Condition**: Result depends on interleaving order.
+
+**Critical Section**: Code that only one thread can execute at a time.
+
+**Mutual Exclusion Requirements**:
+1. No two threads in critical section simultaneously
+2. No deadlock (threads eventually exit)
+3. No starvation (every thread eventually enters)
+
+**Exercise**: `CounterThreads2Covid.java`
+
+## 2. Synchronization
+
+> Explain and motivate how locks, monitors, and semaphores can be used to address the challenges caused by concurrent access to shared memory.
+> Show some examples of code from your solutions to the exercises in week 2.
+
+**Locks**: `lock()` acquires (blocks if held), `unlock()` releases. Use try-finally to ensure release.
+
+**Monitors**: Encapsulate state + methods + synchronization. Methods mutually exclusive via locks.
+- Condition variables: `await()` releases lock & waits, `signal()`/`signalAll()` wakes waiting threads
+
+**Semaphores**: Allow N threads into critical section.
+- `acquire()`: decrements permits, blocks if 0
+- `release()`: increments permits, signals waiting thread
+
+**Barriers**: Block until N threads reach barrier point. `CyclicBarrier` resets after release.
+
+**Exercises**: `ReadWriteMonitor2Conditions.java`
+
+## 3. Visibility & Reordering
+
+> Explain the problems of visibility and reordering in shared memory concurrency.
+> Motivate and describe the use of volatile variables and locks to tackle these problems.
+> Show some examples of code from your solutions to the exercises in week 2.
+
+**Visibility Problem**: Without synchronization, writes in one thread's cache may not be visible to other threads.
+
+**Reordering**: Compiler/CPU may reorder instructions without data dependencies for optimization.
+
+**Solutions**:
+- **volatile**: Reads/writes go directly to main memory, prevents reordering, ensures visibility
+- **Locks**: Acquiring/releasing flushes caches, establishes happens-before
+
+**Exercise**: `TestMutableInteger.java`
+
+## 4. Java Memory Model (JMM)
+
+> Motivate the need for the Java memory model.
+> Explain the elements of the Java memory model including program order, happens-before order, synchronization order, and data races.
+> Define what a correctly synchronized program is according to the Java memory model.
+> Show some examples of code from your solutions to the exercises in week 3 and illustrate the use of the Java memory model to reason about their correctness.
+
+**Purpose**: Define memory operation behavior independent of hardware; guarantee correctness for synchronized programs.
+
+**Key Concepts**:
+- **Program Order**: Intra-thread execution order
+- **Happens-Before (->)**: Partial order guaranteeing visibility
+  - Program order rule: a -> b if same thread, a before b
+  - Monitor lock rule: unlock -> subsequent lock
+  - Volatile rule: write -> subsequent read
+  - Thread start rule: start() -> first action in thread
+  - Thread join rule: last action in thread -> join() return
+  - Transitivity: a -> b ^ b -> c => a -> c
+
+**Data Race**: Conflicting accesses (same variable, >= 1 write) not ordered by happens-before.
+
+**Correctly Synchronized**: No data races. JMM guarantees sequential consistency for such programs.
+
+## 5. Thread-Safe Classes
+
+> Define and explain what makes a class thread-safe.
+> Explain the issues that may make classes not thread-safe.
+> Show some examples of code from your solutions to the exercises in week 4.
+
+**Definition**: Behaves correctly under concurrent access without external synchronization.
+
+**Thread-safe if**:
+- Properly synchronized mutable state
+- Immutable (state can't change)
+- Stateless
+
+**Analysis Steps**:
+1. Identify class state (fields)
+2. Prevent field escape
+3. Ensure safe publication (volatile/final/static/atomic)
+4. Make fields immutable where possible
+5. Use mutual exclusion for mutable fields
+
+**Safe Publication**: Use volatile, final, static, or atomic classes to ensure initialization happens-before access.
+
+**Exercise**: `Person.java`
+
+## 6. Testing Concurrent Programs
+
+> Explain the challenges in ensuring the correctness of concurrent programs.
+> Describe different testing strategies for concurrent programs, and their advantages and disadvantages.
+> Show some examples of code from your solutions to the exercises in week 5.
+
+**Challenges**: Non-determinism, interleavings hard to reproduce.
+
+**Testing cannot prove absence of bugs, only presence.**
+
+**Strategies**:
+- Maximize contention (barrier to sync thread start)
+- `@RepeatedTest` for multiple runs
+- `Thread.yield()` for context switches
+- Timeouts to detect deadlocks
+- Test sequentially first
+
+**Counter-examples**: 
+- Safety: finite prefix leading to violation
+- Liveness: infinite execution never reaching goal
+
+**Tools**: JUnit, jcstress, formal verification (model checking)
+
+**Exercise**: `ConcurrentSetTest.java`
+
+## 7. Performance Measurements
+
+> Motivate and explain how to measure the performance of Java code.
+> Illustrate some of the pitfalls there are in doing such measurements.
+> Show some examples of code from your solutions to the exercises in week 9.
+
+**Pitfalls**:
+- GC pauses (use `-verbose:gc`, warmup)
+- JIT compilation (warmup phase)
+- Dead code elimination (use results somehow)
+- Timer resolution too low
+- Caching effects
+
+**Best Practices**:
+- Run multiple iterations, compute mean & std dev
+- Use warmup phase for JIT stabilization
+- Measure from command line, not IDE
+- Control environment (disable power saving, close other apps)
+- Measure overhead separately
+
+**Mark versions**: 0-8 progressively add iterations, std dev, auto-adjustment, setup functions.
+
+**Exercise**: `TestTimeSearch.java`
+
+## 8. Performance & Scalability
+
+> Explain how to increase the performance of Java code exploiting concurrency. 
+> Illustrate some of the pitfalls there are in doing this.
+> Show some examples of code from your solutions to the exercises in week 10.
+
+**Amdahl's Law**: S = 1 / (F + (1-F)/P)
+- F = sequential fraction, P = processors
+- Speedup limited by sequential portion
+
+**Use Tasks over Threads**: Thread pools avoid creation overhead.
+- Runnable: no return value
+- Callable: returns value
+
+**Thread Pools**: ForkJoinPool, FixedThreadPool, WorkStealingPool
+
+**Loss of Scalability**:
+- Starvation loss: threads idle waiting
+- Contention loss: waiting for same resource
+- Saturation loss: blocked waiting for resources
+
+**Exercise**: `TestCountPrimesThreads.java`
+
+## 9. Lock-Free Data Structures
+
+> Define and motivate lock-free data structures. 
+> Explain how *compare-and-swap* (CAS) operations can be used to solve concurrency problems. 
+> Show some examples of code from your solutions to the exercises in week 6.
+
+**Progress Conditions** (strongest to weakest):
+1. **Wait-free**: Every thread completes in bounded steps
+2. **Lock-free**: Some thread always makes progress (CAS)
+3. **Obstruction-free**: Progress guaranteed in isolation
+
+**Compare-and-Swap (CAS)**: `compareAndSet(expected, new)` - atomically updates if current==expected.
+
+```java
+do {
+    oldVal = value.get();
+    newVal = oldVal + 1;
+} while (!value.compareAndSet(oldVal, newVal));
+```
+
+**Optimistic concurrency**: Try operation, retry on conflict.
+
+**ABA Problem**: Value changes A→B→A; CAS sees A, thinks unchanged. Solve with version numbers.
+
+**Exercise**: `CasHistogram.java`
+
+## 10. Linearizability
+
+> Explain and motivate linearizability. 
+> Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
+> Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
+
+**Sequential Consistency**: Operations appear one-at-a-time, preserving program order per thread.
+
+**Linearizability** = Sequential consistency + real-time order preserved.
+
+**Linearization Point**: Instant between invocation and response when method "takes effect."
+
+**Proving Linearizability**:
+1. Identify linearization points
+2. Show reordering by linearization points produces valid sequential execution
+3. Verify specification satisfied
+
+**Compositional**: Linearizable objects compose to linearizable systems.
+
+**Exercise**: `LockFreeStack.java`
+
+## 11. Streams
+
+> Explain and motivate the use of streams to parallelize computation. 
+> Discuss issues that arise in operations executed by parallel streams. 
+> Show some examples of code from your solutions to the exercises in week 11.
+
+**Stream Pipeline**: Source -> Intermediate ops -> Terminal op
+
+**Intermediate** (lazy): `map`, `filter`, `sorted`, `distinct`
+**Terminal**: `collect`, `count`, `forEach`
+
+**Parallel Streams**: `parallelStream()` or `.parallel()`
+- Framework handles splitting/merging
+- Must avoid side effects for correctness
+- Functional style = thread-safe
+
+**Issues**: Side effects, ordering requirements, stateful operations.
+
+**Exercise**: `LockFreeStack.java`
+
+## 12-13. Message Passing & Actor Model
+
+> Explain and motivate the actor model of concurrent computation. 
+> Discuss advantages and disadvantages of approaches to distribute computation in actor systems. 
+> Show some examples of code from your solutions to the exercises in week 12 and 13.
+
+**Message Passing**: Threads communicate via messages, not shared memory. Used in distributed systems.
+
+**Actor Model**: Actors are fundamental units.
+- **Actions**: Send message, receive message, create actor, change own state
+- **Properties**: Unique address, mailbox (FIFO), non-blocking send, blocking receive
+
+**Erlang Patterns**: 
+- `spawn` creates actors
+- `Pid ! Message` sends
+- `receive` blocks for messages
+- Pattern matching for message types
+
+**Happens-Before in Actors**: 
+- Within actor: program order
+- Across actors: send -> receive
+
+**Fault Tolerance**: `monitor` other actors, receive `DOWN` on failure.
+
+**Load Balancing**: 
+- Scatter-Gather: split work to workers, combine results
+- Elastic: dynamically create/destroy actors based on load
+
+**Topology**: Static (fixed connections) vs Dynamic (actors created/destroyed).
+
+**Exercises**: `week13exercises`

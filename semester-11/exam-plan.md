@@ -27,42 +27,44 @@
     - [x] PCPP: Lock-free Data Structures
 - [x] 05/01
     - [x] PCPP: Linearizability
-- [ ] 06/01
+- [x] 06/01
     - [x] PCPP: Performance measurements
     - [x] PCPP: Performance and Scalability
     - [x] PCPP: Streams
     - [x] PCPP: Message Passing I
     - [x] PCPP: Message Passing II
-- [ ] 07/01
-- [ ] 08/01
-- [ ] 09/01
-- [ ] 10/01 (Only til 4pm)
+- [x] 07/01
+- [x] 08/01
+    - [x] Create cheat sheet for PCPP
+        - [x] Q1
+            - [x] Select exercises 
+        - [x] Q2
+            - [x] Select exercises 
+        - [x] Q3
+            - [x] Select exercises 
+        - [x] Q4
+            - [x] Select exercises 
+        - [x] Q5
+            - [x] Select exercises 
+        - [x] Q6
+            - [x] Select exercises 
+- [x] 09/01
+- [x] 10/01 (Only til 4pm)
+    - [x] Create cheat sheet for PCPP
+        - [x] Q7
+            - [x] Select exercises 
+        - [x] Q8
+            - [x] Select exercises 
+        - [x] Q9
+            - [x] Select exercises 
+        - [x] Q10
+            - [x] Select exercises 
+        - [x] Q11
+            - [x] Select exercises 
+        - [x] Q12
+            - [x] Select exercises 
 - [ ] 11/01
-    - [ ] Create cheat sheet for PCPP
-        - [ ] Q1
-            - [ ] Select exercises 
-        - [ ] Q2
-            - [ ] Select exercises 
-        - [ ] Q3
-            - [ ] Select exercises 
-        - [ ] Q4
-            - [ ] Select exercises 
-        - [ ] Q5
-            - [ ] Select exercises 
-        - [ ] Q6
-            - [ ] Select exercises 
-        - [ ] Q7
-            - [ ] Select exercises 
-        - [ ] Q8
-            - [ ] Select exercises 
-        - [ ] Q9
-            - [ ] Select exercises 
-        - [ ] Q10
-            - [ ] Select exercises 
-        - [ ] Q11
-            - [ ] Select exercises 
-        - [ ] Q12
-            - [ ] Select exercises 
+    - [ ] Create HPGP presentation
 - [ ] 12/01 (HPGP exam)
 - [ ] 13/01
 - [ ] 14/01
@@ -127,59 +129,59 @@
     - [x] Read week 1 material.
     - [x] Define and motivate concurrency and mutual exclusion. 
     - [x] Explain data races, race conditions, and critical sections.
-    - [ ] Show some examples of code from your solutions to the exercises in week 1.
+    - [x] Show some examples of code from your solutions to the exercises in week 1.
 - [x] **Synchronization**
     - [x] Read week 2 material.
     - [x] Explain and motivate how locks, monitors, and semaphores can be used to address the challenges caused by concurrent access to shared memory.
-    - [ ] Show some examples of code from your solutions to the exercises in week 2.
+    - [x] Show some examples of code from your solutions to the exercises in week 2.
 - [x] **Visibility**
     - [x] Explain the problems of visibility and reordering in shared memory concurrency.
     - [x] Motivate and describe the use of volatile variables and locks to tackle these problems.
-    - [ ] Show some examples of code from your solutions to the exercises in week 2.
+    - [x] Show some examples of code from your solutions to the exercises in week 2.
 - [x] **Java memory model**
     - [x] Read week 3 material.
     - [x] Motivate the need for the Java memory model.
     - [x] Explain the elements of the Java memory model including program order, happens-before order, synchronization order, and data races.
     - [x] Define what a correctly synchronized program is according to the Java memory model.
-    - [ ] Show some examples of code from your solutions to the exercises in week 3 and illustrate the use of the Java memory model to reason about their correctness.
+    - [x] Show some examples of code from your solutions to the exercises in week 3 and illustrate the use of the Java memory model to reason about their correctness.
 - [x] **Thread-safe classes**
     - [x] Read week 4 material.
     - [x] Define and explain what makes a class thread-safe.
     - [x] Explain the issues that may make classes not thread-safe.
-    - [ ] Show some examples of code from your solutions to the exercises in week 4.
+    - [x] Show some examples of code from your solutions to the exercises in week 4.
 - [x] **Testing**
     - [x] Read week 5 material.
     - [x] Explain the challenges in ensuring the correctness of concurrent programs.
     - [x] Describe different testing strategies for concurrent programs, and their advantages and disadvantages.
-    - [ ] Show some examples of code from your solutions to the exercises in week 5.
+    - [x] Show some examples of code from your solutions to the exercises in week 5.
 - [x] **Lock-free Data Structures**
     - [x] Read week 6 material.
     - [x] Define and motivate lock-free data structures. 
     - [x] Explain how *compare-and-swap* (CAS) operations can be used to solve concurrency problems. 
-    - [ ] Show some examples of code from your solutions to the exercises in week 6.
+    - [x] Show some examples of code from your solutions to the exercises in week 6.
 - [x] **Linearizability**
     - [x] Read week 7 material.
     - [x] Explain and motivate linearizability. 
     - [x] Explain how linearizability can be applied to reason about the correctness of concurrent objects. 
-    - [ ] Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
+    - [x] Show some examples of code in your solutions to the exercises in week 7 where you used linearizability to reason about correctness.
 - [x] **Performance measurements**
     - [x] Read week 9 material.
     - [x] Motivate and explain how to measure the performance of Java code.
     - [x] Illustrate some of the pitfalls there are in doing such measurements.
-    - [ ] Show some examples of code from your solutions to the exercises in week 9.
+    - [x] Show some examples of code from your solutions to the exercises in week 9.
 - [x] **Performance and Scalability**
     - [x] Read week 10 material.
     - [x] Explain how to increase the performance of Java code exploiting concurrency. 
     - [x] Illustrate some of the pitfalls there are in doing this.
-    - [ ] Show some examples of code from your solutions to the exercises in week 10.
+    - [x] Show some examples of code from your solutions to the exercises in week 10.
 - [x] **Streams**
     - [x] Read week 11 material.
     - [x] Explain and motivate the use of streams to parallelize computation. 
     - [x] Discuss issues that arise in operations executed by parallel streams. 
-    - [ ] Show some examples of code from your solutions to the exercises in week 11.
+    - [x] Show some examples of code from your solutions to the exercises in week 11.
 - [x] **Message Passing**
     - [x] Read week 12 and 13 material.
     - [x] Explain and motivate the actor model of concurrent computation. 
     - [x] Discuss advantages and disadvantages of approaches to distribute computation in actor systems. 
-    - [ ] Show some examples of code from your solutions to the exercises in week 12 and 13.
+    - [x] Show some examples of code from your solutions to the exercises in week 12 and 13.
 
